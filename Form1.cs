@@ -1,4 +1,4 @@
-﻿using GTA_SA_Chaos.effects;
+using GTA_SA_Chaos.effects;
 using GTA_SA_Chaos.util;
 using Newtonsoft.Json;
 using System;
@@ -184,6 +184,9 @@ namespace GTA_SA_Chaos
 
                 Config.Instance.Enabled = false;
 
+                comboBoxMainCooldown.Enabled =
+                    buttonSwitchMode.Enabled = !Config.Instance.Enabled;
+
                 elapsedCount = 0;
                 Stopwatch.Reset();
 
@@ -198,6 +201,10 @@ namespace GTA_SA_Chaos
                 labelHooked.Text = "Not Hooked";
 
                 Config.Instance.Enabled = false;
+
+                comboBoxMainCooldown.Enabled =
+                    buttonSwitchMode.Enabled = !Config.Instance.Enabled;
+
                 buttonMainToggle.Enabled = false;
                 buttonMainToggle.Text = "Start";
 
@@ -601,7 +608,7 @@ namespace GTA_SA_Chaos
 
             comboBoxMainCooldown.SelectedIndex = 3;
 
-            Config.Instance.Cooldown = Config.Instance.MainCooldown = 1000 * 60;
+            Config.Instance.MainCooldown = 1000 * 60;
         }
 
         private class MainCooldownComboBoxItem
@@ -624,7 +631,7 @@ namespace GTA_SA_Chaos
         private void MainCooldownComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             MainCooldownComboBoxItem item = (MainCooldownComboBoxItem)comboBoxMainCooldown.SelectedItem;
-            Config.Instance.Cooldown = Config.Instance.MainCooldown = item.Time;
+            Config.Instance.MainCooldown = item.Time;
 
             if (!Config.Instance.Enabled)
             {
@@ -681,7 +688,7 @@ namespace GTA_SA_Chaos
 
             comboBoxVotingCooldown.SelectedIndex = 2;
 
-            Config.Instance.Cooldown = Config.Instance.TwitchVotingCooldown = 1000 * 60 * 2;
+            Config.Instance.TwitchVotingCooldown = 1000 * 60 * 2;
         }
 
         private class VotingCooldownComboBoxItem
@@ -704,7 +711,7 @@ namespace GTA_SA_Chaos
         private void ComboBoxVotingCooldown_SelectedIndexChanged(object sender, EventArgs e)
         {
             VotingCooldownComboBoxItem item = (VotingCooldownComboBoxItem)comboBoxVotingCooldown.SelectedItem;
-            Config.Instance.Cooldown = Config.Instance.TwitchVotingCooldown = item.VotingCooldown;
+            Config.Instance.TwitchVotingCooldown = item.VotingCooldown;
         }
 
         private void ButtonMainToggle_Click(object sender, EventArgs e)

@@ -12,9 +12,6 @@ namespace GTA_SA_Chaos.util
         public bool Enabled;
 
         [JsonIgnore]
-        public int Cooldown;
-
-        [JsonIgnore]
         public bool IsTwitchMode;
 
         [JsonIgnore]
@@ -46,7 +43,7 @@ namespace GTA_SA_Chaos.util
 
         public static int GetEffectDuration()
         {
-            return Instance.IsTwitchMode ? Instance.TwitchVotingCooldown * 3 : Instance.Cooldown * 3;
+            return Instance.IsTwitchMode ? Instance.TwitchVotingCooldown * 3 : Instance.MainCooldown * 3;
         }
 
         public static string FToString(float value)

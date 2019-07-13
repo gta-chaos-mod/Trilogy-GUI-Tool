@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
@@ -34,7 +34,7 @@ namespace GTA_SA_Chaos
 
         public static void SendPipeMessage(string func)
         {
-            using (NamedPipeClientStream pipeStream = new NamedPipeClientStream("GTASAPipe"))
+            using (NamedPipeClientStream pipeStream = new NamedPipeClientStream("GTASAChaosPipe"))
             {
                 try
                 {

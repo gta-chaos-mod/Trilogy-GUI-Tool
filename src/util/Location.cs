@@ -2,24 +2,15 @@
 {
     public sealed class Location
     {
-        public float X;
-        public float Y;
-        public float Z;
+        public int X;
+        public int Y;
+        public int Z;
 
-        public Location(float x, float y, float z)
+        public Location(int x, int y, int z)
         {
             X = x;
             Y = y;
             Z = z;
-        }
-
-        public Location Difference(Location other)
-        {
-            return new Location(
-                other.X - X,
-                other.Y - Y,
-                other.Z - Z
-            );
         }
 
         public override string ToString()

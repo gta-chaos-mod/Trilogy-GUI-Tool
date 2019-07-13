@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
@@ -32,7 +32,7 @@ namespace GTA_SA_Chaos
             return Process == null ? IntPtr.Zero : Process.Handle;
         }
 
-        public static void NewThreadStartClient(string func)
+        public static void SendPipeMessage(string func)
         {
             using (NamedPipeClientStream pipeStream = new NamedPipeClientStream("GTASAPipe"))
             {

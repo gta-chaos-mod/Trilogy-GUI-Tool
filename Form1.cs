@@ -248,8 +248,8 @@ namespace GTA_SA_Chaos
                 long remaining = Math.Max(0, Config.Instance.MainCooldown - Stopwatch.ElapsedMilliseconds);
                 int iRemaining = (int)((float)remaining / Config.Instance.MainCooldown * 1000f);
 
-                ProcessHooker.NewThreadStartClient("time");
-                ProcessHooker.NewThreadStartClient(iRemaining.ToString());
+                ProcessHooker.SendPipeMessage("time");
+                ProcessHooker.SendPipeMessage(iRemaining.ToString());
 
                 elapsedCount = (int)Stopwatch.ElapsedMilliseconds;
             }
@@ -284,16 +284,16 @@ namespace GTA_SA_Chaos
                     long remaining = Math.Max(0, Config.Instance.TwitchVotingTime - Stopwatch.ElapsedMilliseconds);
                     int iRemaining = (int)((float)remaining / Config.Instance.TwitchVotingTime * 1000f);
 
-                    ProcessHooker.NewThreadStartClient("time");
-                    ProcessHooker.NewThreadStartClient(iRemaining.ToString());
+                    ProcessHooker.SendPipeMessage("time");
+                    ProcessHooker.SendPipeMessage(iRemaining.ToString());
 
                     elapsedCount = (int)Stopwatch.ElapsedMilliseconds;
                 }
 
                 if (Stopwatch.ElapsedMilliseconds >= Config.Instance.TwitchVotingTime)
                 {
-                    ProcessHooker.NewThreadStartClient("time");
-                    ProcessHooker.NewThreadStartClient("0");
+                    ProcessHooker.SendPipeMessage("time");
+                    ProcessHooker.SendPipeMessage("0");
                     elapsedCount = 0;
 
                     progressBarTwitch.Value = 0;
@@ -332,8 +332,8 @@ namespace GTA_SA_Chaos
                     long remaining = Math.Max(0, Config.Instance.TwitchVotingTime - Stopwatch.ElapsedMilliseconds);
                     int iRemaining = (int)((float)remaining / Config.Instance.TwitchVotingTime * 1000f);
 
-                    ProcessHooker.NewThreadStartClient("time");
-                    ProcessHooker.NewThreadStartClient(iRemaining.ToString());
+                    ProcessHooker.SendPipeMessage("time");
+                    ProcessHooker.SendPipeMessage(iRemaining.ToString());
 
                     elapsedCount = (int)Stopwatch.ElapsedMilliseconds;
                 }
@@ -354,8 +354,8 @@ namespace GTA_SA_Chaos
                     }
                     else
                     {
-                        ProcessHooker.NewThreadStartClient("time");
-                        ProcessHooker.NewThreadStartClient("0");
+                        ProcessHooker.SendPipeMessage("time");
+                        ProcessHooker.SendPipeMessage("0");
                         elapsedCount = 0;
 
                         progressBarTwitch.Value = 0;
@@ -392,8 +392,8 @@ namespace GTA_SA_Chaos
                     long remaining = Math.Max(0, progressBarTwitch.Maximum - Stopwatch.ElapsedMilliseconds);
                     int iRemaining = (int)((float)remaining / progressBarTwitch.Maximum * 1000f);
 
-                    ProcessHooker.NewThreadStartClient("time");
-                    ProcessHooker.NewThreadStartClient(iRemaining.ToString());
+                    ProcessHooker.SendPipeMessage("time");
+                    ProcessHooker.SendPipeMessage(iRemaining.ToString());
 
                     elapsedCount = (int)Stopwatch.ElapsedMilliseconds;
                 }
@@ -1075,8 +1075,8 @@ namespace GTA_SA_Chaos
 
         private void ButtonGenericTest_Click(object sender, EventArgs e)
         {
-            ProcessHooker.NewThreadStartClient("timed_effect");
-            ProcessHooker.NewThreadStartClient("true_pacifist:60000:Memes");
+            ProcessHooker.SendPipeMessage("timed_effect");
+            ProcessHooker.SendPipeMessage("totheleft_totheright:60000:To the left, to the right");
         }
     }
 }

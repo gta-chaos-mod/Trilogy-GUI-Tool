@@ -17,8 +17,8 @@ namespace GTA_SA_Chaos.effects
         {
             StoreEffectToFile();
 
-            ProcessHooker.NewThreadStartClient("teleport");
-            ProcessHooker.NewThreadStartClient(location.ToString());
+            ProcessHooker.SendPipeMessage("teleport");
+            ProcessHooker.SendPipeMessage(location.ToString());
         }
     }
 }

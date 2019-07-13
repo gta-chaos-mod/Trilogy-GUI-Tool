@@ -25,8 +25,8 @@ namespace GTA_SA_Chaos.effects
                 dur = Config.GetEffectDuration();
             }
 
-            ProcessHooker.NewThreadStartClient("gravity");
-            ProcessHooker.NewThreadStartClient($"{Config.FToString(gravity)}:{dur}:{GetDescription()}");
+            ProcessHooker.SendPipeMessage("gravity");
+            ProcessHooker.SendPipeMessage($"{Config.FToString(gravity)}:{dur}:{GetDescription()}");
         }
     }
 }

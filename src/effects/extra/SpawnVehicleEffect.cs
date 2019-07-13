@@ -36,8 +36,8 @@ namespace GTA_SA_Chaos.src.effects.extra
 
             StoreEffectToFile();
 
-            ProcessHooker.NewThreadStartClient("spawn_vehicle");
-            ProcessHooker.NewThreadStartClient(actualID.ToString());
+            ProcessHooker.SendPipeMessage("spawn_vehicle");
+            ProcessHooker.SendPipeMessage(actualID.ToString());
         }
     }
 }

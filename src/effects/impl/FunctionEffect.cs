@@ -19,8 +19,8 @@ namespace GTA_SA_Chaos.effects
         {
             StoreEffectToFile();
 
-            ProcessHooker.NewThreadStartClient(type);
-            ProcessHooker.NewThreadStartClient(func);
+            ProcessHooker.SendPipeMessage(type);
+            ProcessHooker.SendPipeMessage(func);
         }
     }
 }

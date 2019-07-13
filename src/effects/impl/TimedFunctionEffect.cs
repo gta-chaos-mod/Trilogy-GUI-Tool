@@ -27,8 +27,8 @@ namespace GTA_SA_Chaos.effects
                 dur = Config.GetEffectDuration();
             }
 
-            ProcessHooker.NewThreadStartClient(type);
-            ProcessHooker.NewThreadStartClient($"{func}:{dur}:{GetDescription()}");
+            ProcessHooker.SendPipeMessage(type);
+            ProcessHooker.SendPipeMessage($"{func}:{dur}:{GetDescription()}");
         }
     }
 }

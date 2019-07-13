@@ -17,8 +17,8 @@ namespace GTA_SA_Chaos.effects
         {
             StoreEffectToFile();
 
-            ProcessHooker.NewThreadStartClient("game_speed");
-            ProcessHooker.NewThreadStartClient(Config.FToString(speed));
+            ProcessHooker.SendPipeMessage("game_speed");
+            ProcessHooker.SendPipeMessage(Config.FToString(speed));
         }
     }
 }

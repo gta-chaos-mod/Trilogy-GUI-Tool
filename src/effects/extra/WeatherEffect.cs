@@ -16,8 +16,8 @@ namespace GTA_SA_Chaos.effects
         {
             StoreEffectToFile();
 
-            ProcessHooker.NewThreadStartClient("weather");
-            ProcessHooker.NewThreadStartClient(weatherID.ToString());
+            ProcessHooker.SendPipeMessage("weather");
+            ProcessHooker.SendPipeMessage(weatherID.ToString());
         }
     }
 }

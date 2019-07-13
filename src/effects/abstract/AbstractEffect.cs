@@ -29,8 +29,8 @@ namespace GTA_SA_Chaos.effects
         {
             Config.DoStoreLastEffectToFile(this);
 
-            ProcessHooker.NewThreadStartClient("text");
-            ProcessHooker.NewThreadStartClient(GetDescription());
+            ProcessHooker.SendPipeMessage("text");
+            ProcessHooker.SendPipeMessage(GetDescription());
         }
     }
 }

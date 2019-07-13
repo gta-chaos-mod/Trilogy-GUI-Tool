@@ -1,4 +1,4 @@
-using GTA_SA_Chaos.effects;
+﻿using GTA_SA_Chaos.effects;
 using GTA_SA_Chaos.util;
 using Newtonsoft.Json;
 using System;
@@ -523,7 +523,7 @@ namespace GTA_SA_Chaos
 
                 "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
                 "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
-                "CE21", "CE22", "CE23", "CE24", "CE25", "CE26",
+                "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28",
 
                 "TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TP7", "TP8", "TP9", "TP10",
                 "TP11", "TP12",
@@ -551,7 +551,7 @@ namespace GTA_SA_Chaos
 
                 "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
                 "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
-                "CE21", "CE22", "CE23", "CE24", "CE25", "CE26",
+                "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28",
 
                 "TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TP7", "TP8", "TP9", "TP10",
                 "TP11", "TP12",
@@ -1075,20 +1075,8 @@ namespace GTA_SA_Chaos
 
         private void ButtonGenericTest_Click(object sender, EventArgs e)
         {
-            //ProcessHooker.NewThreadStartClient("timed_effect");
-            //ProcessHooker.NewThreadStartClient("where_is_everybody:60000:Invisible Man");
-
             ProcessHooker.NewThreadStartClient("timed_effect");
-            ProcessHooker.NewThreadStartClient("its_raining_peds:60000:Memes");
-
-            //ProcessHooker.NewThreadStartClient("timed_effect");
-            //ProcessHooker.NewThreadStartClient("totheleft_totheright:60000:To the left, to the right");
-
-            //ProcessHooker.NewThreadStartClient("timed_cheat");
-            //ProcessHooker.NewThreadStartClient("never_wanted:60000:Never Wanted");
-
-            //ProcessHooker.NewThreadStartClient("timed_cheat");
-            //ProcessHooker.NewThreadStartClient("expensive_cars:60000:Expensive Cars");
+            ProcessHooker.NewThreadStartClient("true_pacifist:60000:Memes");
         }
     }
 }

@@ -131,13 +131,14 @@ namespace GTA_SA_Chaos.effects
             new TimedFunctionEffect(Category.CustomEffects, "Ghost Rider", "GhostRider", "timed_effect", "ghost_rider"), // Set current vehicle constantly on fire
             new TimedFunctionEffect(Category.CustomEffects, "To the left, to the right", "ToTheLeftToTheRight", "timed_effect", "totheleft_totheright"), // Gives cars a random velocity
             new TimedFunctionEffect(Category.CustomEffects, "Disable HUD", "FullyImmersed", "timed_effect", "disable_hud"), // Disable HUD
-            new FunctionEffect(Category.CustomEffects, "Remove all weapons", "TruePacifist", "other", "clear_weapons"), // Remove all weapons
+            new FunctionEffect(Category.CustomEffects, "Remove all weapons", "NoWeaponsAllowed", "other", "clear_weapons"), // Remove all weapons
             new TimedFunctionEffect(Category.CustomEffects, "Where is everybody?", "WhatAreThoseVoices", "timed_effect", "where_is_everybody"), // Where is everybody?
             new TimedFunctionEffect(Category.CustomEffects, "Everybody bleed now!", "EverybodyBleedNow", "timed_effect", "everybody_bleed_now"), // Everybody bleed now!
             new FunctionEffect(Category.CustomEffects, "Set all peds on fire", "HotPotato", "effect", "hot_potato"), // Set all peds on fire
             new FunctionEffect(Category.CustomEffects, "Kick player out of vehicle and lock doors", "ThisAintYourCar", "effect", "kick_out_of_car"), // Kick player out of vehicle
             new FunctionEffect(Category.CustomEffects, "Lock player inside vehicle", "ThereIsNoEscape", "effect", "there_is_no_escape"), // Lock player inside vehicle
             new TimedFunctionEffect(Category.CustomEffects, "Disable Radar Blips", "BlipsBeGone", "timed_effect", "disable_radar_blips"), // Disable Radar Blips
+            new TimedFunctionEffect(Category.CustomEffects, "Disable all Weapon Damage", "TruePacifist", "timed_effect", "true_pacifist"), // Disable all Weapon Damage
 
             new TeleportationEffect("Teleport home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport to a tower", "BringMeToATower", Location.LSTower),

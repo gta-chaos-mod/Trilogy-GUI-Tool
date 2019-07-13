@@ -1,4 +1,4 @@
-﻿using GTA_SA_Chaos.effects;
+using GTA_SA_Chaos.effects;
 using GTA_SA_Chaos.util;
 using Newtonsoft.Json;
 using System;
@@ -418,6 +418,7 @@ namespace GTA_SA_Chaos
             if (isVoting)
             {
                 progressBarTwitch.Value = progressBarTwitch.Maximum = duration;
+                Config.Instance.TwitchVotingTime = duration;
                 foreach (VotingTimeComboBoxItem item in comboBoxVotingTime.Items)
                 {
                     if (item.VotingTime == duration)
@@ -433,6 +434,7 @@ namespace GTA_SA_Chaos
             {
                 progressBarTwitch.Value = 0;
                 progressBarTwitch.Maximum = duration;
+                Config.Instance.TwitchVotingCooldown = duration;
                 foreach (VotingCooldownComboBoxItem item in comboBoxVotingCooldown.Items)
                 {
                     if (item.VotingCooldown == duration)

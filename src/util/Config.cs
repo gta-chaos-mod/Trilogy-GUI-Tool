@@ -46,7 +46,7 @@ namespace GTA_SA_Chaos.util
 
         public static int GetEffectDuration()
         {
-            return Instance.Cooldown * 3;
+            return Instance.IsTwitchMode ? Instance.TwitchVotingCooldown * 3 : Instance.Cooldown * 3;
         }
 
         public static string FToString(float value)

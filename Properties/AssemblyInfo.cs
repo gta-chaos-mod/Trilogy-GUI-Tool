@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GTA SA Chaos")]
+[assembly: AssemblyTitle("GTA SA Chaos Mod")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Lordmau5")]
-[assembly: AssemblyProduct("GTA SA Chaos")]
-[assembly: AssemblyCopyright("Copyright © 2019")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("GTA SA Chaos Mod")]
+[assembly: AssemblyCopyright("Copyright © 2019 Lordmau5")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

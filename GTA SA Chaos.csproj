@@ -216,7 +216,6 @@
     <Compile Include="src\effects\extra\ModifyGravityEffect.cs" />
     <Compile Include="src\effects\impl\TimedFunctionEffect.cs" />
     <Compile Include="src\util\Category.cs" />
-    <Compile Include="src\effects\EffectExecution.cs" />
     <Compile Include="src\effects\impl\FunctionEffect.cs" />
     <Compile Include="src\util\Config.cs" />
     <Compile Include="Form1.cs">

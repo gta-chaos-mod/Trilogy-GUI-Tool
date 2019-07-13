@@ -39,7 +39,7 @@ namespace GTA_SA_Chaos
                 try
                 {
                     if (!pipeStream.IsConnected)
-                        pipeStream.Connect(250);
+                        pipeStream.Connect(1000);
 
                     using (StreamWriter sw = new StreamWriter(pipeStream))
                     {

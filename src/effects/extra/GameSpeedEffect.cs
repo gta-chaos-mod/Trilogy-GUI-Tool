@@ -18,7 +18,7 @@ namespace GTA_SA_Chaos.effects
             StoreEffectToFile();
 
             ProcessHooker.SendPipeMessage("game_speed");
-            ProcessHooker.SendPipeMessage(Config.FToString(speed));
+            ProcessHooker.SendPipeMessage($"{Config.FToString(speed)}:{Config.GetEffectDuration()}:{GetDescription()}");
         }
     }
 }

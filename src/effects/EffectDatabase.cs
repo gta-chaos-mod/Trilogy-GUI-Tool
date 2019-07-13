@@ -14,11 +14,11 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 3", "NuttersToys", "weapons", "2"), // Weapon Set 3
             new FunctionEffect(Category.WeaponsAndHealth, "Health, Armor, $250k", "INeedSomeHelp", "cheat", "give_health_armor_money"), // Health, Armor, $250k
             new FunctionEffect(Category.WeaponsAndHealth, "Suicide", "GoodbyeCruelWorld", "cheat", "suicide"), // Suicide
-            new TimedFunctionEffect(Category.WeaponsAndHealth, "Infinite ammo", "FullClip", "timed_cheat", "infinite_ammo"), // Infinite ammo
+            new FunctionEffect(Category.WeaponsAndHealth, "Infinite ammo", "FullClip", "timed_cheat", "infinite_ammo"), // Infinite ammo
 
             new FunctionEffect(Category.WantedLevel, "Wanted level 2 stars", "TurnUpTheHeat", "wanted", "plus_two"), // Wanted level 2 stars
             new FunctionEffect(Category.WantedLevel, "Clear wanted level", "TurnDownTheHeat", "wanted", "clear"), // Clear wanted level
-            new TimedFunctionEffect(Category.WantedLevel, "Never wanted", "IDoAsIPlease", "timed_cheat", "never_wanted"), // Never wanted
+            new FunctionEffect(Category.WantedLevel, "Never wanted", "IDoAsIPlease", "timed_cheat", "never_wanted"), // Never wanted
             new FunctionEffect(Category.WantedLevel, "Six wanted stars", "BringItOn", "wanted", "six_stars"), // Six wanted stars
 
             new WeatherEffect("Sunny weather", "PleasantlyWarm", 1), // Sunny weather
@@ -54,52 +54,52 @@ namespace GTA_SA_Chaos.effects
             new GameSpeedEffect("0.5x Game Speed", "SlowItDown", 0.5f),
             new GameSpeedEffect("2x Game Speed", "SpeedItUp", 2f),
             new GameSpeedEffect("4x Game Speed", "YoureTooSlow", 4f),
-            new TimedFunctionEffect(Category.Time, "Always midnight", "NightProwler", "timed_cheat", "always_midnight"), // Always midnight
-            new TimedFunctionEffect(Category.Time, "Stop game clock, orange sky", "DontBringOnTheNight", "timed_cheat", "orange_sky"), // Stop game clock, orange sky
-            new TimedFunctionEffect(Category.Time, "Faster clock", "TimeJustFliesBy", "timed_cheat", "faster_clock"), // Faster clock
+            new FunctionEffect(Category.Time, "Always midnight", "NightProwler", "timed_cheat", "always_midnight"), // Always midnight
+            new FunctionEffect(Category.Time, "Stop game clock, orange sky", "DontBringOnTheNight", "timed_cheat", "orange_sky"), // Stop game clock, orange sky
+            new FunctionEffect(Category.Time, "Faster clock", "TimeJustFliesBy", "timed_cheat", "faster_clock"), // Faster clock
 
             new FunctionEffect(Category.VehiclesTraffic, "Blow up all cars", "AllCarsGoBoom", "other", "explode_cars"), // Blow up all cars
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Pink traffic", "PinkIsTheNewCool", "timed_cheat", "pink_traffic"), // Pink traffic
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Black traffic", "SoLongAsItsBlack", "timed_cheat", "black_traffic"), // Black traffic
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Cheap cars", "EveryoneIsPoor", "timed_cheat", "cheap_cars"), // Cheap cars
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Expensive cars", "EveryoneIsRich", "timed_cheat", "expensive_cars"), // Expensive cars
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Invisible cars", "WheelsOnlyPlease", "timed_cheat", "invisible_cars"), // Invisible cars
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Insane handling", "StickLikeGlue", "timed_cheat", "insane_handling"), // Insane handling
-            new TimedFunctionEffect(Category.VehiclesTraffic, "All green lights", "DontTryAndStopMe", "timed_cheat", "all_green_lights"), // All green lights
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Cars on water", "JesusCars", "timed_cheat", "cars_on_water"), // Cars on water
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Boats fly", "FlyingFish", "timed_cheat", "boats_fly"), // Boats fly
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Cars fly", "ChittyChittyBangBang", "timed_cheat", "cars_fly"), // Cars fly
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Smash n' boom", "TouchMyCarYouDie", "timed_cheat", "smash_n_boom"), // Smash n' boom
-            new TimedFunctionEffect(Category.VehiclesTraffic, "All cars have nitro", "SpeedFreak", "timed_cheat", "all_cars_nitro"), // All cars have nitro
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Cars float away when hit", "BubbleCars", "timed_cheat", "bubble_cars"), // Cars float away when hit
-            new TimedFunctionEffect(Category.VehiclesTraffic, "Reduced traffic", "GhostTown", "timed_cheat", "reduced_traffic"), // Reduced traffic
-            new TimedFunctionEffect(Category.VehiclesTraffic, "All taxis have nitrous", "SpeedyTaxis", "timed_cheat", "all_taxis_nitro"), // All taxis have nitrous
+            new FunctionEffect(Category.VehiclesTraffic, "Pink traffic", "PinkIsTheNewCool", "timed_cheat", "pink_traffic"), // Pink traffic
+            new FunctionEffect(Category.VehiclesTraffic, "Black traffic", "SoLongAsItsBlack", "timed_cheat", "black_traffic"), // Black traffic
+            new FunctionEffect(Category.VehiclesTraffic, "Cheap cars", "EveryoneIsPoor", "timed_cheat", "cheap_cars"), // Cheap cars
+            new FunctionEffect(Category.VehiclesTraffic, "Expensive cars", "EveryoneIsRich", "timed_cheat", "expensive_cars"), // Expensive cars
+            new FunctionEffect(Category.VehiclesTraffic, "Invisible cars", "WheelsOnlyPlease", "timed_cheat", "invisible_cars"), // Invisible cars
+            new FunctionEffect(Category.VehiclesTraffic, "Insane handling", "StickLikeGlue", "timed_cheat", "insane_handling"), // Insane handling
+            new FunctionEffect(Category.VehiclesTraffic, "All green lights", "DontTryAndStopMe", "timed_cheat", "all_green_lights"), // All green lights
+            new FunctionEffect(Category.VehiclesTraffic, "Cars on water", "JesusCars", "timed_cheat", "cars_on_water"), // Cars on water
+            new FunctionEffect(Category.VehiclesTraffic, "Boats fly", "FlyingFish", "timed_cheat", "boats_fly"), // Boats fly
+            new FunctionEffect(Category.VehiclesTraffic, "Cars fly", "ChittyChittyBangBang", "timed_cheat", "cars_fly"), // Cars fly
+            new FunctionEffect(Category.VehiclesTraffic, "Smash n' boom", "TouchMyCarYouDie", "timed_cheat", "smash_n_boom"), // Smash n' boom
+            new FunctionEffect(Category.VehiclesTraffic, "All cars have nitro", "SpeedFreak", "timed_cheat", "all_cars_nitro"), // All cars have nitro
+            new FunctionEffect(Category.VehiclesTraffic, "Cars float away when hit", "BubbleCars", "timed_cheat", "bubble_cars"), // Cars float away when hit
+            new FunctionEffect(Category.VehiclesTraffic, "Reduced traffic", "GhostTown", "timed_cheat", "reduced_traffic"), // Reduced traffic
+            new FunctionEffect(Category.VehiclesTraffic, "All taxis have nitrous", "SpeedyTaxis", "timed_cheat", "all_taxis_nitro"), // All taxis have nitrous
 
-            new TimedFunctionEffect(Category.PedsAndCo, "Peds attack other (+ get golf club)", "RoughNeighbourhood", "timed_cheat", "rough_neighbourhood"), // Peds attack other (+ get golf club)
-            new TimedFunctionEffect(Category.PedsAndCo, "Have a bounty on your head", "StopPickingOnMe", "timed_cheat", "bounty_on_your_head"), // Have a bounty on your head
-            new TimedFunctionEffect(Category.PedsAndCo, "Elvis is everywhere", "BlueSuedeShoes", "timed_cheat", "elvis_lives"), // Elvis is everywhere
-            new TimedFunctionEffect(Category.PedsAndCo, "Peds attack you with rockets", "AttackOfTheVillagePeople", "timed_cheat", "village_people"), // Peds attack you with rockets
-            new TimedFunctionEffect(Category.PedsAndCo, "Gang members everywhere", "OnlyHomiesAllowed", "timed_cheat", "only_homies"), // Gang members everywhere
-            new TimedFunctionEffect(Category.PedsAndCo, "Gangs control the streets", "BetterStayIndoors", "timed_cheat", "stay_indoors"), // Gangs control the streets
-            new TimedFunctionEffect(Category.PedsAndCo, "Riot mode", "StateOfEmergency", "timed_cheat", "riot_mode"), // Riot mode
-            new TimedFunctionEffect(Category.PedsAndCo, "Everyone armed", "SurroundedByNutters", "timed_cheat", "everyone_armed"), // Everyone armed
-            new TimedFunctionEffect(Category.PedsAndCo, "Aggressive drivers", "AllDriversAreCriminals", "timed_cheat", "aggressive_drivers"), // Aggressive drivers
-            new TimedFunctionEffect(Category.PedsAndCo, "Recruit anyone (9mm)", "WannaBeInMyGang", "timed_cheat", "recruit_9mm"), // Recruit anyone (9mm)
-            new TimedFunctionEffect(Category.PedsAndCo, "Recruit anyone (AK-47)", "NoOneCanStopUs", "timed_cheat", "recruit_ak47"), // Recruit anyone (AK-47)
-            new TimedFunctionEffect(Category.PedsAndCo, "Recruit anyone (Rockets)", "RocketMayhem", "timed_cheat", "recruit_rockets"), // Recruit anyone (Rockets)
-            new TimedFunctionEffect(Category.PedsAndCo, "Prostitutes pay you", "ReverseHooker", "timed_cheat", "reverse_hooker"), // Prostitutes pay you
-            new TimedFunctionEffect(Category.PedsAndCo, "Beach party", "LifesABeach", "timed_cheat", "beach_party"), // Beach party
-            new TimedFunctionEffect(Category.PedsAndCo, "Ninja theme", "NinjaTown", "timed_cheat", "ninja_theme"), // Ninja theme
-            new TimedFunctionEffect(Category.PedsAndCo, "Slut magnet", "LoveConquersAll", "timed_cheat", "slut_magnet"), // Slut magnet
-            new TimedFunctionEffect(Category.PedsAndCo, "Funhouse theme", "CrazyTown", "timed_cheat", "funhouse_theme"), // Funhouse theme
-            new TimedFunctionEffect(Category.PedsAndCo, "Country traffic", "HicksVille", "timed_cheat", "country_traffic"), // Country traffic
+            new FunctionEffect(Category.PedsAndCo, "Peds attack other (+ get golf club)", "RoughNeighbourhood", "timed_cheat", "rough_neighbourhood"), // Peds attack other (+ get golf club)
+            new FunctionEffect(Category.PedsAndCo, "Have a bounty on your head", "StopPickingOnMe", "timed_cheat", "bounty_on_your_head"), // Have a bounty on your head
+            new FunctionEffect(Category.PedsAndCo, "Elvis is everywhere", "BlueSuedeShoes", "timed_cheat", "elvis_lives"), // Elvis is everywhere
+            new FunctionEffect(Category.PedsAndCo, "Peds attack you with rockets", "AttackOfTheVillagePeople", "timed_cheat", "village_people"), // Peds attack you with rockets
+            new FunctionEffect(Category.PedsAndCo, "Gang members everywhere", "OnlyHomiesAllowed", "timed_cheat", "only_homies"), // Gang members everywhere
+            new FunctionEffect(Category.PedsAndCo, "Gangs control the streets", "BetterStayIndoors", "timed_cheat", "stay_indoors"), // Gangs control the streets
+            new FunctionEffect(Category.PedsAndCo, "Riot mode", "StateOfEmergency", "timed_cheat", "riot_mode"), // Riot mode
+            new FunctionEffect(Category.PedsAndCo, "Everyone armed", "SurroundedByNutters", "timed_cheat", "everyone_armed"), // Everyone armed
+            new FunctionEffect(Category.PedsAndCo, "Aggressive drivers", "AllDriversAreCriminals", "timed_cheat", "aggressive_drivers"), // Aggressive drivers
+            new FunctionEffect(Category.PedsAndCo, "Recruit anyone (9mm)", "WannaBeInMyGang", "timed_cheat", "recruit_9mm"), // Recruit anyone (9mm)
+            new FunctionEffect(Category.PedsAndCo, "Recruit anyone (AK-47)", "NoOneCanStopUs", "timed_cheat", "recruit_ak47"), // Recruit anyone (AK-47)
+            new FunctionEffect(Category.PedsAndCo, "Recruit anyone (Rockets)", "RocketMayhem", "timed_cheat", "recruit_rockets"), // Recruit anyone (Rockets)
+            new FunctionEffect(Category.PedsAndCo, "Prostitutes pay you", "ReverseHooker", "timed_cheat", "reverse_hooker"), // Prostitutes pay you
+            new FunctionEffect(Category.PedsAndCo, "Beach party", "LifesABeach", "timed_cheat", "beach_party"), // Beach party
+            new FunctionEffect(Category.PedsAndCo, "Ninja theme", "NinjaTown", "timed_cheat", "ninja_theme"), // Ninja theme
+            new FunctionEffect(Category.PedsAndCo, "Slut magnet", "LoveConquersAll", "timed_cheat", "slut_magnet"), // Slut magnet
+            new FunctionEffect(Category.PedsAndCo, "Funhouse theme", "CrazyTown", "timed_cheat", "funhouse_theme"), // Funhouse theme
+            new FunctionEffect(Category.PedsAndCo, "Country traffic", "HicksVille", "timed_cheat", "country_traffic"), // Country traffic
 
-            new TimedFunctionEffect(Category.PlayerModifications, "Weapon aiming while driving", "IWannaDriveBy", "timed_cheat", "drive_by"), // Weapon aiming while driving
-            new TimedFunctionEffect(Category.PlayerModifications, "Huge bunny hop", "CJPhoneHome", "timed_cheat", "huge_bunny_hop"), // Huge bunny hop
-            new TimedFunctionEffect(Category.PlayerModifications, "Mega jump", "Kangaroo", "timed_cheat", "mega_jump"), // Mega jump
-            new TimedFunctionEffect(Category.PlayerModifications, "Infinite health", "NoOneCanHurtMe", "timed_cheat", "infinite_health"), // Infinite health
-            new TimedFunctionEffect(Category.PlayerModifications, "Infinite oxygen", "ManFromAtlantis", "timed_cheat", "infinite_oxygen"), // Infinite oxygen
-            new TimedFunctionEffect(Category.PlayerModifications, "Mega punch", "StingLikeABee", "timed_cheat", "mega_punch"), // Mega punch
+            new FunctionEffect(Category.PlayerModifications, "Weapon aiming while driving", "IWannaDriveBy", "timed_cheat", "drive_by"), // Weapon aiming while driving
+            new FunctionEffect(Category.PlayerModifications, "Huge bunny hop", "CJPhoneHome", "timed_cheat", "huge_bunny_hop"), // Huge bunny hop
+            new FunctionEffect(Category.PlayerModifications, "Mega jump", "Kangaroo", "timed_cheat", "mega_jump"), // Mega jump
+            new FunctionEffect(Category.PlayerModifications, "Infinite health", "NoOneCanHurtMe", "timed_cheat", "infinite_health"), // Infinite health
+            new FunctionEffect(Category.PlayerModifications, "Infinite oxygen", "ManFromAtlantis", "timed_cheat", "infinite_oxygen"), // Infinite oxygen
+            new FunctionEffect(Category.PlayerModifications, "Mega punch", "StingLikeABee", "timed_cheat", "mega_punch"), // Mega punch
 
             new FunctionEffect(Category.Stats, "Fat player", "WhoAteAllThePies", "cheat", "fat_player"), // Fat player
             new FunctionEffect(Category.Stats, "Max muscle", "BuffMeUp", "cheat", "max_muscle"), // Max muscle
@@ -107,9 +107,9 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.Stats, "Max stamina", "ICanGoAllNight", "effect", "max_stamina"), // Max stamina
             new FunctionEffect(Category.Stats, "Hitman level for all weapons", "ProfessionalKiller", "effect", "max_weapon_skill"), // Hitman level for all weapons
             new FunctionEffect(Category.Stats, "Max driving skills", "NaturalTalent", "effect", "max_driving_skill"), // Max driving skills
-            new TimedFunctionEffect(Category.Stats, "Never get hungry", "IAmNeverHungry", "timed_cheat", "never_hungry"), // Never get hungry
-            new TimedFunctionEffect(Category.Stats, "Lock respect at max", "WorshipMe", "timed_cheat", "lock_respect"), // Lock respect at max
-            new TimedFunctionEffect(Category.Stats, "Lock sex appeal at max", "HelloLadies", "timed_cheat", "lock_sex_appeal"), // Lock sex appeal at max
+            new FunctionEffect(Category.Stats, "Never get hungry", "IAmNeverHungry", "timed_cheat", "never_hungry"), // Never get hungry
+            new FunctionEffect(Category.Stats, "Lock respect at max", "WorshipMe", "timed_cheat", "lock_respect"), // Lock respect at max
+            new FunctionEffect(Category.Stats, "Lock sex appeal at max", "HelloLadies", "timed_cheat", "lock_sex_appeal"), // Lock sex appeal at max
 
             new FunctionEffect(Category.CustomEffects, "Pop tires of all vehicles", "TiresBeGone", "effect", "pop_vehicle_tires"), // Pop tires of all vehicles
             new FunctionEffect(Category.CustomEffects, "Set current vehicle on fire", "WayTooHot", "effect", "set_vehicle_on_fire"), // Set current vehicle on fire
@@ -117,7 +117,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Stairway To Heaven", "StairwayToHeaven", "effect", "stairway_to_heaven"), // Gives an immense upwards boost to the current vehicle
             new FunctionEffect(Category.CustomEffects, "Get Busted", "GoToJail", "effect", "player_busted"), // Get's you busted on the spot
             new FunctionEffect(Category.CustomEffects, "Get Wasted", "Hospitality", "effect", "player_wasted"), // Get's you wasted on the spot
-            new TimedFunctionEffect(Category.CustomEffects, "One Hit K.O.", "ILikeToLiveDangerously", "timed_effect", "one_hit_ko"), // One Hit K.O.
+            new FunctionEffect(Category.CustomEffects, "One Hit K.O.", "ILikeToLiveDangerously", "timed_effect", "one_hit_ko"), // One Hit K.O.
             new ModifyGravityEffect("Inverted gravity", "BeamMeUpScotty", -0.002f, 1000 * 5), // Sets the gravity to -0.002f
             new ModifyGravityEffect("Zero gravity", "ImInSpaaaaace", 0f, 1000 * 10), // Sets the gravity to 0f
             new ModifyGravityEffect("Quarter gravity", "GroundControlToMajorTom", 0.002f), // Sets the gravity to 0.002f
@@ -125,20 +125,20 @@ namespace GTA_SA_Chaos.effects
             new ModifyGravityEffect("Double gravity", "KilogramOfFeathers", 0.016f), // Sets the gravity to 0.016f
             new ModifyGravityEffect("Quadruple gravity", "KilogramOfSteel", 0.032f), // Sets the gravity to 0.032f
             new ModifyGravityEffect("Insane gravity", "StraightToHell", 0.64f, 1000 * 10), // Sets the gravity to 0.64f
-            new TimedFunctionEffect(Category.CustomEffects, "Experience the lag", "PacketLoss", "timed_effect", "experience_the_lag"), // Experience the lag
-            new TimedFunctionEffect(Category.CustomEffects, "To drive or not to drive", "ToDriveOrNotToDrive", "timed_effect", "to_drive_or_not_to_drive"), // To drive or not to drive
+            new FunctionEffect(Category.CustomEffects, "Experience the lag", "PacketLoss", "timed_effect", "experience_the_lag"), // Experience the lag
+            new FunctionEffect(Category.CustomEffects, "To drive or not to drive", "ToDriveOrNotToDrive", "timed_effect", "to_drive_or_not_to_drive"), // To drive or not to drive
             new FunctionEffect(Category.CustomEffects, "Timelapse mode", "DiscoInTheSky", "timed_effect", "timelapse"), // Timelapse mode
-            new TimedFunctionEffect(Category.CustomEffects, "Ghost Rider", "GhostRider", "timed_effect", "ghost_rider"), // Set current vehicle constantly on fire
-            new TimedFunctionEffect(Category.CustomEffects, "To the left, to the right", "ToTheLeftToTheRight", "timed_effect", "totheleft_totheright"), // Gives cars a random velocity
-            new TimedFunctionEffect(Category.CustomEffects, "Disable HUD", "FullyImmersed", "timed_effect", "disable_hud"), // Disable HUD
+            new FunctionEffect(Category.CustomEffects, "Ghost Rider", "GhostRider", "timed_effect", "ghost_rider"), // Set current vehicle constantly on fire
+            new FunctionEffect(Category.CustomEffects, "To the left, to the right", "ToTheLeftToTheRight", "timed_effect", "totheleft_totheright"), // Gives cars a random velocity
+            new FunctionEffect(Category.CustomEffects, "Disable HUD", "FullyImmersed", "timed_effect", "disable_hud"), // Disable HUD
             new FunctionEffect(Category.CustomEffects, "Remove all weapons", "NoWeaponsAllowed", "other", "clear_weapons"), // Remove all weapons
-            new TimedFunctionEffect(Category.CustomEffects, "Where is everybody?", "WhatAreThoseVoices", "timed_effect", "where_is_everybody"), // Where is everybody?
-            new TimedFunctionEffect(Category.CustomEffects, "Everybody bleed now!", "EverybodyBleedNow", "timed_effect", "everybody_bleed_now"), // Everybody bleed now!
+            new FunctionEffect(Category.CustomEffects, "Where is everybody?", "WhatAreThoseVoices", "timed_effect", "where_is_everybody"), // Where is everybody?
+            new FunctionEffect(Category.CustomEffects, "Everybody bleed now!", "EverybodyBleedNow", "timed_effect", "everybody_bleed_now"), // Everybody bleed now!
             new FunctionEffect(Category.CustomEffects, "Set all peds on fire", "HotPotato", "effect", "hot_potato"), // Set all peds on fire
             new FunctionEffect(Category.CustomEffects, "Kick player out of vehicle and lock doors", "ThisAintYourCar", "effect", "kick_out_of_car"), // Kick player out of vehicle
             new FunctionEffect(Category.CustomEffects, "Lock player inside vehicle", "ThereIsNoEscape", "effect", "there_is_no_escape"), // Lock player inside vehicle
-            new TimedFunctionEffect(Category.CustomEffects, "Disable Radar Blips", "BlipsBeGone", "timed_effect", "disable_radar_blips"), // Disable Radar Blips
-            new TimedFunctionEffect(Category.CustomEffects, "Disable all Weapon Damage", "TruePacifist", "timed_effect", "true_pacifist"), // Disable all Weapon Damage
+            new FunctionEffect(Category.CustomEffects, "Disable Radar Blips", "BlipsBeGone", "timed_effect", "disable_radar_blips"), // Disable Radar Blips
+            new FunctionEffect(Category.CustomEffects, "Disable all Weapon Damage", "TruePacifist", "timed_effect", "true_pacifist"), // Disable all Weapon Damage
 
             new TeleportationEffect("Teleport home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport to a tower", "BringMeToATower", Location.LSTower),

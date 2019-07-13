@@ -1,4 +1,4 @@
-using GTA_SA_Chaos.effects;
+﻿using GTA_SA_Chaos.effects;
 using GTA_SA_Chaos.util;
 using Newtonsoft.Json;
 using System;
@@ -25,7 +25,7 @@ namespace GTA_SA_Chaos
             InitializeComponent();
 
             Text = "GTA:SA Chaos v0.99";
-            //tabSettings.TabPages.Remove(tabDebug);
+            tabSettings.TabPages.Remove(tabDebug);
 
             Stopwatch = new Stopwatch();
 
@@ -604,7 +604,7 @@ namespace GTA_SA_Chaos
             comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("2 minutes", 1000 * 60 * 2));
             comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("5 minutes", 1000 * 60 * 5));
             comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("10 minutes", 1000 * 60 * 10));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 1 second", 1000));
+            //comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 1 second", 1000));
 
             comboBoxMainCooldown.SelectedIndex = 3;
 
@@ -726,6 +726,8 @@ namespace GTA_SA_Chaos
                 Stopwatch.Stop();
             }
             (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = Config.Instance.Enabled ? "Stop" : "Start";
+            comboBoxMainCooldown.Enabled =
+                buttonSwitchMode.Enabled = !Config.Instance.Enabled;
         }
 
         private void CheckAllChildNodes(TreeNode treeNode, bool nodeChecked)
@@ -1082,8 +1084,11 @@ namespace GTA_SA_Chaos
 
         private void ButtonGenericTest_Click(object sender, EventArgs e)
         {
-            ProcessHooker.SendPipeMessage("timed_effect");
-            ProcessHooker.SendPipeMessage("totheleft_totheright:60000:To the left, to the right");
+            //ProcessHooker.SendPipeMessage("timed_effect");
+            //ProcessHooker.SendPipeMessage("totheleft_totheright:60000:To the left, to the right");
+
+            ProcessHooker.SendPipeMessage("timed_cheat");
+            ProcessHooker.SendPipeMessage("mega_jump:10000:Mega Jump");
         }
     }
 }

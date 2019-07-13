@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GTA_SA_Chaos.util;
+using System;
 
 namespace GTA_SA_Chaos.effects
 {
@@ -17,7 +18,7 @@ namespace GTA_SA_Chaos.effects
             StoreEffectToFile();
 
             ProcessHooker.SendPipeMessage("weather");
-            ProcessHooker.SendPipeMessage(weatherID.ToString());
+            ProcessHooker.SendPipeMessage($"{weatherID.ToString()}:{Config.GetEffectDuration()}:{GetDescription()}");
         }
     }
 }

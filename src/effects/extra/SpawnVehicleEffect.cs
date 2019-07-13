@@ -1,5 +1,6 @@
 ﻿using GTA_SA_Chaos.effects;
 using GTA_SA_Chaos.src.util;
+using GTA_SA_Chaos.util;
 using System;
 
 namespace GTA_SA_Chaos.src.effects.extra
@@ -34,10 +35,12 @@ namespace GTA_SA_Chaos.src.effects.extra
                 actualID = random.Next(400, 611);
             }
 
+            string spawnString = $"Spawn {VehicleNames.GetVehicleName(actualID)}";
+
             StoreEffectToFile();
 
             ProcessHooker.SendPipeMessage("spawn_vehicle");
-            ProcessHooker.SendPipeMessage(actualID.ToString());
+            ProcessHooker.SendPipeMessage($"{actualID.ToString()}:{Config.GetEffectDuration()}:{spawnString}");
         }
     }
 }

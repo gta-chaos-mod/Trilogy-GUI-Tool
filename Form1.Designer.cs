@@ -35,6 +35,7 @@
             this.progressBarMain = new System.Windows.Forms.ProgressBar();
             this.tabSettings = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
+            this.buttonReset = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxMainCooldown = new System.Windows.Forms.ComboBox();
             this.listLastEffectsMain = new System.Windows.Forms.ListBox();
@@ -64,7 +65,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxSeed = new System.Windows.Forms.TextBox();
-            this.checkBoxStoreLastEffectToFile = new System.Windows.Forms.CheckBox();
+            this.checkBoxAutoStartOnNewGame = new System.Windows.Forms.CheckBox();
             this.tabDebug = new System.Windows.Forms.TabPage();
             this.buttonGenericTest = new System.Windows.Forms.Button();
             this.buttonTestSeed = new System.Windows.Forms.Button();
@@ -109,10 +110,10 @@
             // 
             // progressBarMain
             // 
-            this.progressBarMain.Location = new System.Drawing.Point(87, 6);
+            this.progressBarMain.Location = new System.Drawing.Point(168, 6);
             this.progressBarMain.Maximum = 60;
             this.progressBarMain.Name = "progressBarMain";
-            this.progressBarMain.Size = new System.Drawing.Size(359, 23);
+            this.progressBarMain.Size = new System.Drawing.Size(278, 23);
             this.progressBarMain.Step = 1;
             this.progressBarMain.TabIndex = 1;
             // 
@@ -132,6 +133,7 @@
             // tabMain
             // 
             this.tabMain.BackColor = System.Drawing.Color.Transparent;
+            this.tabMain.Controls.Add(this.buttonReset);
             this.tabMain.Controls.Add(this.label2);
             this.tabMain.Controls.Add(this.comboBoxMainCooldown);
             this.tabMain.Controls.Add(this.buttonMainToggle);
@@ -143,6 +145,17 @@
             this.tabMain.Size = new System.Drawing.Size(452, 231);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main";
+            // 
+            // buttonReset
+            // 
+            this.buttonReset.Enabled = false;
+            this.buttonReset.Location = new System.Drawing.Point(87, 6);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonReset.TabIndex = 7;
+            this.buttonReset.Text = "Reset";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.ButtonReset_Click);
             // 
             // label2
             // 
@@ -416,7 +429,7 @@
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.textBoxSeed);
-            this.tabPage1.Controls.Add(this.checkBoxStoreLastEffectToFile);
+            this.tabPage1.Controls.Add(this.checkBoxAutoStartOnNewGame);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -442,16 +455,16 @@
             this.textBoxSeed.TabIndex = 1;
             this.textBoxSeed.TextChanged += new System.EventHandler(this.TextBoxSeed_TextChanged);
             // 
-            // checkBoxStoreLastEffectToFile
+            // checkBoxAutoStartOnNewGame
             // 
-            this.checkBoxStoreLastEffectToFile.AutoSize = true;
-            this.checkBoxStoreLastEffectToFile.Location = new System.Drawing.Point(6, 208);
-            this.checkBoxStoreLastEffectToFile.Name = "checkBoxStoreLastEffectToFile";
-            this.checkBoxStoreLastEffectToFile.Size = new System.Drawing.Size(140, 17);
-            this.checkBoxStoreLastEffectToFile.TabIndex = 0;
-            this.checkBoxStoreLastEffectToFile.Text = "Store Last Effect To File";
-            this.checkBoxStoreLastEffectToFile.UseVisualStyleBackColor = true;
-            this.checkBoxStoreLastEffectToFile.CheckedChanged += new System.EventHandler(this.CheckBoxStoreLastEffectToFile_CheckedChanged);
+            this.checkBoxAutoStartOnNewGame.AutoSize = true;
+            this.checkBoxAutoStartOnNewGame.Location = new System.Drawing.Point(6, 208);
+            this.checkBoxAutoStartOnNewGame.Name = "checkBoxAutoStartOnNewGame";
+            this.checkBoxAutoStartOnNewGame.Size = new System.Drawing.Size(144, 17);
+            this.checkBoxAutoStartOnNewGame.TabIndex = 0;
+            this.checkBoxAutoStartOnNewGame.Text = "Auto Start on New Game";
+            this.checkBoxAutoStartOnNewGame.UseVisualStyleBackColor = true;
+            this.checkBoxAutoStartOnNewGame.CheckedChanged += new System.EventHandler(this.CheckBoxStoreLastEffectToFile_CheckedChanged);
             // 
             // tabDebug
             // 
@@ -641,13 +654,14 @@
         private System.Windows.Forms.CheckBox checkBoxTwitchAllowVoting;
         private System.Windows.Forms.Label labelTwitchCurrentMode;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.CheckBox checkBoxStoreLastEffectToFile;
+        private System.Windows.Forms.CheckBox checkBoxAutoStartOnNewGame;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxSeed;
         private System.Windows.Forms.TabPage tabDebug;
         private System.Windows.Forms.Button buttonTestSeed;
         private System.Windows.Forms.Label labelTestSeed;
         private System.Windows.Forms.Button buttonGenericTest;
+        private System.Windows.Forms.Button buttonReset;
     }
 }
 

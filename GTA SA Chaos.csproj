@@ -225,6 +225,7 @@
     </Compile>
     <Compile Include="src\effects\EffectDatabase.cs" />
     <Compile Include="src\util\Location.cs" />
+    <Compile Include="src\util\MemoryHelper.cs" />
     <Compile Include="src\util\ProcessHooker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

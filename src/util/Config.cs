@@ -18,7 +18,7 @@ namespace GTA_SA_Chaos.util
         public bool IsTwitchVoting;
 
         public int MainCooldown;
-        public bool StoreLastEffectToFile;
+        public bool AutoStartOnNewGame;
         public string Seed;
 
         public bool TwitchAllowVoting;
@@ -31,15 +31,6 @@ namespace GTA_SA_Chaos.util
         public string TwitchChannel;
         public string TwitchUsername;
         public string TwitchOAuthToken;
-
-        public static void DoStoreLastEffectToFile(AbstractEffect effect)
-        {
-            if (Instance.StoreLastEffectToFile)
-            {
-                string file = Path.Combine(Directory.GetCurrentDirectory(), "lastEffect.txt");
-                File.WriteAllText(file, $"Last effect: {effect.GetDescription()}");
-            }
-        }
 
         public static int GetEffectDuration()
         {

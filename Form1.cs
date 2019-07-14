@@ -1138,7 +1138,6 @@ namespace GTA_SA_Chaos
 
             //ProcessHooker.SendPipeMessage("timed_cheat");
             //ProcessHooker.SendPipeMessage("mega_jump:10000:Mega Jump");
-            MessageBox.Show(ProcessHooker.GetBaseAddress().ToString(), "Memes");
         }
 
         private void ButtonReset_Click(object sender, EventArgs e)

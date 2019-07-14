@@ -139,6 +139,8 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Lock player inside vehicle", "ThereIsNoEscape", "effect", "there_is_no_escape"), // Lock player inside vehicle
             new FunctionEffect(Category.CustomEffects, "Disable Radar Blips", "BlipsBeGone", "timed_effect", "disable_radar_blips"), // Disable Radar Blips
             new FunctionEffect(Category.CustomEffects, "Disable all Weapon Damage", "TruePacifist", "timed_effect", "true_pacifist"), // Disable all Weapon Damage
+            new FunctionEffect(Category.CustomEffects, "Carl is uncontrollable", "LetsTakeABreak", "timed_effect", "lets_take_a_break", 1000 * 10), // Carl is uncontrollable
+            new FunctionEffect(Category.CustomEffects, "Rainbow Cars", "AllColorsAreBeautiful", "timed_effect", "rainbow_cars"), // Rainbow Cars
 
             new TeleportationEffect("Teleport home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport to a tower", "BringMeToATower", Location.LSTower),

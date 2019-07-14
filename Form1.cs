@@ -1,4 +1,4 @@
-using GTA_SA_Chaos.effects;
+﻿using GTA_SA_Chaos.effects;
 using GTA_SA_Chaos.util;
 using Newtonsoft.Json;
 using System;
@@ -27,7 +27,7 @@ namespace GTA_SA_Chaos
         {
             InitializeComponent();
 
-            Text = "GTA:SA Chaos v0.99";
+            Text = "GTA:SA Chaos v0.991";
             tabSettings.TabPages.Remove(tabDebug);
 
             Stopwatch = new Stopwatch();

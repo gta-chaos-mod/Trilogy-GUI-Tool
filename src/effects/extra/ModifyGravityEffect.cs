@@ -17,16 +17,7 @@ namespace GTA_SA_Chaos.effects
 
         public override void RunEffect()
         {
-            StoreEffectToFile();
-
-            int dur = duration;
-            if (dur == -1)
-            {
-                dur = Config.GetEffectDuration();
-            }
-
-            ProcessHooker.SendPipeMessage("gravity");
-            ProcessHooker.SendPipeMessage($"{Config.FToString(gravity)}:{dur}:{GetDescription()}");
+            SendEffectToGame("gravity", Config.FToString(gravity), duration);
         }
     }
 }

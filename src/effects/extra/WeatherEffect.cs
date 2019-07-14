@@ -15,10 +15,7 @@ namespace GTA_SA_Chaos.effects
 
         public override void RunEffect()
         {
-            StoreEffectToFile();
-
-            ProcessHooker.SendPipeMessage("weather");
-            ProcessHooker.SendPipeMessage($"{weatherID.ToString()}:{Config.GetEffectDuration()}:{GetDescription()}");
+            SendEffectToGame("weather", weatherID.ToString());
         }
     }
 }

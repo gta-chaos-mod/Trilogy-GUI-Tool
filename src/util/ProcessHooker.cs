@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
@@ -50,6 +50,12 @@ namespace GTA_SA_Chaos
                 }
                 catch { }
             }
+        }
+
+        public static void SendEffectToGame(string type, string function, int duration = -1, string description = "N/A")
+        {
+            string builtString = $"{type}:{function}:{duration}:{description}";
+            SendPipeMessage(builtString);
         }
 
         public static void AttachExitedMethod(EventHandler method)

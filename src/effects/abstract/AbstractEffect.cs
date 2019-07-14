@@ -25,12 +25,19 @@ namespace GTA_SA_Chaos.effects
 
         public abstract void RunEffect();
 
-        public void StoreEffectToFile()
+        public void SendEffectToGame(string type, string function, int duration = -1, string description = "")
         {
-            Config.DoStoreLastEffectToFile(this);
+            if (duration == -1)
+            {
+                duration = Config.GetEffectDuration();
+            }
 
-            ProcessHooker.SendPipeMessage("text");
-            ProcessHooker.SendPipeMessage(GetDescription());
+            if (string.IsNullOrEmpty(description))
+            {
+                description = GetDescription();
+            }
+
+            ProcessHooker.SendEffectToGame(type, function, duration, description);
         }
     }
 }

@@ -36,11 +36,7 @@ namespace GTA_SA_Chaos.src.effects.extra
             }
 
             string spawnString = $"Spawn {VehicleNames.GetVehicleName(actualID)}";
-
-            StoreEffectToFile();
-
-            ProcessHooker.SendPipeMessage("spawn_vehicle");
-            ProcessHooker.SendPipeMessage($"{actualID.ToString()}:{Config.GetEffectDuration()}:{spawnString}");
+            SendEffectToGame("spawn_vehicle", actualID.ToString(), -1, spawnString);
         }
     }
 }

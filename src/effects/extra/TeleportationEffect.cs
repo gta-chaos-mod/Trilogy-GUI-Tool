@@ -15,10 +15,7 @@ namespace GTA_SA_Chaos.effects
 
         public override void RunEffect()
         {
-            StoreEffectToFile();
-
-            ProcessHooker.SendPipeMessage("teleport");
-            ProcessHooker.SendPipeMessage($"{location.ToString()}:{Config.GetEffectDuration()}:{GetDescription()}");
+            SendEffectToGame("teleport", location.ToString());
         }
     }
 }

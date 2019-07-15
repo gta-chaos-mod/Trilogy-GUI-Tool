@@ -34,22 +34,29 @@ namespace GTA_SA_Chaos
 
         public static void SendPipeMessage(string func)
         {
-            using (NamedPipeClientStream pipeStream = new NamedPipeClientStream("GTASAChaosPipe"))
+            new System.Threading.Thread(() =>
             {
-                try
-                {
-                    if (!pipeStream.IsConnected)
-                        pipeStream.Connect(1000);
+                System.Threading.Thread.CurrentThread.IsBackground = true;
 
-                    using (StreamWriter sw = new StreamWriter(pipeStream))
+                using (NamedPipeClientStream pipeStream = new NamedPipeClientStream("GTASAChaosPipe"))
+                {
+                    try
                     {
-                        if (sw.AutoFlush == false)
-                            sw.AutoFlush = true;
-                        sw.WriteLine(func);
+                        if (!pipeStream.IsConnected)
+                            pipeStream.Connect(1000);
+
+                        using (StreamWriter sw = new StreamWriter(pipeStream))
+                        {
+                            if (sw.AutoFlush == false)
+                                sw.AutoFlush = true;
+                            sw.WriteLine(func);
+                        }
+                    }
+                    catch (TimeoutException) {
+                        // Timeouts are okay, don't log anything
                     }
                 }
-                catch { }
-            }
+            }).Start();
         }
 
         public static void SendEffectToGame(string type, string function, int duration = -1, string description = "N/A")

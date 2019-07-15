@@ -141,6 +141,9 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Disable all Weapon Damage", "TruePacifist", "timed_effect", "true_pacifist"), // Disable all Weapon Damage
             new FunctionEffect(Category.CustomEffects, "Carl is uncontrollable", "LetsTakeABreak", "timed_effect", "lets_take_a_break", 1000 * 10), // Carl is uncontrollable
             new FunctionEffect(Category.CustomEffects, "Rainbow Cars", "AllColorsAreBeautiful", "timed_effect", "rainbow_cars"), // Rainbow Cars
+            new FunctionEffect(Category.CustomEffects, "High suspension damping", "VeryDampNoBounce", "timed_effect", "no_bouncy_vehicles"), // Cars have high suspension damping
+            new FunctionEffect(Category.CustomEffects, "Little suspension damping", "BouncinUpAndDown", "timed_effect", "bouncy_vehicles"), // Cars have very little suspension damping
+            new FunctionEffect(Category.CustomEffects, "Zero suspension damping", "LowrideAllNight", "timed_effect", "very_bouncy_vehicles"),  // Cars have almost zero suspension damping
 
             new TeleportationEffect("Teleport home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport to a tower", "BringMeToATower", Location.LSTower),

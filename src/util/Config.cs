@@ -19,6 +19,7 @@ namespace GTA_SA_Chaos.util
 
         public int MainCooldown;
         public bool AutoStartOnNewGame;
+        public bool ContinueTimer;
         public string Seed;
 
         public bool TwitchAllowVoting;

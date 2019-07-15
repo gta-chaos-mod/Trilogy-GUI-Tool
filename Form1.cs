@@ -1,4 +1,4 @@
-﻿using GTA_SA_Chaos.effects;
+using GTA_SA_Chaos.effects;
 using GTA_SA_Chaos.util;
 using Newtonsoft.Json;
 using System;
@@ -151,6 +151,7 @@ namespace GTA_SA_Chaos
             textBoxTwitchOAuth.Text = Config.Instance.TwitchOAuthToken;
 
             checkBoxAutoStartOnNewGame.Checked = Config.Instance.AutoStartOnNewGame;
+            checkBoxContinueTimer.Checked = Config.Instance.ContinueTimer;
 
             textBoxSeed.Text = Config.Instance.Seed;
         }
@@ -214,13 +215,16 @@ namespace GTA_SA_Chaos
                 buttonHook.Enabled = true;
                 labelHooked.Text = "Not Hooked";
 
-                SetEnabled(false);
+                if (!Config.Instance.ContinueTimer)
+                {
+                    SetEnabled(false);
 
-                elapsedCount = 0;
-                Stopwatch.Reset();
+                    elapsedCount = 0;
+                    Stopwatch.Reset();
 
-                buttonMainToggle.Enabled = false;
-                buttonMainToggle.Text = "Start";
+                    buttonMainToggle.Enabled = false;
+                    buttonMainToggle.Text = "Start";
+                }
                 return;
             }
 
@@ -229,13 +233,16 @@ namespace GTA_SA_Chaos
                 buttonHook.Enabled = true;
                 labelHooked.Text = "Not Hooked";
 
-                SetEnabled(false);
+                if (!Config.Instance.ContinueTimer)
+                {
+                    SetEnabled(false);
 
-                elapsedCount = 0;
-                Stopwatch.Reset();
+                    elapsedCount = 0;
+                    Stopwatch.Reset();
 
-                buttonMainToggle.Enabled = false;
-                buttonMainToggle.Text = "Start";
+                    buttonMainToggle.Enabled = false;
+                    buttonMainToggle.Text = "Start";
+                }
 
                 ProcessHooker.CloseProcess();
             })));
@@ -768,7 +775,7 @@ namespace GTA_SA_Chaos
 
         private void ButtonMainToggle_Click(object sender, EventArgs e)
         {
-            if (Config.Instance.AutoStartOnNewGame && !didAutoStart)
+            if (Config.Instance.AutoStartOnNewGame && !didAutoStart && MemoryHelper.Read((IntPtr)0xB7CB84, out int playingTime) && playingTime < 1000 * 60)
             {
                 Config.Instance.Enabled = false;
                 AutoStartTimer.Start();
@@ -1087,6 +1094,7 @@ namespace GTA_SA_Chaos
             listLastEffectsMain.Items.Clear();
             progressBarMain.Value = 0;
 
+            didAutoStart = false;
             elapsedCount = 0;
 
             Stopwatch.Reset();
@@ -1095,7 +1103,7 @@ namespace GTA_SA_Chaos
 
         private void ButtonTwitchToggle_Click(object sender, EventArgs e)
         {
-            if (Config.Instance.AutoStartOnNewGame && !didAutoStart)
+            if (Config.Instance.AutoStartOnNewGame && !didAutoStart && MemoryHelper.Read((IntPtr)0xB7CB84, out int playingTime) && playingTime < 1000 * 60)
             {
                 Config.Instance.Enabled = false;
                 AutoStartTimer.Start();
@@ -1152,6 +1160,11 @@ namespace GTA_SA_Chaos
             progressBarMain.Value = 0;
             progressBarTwitch.Value = 0;
             didAutoStart = false;
+        }
+
+        private void CheckBoxContinueTimer_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance.ContinueTimer = checkBoxContinueTimer.Checked;
         }
     }
 }

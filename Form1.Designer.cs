@@ -63,6 +63,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.presetComboBox = new System.Windows.Forms.ComboBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBoxContinueTimer = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxSeed = new System.Windows.Forms.TextBox();
             this.checkBoxAutoStartOnNewGame = new System.Windows.Forms.CheckBox();
@@ -90,6 +91,7 @@
             // 
             // buttonMainToggle
             // 
+            this.buttonMainToggle.Enabled = false;
             this.buttonMainToggle.Location = new System.Drawing.Point(6, 6);
             this.buttonMainToggle.Name = "buttonMainToggle";
             this.buttonMainToggle.Size = new System.Drawing.Size(75, 23);
@@ -427,6 +429,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.checkBoxContinueTimer);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.textBoxSeed);
             this.tabPage1.Controls.Add(this.checkBoxAutoStartOnNewGame);
@@ -436,6 +439,17 @@
             this.tabPage1.Size = new System.Drawing.Size(452, 231);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Settings";
+            // 
+            // checkBoxContinueTimer
+            // 
+            this.checkBoxContinueTimer.AutoSize = true;
+            this.checkBoxContinueTimer.Location = new System.Drawing.Point(6, 185);
+            this.checkBoxContinueTimer.Name = "checkBoxContinueTimer";
+            this.checkBoxContinueTimer.Size = new System.Drawing.Size(210, 17);
+            this.checkBoxContinueTimer.TabIndex = 4;
+            this.checkBoxContinueTimer.Text = "Continue Timer on Game Close / Crash";
+            this.checkBoxContinueTimer.UseVisualStyleBackColor = true;
+            this.checkBoxContinueTimer.CheckedChanged += new System.EventHandler(this.CheckBoxContinueTimer_CheckedChanged);
             // 
             // label8
             // 
@@ -662,6 +676,7 @@
         private System.Windows.Forms.Label labelTestSeed;
         private System.Windows.Forms.Button buttonGenericTest;
         private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.CheckBox checkBoxContinueTimer;
     }
 }
 

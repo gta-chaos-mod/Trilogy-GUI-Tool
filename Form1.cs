@@ -251,7 +251,7 @@ namespace GTA_SA_Chaos
             labelHooked.Text = "Hooked";
 
             buttonMainToggle.Enabled = true;
-            buttonMainToggle.Text = "Start";
+            buttonMainToggle.Text = Config.Instance.Enabled ? "Stop" : "Start";
         }
 
         private void OnTimerTick(object sender, EventArgs e)
@@ -767,7 +767,7 @@ namespace GTA_SA_Chaos
             }
             AutoStartTimer.Stop();
             (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Enabled = true;
-            (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = Config.Instance.Enabled ? "Stop" : "Resume";
+            (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = Config.Instance.Enabled ? "Stop" : "Start";
             comboBoxMainCooldown.Enabled =
                 buttonSwitchMode.Enabled =
                 buttonReset.Enabled = !Config.Instance.Enabled;

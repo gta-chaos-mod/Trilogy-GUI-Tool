@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.buttonMainToggle = new System.Windows.Forms.Button();
-            this.labelHooked = new System.Windows.Forms.Label();
             this.progressBarMain = new System.Windows.Forms.ProgressBar();
             this.tabSettings = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
@@ -66,7 +65,6 @@
             this.checkBoxContinueTimer = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxSeed = new System.Windows.Forms.TextBox();
-            this.checkBoxAutoStartOnNewGame = new System.Windows.Forms.CheckBox();
             this.tabDebug = new System.Windows.Forms.TabPage();
             this.buttonGenericTest = new System.Windows.Forms.Button();
             this.buttonTestSeed = new System.Windows.Forms.Button();
@@ -77,7 +75,7 @@
             this.savePresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonHook = new System.Windows.Forms.Button();
+            this.buttonAutoStart = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
             this.tabSettings.SuspendLayout();
@@ -91,7 +89,6 @@
             // 
             // buttonMainToggle
             // 
-            this.buttonMainToggle.Enabled = false;
             this.buttonMainToggle.Location = new System.Drawing.Point(6, 6);
             this.buttonMainToggle.Name = "buttonMainToggle";
             this.buttonMainToggle.Size = new System.Drawing.Size(75, 23);
@@ -99,16 +96,6 @@
             this.buttonMainToggle.Text = "Start";
             this.buttonMainToggle.UseVisualStyleBackColor = true;
             this.buttonMainToggle.Click += new System.EventHandler(this.ButtonMainToggle_Click);
-            // 
-            // labelHooked
-            // 
-            this.labelHooked.AutoSize = true;
-            this.labelHooked.Location = new System.Drawing.Point(93, 32);
-            this.labelHooked.Name = "labelHooked";
-            this.labelHooked.Size = new System.Drawing.Size(65, 13);
-            this.labelHooked.TabIndex = 2;
-            this.labelHooked.Text = "Not Hooked";
-            this.labelHooked.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // progressBarMain
             // 
@@ -432,7 +419,6 @@
             this.tabPage1.Controls.Add(this.checkBoxContinueTimer);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.textBoxSeed);
-            this.tabPage1.Controls.Add(this.checkBoxAutoStartOnNewGame);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -443,7 +429,7 @@
             // checkBoxContinueTimer
             // 
             this.checkBoxContinueTimer.AutoSize = true;
-            this.checkBoxContinueTimer.Location = new System.Drawing.Point(6, 185);
+            this.checkBoxContinueTimer.Location = new System.Drawing.Point(6, 208);
             this.checkBoxContinueTimer.Name = "checkBoxContinueTimer";
             this.checkBoxContinueTimer.Size = new System.Drawing.Size(210, 17);
             this.checkBoxContinueTimer.TabIndex = 4;
@@ -468,17 +454,6 @@
             this.textBoxSeed.Size = new System.Drawing.Size(399, 20);
             this.textBoxSeed.TabIndex = 1;
             this.textBoxSeed.TextChanged += new System.EventHandler(this.TextBoxSeed_TextChanged);
-            // 
-            // checkBoxAutoStartOnNewGame
-            // 
-            this.checkBoxAutoStartOnNewGame.AutoSize = true;
-            this.checkBoxAutoStartOnNewGame.Location = new System.Drawing.Point(6, 208);
-            this.checkBoxAutoStartOnNewGame.Name = "checkBoxAutoStartOnNewGame";
-            this.checkBoxAutoStartOnNewGame.Size = new System.Drawing.Size(144, 17);
-            this.checkBoxAutoStartOnNewGame.TabIndex = 0;
-            this.checkBoxAutoStartOnNewGame.Text = "Auto Start on New Game";
-            this.checkBoxAutoStartOnNewGame.UseVisualStyleBackColor = true;
-            this.checkBoxAutoStartOnNewGame.CheckedChanged += new System.EventHandler(this.CheckBoxStoreLastEffectToFile_CheckedChanged);
             // 
             // tabDebug
             // 
@@ -564,15 +539,15 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
-            // buttonHook
+            // buttonAutoStart
             // 
-            this.buttonHook.Location = new System.Drawing.Point(12, 27);
-            this.buttonHook.Name = "buttonHook";
-            this.buttonHook.Size = new System.Drawing.Size(75, 23);
-            this.buttonHook.TabIndex = 6;
-            this.buttonHook.Text = "Hook";
-            this.buttonHook.UseVisualStyleBackColor = true;
-            this.buttonHook.Click += new System.EventHandler(this.ButtonHook_Click);
+            this.buttonAutoStart.Location = new System.Drawing.Point(12, 27);
+            this.buttonAutoStart.Name = "buttonAutoStart";
+            this.buttonAutoStart.Size = new System.Drawing.Size(75, 23);
+            this.buttonAutoStart.TabIndex = 6;
+            this.buttonAutoStart.Text = "Auto-Start";
+            this.buttonAutoStart.UseVisualStyleBackColor = true;
+            this.buttonAutoStart.Click += new System.EventHandler(this.ButtonAutoStart_Click);
             // 
             // timerMain
             // 
@@ -596,10 +571,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 325);
             this.Controls.Add(this.buttonSwitchMode);
-            this.Controls.Add(this.buttonHook);
+            this.Controls.Add(this.buttonAutoStart);
             this.Controls.Add(this.tabSettings);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.labelHooked);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -628,7 +602,6 @@
         #endregion
 
         private System.Windows.Forms.Button buttonMainToggle;
-        private System.Windows.Forms.Label labelHooked;
         private System.Windows.Forms.ProgressBar progressBarMain;
         private System.Windows.Forms.TabControl tabSettings;
         private System.Windows.Forms.TabPage tabMain;
@@ -662,13 +635,12 @@
         private System.Windows.Forms.ComboBox comboBoxVotingTime;
         private System.Windows.Forms.ProgressBar progressBarTwitch;
         private System.Windows.Forms.Button buttonTwitchToggle;
-        private System.Windows.Forms.Button buttonHook;
+        private System.Windows.Forms.Button buttonAutoStart;
         private System.Windows.Forms.Timer timerMain;
         private System.Windows.Forms.Button buttonSwitchMode;
         private System.Windows.Forms.CheckBox checkBoxTwitchAllowVoting;
         private System.Windows.Forms.Label labelTwitchCurrentMode;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.CheckBox checkBoxAutoStartOnNewGame;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxSeed;
         private System.Windows.Forms.TabPage tabDebug;

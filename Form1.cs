@@ -21,7 +21,6 @@ namespace GTA_SA_Chaos
         private int elapsedCount;
         private readonly System.Timers.Timer AutoStartTimer;
         private int introState = 1;
-        private bool didAutoStart;
 
         public Form1()
         {
@@ -49,8 +48,6 @@ namespace GTA_SA_Chaos
             PopulateVotingCooldowns();
 
             TryLoadConfig();
-
-            ReloadProcess();
         }
 
         private void AutoStartTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -70,7 +67,7 @@ namespace GTA_SA_Chaos
 
             if (introState == 0 && new_introState == 1 && playingTime < 1000 * 60)
             {
-                labelHooked.Invoke(new Action(() => SetAutoStart()));
+                buttonAutoStart.Invoke(new Action(() => SetAutostart()));
             }
 
             introState = new_introState;
@@ -150,7 +147,6 @@ namespace GTA_SA_Chaos
             textBoxTwitchUsername.Text = Config.Instance.TwitchUsername;
             textBoxTwitchOAuth.Text = Config.Instance.TwitchOAuthToken;
 
-            checkBoxAutoStartOnNewGame.Checked = Config.Instance.AutoStartOnNewGame;
             checkBoxContinueTimer.Checked = Config.Instance.ContinueTimer;
 
             textBoxSeed.Text = Config.Instance.Seed;
@@ -176,25 +172,13 @@ namespace GTA_SA_Chaos
             }
         }
 
-        private void ButtonHook_Click(object sender, EventArgs e)
+        private void ButtonAutoStart_Click(object sender, EventArgs e)
         {
-            if (ProcessHooker.HasExited())
-            {
-                ReloadProcess();
-            }
+            TrySetupAutostart();
         }
 
         private void CallEffect(AbstractEffect effect = null)
         {
-            if (ProcessHooker.HasExited())
-            {
-                ReloadProcess();
-                if (ProcessHooker.HasExited())
-                {
-                    return;
-                }
-            }
-
             if (effect == null)
             {
                 effect = EffectDatabase.RunEffect(EffectDatabase.GetRandomEffect(true));
@@ -207,13 +191,17 @@ namespace GTA_SA_Chaos
             AddEffectToListBox(effect);
         }
 
-        private void ReloadProcess()
+        private void TrySetupAutostart()
         {
-            ProcessHooker.HookProcess();
+            if (ProcessHooker.HasExited()) // Make sure we are hookedtr
+            {
+                ProcessHooker.HookProcess();
+            }
+
             if (ProcessHooker.HasExited())
             {
-                buttonHook.Enabled = true;
-                labelHooked.Text = "Not Hooked";
+                buttonAutoStart.Enabled = true;
+                buttonAutoStart.Text = "Auto-Start";
 
                 if (!Config.Instance.ContinueTimer)
                 {
@@ -222,16 +210,15 @@ namespace GTA_SA_Chaos
                     elapsedCount = 0;
                     Stopwatch.Reset();
 
-                    buttonMainToggle.Enabled = false;
-                    buttonMainToggle.Text = "Start";
+                    buttonMainToggle.Enabled = true;
                 }
                 return;
             }
 
-            ProcessHooker.AttachExitedMethod((sender, e) => labelHooked.Invoke(new Action(() =>
+            ProcessHooker.AttachExitedMethod((sender, e) => buttonAutoStart.Invoke(new Action(() =>
             {
-                buttonHook.Enabled = true;
-                labelHooked.Text = "Not Hooked";
+                buttonAutoStart.Enabled = true;
+                buttonAutoStart.Text = "Auto-Start";
 
                 if (!Config.Instance.ContinueTimer)
                 {
@@ -240,18 +227,18 @@ namespace GTA_SA_Chaos
                     elapsedCount = 0;
                     Stopwatch.Reset();
 
-                    buttonMainToggle.Enabled = false;
-                    buttonMainToggle.Text = "Start";
+                    buttonMainToggle.Enabled = true;
                 }
 
                 ProcessHooker.CloseProcess();
             })));
 
-            buttonHook.Enabled = false;
-            labelHooked.Text = "Hooked";
+            buttonAutoStart.Enabled = false;
+            buttonAutoStart.Text = "Waiting...";
 
-            buttonMainToggle.Enabled = true;
-            buttonMainToggle.Text = Config.Instance.Enabled ? "Stop" : "Start";
+            Config.Instance.Enabled = false;
+            AutoStartTimer.Start();
+            buttonMainToggle.Enabled = false;
         }
 
         private void OnTimerTick(object sender, EventArgs e)
@@ -346,7 +333,7 @@ namespace GTA_SA_Chaos
                     AbstractEffect effect = Twitch.GetRandomVotedEffect(out string username);
 
                     Twitch.SetVoting(false, item.VotingCooldown, item.Text, effect, username);
-                    if (!Config.Instance.TwitchDontActivateEffects && ProcessHooker.HasExited())
+                    if (!Config.Instance.TwitchDontActivateEffects)
                     {
                         CallEffect(effect);
                     }
@@ -403,7 +390,7 @@ namespace GTA_SA_Chaos
                         AbstractEffect effect = Twitch.GetRandomVotedEffect(out string username);
 
                         Twitch.SetVoting(false, item.VotingCooldown, item.Text, effect, username);
-                        if (!Config.Instance.TwitchDontActivateEffects && ProcessHooker.HasExited())
+                        if (!Config.Instance.TwitchDontActivateEffects)
                         {
                             CallEffect(effect);
                         }
@@ -744,14 +731,12 @@ namespace GTA_SA_Chaos
             Config.Instance.TwitchVotingCooldown = item.VotingCooldown;
         }
 
-        private void SetAutoStart()
+        private void SetAutostart()
         {
-            if (Config.Instance.AutoStartOnNewGame)
-            {
-                didAutoStart = true;
-                Stopwatch.Reset();
-                SetEnabled(true);
-            }
+            buttonAutoStart.Enabled = true;
+            buttonAutoStart.Text = "Auto-Start";
+            Stopwatch.Reset();
+            SetEnabled(true);
         }
 
         private void SetEnabled(bool enabled)
@@ -775,17 +760,7 @@ namespace GTA_SA_Chaos
 
         private void ButtonMainToggle_Click(object sender, EventArgs e)
         {
-            if (Config.Instance.AutoStartOnNewGame && !didAutoStart && MemoryHelper.Read((IntPtr)0xB7CB84, out int playingTime) && playingTime < 1000 * 60)
-            {
-                Config.Instance.Enabled = false;
-                AutoStartTimer.Start();
-                (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Enabled = false;
-                (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = "Waiting...";
-            }
-            else
-            {
-                SetEnabled(!Config.Instance.Enabled);
-            }
+            SetEnabled(!Config.Instance.Enabled);
         }
 
         private void CheckAllChildNodes(TreeNode treeNode, bool nodeChecked)
@@ -1094,7 +1069,6 @@ namespace GTA_SA_Chaos
             listLastEffectsMain.Items.Clear();
             progressBarMain.Value = 0;
 
-            didAutoStart = false;
             elapsedCount = 0;
 
             Stopwatch.Reset();
@@ -1103,17 +1077,7 @@ namespace GTA_SA_Chaos
 
         private void ButtonTwitchToggle_Click(object sender, EventArgs e)
         {
-            if (Config.Instance.AutoStartOnNewGame && !didAutoStart && MemoryHelper.Read((IntPtr)0xB7CB84, out int playingTime) && playingTime < 1000 * 60)
-            {
-                Config.Instance.Enabled = false;
-                AutoStartTimer.Start();
-                (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Enabled = false;
-                (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = "Waiting...";
-            }
-            else
-            {
-                SetEnabled(!Config.Instance.Enabled);
-            }
+            SetEnabled(!Config.Instance.Enabled);
         }
 
         private void CheckBoxDontActivateEffects_CheckedChanged(object sender, EventArgs e)
@@ -1124,11 +1088,6 @@ namespace GTA_SA_Chaos
         private void CheckBoxAllowVoting_CheckedChanged(object sender, EventArgs e)
         {
             Config.Instance.TwitchAllowVoting = comboBoxVotingTime.Enabled = checkBoxTwitchAllowVoting.Checked;
-        }
-
-        private void CheckBoxStoreLastEffectToFile_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance.AutoStartOnNewGame = checkBoxAutoStartOnNewGame.Checked;
         }
 
         private void TextBoxSeed_TextChanged(object sender, EventArgs e)
@@ -1144,11 +1103,8 @@ namespace GTA_SA_Chaos
 
         private void ButtonGenericTest_Click(object sender, EventArgs e)
         {
-            //ProcessHooker.SendPipeMessage("timed_effect");
-            //ProcessHooker.SendPipeMessage("totheleft_totheright:60000:To the left, to the right");
-
-            //ProcessHooker.SendPipeMessage("timed_cheat");
-            //ProcessHooker.SendPipeMessage("mega_jump:10000:Mega Jump");
+            //ProcessHooker.SendEffectToGame("timed_effect", "inverted_controls", 30000, "Inverted Controls");
+            ProcessHooker.SendEffectToGame("timed_effect", "rainbow_cars", 30000, "Rainbow Cars");
         }
 
         private void ButtonReset_Click(object sender, EventArgs e)
@@ -1156,10 +1112,10 @@ namespace GTA_SA_Chaos
             SetEnabled(false);
             Stopwatch.Reset();
             elapsedCount = 0;
-            (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = "Start";
             progressBarMain.Value = 0;
-            progressBarTwitch.Value = 0;
-            didAutoStart = false;
+            buttonMainToggle.Enabled = false;
+            buttonMainToggle.Text = "Start";
+            buttonReset.Enabled = false;
         }
 
         private void CheckBoxContinueTimer_CheckedChanged(object sender, EventArgs e)

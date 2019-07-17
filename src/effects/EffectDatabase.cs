@@ -145,6 +145,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Little Suspension Damping", "BouncinUpAndDown", "timed_effect", "bouncy_vehicles"), // Cars have very little suspension damping
             new FunctionEffect(Category.CustomEffects, "Zero Suspension Damping", "LowrideAllNight", "timed_effect", "very_bouncy_vehicles"),  // Cars have almost zero suspension damping
             new FunctionEffect(Category.CustomEffects, "Long Live The Rich!", "LongLiveTheRich", "timed_effect", "long_live_the_rich"),  // Money = Health, shoot people to gain money, take damage to lose it
+            new FunctionEffect(Category.CustomEffects, "Inverted Controls", "InvertedControls", "timed_effect", "inverted_controls"),  // Inverts some controls
 
             new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower),

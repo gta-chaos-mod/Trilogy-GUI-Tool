@@ -26,7 +26,7 @@ namespace GTA_SA_Chaos
         {
             InitializeComponent();
 
-            Text = "GTA:SA Chaos v0.993";
+            Text = "GTA:SA Chaos v0.994";
             tabSettings.TabPages.Remove(tabDebug);
 
             Stopwatch = new Stopwatch();

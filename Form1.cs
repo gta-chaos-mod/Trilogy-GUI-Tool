@@ -1113,7 +1113,7 @@ namespace GTA_SA_Chaos
             Stopwatch.Reset();
             elapsedCount = 0;
             progressBarMain.Value = 0;
-            buttonMainToggle.Enabled = false;
+            buttonMainToggle.Enabled = true;
             buttonMainToggle.Text = "Start";
             buttonReset.Enabled = false;
         }

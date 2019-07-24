@@ -31,8 +31,7 @@ namespace GTA_SA_Chaos.src.effects.extra
             int actualID = vehicleID;
             if (actualID == -1)
             {
-                Random random = new Random();
-                actualID = random.Next(400, 611);
+                actualID = RandomHandler.Next(400, 611);
             }
 
             string spawnString = $"Spawn {VehicleNames.GetVehicleName(actualID)}";

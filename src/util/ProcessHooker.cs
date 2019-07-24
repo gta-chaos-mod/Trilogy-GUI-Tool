@@ -52,7 +52,7 @@ namespace GTA_SA_Chaos
                             sw.WriteLine(func);
                         }
                     }
-                    catch (TimeoutException) {
+                    catch {
                         // Timeouts are okay, don't log anything
                     }
                 }

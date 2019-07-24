@@ -90,7 +90,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.PedsAndCo, "Prostitutes Pay You", "ReverseHooker", "timed_cheat", "reverse_hooker"), // Prostitutes pay you
             new FunctionEffect(Category.PedsAndCo, "Beach Party", "LifesABeach", "timed_cheat", "beach_party"), // Beach party
             new FunctionEffect(Category.PedsAndCo, "Ninja Theme", "NinjaTown", "timed_cheat", "ninja_theme"), // Ninja theme
-            new FunctionEffect(Category.PedsAndCo, "Slut Magnet", "LoveConquersAll", "timed_cheat", "slut_magnet"), // Slut magnet
+            new FunctionEffect(Category.PedsAndCo, "Kinky Theme", "LoveConquersAll", "timed_cheat", "kinky_theme"), // Kinky theme
             new FunctionEffect(Category.PedsAndCo, "Funhouse Theme", "CrazyTown", "timed_cheat", "funhouse_theme"), // Funhouse theme
             new FunctionEffect(Category.PedsAndCo, "Country Traffic", "HicksVille", "timed_cheat", "country_traffic"), // Country traffic
 

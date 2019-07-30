@@ -500,6 +500,35 @@ namespace GTA_SA_Chaos
 
         private void PopulatePresets()
         {
+            presetComboBox.Items.Add(new PresetComboBoxItem("Speedrun", reversed: false, new string[]
+            {
+                "HE1", "HE2", "HE3", "HE4", "HE6",
+
+                "WA1", "WA2", "WA3", "WA4",
+
+                "WE1", "WE2", "WE3", "WE4", "WE5", "WE6", "WE7",
+
+                "SP1", "SP2", "SP19",
+
+                "TI1", "TI2", "TI3", "TI4", "TI5", "TI6", "TI7",
+
+                "VE1", "VE2", "VE3", "VE4", "VE5", "VE6", "VE7", "VE8", "VE9",
+                "VE10", "VE11", "VE12", "VE13", "VE14", "VE15",
+
+                "PE1", "PE2", "PE3", "PE4", "PE5", "PE6", "PE7", "PE8", "PE9", "PE10",
+                "PE11", "PE12", "PE13",
+
+                "MO1", "MO3", "MO4", "MO5", "MO6",
+
+                "ST4", "ST5", "ST6", "ST7", "ST8", "ST9",
+
+                "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
+                "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
+                "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
+                "CE31", "CE32", "CE33", "CE34", "CE35",
+
+                "TP1"
+            }));
             presetComboBox.Items.Add(new PresetComboBoxItem("Harmless", reversed: false, new string[]
             {
                 "HE1", "HE2", "HE3", "HE5", "HE6",
@@ -512,7 +541,7 @@ namespace GTA_SA_Chaos
                 "VE12", "VE13", "VE14", "VE15", "VE16",
 
                 "PE3", "PE5", "PE8", "PE10",
-                "PE11", "PE12", "PE13", "PE14", "PE15", "PE16",
+                "PE11", "PE12", "PE13", "PE14", "PE15", "PE16", "PE17",
 
                 "MO1", "MO2", "MO3", "MO4", "MO5", "MO6",
 
@@ -539,14 +568,14 @@ namespace GTA_SA_Chaos
                 "VE11",
 
                 "PE1", "PE2", "PE4", "PE6", "PE7", "PE9",
-                "PE17",
+                "PE18",
 
                 "ST1", "ST3",
 
                 "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
                 "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
-                "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29",
-                "CE30", "CE31", "CE32", "CE33",
+                "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
+                "CE31", "CE32", "CE33", "CE34", "CE35",
 
                 "TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TP7", "TP8", "TP9", "TP10",
                 "TP11", "TP12",
@@ -568,14 +597,14 @@ namespace GTA_SA_Chaos
                 "VE11", "VE15",
 
                 "PE1", "PE2", "PE6", "PE7", "PE8", "PE9",
-                "PE17",
+                "PE18",
 
                 "ST1", "ST3",
 
                 "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
                 "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
                 "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29",
-                "CE30", "CE31", "CE32", "CE33",
+                "CE30", "CE31", "CE32", "CE33", "CE34", "CE35",
 
                 "TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TP7", "TP8", "TP9", "TP10",
                 "TP11", "TP12",
@@ -583,7 +612,7 @@ namespace GTA_SA_Chaos
             presetComboBox.Items.Add(new PresetComboBoxItem("Everything", reversed: true, new string[] { }));
             presetComboBox.Items.Add(new PresetComboBoxItem("Nothing", reversed: false, new string[] { }));
 
-            presetComboBox.SelectedIndex = 3;
+            presetComboBox.SelectedIndex = 0;
         }
 
         private class PresetComboBoxItem

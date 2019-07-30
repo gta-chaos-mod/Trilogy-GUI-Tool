@@ -19,6 +19,7 @@ namespace GTA_SA_Chaos.effects
 
         public override void RunEffect()
         {
+            SendEffectToGame("set_seed", RandomHandler.Next(9999999).ToString());
             SendEffectToGame(type, function, duration);
         }
     }

@@ -1,4 +1,4 @@
-using GTA_SA_Chaos.src.effects.extra;
+﻿using GTA_SA_Chaos.src.effects.extra;
 using GTA_SA_Chaos.util;
 using System;
 using System.Collections.Generic;
@@ -97,7 +97,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.PlayerModifications, "Weapon Aiming While Driving", "IWannaDriveBy", "timed_cheat", "drive_by"), // Weapon aiming while driving
             new FunctionEffect(Category.PlayerModifications, "Huge Bunny Hop", "CJPhoneHome", "timed_cheat", "huge_bunny_hop"), // Huge bunny hop
             new FunctionEffect(Category.PlayerModifications, "Mega Jump", "Kangaroo", "timed_cheat", "mega_jump"), // Mega jump
-            new FunctionEffect(Category.PlayerModifications, "Infinite Health", "NoOneCanHurtMe", "timed_cheat", "infinite_health"), // Infinite health
+            new FunctionEffect(Category.PlayerModifications, "Infinite Health", "NoOneCanHurtMe", "timed_effect", "infinite_health"), // Infinite health
             new FunctionEffect(Category.PlayerModifications, "Infinite Oxygen", "ManFromAtlantis", "timed_cheat", "infinite_oxygen"), // Infinite oxygen
             new FunctionEffect(Category.PlayerModifications, "Mega Punch", "StingLikeABee", "timed_cheat", "mega_punch"), // Mega punch
 

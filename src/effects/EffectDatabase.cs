@@ -1,4 +1,4 @@
-﻿using GTA_SA_Chaos.src.effects.extra;
+using GTA_SA_Chaos.src.effects.extra;
 using GTA_SA_Chaos.util;
 using System;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ namespace GTA_SA_Chaos.effects
     {
         public static List<AbstractEffect> Effects { get; } = new List<AbstractEffect>
         {
-            new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 1", "ThugsArmoury", "weapons", "0"), // Weapon Set 1
-            new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 2", "ProfessionalsKit", "weapons", "1"), // Weapon Set 2
-            new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 3", "NuttersToys", "weapons", "2"), // Weapon Set 3
+            new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 1", "ThugsArmoury", "cheat", "weapon_set_1"), // Weapon Set 1
+            new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 2", "ProfessionalsKit", "cheat", "weapon_set_2"), // Weapon Set 2
+            new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 3", "NuttersToys", "cheat", "weapon_set_3"), // Weapon Set 3
             new FunctionEffect(Category.WeaponsAndHealth, "Health, Armor, $250k", "INeedSomeHelp", "cheat", "give_health_armor_money"), // Health, Armor, $250k
             new FunctionEffect(Category.WeaponsAndHealth, "Suicide", "GoodbyeCruelWorld", "cheat", "suicide"), // Suicide
             new FunctionEffect(Category.WeaponsAndHealth, "Infinite Ammo", "FullClip", "timed_cheat", "infinite_ammo"), // Infinite ammo
@@ -29,7 +29,7 @@ namespace GTA_SA_Chaos.effects
             new WeatherEffect("Thunderstorm", "ScottishSummer", 16), // Thunder storm
             new WeatherEffect("Sandstorm", "SandInMyEars", 19), // Sand storm
 
-            new FunctionEffect(Category.Spawning, "Get Parachute", "LetsGoBaseJumping", "weapons", "3"), // Get Parachute
+            new FunctionEffect(Category.Spawning, "Get Parachute", "LetsGoBaseJumping", "cheat", "parachute"), // Get Parachute
             new FunctionEffect(Category.Spawning, "Get Jetpack", "Rocketman", "cheat", "jetpack"), // Get Jetpack
             new SpawnVehicleEffect("TimeToKickAss", 432), // Spawn Rhino
             new SpawnVehicleEffect("OldSpeedDemon", 504), // Spawn Bloodring Banger

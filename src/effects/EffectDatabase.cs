@@ -139,13 +139,14 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Lock Player Inside Vehicle", "ThereIsNoEscape", "effect", "there_is_no_escape"), // Lock player inside vehicle
             new FunctionEffect(Category.CustomEffects, "Disable Radar Blips", "BlipsBeGone", "timed_effect", "disable_radar_blips"), // Disable Radar Blips
             new FunctionEffect(Category.CustomEffects, "Disable All Weapon Damage", "TruePacifist", "timed_effect", "true_pacifist"), // Disable all Weapon Damage
-            new FunctionEffect(Category.CustomEffects, "Carl Is Uncontrollable", "LetsTakeABreak", "timed_effect", "lets_take_a_break", 1000 * 10), // Carl is uncontrollable
+            new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "timed_effect", "lets_take_a_break", 1000 * 10), // Let's take a break
             new FunctionEffect(Category.CustomEffects, "Rainbow Cars", "AllColorsAreBeautiful", "timed_effect", "rainbow_cars"), // Rainbow Cars
             new FunctionEffect(Category.CustomEffects, "High Suspension Damping", "VeryDampNoBounce", "timed_effect", "no_bouncy_vehicles"), // Cars have high suspension damping
             new FunctionEffect(Category.CustomEffects, "Little Suspension Damping", "BouncinUpAndDown", "timed_effect", "bouncy_vehicles"), // Cars have very little suspension damping
             new FunctionEffect(Category.CustomEffects, "Zero Suspension Damping", "LowrideAllNight", "timed_effect", "very_bouncy_vehicles"),  // Cars have almost zero suspension damping
             new FunctionEffect(Category.CustomEffects, "Long Live The Rich!", "LongLiveTheRich", "timed_effect", "long_live_the_rich"),  // Money = Health, shoot people to gain money, take damage to lose it
             new FunctionEffect(Category.CustomEffects, "Inverted Controls", "InvertedControls", "timed_effect", "inverted_controls"),  // Inverts some controls
+            new FunctionEffect(Category.CustomEffects, "Disable One Movement Key", "DisableOneMovementKey", "timed_effect", "disable_one_movement_key"),  // Disable one movement key
 
             new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower),

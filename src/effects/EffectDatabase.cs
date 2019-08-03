@@ -1,4 +1,4 @@
-using GTA_SA_Chaos.src.effects.extra;
+﻿using GTA_SA_Chaos.src.effects.extra;
 using GTA_SA_Chaos.util;
 using System;
 using System.Collections.Generic;
@@ -114,7 +114,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Pop Tires Of All Vehicles", "TiresBeGone", "effect", "pop_vehicle_tires"), // Pop tires of all vehicles
             new FunctionEffect(Category.CustomEffects, "Set Current Vehicle On Fire", "WayTooHot", "effect", "set_vehicle_on_fire"), // Set current vehicle on fire
             new FunctionEffect(Category.CustomEffects, "Turn Vehicles Around", "TurnAround", "effect", "turn_vehicles_around"), // Turn vehicles around
-            new FunctionEffect(Category.CustomEffects, "Stairway To Heaven", "StairwayToHeaven", "effect", "stairway_to_heaven"), // Gives an immense upwards boost to the current vehicle
+            new FunctionEffect(Category.CustomEffects, "Send Vehicles To Space", "StairwayToHeaven", "effect", "send_vehicles_to_space"), // Gives an immense upwards boost to all vehicles
             new FunctionEffect(Category.CustomEffects, "Get Busted", "GoToJail", "effect", "player_busted"), // Get's you busted on the spot
             new FunctionEffect(Category.CustomEffects, "Get Wasted", "Hospitality", "effect", "player_wasted"), // Get's you wasted on the spot
             new FunctionEffect(Category.CustomEffects, "One Hit K.O.", "ILikeToLiveDangerously", "timed_effect", "one_hit_ko"), // One Hit K.O.

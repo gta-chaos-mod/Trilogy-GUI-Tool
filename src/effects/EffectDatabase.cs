@@ -1,4 +1,4 @@
-﻿using GTA_SA_Chaos.src.effects.extra;
+using GTA_SA_Chaos.src.effects.extra;
 using GTA_SA_Chaos.util;
 using System;
 using System.Collections.Generic;
@@ -147,6 +147,10 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Long Live The Rich!", "LongLiveTheRich", "timed_effect", "long_live_the_rich"),  // Money = Health, shoot people to gain money, take damage to lose it
             new FunctionEffect(Category.CustomEffects, "Inverted Controls", "InvertedControls", "timed_effect", "inverted_controls"),  // Inverts some controls
             new FunctionEffect(Category.CustomEffects, "Disable One Movement Key", "DisableOneMovementKey", "timed_effect", "disable_one_movement_key"),  // Disable one movement key
+            new FunctionEffect(Category.CustomEffects, "Fail Current Mission", "LetsTryThatAgain", "timed_effect", "fail_mission"), // Fail Current Mission
+            new FunctionEffect(Category.CustomEffects, "Night Vision", "NightVision", "timed_effect", "night_vision"), // Night Vision
+            new FunctionEffect(Category.CustomEffects, "Thermal Vision", "ThermalVision", "timed_effect", "thermal_vision"), // Thermal Vision
+            new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IllTakeAFreePass", "timed_effect", "pass_mission"), // Pass Current Mission
 
             new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower),

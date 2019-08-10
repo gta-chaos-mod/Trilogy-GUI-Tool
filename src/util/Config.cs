@@ -20,6 +20,7 @@ namespace GTA_SA_Chaos.util
         public int MainCooldown;
         public bool ContinueTimer;
         public string Seed;
+        public bool CrypticEffects;
 
         public bool TwitchAllowVoting;
         public int TwitchVotingTime;

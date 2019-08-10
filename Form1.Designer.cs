@@ -78,6 +78,7 @@
             this.buttonAutoStart = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
+            this.checkBoxCrypticEffects = new System.Windows.Forms.CheckBox();
             this.tabSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabTwitch.SuspendLayout();
@@ -416,6 +417,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.checkBoxCrypticEffects);
             this.tabPage1.Controls.Add(this.checkBoxContinueTimer);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.textBoxSeed);
@@ -565,6 +567,17 @@
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
+            // checkBoxCrypticEffects
+            // 
+            this.checkBoxCrypticEffects.AutoSize = true;
+            this.checkBoxCrypticEffects.Location = new System.Drawing.Point(6, 185);
+            this.checkBoxCrypticEffects.Name = "checkBoxCrypticEffects";
+            this.checkBoxCrypticEffects.Size = new System.Drawing.Size(94, 17);
+            this.checkBoxCrypticEffects.TabIndex = 5;
+            this.checkBoxCrypticEffects.Text = "Cryptic Effects";
+            this.checkBoxCrypticEffects.UseVisualStyleBackColor = true;
+            this.checkBoxCrypticEffects.CheckedChanged += new System.EventHandler(this.CheckBoxCrypticEffects_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -649,6 +662,7 @@
         private System.Windows.Forms.Button buttonGenericTest;
         private System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.CheckBox checkBoxContinueTimer;
+        private System.Windows.Forms.CheckBox checkBoxCrypticEffects;
     }
 }
 

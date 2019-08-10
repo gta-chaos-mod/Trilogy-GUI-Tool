@@ -105,8 +105,11 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.Stats, "Max Muscle", "BuffMeUp", "cheat", "max_muscle"), // Max muscle
             new FunctionEffect(Category.Stats, "Skinny Player", "LeanAndMean", "cheat", "skinny_player"), // Skinny player
             new FunctionEffect(Category.Stats, "Max Stamina", "ICanGoAllNight", "effect", "max_stamina"), // Max stamina
+            new FunctionEffect(Category.Stats, "No Stamina", "ImAllOutOfBreath", "effect", "no_stamina"), // No stamina
             new FunctionEffect(Category.Stats, "Hitman Level For All Weapons", "ProfessionalKiller", "effect", "max_weapon_skill"), // Hitman level for all weapons
+            new FunctionEffect(Category.Stats, "Beginner Level For All Weapons", "BabysFirstGun", "effect", "no_weapon_skill"), // Beginner level for all weapons
             new FunctionEffect(Category.Stats, "Max Driving Skills", "NaturalTalent", "effect", "max_driving_skill"), // Max driving skills
+            new FunctionEffect(Category.Stats, "No Driving Skills", "BackToDrivingSchool", "effect", "max_driving_skill"), // No driving skills
             new FunctionEffect(Category.Stats, "Never Get Hungry", "IAmNeverHungry", "timed_cheat", "never_hungry"), // Never get hungry
             new FunctionEffect(Category.Stats, "Lock Respect At Max", "WorshipMe", "timed_cheat", "lock_respect"), // Lock respect at max
             new FunctionEffect(Category.Stats, "Lock Sex Appeal At Max", "HelloLadies", "timed_cheat", "lock_sex_appeal"), // Lock sex appeal at max
@@ -151,6 +154,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Night Vision", "NightVision", "timed_effect", "night_vision"), // Night Vision
             new FunctionEffect(Category.CustomEffects, "Thermal Vision", "ThermalVision", "timed_effect", "thermal_vision"), // Thermal Vision
             new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IllTakeAFreePass", "timed_effect", "pass_mission"), // Pass Current Mission
+            new FunctionEffect(Category.CustomEffects, "Cryptic Effects", "ZalgoRules", "timed_effect", "cryptic_effects", -1, 5), // Cryptic Effects
 
             new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower),

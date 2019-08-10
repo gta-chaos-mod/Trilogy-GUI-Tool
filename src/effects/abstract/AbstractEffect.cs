@@ -25,12 +25,14 @@ namespace GTA_SA_Chaos.effects
 
         public abstract void RunEffect();
 
-        public void SendEffectToGame(string type, string function, int duration = -1, string description = "")
+        public void SendEffectToGame(string type, string function, int duration = -1, string description = "", int multiplier = 1)
         {
             if (duration == -1)
             {
                 duration = Config.GetEffectDuration();
             }
+
+            duration *= multiplier;
 
             if (string.IsNullOrEmpty(description))
             {

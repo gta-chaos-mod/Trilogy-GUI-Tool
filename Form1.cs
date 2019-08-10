@@ -148,6 +148,7 @@ namespace GTA_SA_Chaos
             textBoxTwitchOAuth.Text = Config.Instance.TwitchOAuthToken;
 
             checkBoxContinueTimer.Checked = Config.Instance.ContinueTimer;
+            checkBoxCrypticEffects.Checked = Config.Instance.CrypticEffects;
 
             textBoxSeed.Text = Config.Instance.Seed;
         }
@@ -520,12 +521,14 @@ namespace GTA_SA_Chaos
 
                 "MO1", "MO3", "MO4", "MO5", "MO6",
 
-                "ST4", "ST5", "ST6", "ST7", "ST8", "ST9",
+                "ST4", "ST5", "ST6", "ST7", "ST8", "ST9", "ST10",
+                "ST11", "ST12",
 
                 "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
                 "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
                 "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
                 "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE39", "CE40",
+                "CE41",
 
                 "TP1"
             }));
@@ -545,7 +548,8 @@ namespace GTA_SA_Chaos
 
                 "MO1", "MO2", "MO3", "MO4", "MO5", "MO6",
 
-                "ST2", "ST4", "ST5", "ST6", "ST7", "ST8", "ST9",
+                "ST2", "ST4", "ST6", "ST8", "ST10",
+                "ST11", "ST12",
 
                 "CE11", "CE12",
                 "CE22", "CE23",
@@ -571,12 +575,13 @@ namespace GTA_SA_Chaos
                 "PE1", "PE2", "PE4", "PE6", "PE7", "PE9",
                 "PE18",
 
-                "ST1", "ST3",
+                "ST1", "ST3", "ST5", "ST7", "ST9",
 
                 "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
                 "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
                 "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
                 "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE38", "CE39",
+                "CE41",
 
                 "TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TP7", "TP8", "TP9", "TP10",
                 "TP11", "TP12",
@@ -600,12 +605,13 @@ namespace GTA_SA_Chaos
                 "PE1", "PE2", "PE6", "PE7", "PE8", "PE9",
                 "PE18",
 
-                "ST1", "ST3",
+                "ST1", "ST3", "ST5", "ST7", "ST9",
 
                 "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
                 "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
                 "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
                 "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE38", "CE39",
+                "CE41",
 
                 "TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TP7", "TP8", "TP9", "TP10",
                 "TP11", "TP12",
@@ -1151,6 +1157,11 @@ namespace GTA_SA_Chaos
         private void CheckBoxContinueTimer_CheckedChanged(object sender, EventArgs e)
         {
             Config.Instance.ContinueTimer = checkBoxContinueTimer.Checked;
+        }
+
+        private void CheckBoxCrypticEffects_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance.CrypticEffects = checkBoxCrypticEffects.Checked;
         }
     }
 }

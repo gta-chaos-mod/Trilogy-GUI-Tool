@@ -109,7 +109,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.Stats, "Hitman Level For All Weapons", "ProfessionalKiller", "effect", "max_weapon_skill"), // Hitman level for all weapons
             new FunctionEffect(Category.Stats, "Beginner Level For All Weapons", "BabysFirstGun", "effect", "no_weapon_skill"), // Beginner level for all weapons
             new FunctionEffect(Category.Stats, "Max Driving Skills", "NaturalTalent", "effect", "max_driving_skill"), // Max driving skills
-            new FunctionEffect(Category.Stats, "No Driving Skills", "BackToDrivingSchool", "effect", "max_driving_skill"), // No driving skills
+            new FunctionEffect(Category.Stats, "No Driving Skills", "BackToDrivingSchool", "effect", "no_driving_skill"), // No driving skills
             new FunctionEffect(Category.Stats, "Never Get Hungry", "IAmNeverHungry", "timed_cheat", "never_hungry"), // Never get hungry
             new FunctionEffect(Category.Stats, "Lock Respect At Max", "WorshipMe", "timed_cheat", "lock_respect"), // Lock respect at max
             new FunctionEffect(Category.Stats, "Lock Sex Appeal At Max", "HelloLadies", "timed_cheat", "lock_sex_appeal"), // Lock sex appeal at max

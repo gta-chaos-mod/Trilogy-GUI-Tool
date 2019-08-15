@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace GTA_SA_Chaos.util
 {
@@ -19,6 +19,7 @@ namespace GTA_SA_Chaos.util
         public bool ContinueTimer;
         public string Seed;
         public bool CrypticEffects;
+        public bool MainShowLastEffects;
 
         public bool TwitchAllowVoting;
         public int TwitchVotingTime;
@@ -26,6 +27,7 @@ namespace GTA_SA_Chaos.util
 
         public bool TwitchIsHost;
         public bool TwitchDontActivateEffects;
+        public bool TwitchShowLastEffects;
 
         public string TwitchChannel;
         public string TwitchUsername;

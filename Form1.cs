@@ -28,6 +28,7 @@ namespace GTA_SA_Chaos
 
             Text = "GTA:SA Chaos v0.999";
             tabSettings.TabPages.Remove(tabDebug);
+            //buttonSwitchMode.Visible = false;
 
             Stopwatch = new Stopwatch();
             AutoStartTimer = new System.Timers.Timer()
@@ -100,13 +101,17 @@ namespace GTA_SA_Chaos
 
         private void SaveConfig()
         {
-            JsonSerializer serializer = new JsonSerializer();
-
-            using (StreamWriter sw = new StreamWriter(ConfigPath))
-            using (JsonTextWriter writer = new JsonTextWriter(sw))
+            try
             {
-                serializer.Serialize(writer, Config.Instance);
+                JsonSerializer serializer = new JsonSerializer();
+
+                using (StreamWriter sw = new StreamWriter(ConfigPath))
+                using (JsonTextWriter writer = new JsonTextWriter(sw))
+                {
+                    serializer.Serialize(writer, Config.Instance);
+                }
             }
+            catch (Exception) { }
         }
 
         private void UpdateInterface()
@@ -150,6 +155,9 @@ namespace GTA_SA_Chaos
             checkBoxContinueTimer.Checked = Config.Instance.ContinueTimer;
             checkBoxCrypticEffects.Checked = Config.Instance.CrypticEffects;
 
+            checkBoxShowLastEffectsMain.Checked = Config.Instance.MainShowLastEffects;
+            checkBoxShowLastEffectsTwitch.Checked = Config.Instance.TwitchShowLastEffects;
+
             textBoxSeed.Text = Config.Instance.Seed;
         }
 
@@ -165,7 +173,7 @@ namespace GTA_SA_Chaos
                 }
             }
 
-            ListBox listBox = Config.Instance.IsTwitchMode ? lastEffectsTwitch : listLastEffectsMain;
+            ListBox listBox = Config.Instance.IsTwitchMode ? listLastEffectsTwitch : listLastEffectsMain;
             listBox.Items.Insert(0, Description);
             if (listBox.Items.Count > 7)
             {
@@ -1093,22 +1101,42 @@ namespace GTA_SA_Chaos
 
         private void ButtonSwitchMode_Click(object sender, EventArgs e)
         {
-            Config.Instance.IsTwitchMode = true;
+            if (Config.Instance.IsTwitchMode)
+            {
+                Config.Instance.IsTwitchMode = false;
 
-            buttonSwitchMode.Visible = false;
-            buttonSwitchMode.Enabled = false;
+                buttonSwitchMode.Text = "Twitch";
 
-            tabSettings.TabPages.Insert(0, tabTwitch);
-            tabSettings.SelectedIndex = 0;
-            tabSettings.TabPages.Remove(tabMain);
+                tabSettings.TabPages.Insert(0, tabMain);
+                tabSettings.SelectedIndex = 0;
+                tabSettings.TabPages.Remove(tabTwitch);
 
-            listLastEffectsMain.Items.Clear();
-            progressBarMain.Value = 0;
+                listLastEffectsMain.Items.Clear();
+                progressBarMain.Value = 0;
 
-            elapsedCount = 0;
+                elapsedCount = 0;
 
-            Stopwatch.Reset();
-            SetEnabled(false);
+                Stopwatch.Reset();
+                SetEnabled(false);
+            }
+            else
+            {
+                Config.Instance.IsTwitchMode = true;
+
+                buttonSwitchMode.Text = "Main";
+
+                tabSettings.TabPages.Insert(0, tabTwitch);
+                tabSettings.SelectedIndex = 0;
+                tabSettings.TabPages.Remove(tabMain);
+
+                listLastEffectsTwitch.Items.Clear();
+                progressBarTwitch.Value = 0;
+
+                elapsedCount = 0;
+
+                Stopwatch.Reset();
+                SetEnabled(false);
+            }
         }
 
         private void ButtonTwitchToggle_Click(object sender, EventArgs e)
@@ -1162,6 +1190,20 @@ namespace GTA_SA_Chaos
         private void CheckBoxCrypticEffects_CheckedChanged(object sender, EventArgs e)
         {
             Config.Instance.CrypticEffects = checkBoxCrypticEffects.Checked;
+        }
+
+        private void CheckBoxShowLastEffectsMain_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance.MainShowLastEffects
+                = listLastEffectsMain.Visible
+                = checkBoxShowLastEffectsMain.Checked;
+        }
+
+        private void CheckBoxShowLastEffectsTwitch_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance.TwitchShowLastEffects
+                = listLastEffectsTwitch.Visible
+                = checkBoxShowLastEffectsTwitch.Checked;
         }
     }
 }

@@ -34,11 +34,13 @@
             this.progressBarMain = new System.Windows.Forms.ProgressBar();
             this.tabSettings = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
+            this.checkBoxShowLastEffectsMain = new System.Windows.Forms.CheckBox();
             this.buttonReset = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxMainCooldown = new System.Windows.Forms.ComboBox();
             this.listLastEffectsMain = new System.Windows.Forms.ListBox();
             this.tabTwitch = new System.Windows.Forms.TabPage();
+            this.checkBoxShowLastEffectsTwitch = new System.Windows.Forms.CheckBox();
             this.labelTwitchCurrentMode = new System.Windows.Forms.Label();
             this.checkBoxTwitchAllowVoting = new System.Windows.Forms.CheckBox();
             this.buttonTwitchToggle = new System.Windows.Forms.Button();
@@ -48,7 +50,7 @@
             this.comboBoxVotingTime = new System.Windows.Forms.ComboBox();
             this.progressBarTwitch = new System.Windows.Forms.ProgressBar();
             this.checkBoxTwitchDontActivateEffects = new System.Windows.Forms.CheckBox();
-            this.lastEffectsTwitch = new System.Windows.Forms.ListBox();
+            this.listLastEffectsTwitch = new System.Windows.Forms.ListBox();
             this.checkBoxTwitchIsHost = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -62,6 +64,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.presetComboBox = new System.Windows.Forms.ComboBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBoxCrypticEffects = new System.Windows.Forms.CheckBox();
             this.checkBoxContinueTimer = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxSeed = new System.Windows.Forms.TextBox();
@@ -78,7 +81,6 @@
             this.buttonAutoStart = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
-            this.checkBoxCrypticEffects = new System.Windows.Forms.CheckBox();
             this.tabSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabTwitch.SuspendLayout();
@@ -123,6 +125,7 @@
             // tabMain
             // 
             this.tabMain.BackColor = System.Drawing.Color.Transparent;
+            this.tabMain.Controls.Add(this.checkBoxShowLastEffectsMain);
             this.tabMain.Controls.Add(this.buttonReset);
             this.tabMain.Controls.Add(this.label2);
             this.tabMain.Controls.Add(this.comboBoxMainCooldown);
@@ -135,6 +138,19 @@
             this.tabMain.Size = new System.Drawing.Size(452, 231);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main";
+            // 
+            // checkBoxShowLastEffectsMain
+            // 
+            this.checkBoxShowLastEffectsMain.AutoSize = true;
+            this.checkBoxShowLastEffectsMain.Checked = true;
+            this.checkBoxShowLastEffectsMain.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxShowLastEffectsMain.Location = new System.Drawing.Point(6, 107);
+            this.checkBoxShowLastEffectsMain.Name = "checkBoxShowLastEffectsMain";
+            this.checkBoxShowLastEffectsMain.Size = new System.Drawing.Size(112, 17);
+            this.checkBoxShowLastEffectsMain.TabIndex = 8;
+            this.checkBoxShowLastEffectsMain.Text = "Show Last Effects";
+            this.checkBoxShowLastEffectsMain.UseVisualStyleBackColor = true;
+            this.checkBoxShowLastEffectsMain.CheckedChanged += new System.EventHandler(this.CheckBoxShowLastEffectsMain_CheckedChanged);
             // 
             // buttonReset
             // 
@@ -150,7 +166,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(262, 139);
+            this.label2.Location = new System.Drawing.Point(262, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 6;
@@ -159,7 +175,7 @@
             // comboBoxMainCooldown
             // 
             this.comboBoxMainCooldown.FormattingEnabled = true;
-            this.comboBoxMainCooldown.Location = new System.Drawing.Point(325, 136);
+            this.comboBoxMainCooldown.Location = new System.Drawing.Point(325, 35);
             this.comboBoxMainCooldown.Name = "comboBoxMainCooldown";
             this.comboBoxMainCooldown.Size = new System.Drawing.Size(121, 21);
             this.comboBoxMainCooldown.TabIndex = 5;
@@ -168,7 +184,7 @@
             // listLastEffectsMain
             // 
             this.listLastEffectsMain.FormattingEnabled = true;
-            this.listLastEffectsMain.Location = new System.Drawing.Point(6, 35);
+            this.listLastEffectsMain.Location = new System.Drawing.Point(6, 130);
             this.listLastEffectsMain.Name = "listLastEffectsMain";
             this.listLastEffectsMain.Size = new System.Drawing.Size(440, 95);
             this.listLastEffectsMain.TabIndex = 4;
@@ -176,6 +192,7 @@
             // tabTwitch
             // 
             this.tabTwitch.BackColor = System.Drawing.Color.Transparent;
+            this.tabTwitch.Controls.Add(this.checkBoxShowLastEffectsTwitch);
             this.tabTwitch.Controls.Add(this.labelTwitchCurrentMode);
             this.tabTwitch.Controls.Add(this.checkBoxTwitchAllowVoting);
             this.tabTwitch.Controls.Add(this.buttonTwitchToggle);
@@ -185,7 +202,7 @@
             this.tabTwitch.Controls.Add(this.comboBoxVotingTime);
             this.tabTwitch.Controls.Add(this.progressBarTwitch);
             this.tabTwitch.Controls.Add(this.checkBoxTwitchDontActivateEffects);
-            this.tabTwitch.Controls.Add(this.lastEffectsTwitch);
+            this.tabTwitch.Controls.Add(this.listLastEffectsTwitch);
             this.tabTwitch.Controls.Add(this.checkBoxTwitchIsHost);
             this.tabTwitch.Controls.Add(this.label5);
             this.tabTwitch.Controls.Add(this.label4);
@@ -200,6 +217,21 @@
             this.tabTwitch.TabIndex = 2;
             this.tabTwitch.Text = "Twitch";
             // 
+            // checkBoxShowLastEffectsTwitch
+            // 
+            this.checkBoxShowLastEffectsTwitch.AutoSize = true;
+            this.checkBoxShowLastEffectsTwitch.Checked = true;
+            this.checkBoxShowLastEffectsTwitch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxShowLastEffectsTwitch.Location = new System.Drawing.Point(3, 81);
+            this.checkBoxShowLastEffectsTwitch.Name = "checkBoxShowLastEffectsTwitch";
+            this.checkBoxShowLastEffectsTwitch.Size = new System.Drawing.Size(112, 17);
+            this.checkBoxShowLastEffectsTwitch.TabIndex = 18;
+            this.checkBoxShowLastEffectsTwitch.Text = "Show Last Effects";
+            this.toolTipHandler.SetToolTip(this.checkBoxShowLastEffectsTwitch, "When enabled the effects won\'t be sent to the game but instead only to announced " +
+        "in chat.");
+            this.checkBoxShowLastEffectsTwitch.UseVisualStyleBackColor = true;
+            this.checkBoxShowLastEffectsTwitch.CheckedChanged += new System.EventHandler(this.CheckBoxShowLastEffectsTwitch_CheckedChanged);
+            // 
             // labelTwitchCurrentMode
             // 
             this.labelTwitchCurrentMode.AutoSize = true;
@@ -213,7 +245,7 @@
             this.checkBoxTwitchAllowVoting.AutoSize = true;
             this.checkBoxTwitchAllowVoting.Checked = true;
             this.checkBoxTwitchAllowVoting.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTwitchAllowVoting.Location = new System.Drawing.Point(294, 119);
+            this.checkBoxTwitchAllowVoting.Location = new System.Drawing.Point(294, 124);
             this.checkBoxTwitchAllowVoting.Name = "checkBoxTwitchAllowVoting";
             this.checkBoxTwitchAllowVoting.Size = new System.Drawing.Size(109, 17);
             this.checkBoxTwitchAllowVoting.TabIndex = 16;
@@ -237,7 +269,7 @@
             // comboBoxVotingCooldown
             // 
             this.comboBoxVotingCooldown.FormattingEnabled = true;
-            this.comboBoxVotingCooldown.Location = new System.Drawing.Point(294, 155);
+            this.comboBoxVotingCooldown.Location = new System.Drawing.Point(294, 178);
             this.comboBoxVotingCooldown.Name = "comboBoxVotingCooldown";
             this.comboBoxVotingCooldown.Size = new System.Drawing.Size(155, 21);
             this.comboBoxVotingCooldown.TabIndex = 14;
@@ -246,11 +278,11 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(291, 139);
+            this.label7.Location = new System.Drawing.Point(291, 162);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(90, 13);
+            this.label7.Size = new System.Drawing.Size(57, 13);
             this.label7.TabIndex = 13;
-            this.label7.Text = "Voting Cooldown:";
+            this.label7.Text = "Cooldown:";
             // 
             // label6
             // 
@@ -272,9 +304,9 @@
             // 
             // progressBarTwitch
             // 
-            this.progressBarTwitch.Location = new System.Drawing.Point(6, 182);
+            this.progressBarTwitch.Location = new System.Drawing.Point(3, 205);
             this.progressBarTwitch.Name = "progressBarTwitch";
-            this.progressBarTwitch.Size = new System.Drawing.Size(443, 23);
+            this.progressBarTwitch.Size = new System.Drawing.Size(446, 23);
             this.progressBarTwitch.TabIndex = 10;
             // 
             // checkBoxTwitchDontActivateEffects
@@ -290,18 +322,18 @@
             this.checkBoxTwitchDontActivateEffects.UseVisualStyleBackColor = true;
             this.checkBoxTwitchDontActivateEffects.CheckedChanged += new System.EventHandler(this.CheckBoxDontActivateEffects_CheckedChanged);
             // 
-            // lastEffectsTwitch
+            // listLastEffectsTwitch
             // 
-            this.lastEffectsTwitch.FormattingEnabled = true;
-            this.lastEffectsTwitch.Location = new System.Drawing.Point(6, 81);
-            this.lastEffectsTwitch.Name = "lastEffectsTwitch";
-            this.lastEffectsTwitch.Size = new System.Drawing.Size(282, 95);
-            this.lastEffectsTwitch.TabIndex = 8;
+            this.listLastEffectsTwitch.FormattingEnabled = true;
+            this.listLastEffectsTwitch.Location = new System.Drawing.Point(3, 104);
+            this.listLastEffectsTwitch.Name = "listLastEffectsTwitch";
+            this.listLastEffectsTwitch.Size = new System.Drawing.Size(282, 95);
+            this.listLastEffectsTwitch.TabIndex = 8;
             // 
             // checkBoxTwitchIsHost
             // 
             this.checkBoxTwitchIsHost.AutoSize = true;
-            this.checkBoxTwitchIsHost.Location = new System.Drawing.Point(294, 31);
+            this.checkBoxTwitchIsHost.Location = new System.Drawing.Point(294, 30);
             this.checkBoxTwitchIsHost.Name = "checkBoxTwitchIsHost";
             this.checkBoxTwitchIsHost.Size = new System.Drawing.Size(59, 17);
             this.checkBoxTwitchIsHost.TabIndex = 7;
@@ -312,7 +344,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 57);
+            this.label5.Location = new System.Drawing.Point(0, 57);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 13);
             this.label5.TabIndex = 6;
@@ -321,7 +353,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 32);
+            this.label4.Location = new System.Drawing.Point(0, 32);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 5;
@@ -330,7 +362,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 6);
+            this.label3.Location = new System.Drawing.Point(0, 6);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 4;
@@ -427,6 +459,17 @@
             this.tabPage1.Size = new System.Drawing.Size(452, 231);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Settings";
+            // 
+            // checkBoxCrypticEffects
+            // 
+            this.checkBoxCrypticEffects.AutoSize = true;
+            this.checkBoxCrypticEffects.Location = new System.Drawing.Point(6, 185);
+            this.checkBoxCrypticEffects.Name = "checkBoxCrypticEffects";
+            this.checkBoxCrypticEffects.Size = new System.Drawing.Size(94, 17);
+            this.checkBoxCrypticEffects.TabIndex = 5;
+            this.checkBoxCrypticEffects.Text = "Cryptic Effects";
+            this.checkBoxCrypticEffects.UseVisualStyleBackColor = true;
+            this.checkBoxCrypticEffects.CheckedChanged += new System.EventHandler(this.CheckBoxCrypticEffects_CheckedChanged);
             // 
             // checkBoxContinueTimer
             // 
@@ -567,17 +610,6 @@
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
-            // checkBoxCrypticEffects
-            // 
-            this.checkBoxCrypticEffects.AutoSize = true;
-            this.checkBoxCrypticEffects.Location = new System.Drawing.Point(6, 185);
-            this.checkBoxCrypticEffects.Name = "checkBoxCrypticEffects";
-            this.checkBoxCrypticEffects.Size = new System.Drawing.Size(94, 17);
-            this.checkBoxCrypticEffects.TabIndex = 5;
-            this.checkBoxCrypticEffects.Text = "Cryptic Effects";
-            this.checkBoxCrypticEffects.UseVisualStyleBackColor = true;
-            this.checkBoxCrypticEffects.CheckedChanged += new System.EventHandler(this.CheckBoxCrypticEffects_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -640,7 +672,7 @@
         private System.Windows.Forms.TextBox textBoxTwitchChannel;
         private System.Windows.Forms.CheckBox checkBoxTwitchIsHost;
         private System.Windows.Forms.CheckBox checkBoxTwitchDontActivateEffects;
-        private System.Windows.Forms.ListBox lastEffectsTwitch;
+        private System.Windows.Forms.ListBox listLastEffectsTwitch;
         private System.Windows.Forms.ToolTip toolTipHandler;
         private System.Windows.Forms.ComboBox comboBoxVotingCooldown;
         private System.Windows.Forms.Label label7;
@@ -663,6 +695,8 @@
         private System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.CheckBox checkBoxContinueTimer;
         private System.Windows.Forms.CheckBox checkBoxCrypticEffects;
+        private System.Windows.Forms.CheckBox checkBoxShowLastEffectsMain;
+        private System.Windows.Forms.CheckBox checkBoxShowLastEffectsTwitch;
     }
 }
 

@@ -525,7 +525,7 @@ namespace GTA_SA_Chaos
                 "ST11", "ST12",
 
                 "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
-                "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
+                "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19",
                 "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
                 "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE39", "CE40",
                 "CE41",

@@ -62,7 +62,6 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.VehiclesTraffic, "Black Traffic", "SoLongAsItsBlack", "timed_cheat", "black_traffic"), // Black traffic
             new FunctionEffect(Category.VehiclesTraffic, "Cheap Cars", "EveryoneIsPoor", "timed_cheat", "cheap_cars"), // Cheap cars
             new FunctionEffect(Category.VehiclesTraffic, "Expensive Cars", "EveryoneIsRich", "timed_cheat", "expensive_cars"), // Expensive cars
-            new FunctionEffect(Category.VehiclesTraffic, "Invisible Cars", "WheelsOnlyPlease", "timed_cheat", "invisible_cars"), // Invisible cars
             new FunctionEffect(Category.VehiclesTraffic, "Insane Handling", "StickLikeGlue", "timed_cheat", "insane_handling"), // Insane handling
             new FunctionEffect(Category.VehiclesTraffic, "All Green Lights", "DontTryAndStopMe", "timed_cheat", "all_green_lights"), // All green lights
             new FunctionEffect(Category.VehiclesTraffic, "Cars On Water", "JesusTakeTheWheel", "timed_cheat", "cars_on_water"), // Cars on water
@@ -96,7 +95,6 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.PlayerModifications, "Weapon Aiming While Driving", "IWannaDriveBy", "timed_cheat", "drive_by"), // Weapon aiming while driving
             new FunctionEffect(Category.PlayerModifications, "Huge Bunny Hop", "CJPhoneHome", "timed_cheat", "huge_bunny_hop"), // Huge bunny hop
             new FunctionEffect(Category.PlayerModifications, "Mega Jump", "Kangaroo", "timed_cheat", "mega_jump"), // Mega jump
-            new FunctionEffect(Category.PlayerModifications, "Infinite Health", "NoOneCanHurtMe", "timed_effect", "infinite_health"), // Infinite health
             new FunctionEffect(Category.PlayerModifications, "Infinite Oxygen", "ManFromAtlantis", "timed_cheat", "infinite_oxygen"), // Infinite oxygen
             new FunctionEffect(Category.PlayerModifications, "Mega Punch", "StingLikeABee", "timed_cheat", "mega_punch"), // Mega punch
 
@@ -154,6 +152,8 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Thermal Vision", "ThermalVision", "timed_effect", "thermal_vision"), // Thermal Vision
             new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IllTakeAFreePass", "timed_effect", "pass_mission"), // Pass Current Mission
             new FunctionEffect(Category.CustomEffects, "Cryptic Effects", "ZalgoRules", "timed_effect", "cryptic_effects", -1, 3), // Cryptic Effects
+            new FunctionEffect(Category.CustomEffects, "Infinite Health", "NoOneCanHurtMe", "timed_effect", "infinite_health"), // Infinite health
+            new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "WheelsOnlyPlease", "timed_effect", "invisible_vehicles"), // Invisible vehicles
 
             new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower),

@@ -521,13 +521,13 @@ namespace GTA_SA_Chaos
 
                 "TI1", "TI2", "TI3", "TI4", "TI5", "TI6", "TI7",
 
-                "VE1", "VE2", "VE3", "VE4", "VE5", "VE6", "VE7", "VE8", "VE9",
-                "VE10", "VE11", "VE12", "VE13", "VE14", "VE15",
+                "VE1", "VE2", "VE3", "VE4", "VE5", "VE6", "VE7", "VE8", "VE9", "VE10",
+                "VE11", "VE12", "VE13", "VE14",
 
                 "PE1", "PE2", "PE3", "PE4", "PE5", "PE6", "PE7", "PE8", "PE9", "PE10",
                 "PE11", "PE12", "PE13",
 
-                "MO1", "MO3", "MO4", "MO5", "MO6",
+                "MO1", "MO3", "MO4", "MO5",
 
                 "ST4", "ST5", "ST6", "ST7", "ST8", "ST9", "ST10",
                 "ST11", "ST12",
@@ -536,7 +536,7 @@ namespace GTA_SA_Chaos
                 "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19",
                 "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
                 "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE39", "CE40",
-                "CE41",
+                "CE41", "CE42", "CE43",
 
                 "TP1"
             }));
@@ -548,21 +548,21 @@ namespace GTA_SA_Chaos
 
                 "WE1", "WE2",
 
-                "VE2", "VE3", "VE4", "VE5", "VE8", "VE9",
-                "VE12", "VE13", "VE14", "VE15", "VE16",
+                "VE2", "VE3", "VE4", "VE5", "VE7", "VE8",
+                "VE11", "VE12", "VE13", "VE14", "VE15",
 
                 "PE3", "PE5", "PE8", "PE10",
                 "PE11", "PE12", "PE13", "PE14", "PE15", "PE16", "PE17",
 
-                "MO1", "MO2", "MO3", "MO4", "MO5", "MO6",
+                "MO1", "MO2", "MO3", "MO4", "MO5",
 
                 "ST2", "ST4", "ST6", "ST8", "ST10",
                 "ST11", "ST12",
 
                 "CE11", "CE12",
-                "CE22", "CE23",
-                "CE30",
-                "CE40"
+                "CE22", "CE23", "CE30",
+                "CE40",
+                "CE42"
             }));
             presetComboBox.Items.Add(new PresetComboBoxItem("Harmful", reversed: false, new string[]
             {
@@ -577,8 +577,7 @@ namespace GTA_SA_Chaos
 
                 "TI1", "TI2", "TI3", "TI4", "TI5", "TI6", "TI7",
 
-                "VE1", "VE6", "VE7", "VE10",
-                "VE11",
+                "VE1", "VE6", "VE9", "VE10",
 
                 "PE1", "PE2", "PE4", "PE6", "PE7", "PE9",
                 "PE18",
@@ -589,7 +588,7 @@ namespace GTA_SA_Chaos
                 "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
                 "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
                 "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE38", "CE39",
-                "CE41",
+                "CE41", "CE43",
 
                 "TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TP7", "TP8", "TP9", "TP10",
                 "TP11", "TP12",
@@ -607,8 +606,8 @@ namespace GTA_SA_Chaos
 
                 "TI1", "TI2", "TI3", "TI4", "TI5", "TI6", "TI7",
 
-                "VE1", "VE4", "VE6", "VE7", "VE8", "VE10",
-                "VE11", "VE15",
+                "VE1", "VE4", "VE6", "VE7", "VE9", "VE10",
+                "VE14",
 
                 "PE1", "PE2", "PE6", "PE7", "PE8", "PE9",
                 "PE18",

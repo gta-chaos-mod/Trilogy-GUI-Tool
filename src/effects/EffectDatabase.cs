@@ -1,11 +1,10 @@
-﻿using GTA_SA_Chaos.src.effects.extra;
-using GTA_SA_Chaos.util;
+﻿using GTA_SA_Chaos.util;
 using System;
 using System.Collections.Generic;
 
 namespace GTA_SA_Chaos.effects
 {
-    static class EffectDatabase
+    internal static class EffectDatabase
     {
         public static List<AbstractEffect> Effects { get; } = new List<AbstractEffect>
         {

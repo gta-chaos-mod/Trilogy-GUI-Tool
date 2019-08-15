@@ -4,7 +4,7 @@ using System.IO;
 using System.IO.Pipes;
 using System.Linq;
 
-namespace GTA_SA_Chaos
+namespace GTA_SA_Chaos.util
 {
     public static class ProcessHooker
     {
@@ -52,7 +52,8 @@ namespace GTA_SA_Chaos
                             sw.WriteLine(func);
                         }
                     }
-                    catch {
+                    catch
+                    {
                         // Timeouts are okay, don't log anything
                     }
                 }

@@ -1,5 +1,4 @@
 ﻿using GTA_SA_Chaos.util;
-using System;
 
 namespace GTA_SA_Chaos.effects
 {

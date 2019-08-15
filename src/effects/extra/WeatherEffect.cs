@@ -1,9 +1,8 @@
 ﻿using GTA_SA_Chaos.util;
-using System;
 
 namespace GTA_SA_Chaos.effects
 {
-    public class WeatherEffect: AbstractEffect
+    public class WeatherEffect : AbstractEffect
     {
         private readonly int weatherID;
 

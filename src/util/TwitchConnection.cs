@@ -9,7 +9,7 @@ using TwitchLib.Client.Models;
 
 namespace GTA_SA_Chaos.util
 {
-    class TwitchConnection
+    internal class TwitchConnection
     {
         public readonly TwitchClient Client;
 
@@ -119,7 +119,7 @@ namespace GTA_SA_Chaos.util
                         });
                     }
                 }
-                else if(e.ChatMessage.Message.Contains("Cooldown"))
+                else if (e.ChatMessage.Message.Contains("Cooldown"))
                 {
                     // Check for duration
                     Match match = durationRegex.Match(e.ChatMessage.Message);
@@ -154,7 +154,7 @@ namespace GTA_SA_Chaos.util
             //Debug.WriteLine($"[#{e.ChatMessage.Channel}] {e.ChatMessage.Username}: {e.ChatMessage.Message}");
         }
 
-        class EffectVoting
+        private class EffectVoting
         {
             private readonly Dictionary<string, AbstractEffect> UserVotes;
 

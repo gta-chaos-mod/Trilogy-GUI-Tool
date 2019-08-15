@@ -8,7 +8,7 @@ namespace GTA_SA_Chaos.util
     public static class MemoryHelper
     {
         [DllImport("kernel32.dll", SetLastError = true)]
-        static extern bool ReadProcessMemory(
+        private static extern bool ReadProcessMemory(
             IntPtr hProcess,
             IntPtr lpBaseAddress,
             [Out, MarshalAs(UnmanagedType.AsAny)] object lpBuffer,

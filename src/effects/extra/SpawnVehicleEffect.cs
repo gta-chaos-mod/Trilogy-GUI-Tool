@@ -1,11 +1,8 @@
-﻿using GTA_SA_Chaos.effects;
-using GTA_SA_Chaos.src.util;
-using GTA_SA_Chaos.util;
-using System;
+﻿using GTA_SA_Chaos.util;
 
-namespace GTA_SA_Chaos.src.effects.extra
+namespace GTA_SA_Chaos.effects
 {
-    class SpawnVehicleEffect : AbstractEffect
+    internal class SpawnVehicleEffect : AbstractEffect
     {
         private readonly int vehicleID;
 

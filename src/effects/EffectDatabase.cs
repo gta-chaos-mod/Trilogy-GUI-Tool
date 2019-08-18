@@ -1,4 +1,4 @@
-﻿using GTA_SA_Chaos.util;
+using GTA_SA_Chaos.util;
 using System;
 using System.Collections.Generic;
 
@@ -154,6 +154,8 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Cryptic Effects", "ZalgoRules", "timed_effect", "cryptic_effects", -1, 3), // Cryptic Effects
             new FunctionEffect(Category.CustomEffects, "Infinite Health", "NoOneCanHurtMe", "timed_effect", "infinite_health"), // Infinite health
             new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "WheelsOnlyPlease", "timed_effect", "invisible_vehicles"), // Invisible vehicles
+            new FunctionEffect(Category.CustomEffects, "15 FPS", "OldComputer", "timed_effect", "framerate_15"), // 15 FPS
+            new FunctionEffect(Category.CustomEffects, "60 FPS", "NASAComputer", "timed_effect", "framerate_60"), // 60 FPS
 
             new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower),

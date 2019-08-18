@@ -1,4 +1,4 @@
-﻿namespace GTA_SA_Chaos
+namespace GTA_SA_Chaos
 {
     partial class Form1
     {
@@ -474,6 +474,8 @@
             // checkBoxContinueTimer
             // 
             this.checkBoxContinueTimer.AutoSize = true;
+            this.checkBoxContinueTimer.Checked = true;
+            this.checkBoxContinueTimer.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxContinueTimer.Location = new System.Drawing.Point(6, 208);
             this.checkBoxContinueTimer.Name = "checkBoxContinueTimer";
             this.checkBoxContinueTimer.Size = new System.Drawing.Size(210, 17);

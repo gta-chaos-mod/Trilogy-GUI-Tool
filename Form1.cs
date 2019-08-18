@@ -1,3 +1,4 @@
+// Copyright (c) 2019 Lordmau5
 using GTA_SA_Chaos.effects;
 using GTA_SA_Chaos.util;
 using Newtonsoft.Json;

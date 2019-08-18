@@ -1,4 +1,5 @@
-﻿using GTA_SA_Chaos.effects;
+﻿// Copyright (c) 2019 Lordmau5
+using GTA_SA_Chaos.effects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

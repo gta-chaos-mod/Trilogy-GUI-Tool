@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Copyright (c) 2019 Lordmau5
+using System;
 using System.Windows.Forms;
 
 namespace GTA_SA_Chaos

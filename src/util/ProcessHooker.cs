@@ -1,3 +1,4 @@
+// Copyright (c) 2019 Lordmau5
 using System;
 using System.Diagnostics;
 using System.IO;

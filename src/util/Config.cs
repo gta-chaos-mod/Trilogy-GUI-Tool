@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿// Copyright (c) 2019 Lordmau5
+using Newtonsoft.Json;
 
 namespace GTA_SA_Chaos.util
 {

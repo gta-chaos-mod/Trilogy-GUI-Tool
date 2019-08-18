@@ -1,4 +1,5 @@
-﻿namespace GTA_SA_Chaos.util
+﻿// Copyright (c) 2019 Lordmau5
+namespace GTA_SA_Chaos.util
 {
     public sealed class Location
     {

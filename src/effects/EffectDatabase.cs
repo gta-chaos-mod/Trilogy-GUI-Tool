@@ -16,7 +16,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.WeaponsAndHealth, "Suicide", "GoodbyeCruelWorld", "cheat", "suicide"), // Suicide
             new FunctionEffect(Category.WeaponsAndHealth, "Infinite Ammo", "FullClip", "timed_cheat", "infinite_ammo"), // Infinite ammo
 
-            new FunctionEffect(Category.WantedLevel, "Wanted Level 2 Stars", "TurnUpTheHeat", "wanted", "plus_two"), // Wanted level 2 stars
+            new FunctionEffect(Category.WantedLevel, "Wanted Level +2 Stars", "TurnUpTheHeat", "wanted", "plus_two"), // Wanted level +2 stars
             new FunctionEffect(Category.WantedLevel, "Clear Wanted Level", "TurnDownTheHeat", "wanted", "clear"), // Clear wanted level
             new FunctionEffect(Category.WantedLevel, "Never Wanted", "IDoAsIPlease", "timed_cheat", "never_wanted"), // Never wanted
             new FunctionEffect(Category.WantedLevel, "Six Wanted Stars", "BringItOn", "wanted", "six_stars"), // Six wanted stars

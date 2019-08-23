@@ -58,7 +58,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.Time, "Stop Game Clock, Orange Sky", "DontBringOnTheNight", "timed_cheat", "orange_sky"), // Stop game clock, orange sky
             new FunctionEffect(Category.Time, "Faster Clock", "TimeJustFliesBy", "timed_cheat", "faster_clock"), // Faster clock
 
-            new FunctionEffect(Category.VehiclesTraffic, "Blow Up All Cars", "AllCarsGoBoom", "other", "explode_cars"), // Blow up all cars
+            new FunctionEffect(Category.VehiclesTraffic, "Blow Up All Cars", "AllCarsGoBoom", "cheat", "blow_up_all_cars"), // Blow up all cars
             new FunctionEffect(Category.VehiclesTraffic, "Pink Traffic", "PinkIsTheNewCool", "timed_cheat", "pink_traffic"), // Pink traffic
             new FunctionEffect(Category.VehiclesTraffic, "Black Traffic", "SoLongAsItsBlack", "timed_cheat", "black_traffic"), // Black traffic
             new FunctionEffect(Category.VehiclesTraffic, "Cheap Cars", "EveryoneIsPoor", "timed_cheat", "cheap_cars"), // Cheap cars
@@ -148,7 +148,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Long Live The Rich!", "LongLiveTheRich", "timed_effect", "long_live_the_rich"),  // Money = Health, shoot people to gain money, take damage to lose it
             new FunctionEffect(Category.CustomEffects, "Inverted Controls", "InvertedControls", "timed_effect", "inverted_controls"),  // Inverts some controls
             new FunctionEffect(Category.CustomEffects, "Disable One Movement Key", "DisableOneMovementKey", "timed_effect", "disable_one_movement_key"),  // Disable one movement key
-            new FunctionEffect(Category.CustomEffects, "Fail Current Mission", "LetsTryThatAgain", "timed_effect", "fail_mission"), // Fail Current Mission
+            new FunctionEffect(Category.CustomEffects, "Fail Current Mission", "MissionFailed", "timed_effect", "fail_mission"), // Fail Current Mission
             new FunctionEffect(Category.CustomEffects, "Night Vision", "NightVision", "timed_effect", "night_vision"), // Night Vision
             new FunctionEffect(Category.CustomEffects, "Thermal Vision", "ThermalVision", "timed_effect", "thermal_vision"), // Thermal Vision
             new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IllTakeAFreePass", "timed_effect", "pass_mission"), // Pass Current Mission
@@ -157,6 +157,8 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "WheelsOnlyPlease", "timed_effect", "invisible_vehicles"), // Invisible vehicles
             new FunctionEffect(Category.CustomEffects, "15 FPS", "OldComputer", "timed_effect", "framerate_15"), // 15 FPS
             new FunctionEffect(Category.CustomEffects, "60 FPS", "NASAComputer", "timed_effect", "framerate_60"), // 60 FPS
+            new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "other", "clear_active_effects"), // Clear Active Effects
+            new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "timed_effect", "reload_autosave"), // Reload Autosave
 
             new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower),

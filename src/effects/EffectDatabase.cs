@@ -16,10 +16,10 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.WeaponsAndHealth, "Suicide", "GoodbyeCruelWorld", "cheat", "suicide"), // Suicide
             new FunctionEffect(Category.WeaponsAndHealth, "Infinite Ammo", "FullClip", "timed_cheat", "infinite_ammo"), // Infinite ammo
 
-            new FunctionEffect(Category.WantedLevel, "Wanted Level +2 Stars", "TurnUpTheHeat", "wanted", "plus_two"), // Wanted level +2 stars
-            new FunctionEffect(Category.WantedLevel, "Clear Wanted Level", "TurnDownTheHeat", "wanted", "clear"), // Clear wanted level
+            new FunctionEffect(Category.WantedLevel, "Wanted Level +2 Stars", "TurnUpTheHeat", "cheat", "wanted_plus_two"), // Wanted level +2 stars
+            new FunctionEffect(Category.WantedLevel, "Clear Wanted Level", "TurnDownTheHeat", "cheat", "wanted_clear"), // Clear wanted level
             new FunctionEffect(Category.WantedLevel, "Never Wanted", "IDoAsIPlease", "timed_cheat", "never_wanted"), // Never wanted
-            new FunctionEffect(Category.WantedLevel, "Six Wanted Stars", "BringItOn", "wanted", "six_stars"), // Six wanted stars
+            new FunctionEffect(Category.WantedLevel, "Six Wanted Stars", "BringItOn", "cheat", "wanted_six_stars"), // Six wanted stars
 
             new WeatherEffect("Sunny Weather", "PleasantlyWarm", 1), // Sunny weather
             new WeatherEffect("Very Sunny Weather", "TooDamnHot", 0), // Very sunny weather
@@ -132,7 +132,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Ghost Rider", "GhostRider", "timed_effect", "ghost_rider"), // Set current vehicle constantly on fire
             new FunctionEffect(Category.CustomEffects, "To The Left, To The Right", "ToTheLeftToTheRight", "timed_effect", "totheleft_totheright"), // Gives cars a random velocity
             new FunctionEffect(Category.CustomEffects, "Disable HUD", "FullyImmersed", "timed_effect", "disable_hud"), // Disable HUD
-            new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsAllowed", "other", "clear_weapons"), // Remove all weapons
+            new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsAllowed", "effect", "clear_weapons"), // Remove all weapons
             new FunctionEffect(Category.CustomEffects, "Where Is Everybody?", "ImHearingVoices", "timed_effect", "where_is_everybody"), // Where is everybody?
             new FunctionEffect(Category.CustomEffects, "Everybody Bleed Now!", "EverybodyBleedNow", "timed_effect", "everybody_bleed_now"), // Everybody bleed now!
             new FunctionEffect(Category.CustomEffects, "Set All Peds On Fire", "HotPotato", "effect", "hot_potato"), // Set all peds on fire

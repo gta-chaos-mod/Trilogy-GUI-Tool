@@ -130,7 +130,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "To Drive Or Not To Drive", "ToDriveOrNotToDrive", "timed_effect", "to_drive_or_not_to_drive"), // To drive or not to drive
             new FunctionEffect(Category.CustomEffects, "Timelapse Mode", "DiscoInTheSky", "timed_effect", "timelapse"), // Timelapse mode
             new FunctionEffect(Category.CustomEffects, "Ghost Rider", "GhostRider", "timed_effect", "ghost_rider"), // Set current vehicle constantly on fire
-            new FunctionEffect(Category.CustomEffects, "To The Left, To The Right", "ToTheLeftToTheRight", "timed_effect", "totheleft_totheright"), // Gives cars a random velocity
+            new FunctionEffect(Category.CustomEffects, "To The Left, To The Right", "ToTheLeftToTheRight", "timed_effect", "to_the_left_to_the_right"), // Gives cars a random velocity
             new FunctionEffect(Category.CustomEffects, "Disable HUD", "FullyImmersed", "timed_effect", "disable_hud"), // Disable HUD
             new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsAllowed", "effect", "clear_weapons"), // Remove all weapons
             new FunctionEffect(Category.CustomEffects, "Where Is Everybody?", "ImHearingVoices", "timed_effect", "where_is_everybody"), // Where is everybody?

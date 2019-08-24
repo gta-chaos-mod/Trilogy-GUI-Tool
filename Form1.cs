@@ -526,9 +526,9 @@ namespace GTA_SA_Chaos
                 "VE11", "VE12", "VE13", "VE14",
 
                 "PE1", "PE2", "PE3", "PE4", "PE5", "PE6", "PE7", "PE8", "PE9", "PE10",
-                "PE11", "PE12", "PE13",
+                "PE11", "PE12",
 
-                "MO1", "MO3", "MO4", "MO5",
+                "MO1", "MO2", "MO3", "MO4", "MO5",
 
                 "ST4", "ST5", "ST6", "ST7", "ST8", "ST9", "ST10",
                 "ST11", "ST12",

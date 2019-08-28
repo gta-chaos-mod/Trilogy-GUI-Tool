@@ -159,6 +159,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "60 FPS", "NASAComputer", "timed_effect", "framerate_60"), // 60 FPS
             new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "other", "clear_active_effects"), // Clear Active Effects
             new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "timed_effect", "reload_autosave"), // Reload Autosave
+            new FunctionEffect(Category.CustomEffects, "Out Of Fuel", "OutOfFuel", "timed_effect", "out_of_fuel"), // Out Of Fuel
 
             new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet),
             new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower),

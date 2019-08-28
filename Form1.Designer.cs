@@ -610,6 +610,7 @@ namespace GTA_SA_Chaos
             this.buttonSwitchMode.TabIndex = 7;
             this.buttonSwitchMode.Text = "Twitch";
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
+            this.buttonSwitchMode.Visible = false;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
             // Form1

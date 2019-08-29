@@ -50,10 +50,10 @@ namespace GTA_SA_Chaos.effects
             new SpawnVehicleEffect("SurpriseDriver", -1), // Spawn Random Vehicle
 
             // They reset if a mission is passed / failed
-            new GameSpeedEffect("0.25x Game Speed", "MatrixMode", 0.25f),
-            new GameSpeedEffect("0.5x Game Speed", "SlowItDown", 0.5f),
-            new GameSpeedEffect("2x Game Speed", "SpeedItUp", 2f),
-            new GameSpeedEffect("4x Game Speed", "YoureTooSlow", 4f),
+            new FunctionEffect(Category.Time, "0.25x Game Speed", "MatrixMode", "timed_effect", "quarter_gamespeed"), // Quarter Gamespeed
+            new FunctionEffect(Category.Time, "0.5x Game Speed", "SlowItDown", "timed_effect", "half_gamespeed"), // Half Gamespeed
+            new FunctionEffect(Category.Time, "2x Game Speed", "SpeedItUp", "timed_effect", "double_gamespeed"), // Double Gamespeed
+            new FunctionEffect(Category.Time, "4x Game Speed", "YoureTooSlow", "timed_effect", "quadruple_gamespeed"), // Quadruple Gamespeed
             new FunctionEffect(Category.Time, "Always Midnight", "NightProwler", "timed_cheat", "always_midnight"), // Always midnight
             new FunctionEffect(Category.Time, "Stop Game Clock, Orange Sky", "DontBringOnTheNight", "timed_cheat", "orange_sky"), // Stop game clock, orange sky
             new FunctionEffect(Category.Time, "Faster Clock", "TimeJustFliesBy", "timed_cheat", "faster_clock"), // Faster clock
@@ -119,13 +119,13 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Get Busted", "GoToJail", "effect", "player_busted"), // Get's you busted on the spot
             new FunctionEffect(Category.CustomEffects, "Get Wasted", "Hospitality", "effect", "player_wasted"), // Get's you wasted on the spot
             new FunctionEffect(Category.CustomEffects, "One Hit K.O.", "ILikeToLiveDangerously", "timed_effect", "one_hit_ko"), // One Hit K.O.
-            new ModifyGravityEffect("Inverted Gravity", "BeamMeUpScotty", -0.002f, 1000 * 5), // Sets the gravity to -0.002f
-            new ModifyGravityEffect("Zero Gravity", "ImInSpaaaaace", 0f, 1000 * 10), // Sets the gravity to 0f
-            new ModifyGravityEffect("Quarter Gravity", "GroundControlToMajorTom", 0.002f), // Sets the gravity to 0.002f
-            new ModifyGravityEffect("Half Gravity", "ImFeelingLightheaded", 0.004f), // Sets the gravity to 0.004f
-            new ModifyGravityEffect("Double Gravity", "KilogramOfFeathers", 0.016f), // Sets the gravity to 0.016f
-            new ModifyGravityEffect("Quadruple Gravity", "KilogramOfSteel", 0.032f), // Sets the gravity to 0.032f
-            new ModifyGravityEffect("Insane Gravity", "StraightToHell", 0.64f, 1000 * 10), // Sets the gravity to 0.64f
+            new FunctionEffect(Category.CustomEffects, "Inverted Gravity", "BeamMeUpScotty", "timed_effect", "inverted_gravity"), // Sets the gravity to -0.002f
+            new FunctionEffect(Category.CustomEffects, "Zero Gravity", "ImInSpaaaaace", "timed_effect", "zero_gravity"), // Sets the gravity to 0f
+            new FunctionEffect(Category.CustomEffects, "Quarter Gravity", "GroundControlToMajorTom", "timed_effect", "quarter_gravity"), // Sets the gravity to 0.002f
+            new FunctionEffect(Category.CustomEffects, "Half Gravity", "ImFeelingLightheaded", "timed_effect", "half_gravity"), // Sets the gravity to 0.004f
+            new FunctionEffect(Category.CustomEffects, "Double Gravity", "KilogramOfFeathers", "timed_effect", "double_gravity"), // Sets the gravity to 0.016f
+            new FunctionEffect(Category.CustomEffects, "Quadruple Gravity", "KilogramOfSteel", "timed_effect", "quadruple_gravity"), // Sets the gravity to 0.032f
+            new FunctionEffect(Category.CustomEffects, "Insane Gravity", "StraightToHell", "timed_effect", "insane_gravity"), // Sets the gravity to 0.64f
             new FunctionEffect(Category.CustomEffects, "Experience The Lag", "PacketLoss", "timed_effect", "experience_the_lag"), // Experience the lag
             new FunctionEffect(Category.CustomEffects, "To Drive Or Not To Drive", "ToDriveOrNotToDrive", "timed_effect", "to_drive_or_not_to_drive"), // To drive or not to drive
             new FunctionEffect(Category.CustomEffects, "Timelapse Mode", "DiscoInTheSky", "timed_effect", "timelapse"), // Timelapse mode
@@ -140,7 +140,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Lock Player Inside Vehicle", "ThereIsNoEscape", "effect", "there_is_no_escape"), // Lock player inside vehicle
             new FunctionEffect(Category.CustomEffects, "Disable Radar Blips", "BlipsBeGone", "timed_effect", "disable_radar_blips"), // Disable Radar Blips
             new FunctionEffect(Category.CustomEffects, "Disable All Weapon Damage", "TruePacifist", "timed_effect", "true_pacifist"), // Disable all Weapon Damage
-            new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "timed_effect", "lets_take_a_break", 1000 * 10), // Let's take a break
+            new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "timed_effect", "lets_take_a_break"), // Let's take a break
             new FunctionEffect(Category.CustomEffects, "Rainbow Cars", "AllColorsAreBeautiful", "timed_effect", "rainbow_cars"), // Rainbow Cars
             new FunctionEffect(Category.CustomEffects, "High Suspension Damping", "VeryDampNoBounce", "timed_effect", "no_bouncy_vehicles"), // Cars have high suspension damping
             new FunctionEffect(Category.CustomEffects, "Little Suspension Damping", "BouncinUpAndDown", "timed_effect", "bouncy_vehicles"), // Cars have very little suspension damping
@@ -152,7 +152,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Night Vision", "NightVision", "timed_effect", "night_vision"), // Night Vision
             new FunctionEffect(Category.CustomEffects, "Thermal Vision", "ThermalVision", "timed_effect", "thermal_vision"), // Thermal Vision
             new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IllTakeAFreePass", "timed_effect", "pass_mission"), // Pass Current Mission
-            new FunctionEffect(Category.CustomEffects, "Cryptic Effects", "ZalgoRules", "timed_effect", "cryptic_effects", -1, 3), // Cryptic Effects
+            new FunctionEffect(Category.CustomEffects, "Cryptic Effects", "ZalgoRules", "timed_effect", "cryptic_effects"), // Cryptic Effects
             new FunctionEffect(Category.CustomEffects, "Infinite Health", "NoOneCanHurtMe", "timed_effect", "infinite_health"), // Infinite health
             new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "WheelsOnlyPlease", "timed_effect", "invisible_vehicles"), // Invisible vehicles
             new FunctionEffect(Category.CustomEffects, "15 FPS", "OldComputer", "timed_effect", "framerate_15"), // 15 FPS

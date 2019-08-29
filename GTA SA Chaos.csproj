@@ -209,11 +209,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\effects\abstract\AbstractEffect.cs" />
-    <Compile Include="src\effects\extra\GameSpeedEffect.cs" />
     <Compile Include="src\effects\extra\WeatherEffect.cs" />
     <Compile Include="src\effects\extra\SpawnVehicleEffect.cs" />
     <Compile Include="src\effects\extra\TeleportationEffect.cs" />
-    <Compile Include="src\effects\extra\ModifyGravityEffect.cs" />
     <Compile Include="src\effects\impl\FunctionEffect.cs" />
     <Compile Include="src\util\Category.cs" />
     <Compile Include="src\util\Config.cs" />

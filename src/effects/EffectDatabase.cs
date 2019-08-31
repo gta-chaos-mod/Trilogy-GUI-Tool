@@ -74,7 +74,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.VehiclesTraffic, "Reduced Traffic", "GhostTown", "timed_cheat", "reduced_traffic"), // Reduced traffic
             new FunctionEffect(Category.VehiclesTraffic, "All Taxis Have Nitrous", "SpeedyTaxis", "timed_cheat", "all_taxis_nitro"), // All taxis have nitrous
 
-            new FunctionEffect(Category.PedsAndCo, "Peds Attack Other", "RoughNeighbourhood", "timed_cheat", "rough_neighbourhood"), // Peds attack other (+ get golf club)
+            new FunctionEffect(Category.PedsAndCo, "Peds Attack Each Other", "RoughNeighbourhood", "timed_cheat", "rough_neighbourhood"), // Peds attack other (+ get golf club)
             new FunctionEffect(Category.PedsAndCo, "Have A Bounty On Your Head", "StopPickingOnMe", "timed_cheat", "bounty_on_your_head"), // Have a bounty on your head
             new FunctionEffect(Category.PedsAndCo, "Elvis Is Everywhere", "BlueSuedeShoes", "timed_cheat", "elvis_lives"), // Elvis is everywhere
             new FunctionEffect(Category.PedsAndCo, "Peds Attack You With Rockets", "AttackOfTheVillagePeople", "timed_cheat", "village_people"), // Peds attack you with rockets
@@ -155,8 +155,8 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Cryptic Effects", "ZalgoRules", "timed_effect", "cryptic_effects"), // Cryptic Effects
             new FunctionEffect(Category.CustomEffects, "Infinite Health", "NoOneCanHurtMe", "timed_effect", "infinite_health"), // Infinite health
             new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "WheelsOnlyPlease", "timed_effect", "invisible_vehicles"), // Invisible vehicles
-            new FunctionEffect(Category.CustomEffects, "15 FPS", "OldComputer", "timed_effect", "framerate_15"), // 15 FPS
-            new FunctionEffect(Category.CustomEffects, "60 FPS", "NASAComputer", "timed_effect", "framerate_60"), // 60 FPS
+            new FunctionEffect(Category.CustomEffects, "Powerpoint Presentation", "PowerpointPresentation", "timed_effect", "framerate_15"), // Powerpoint Presentation (15 FPS)
+            new FunctionEffect(Category.CustomEffects, "Gotta Go Fast", "GottaGoFast", "timed_effect", "framerate_60"), // Gotta Go Fast (60 FPS)
             new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "other", "clear_active_effects"), // Clear Active Effects
             new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "timed_effect", "reload_autosave"), // Reload Autosave
             new FunctionEffect(Category.CustomEffects, "Out Of Fuel", "OutOfFuel", "timed_effect", "out_of_fuel"), // Out Of Fuel
@@ -172,7 +172,7 @@ namespace GTA_SA_Chaos.effects
             new TeleportationEffect("Teleport To A Secret Place", "BringMeToASecret", Location.Area52),
             new TeleportationEffect("Teleport To A Quarry", "BringMeToAQuarry", Location.LVQuarry),
             new TeleportationEffect("Teleport To The LV Airport", "BringMeToTheLVAirport", Location.LVAirport),
-            new TeleportationEffect("Teleport To The Dish", "BringMeToTheDish", Location.LVSatellite),
+            new TeleportationEffect("Teleport To Big Ear", "BringMeToTheEar", Location.LVSatellite),
         };
 
         public static List<AbstractEffect> EnabledEffects { get; } = new List<AbstractEffect>();

@@ -94,18 +94,18 @@ namespace GTA_SA_Chaos
             // 
             this.buttonMainToggle.Location = new System.Drawing.Point(6, 6);
             this.buttonMainToggle.Name = "buttonMainToggle";
-            this.buttonMainToggle.Size = new System.Drawing.Size(75, 23);
+            this.buttonMainToggle.Size = new System.Drawing.Size(94, 23);
             this.buttonMainToggle.TabIndex = 0;
-            this.buttonMainToggle.Text = "Start";
+            this.buttonMainToggle.Text = "Start / Resume";
             this.buttonMainToggle.UseVisualStyleBackColor = true;
             this.buttonMainToggle.Click += new System.EventHandler(this.ButtonMainToggle_Click);
             // 
             // progressBarMain
             // 
-            this.progressBarMain.Location = new System.Drawing.Point(168, 6);
+            this.progressBarMain.Location = new System.Drawing.Point(206, 6);
             this.progressBarMain.Maximum = 60;
             this.progressBarMain.Name = "progressBarMain";
-            this.progressBarMain.Size = new System.Drawing.Size(278, 23);
+            this.progressBarMain.Size = new System.Drawing.Size(240, 23);
             this.progressBarMain.Step = 1;
             this.progressBarMain.TabIndex = 1;
             // 
@@ -154,10 +154,9 @@ namespace GTA_SA_Chaos
             // 
             // buttonReset
             // 
-            this.buttonReset.Enabled = false;
-            this.buttonReset.Location = new System.Drawing.Point(87, 6);
+            this.buttonReset.Location = new System.Drawing.Point(106, 6);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonReset.Size = new System.Drawing.Size(94, 23);
             this.buttonReset.TabIndex = 7;
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = true;

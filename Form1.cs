@@ -202,13 +202,15 @@ namespace GTA_SA_Chaos
 
         private void TrySetupAutostart()
         {
-            if (ProcessHooker.HasExited()) // Make sure we are hookedtr
+            if (ProcessHooker.HasExited()) // Make sure we are hooked
             {
                 ProcessHooker.HookProcess();
             }
 
             if (ProcessHooker.HasExited())
             {
+                MessageBox.Show("The game needs to be running!", "Error");
+
                 buttonAutoStart.Enabled = true;
                 buttonAutoStart.Text = "Auto-Start";
 
@@ -795,7 +797,7 @@ namespace GTA_SA_Chaos
             }
             AutoStartTimer.Stop();
             (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Enabled = true;
-            (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = Config.Instance.Enabled ? "Stop" : "Start";
+            (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = Config.Instance.Enabled ? "Stop / Pause" : "Start / Resume";
             comboBoxMainCooldown.Enabled =
                 buttonSwitchMode.Enabled =
                 buttonReset.Enabled = !Config.Instance.Enabled;
@@ -1181,8 +1183,9 @@ namespace GTA_SA_Chaos
             elapsedCount = 0;
             progressBarMain.Value = 0;
             buttonMainToggle.Enabled = true;
-            buttonMainToggle.Text = "Start";
-            buttonReset.Enabled = false;
+            buttonMainToggle.Text = "Start / Resume";
+            buttonAutoStart.Enabled = true;
+            buttonAutoStart.Text = "Auto-Start";
         }
 
         private void CheckBoxContinueTimer_CheckedChanged(object sender, EventArgs e)

@@ -156,7 +156,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Infinite Health", "NoOneCanHurtMe", "timed_effect", "infinite_health"), // Infinite health
             new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "WheelsOnlyPlease", "timed_effect", "invisible_vehicles"), // Invisible vehicles
             new FunctionEffect(Category.CustomEffects, "Powerpoint Presentation", "PowerpointPresentation", "timed_effect", "framerate_15"), // Powerpoint Presentation (15 FPS)
-            new FunctionEffect(Category.CustomEffects, "Gotta Go Fast", "GottaGoFast", "timed_effect", "framerate_60"), // Gotta Go Fast (60 FPS)
+            new FunctionEffect(Category.CustomEffects, "Smooth Criminal", "Smooth Criminal", "timed_effect", "framerate_60"), // Smooth Criminal (60 FPS)
             new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "other", "clear_active_effects"), // Clear Active Effects
             new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "timed_effect", "reload_autosave"), // Reload Autosave
             new FunctionEffect(Category.CustomEffects, "Out Of Fuel", "OutOfFuel", "timed_effect", "out_of_fuel"), // Out Of Fuel

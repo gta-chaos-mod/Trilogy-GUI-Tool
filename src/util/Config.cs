@@ -14,7 +14,7 @@ namespace GTA_SA_Chaos.util
         public bool IsTwitchMode;
 
         [JsonIgnore]
-        public bool IsTwitchVoting;
+        public int TwitchVotingMode = 0; // 0 = Cooldown, 1 = Voting, 2 = Rapid-Fire
 
         public int MainCooldown;
         public bool ContinueTimer = true;
@@ -23,14 +23,13 @@ namespace GTA_SA_Chaos.util
         public bool MainShowLastEffects;
 
         public bool TwitchAllowVoting;
+        public bool TwitchAllowOnlyEnabledEffects;
         public int TwitchVotingTime;
         public int TwitchVotingCooldown;
 
-        public bool TwitchIsHost;
-        public bool TwitchDontActivateEffects;
         public bool TwitchShowLastEffects;
+        public bool TwitchMajorityVoting = true;
 
-        public string TwitchChannel;
         public string TwitchUsername;
         public string TwitchOAuthToken;
 

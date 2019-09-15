@@ -11,6 +11,8 @@ namespace GTA_SA_Chaos.effects
             : base(Category.Teleportation, description, word)
         {
             location = _location;
+
+            DisableRapidFire();
         }
 
         public override void RunEffect()

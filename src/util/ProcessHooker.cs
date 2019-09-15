@@ -61,9 +61,9 @@ namespace GTA_SA_Chaos.util
             }).Start();
         }
 
-        public static void SendEffectToGame(string type, string function, int duration = -1, string description = "N/A")
+        public static void SendEffectToGame(string type, string function, int duration = -1, string description = "N/A", string voter = "N/A", int rapidfire = 0)
         {
-            string builtString = $"{type}:{function}:{duration}:{description}";
+            string builtString = $"{type}:{function}:{duration}:{description}:{voter}:{rapidfire}";
             SendPipeMessage(builtString);
         }
 

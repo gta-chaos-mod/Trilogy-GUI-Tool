@@ -9,6 +9,9 @@ namespace GTA_SA_Chaos.effects
         public readonly Category Category;
         private readonly string Description;
         public readonly string Word;
+        private string Voter = "N/A";
+        private int rapidFire = 1;
+        private bool twitchEnabled = true;
 
         public AbstractEffect(Category category, string description, string word)
         {
@@ -21,6 +24,40 @@ namespace GTA_SA_Chaos.effects
         public virtual string GetDescription()
         {
             return Description;
+        }
+
+        public AbstractEffect SetVoter(string voter)
+        {
+            Voter = voter;
+            return this;
+        }
+
+        public AbstractEffect ResetVoter()
+        {
+            Voter = "N/A";
+            return this;
+        }
+
+        public AbstractEffect DisableRapidFire()
+        {
+            rapidFire = 0;
+            return this;
+        }
+
+        public AbstractEffect DisableTwitch()
+        {
+            twitchEnabled = false;
+            return this;
+        }
+
+        public bool IsRapidFire()
+        {
+            return rapidFire == 1;
+        }
+
+        public bool IsTwitchEnabled()
+        {
+            return twitchEnabled;
         }
 
         public abstract void RunEffect();
@@ -39,7 +76,7 @@ namespace GTA_SA_Chaos.effects
                 description = GetDescription();
             }
 
-            ProcessHooker.SendEffectToGame(type, function, duration, description);
+            ProcessHooker.SendEffectToGame(type, function, duration, description, Voter, Config.Instance.TwitchVotingMode == 2 ? rapidFire : 0);
         }
     }
 }

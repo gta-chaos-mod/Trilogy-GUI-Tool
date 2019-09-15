@@ -35,30 +35,30 @@ namespace GTA_SA_Chaos
             this.tabSettings = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
             this.checkBoxShowLastEffectsMain = new System.Windows.Forms.CheckBox();
-            this.buttonReset = new System.Windows.Forms.Button();
+            this.buttonResetMain = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxMainCooldown = new System.Windows.Forms.ComboBox();
             this.listLastEffectsMain = new System.Windows.Forms.ListBox();
             this.tabTwitch = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxTwitchChannel = new System.Windows.Forms.TextBox();
+            this.buttonResetTwitch = new System.Windows.Forms.Button();
+            this.checkBoxTwitchMajorityVoting = new System.Windows.Forms.CheckBox();
+            this.checkBoxTwitchAllowOnlyEnabledEffects = new System.Windows.Forms.CheckBox();
             this.checkBoxShowLastEffectsTwitch = new System.Windows.Forms.CheckBox();
             this.labelTwitchCurrentMode = new System.Windows.Forms.Label();
-            this.checkBoxTwitchAllowVoting = new System.Windows.Forms.CheckBox();
             this.buttonTwitchToggle = new System.Windows.Forms.Button();
             this.comboBoxVotingCooldown = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxVotingTime = new System.Windows.Forms.ComboBox();
             this.progressBarTwitch = new System.Windows.Forms.ProgressBar();
-            this.checkBoxTwitchDontActivateEffects = new System.Windows.Forms.CheckBox();
             this.listLastEffectsTwitch = new System.Windows.Forms.ListBox();
-            this.checkBoxTwitchIsHost = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.textBoxTwitchOAuth = new System.Windows.Forms.TextBox();
             this.textBoxTwitchUsername = new System.Windows.Forms.TextBox();
             this.buttonConnectTwitch = new System.Windows.Forms.Button();
-            this.textBoxTwitchChannel = new System.Windows.Forms.TextBox();
             this.tabEffects = new System.Windows.Forms.TabPage();
             this.enabledEffectsView = new System.Windows.Forms.TreeView();
             this.label1 = new System.Windows.Forms.Label();
@@ -126,7 +126,7 @@ namespace GTA_SA_Chaos
             // 
             this.tabMain.BackColor = System.Drawing.Color.Transparent;
             this.tabMain.Controls.Add(this.checkBoxShowLastEffectsMain);
-            this.tabMain.Controls.Add(this.buttonReset);
+            this.tabMain.Controls.Add(this.buttonResetMain);
             this.tabMain.Controls.Add(this.label2);
             this.tabMain.Controls.Add(this.comboBoxMainCooldown);
             this.tabMain.Controls.Add(this.buttonMainToggle);
@@ -152,15 +152,15 @@ namespace GTA_SA_Chaos
             this.checkBoxShowLastEffectsMain.UseVisualStyleBackColor = true;
             this.checkBoxShowLastEffectsMain.CheckedChanged += new System.EventHandler(this.CheckBoxShowLastEffectsMain_CheckedChanged);
             // 
-            // buttonReset
+            // buttonResetMain
             // 
-            this.buttonReset.Location = new System.Drawing.Point(106, 6);
-            this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(94, 23);
-            this.buttonReset.TabIndex = 7;
-            this.buttonReset.Text = "Reset";
-            this.buttonReset.UseVisualStyleBackColor = true;
-            this.buttonReset.Click += new System.EventHandler(this.ButtonReset_Click);
+            this.buttonResetMain.Location = new System.Drawing.Point(106, 6);
+            this.buttonResetMain.Name = "buttonResetMain";
+            this.buttonResetMain.Size = new System.Drawing.Size(94, 23);
+            this.buttonResetMain.TabIndex = 7;
+            this.buttonResetMain.Text = "Reset";
+            this.buttonResetMain.UseVisualStyleBackColor = true;
+            this.buttonResetMain.Click += new System.EventHandler(this.ButtonResetMain_Click);
             // 
             // label2
             // 
@@ -191,30 +191,87 @@ namespace GTA_SA_Chaos
             // tabTwitch
             // 
             this.tabTwitch.BackColor = System.Drawing.Color.Transparent;
+            this.tabTwitch.Controls.Add(this.label3);
+            this.tabTwitch.Controls.Add(this.textBoxTwitchChannel);
+            this.tabTwitch.Controls.Add(this.buttonResetTwitch);
+            this.tabTwitch.Controls.Add(this.checkBoxTwitchMajorityVoting);
+            this.tabTwitch.Controls.Add(this.checkBoxTwitchAllowOnlyEnabledEffects);
             this.tabTwitch.Controls.Add(this.checkBoxShowLastEffectsTwitch);
             this.tabTwitch.Controls.Add(this.labelTwitchCurrentMode);
-            this.tabTwitch.Controls.Add(this.checkBoxTwitchAllowVoting);
             this.tabTwitch.Controls.Add(this.buttonTwitchToggle);
             this.tabTwitch.Controls.Add(this.comboBoxVotingCooldown);
             this.tabTwitch.Controls.Add(this.label7);
             this.tabTwitch.Controls.Add(this.label6);
             this.tabTwitch.Controls.Add(this.comboBoxVotingTime);
             this.tabTwitch.Controls.Add(this.progressBarTwitch);
-            this.tabTwitch.Controls.Add(this.checkBoxTwitchDontActivateEffects);
             this.tabTwitch.Controls.Add(this.listLastEffectsTwitch);
-            this.tabTwitch.Controls.Add(this.checkBoxTwitchIsHost);
             this.tabTwitch.Controls.Add(this.label5);
             this.tabTwitch.Controls.Add(this.label4);
-            this.tabTwitch.Controls.Add(this.label3);
             this.tabTwitch.Controls.Add(this.textBoxTwitchOAuth);
             this.tabTwitch.Controls.Add(this.textBoxTwitchUsername);
             this.tabTwitch.Controls.Add(this.buttonConnectTwitch);
-            this.tabTwitch.Controls.Add(this.textBoxTwitchChannel);
             this.tabTwitch.Location = new System.Drawing.Point(4, 22);
             this.tabTwitch.Name = "tabTwitch";
             this.tabTwitch.Size = new System.Drawing.Size(452, 231);
             this.tabTwitch.TabIndex = 2;
             this.tabTwitch.Text = "Twitch";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(5, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Channel:";
+            // 
+            // textBoxTwitchChannel
+            // 
+            this.textBoxTwitchChannel.Location = new System.Drawing.Point(83, 3);
+            this.textBoxTwitchChannel.Name = "textBoxTwitchChannel";
+            this.textBoxTwitchChannel.Size = new System.Drawing.Size(205, 20);
+            this.textBoxTwitchChannel.TabIndex = 1;
+            this.textBoxTwitchChannel.TextChanged += new System.EventHandler(this.TextBoxTwitchChannel_TextChanged);
+            // 
+            // buttonResetTwitch
+            // 
+            this.buttonResetTwitch.Enabled = false;
+            this.buttonResetTwitch.Location = new System.Drawing.Point(294, 58);
+            this.buttonResetTwitch.Name = "buttonResetTwitch";
+            this.buttonResetTwitch.Size = new System.Drawing.Size(155, 23);
+            this.buttonResetTwitch.TabIndex = 21;
+            this.buttonResetTwitch.Text = "Reset";
+            this.buttonResetTwitch.UseVisualStyleBackColor = true;
+            this.buttonResetTwitch.Click += new System.EventHandler(this.ButtonResetTwitch_Click);
+            // 
+            // checkBoxTwitchMajorityVoting
+            // 
+            this.checkBoxTwitchMajorityVoting.AutoSize = true;
+            this.checkBoxTwitchMajorityVoting.Checked = true;
+            this.checkBoxTwitchMajorityVoting.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxTwitchMajorityVoting.Location = new System.Drawing.Point(354, 87);
+            this.checkBoxTwitchMajorityVoting.Name = "checkBoxTwitchMajorityVoting";
+            this.checkBoxTwitchMajorityVoting.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxTwitchMajorityVoting.Size = new System.Drawing.Size(95, 17);
+            this.checkBoxTwitchMajorityVoting.TabIndex = 20;
+            this.checkBoxTwitchMajorityVoting.Text = "Majority Voting";
+            this.toolTipHandler.SetToolTip(this.checkBoxTwitchMajorityVoting, "When enabled the effect that has the most votes will be enabled.");
+            this.checkBoxTwitchMajorityVoting.UseVisualStyleBackColor = true;
+            this.checkBoxTwitchMajorityVoting.CheckedChanged += new System.EventHandler(this.CheckBoxTwitchMajorityVoting_CheckedChanged);
+            // 
+            // checkBoxTwitchAllowOnlyEnabledEffects
+            // 
+            this.checkBoxTwitchAllowOnlyEnabledEffects.AutoSize = true;
+            this.checkBoxTwitchAllowOnlyEnabledEffects.Location = new System.Drawing.Point(137, 81);
+            this.checkBoxTwitchAllowOnlyEnabledEffects.Name = "checkBoxTwitchAllowOnlyEnabledEffects";
+            this.checkBoxTwitchAllowOnlyEnabledEffects.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxTwitchAllowOnlyEnabledEffects.Size = new System.Drawing.Size(148, 17);
+            this.checkBoxTwitchAllowOnlyEnabledEffects.TabIndex = 19;
+            this.checkBoxTwitchAllowOnlyEnabledEffects.Text = "Only Enabled Effects (RF)";
+            this.toolTipHandler.SetToolTip(this.checkBoxTwitchAllowOnlyEnabledEffects, "Only allow effects that are enabled\r\nin the currently active preset during Rapid-" +
+        "Fire.");
+            this.checkBoxTwitchAllowOnlyEnabledEffects.UseVisualStyleBackColor = true;
+            this.checkBoxTwitchAllowOnlyEnabledEffects.CheckedChanged += new System.EventHandler(this.CheckBoxTwitchAllowOnlyEnabledEffects_CheckedChanged);
             // 
             // checkBoxShowLastEffectsTwitch
             // 
@@ -239,29 +296,14 @@ namespace GTA_SA_Chaos
             this.labelTwitchCurrentMode.Size = new System.Drawing.Size(0, 13);
             this.labelTwitchCurrentMode.TabIndex = 17;
             // 
-            // checkBoxTwitchAllowVoting
-            // 
-            this.checkBoxTwitchAllowVoting.AutoSize = true;
-            this.checkBoxTwitchAllowVoting.Checked = true;
-            this.checkBoxTwitchAllowVoting.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTwitchAllowVoting.Location = new System.Drawing.Point(294, 124);
-            this.checkBoxTwitchAllowVoting.Name = "checkBoxTwitchAllowVoting";
-            this.checkBoxTwitchAllowVoting.Size = new System.Drawing.Size(109, 17);
-            this.checkBoxTwitchAllowVoting.TabIndex = 16;
-            this.checkBoxTwitchAllowVoting.Text = "Allow Chat Voting";
-            this.toolTipHandler.SetToolTip(this.checkBoxTwitchAllowVoting, "When enabled the effects won\'t be sent to the game but instead only to announced " +
-        "in chat.");
-            this.checkBoxTwitchAllowVoting.UseVisualStyleBackColor = true;
-            this.checkBoxTwitchAllowVoting.CheckedChanged += new System.EventHandler(this.CheckBoxAllowVoting_CheckedChanged);
-            // 
             // buttonTwitchToggle
             // 
             this.buttonTwitchToggle.Enabled = false;
-            this.buttonTwitchToggle.Location = new System.Drawing.Point(387, 28);
+            this.buttonTwitchToggle.Location = new System.Drawing.Point(294, 29);
             this.buttonTwitchToggle.Name = "buttonTwitchToggle";
-            this.buttonTwitchToggle.Size = new System.Drawing.Size(62, 23);
+            this.buttonTwitchToggle.Size = new System.Drawing.Size(155, 23);
             this.buttonTwitchToggle.TabIndex = 15;
-            this.buttonTwitchToggle.Text = "Start";
+            this.buttonTwitchToggle.Text = "Start / Resume";
             this.buttonTwitchToggle.UseVisualStyleBackColor = true;
             this.buttonTwitchToggle.Click += new System.EventHandler(this.ButtonTwitchToggle_Click);
             // 
@@ -279,14 +321,14 @@ namespace GTA_SA_Chaos
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(291, 162);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(57, 13);
+            this.label7.Size = new System.Drawing.Size(90, 13);
             this.label7.TabIndex = 13;
-            this.label7.Text = "Cooldown:";
+            this.label7.Text = "Voting Cooldown:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(291, 81);
+            this.label6.Location = new System.Drawing.Point(291, 122);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(66, 13);
             this.label6.TabIndex = 12;
@@ -295,7 +337,7 @@ namespace GTA_SA_Chaos
             // comboBoxVotingTime
             // 
             this.comboBoxVotingTime.FormattingEnabled = true;
-            this.comboBoxVotingTime.Location = new System.Drawing.Point(294, 97);
+            this.comboBoxVotingTime.Location = new System.Drawing.Point(294, 138);
             this.comboBoxVotingTime.Name = "comboBoxVotingTime";
             this.comboBoxVotingTime.Size = new System.Drawing.Size(155, 21);
             this.comboBoxVotingTime.TabIndex = 11;
@@ -308,19 +350,6 @@ namespace GTA_SA_Chaos
             this.progressBarTwitch.Size = new System.Drawing.Size(446, 23);
             this.progressBarTwitch.TabIndex = 10;
             // 
-            // checkBoxTwitchDontActivateEffects
-            // 
-            this.checkBoxTwitchDontActivateEffects.AutoSize = true;
-            this.checkBoxTwitchDontActivateEffects.Location = new System.Drawing.Point(294, 57);
-            this.checkBoxTwitchDontActivateEffects.Name = "checkBoxTwitchDontActivateEffects";
-            this.checkBoxTwitchDontActivateEffects.Size = new System.Drawing.Size(129, 17);
-            this.checkBoxTwitchDontActivateEffects.TabIndex = 9;
-            this.checkBoxTwitchDontActivateEffects.Text = "Don\'t Activate Effects";
-            this.toolTipHandler.SetToolTip(this.checkBoxTwitchDontActivateEffects, "When enabled the effects won\'t be sent to the game but instead only to announced " +
-        "in chat.");
-            this.checkBoxTwitchDontActivateEffects.UseVisualStyleBackColor = true;
-            this.checkBoxTwitchDontActivateEffects.CheckedChanged += new System.EventHandler(this.CheckBoxDontActivateEffects_CheckedChanged);
-            // 
             // listLastEffectsTwitch
             // 
             this.listLastEffectsTwitch.FormattingEnabled = true;
@@ -329,21 +358,10 @@ namespace GTA_SA_Chaos
             this.listLastEffectsTwitch.Size = new System.Drawing.Size(282, 95);
             this.listLastEffectsTwitch.TabIndex = 8;
             // 
-            // checkBoxTwitchIsHost
-            // 
-            this.checkBoxTwitchIsHost.AutoSize = true;
-            this.checkBoxTwitchIsHost.Location = new System.Drawing.Point(294, 30);
-            this.checkBoxTwitchIsHost.Name = "checkBoxTwitchIsHost";
-            this.checkBoxTwitchIsHost.Size = new System.Drawing.Size(59, 17);
-            this.checkBoxTwitchIsHost.TabIndex = 7;
-            this.checkBoxTwitchIsHost.Text = "Is Host";
-            this.checkBoxTwitchIsHost.UseVisualStyleBackColor = true;
-            this.checkBoxTwitchIsHost.CheckedChanged += new System.EventHandler(this.CheckBoxHost_CheckedChanged);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(0, 57);
+            this.label5.Location = new System.Drawing.Point(5, 61);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 13);
             this.label5.TabIndex = 6;
@@ -352,25 +370,15 @@ namespace GTA_SA_Chaos
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(0, 32);
+            this.label4.Location = new System.Drawing.Point(5, 34);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "Username:";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(0, 6);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Channel:";
-            // 
             // textBoxTwitchOAuth
             // 
-            this.textBoxTwitchOAuth.Enabled = false;
-            this.textBoxTwitchOAuth.Location = new System.Drawing.Point(83, 55);
+            this.textBoxTwitchOAuth.Location = new System.Drawing.Point(83, 58);
             this.textBoxTwitchOAuth.Name = "textBoxTwitchOAuth";
             this.textBoxTwitchOAuth.PasswordChar = '*';
             this.textBoxTwitchOAuth.Size = new System.Drawing.Size(205, 20);
@@ -379,8 +387,7 @@ namespace GTA_SA_Chaos
             // 
             // textBoxTwitchUsername
             // 
-            this.textBoxTwitchUsername.Enabled = false;
-            this.textBoxTwitchUsername.Location = new System.Drawing.Point(83, 28);
+            this.textBoxTwitchUsername.Location = new System.Drawing.Point(83, 29);
             this.textBoxTwitchUsername.Name = "textBoxTwitchUsername";
             this.textBoxTwitchUsername.Size = new System.Drawing.Size(205, 20);
             this.textBoxTwitchUsername.TabIndex = 2;
@@ -396,14 +403,6 @@ namespace GTA_SA_Chaos
             this.buttonConnectTwitch.Text = "Connect to Twitch";
             this.buttonConnectTwitch.UseVisualStyleBackColor = true;
             this.buttonConnectTwitch.Click += new System.EventHandler(this.ButtonConnectTwitch_Click);
-            // 
-            // textBoxTwitchChannel
-            // 
-            this.textBoxTwitchChannel.Location = new System.Drawing.Point(83, 3);
-            this.textBoxTwitchChannel.Name = "textBoxTwitchChannel";
-            this.textBoxTwitchChannel.Size = new System.Drawing.Size(205, 20);
-            this.textBoxTwitchChannel.TabIndex = 0;
-            this.textBoxTwitchChannel.TextChanged += new System.EventHandler(this.TextBoxChannel_TextChanged);
             // 
             // tabEffects
             // 
@@ -467,6 +466,7 @@ namespace GTA_SA_Chaos
             this.checkBoxCrypticEffects.Size = new System.Drawing.Size(94, 17);
             this.checkBoxCrypticEffects.TabIndex = 5;
             this.checkBoxCrypticEffects.Text = "Cryptic Effects";
+            this.toolTipHandler.SetToolTip(this.checkBoxCrypticEffects, "Sends all effects to the game as cryptic ones.");
             this.checkBoxCrypticEffects.UseVisualStyleBackColor = true;
             this.checkBoxCrypticEffects.CheckedChanged += new System.EventHandler(this.CheckBoxCrypticEffects_CheckedChanged);
             // 
@@ -609,7 +609,6 @@ namespace GTA_SA_Chaos
             this.buttonSwitchMode.TabIndex = 7;
             this.buttonSwitchMode.Text = "Twitch";
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
-            this.buttonSwitchMode.Visible = false;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
             // Form1
@@ -667,13 +666,9 @@ namespace GTA_SA_Chaos
         private System.Windows.Forms.TabPage tabTwitch;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxTwitchOAuth;
         private System.Windows.Forms.TextBox textBoxTwitchUsername;
         private System.Windows.Forms.Button buttonConnectTwitch;
-        private System.Windows.Forms.TextBox textBoxTwitchChannel;
-        private System.Windows.Forms.CheckBox checkBoxTwitchIsHost;
-        private System.Windows.Forms.CheckBox checkBoxTwitchDontActivateEffects;
         private System.Windows.Forms.ListBox listLastEffectsTwitch;
         private System.Windows.Forms.ToolTip toolTipHandler;
         private System.Windows.Forms.ComboBox comboBoxVotingCooldown;
@@ -685,7 +680,6 @@ namespace GTA_SA_Chaos
         private System.Windows.Forms.Button buttonAutoStart;
         private System.Windows.Forms.Timer timerMain;
         private System.Windows.Forms.Button buttonSwitchMode;
-        private System.Windows.Forms.CheckBox checkBoxTwitchAllowVoting;
         private System.Windows.Forms.Label labelTwitchCurrentMode;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Label label8;
@@ -694,11 +688,16 @@ namespace GTA_SA_Chaos
         private System.Windows.Forms.Button buttonTestSeed;
         private System.Windows.Forms.Label labelTestSeed;
         private System.Windows.Forms.Button buttonGenericTest;
-        private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.Button buttonResetMain;
         private System.Windows.Forms.CheckBox checkBoxContinueTimer;
         private System.Windows.Forms.CheckBox checkBoxCrypticEffects;
         private System.Windows.Forms.CheckBox checkBoxShowLastEffectsMain;
         private System.Windows.Forms.CheckBox checkBoxShowLastEffectsTwitch;
+        private System.Windows.Forms.CheckBox checkBoxTwitchAllowOnlyEnabledEffects;
+        private System.Windows.Forms.CheckBox checkBoxTwitchMajorityVoting;
+        private System.Windows.Forms.Button buttonResetTwitch;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxTwitchChannel;
     }
 }
 

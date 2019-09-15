@@ -31,7 +31,7 @@ namespace GTA_SA_Chaos.util
 
         public static int Next(int minValue, int maxValue)
         {
-            return random.Next(minValue, maxValue);
+            return random.Next(minValue, maxValue + 1);
         }
 
         public static double NextDouble()

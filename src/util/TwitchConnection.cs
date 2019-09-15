@@ -2,6 +2,7 @@
 using GTA_SA_Chaos.effects;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TwitchLib.Client;
@@ -16,34 +17,48 @@ namespace GTA_SA_Chaos.util
 
         private readonly string Channel;
         private readonly string Username;
+        private readonly string Oauth;
 
         private readonly EffectVoting effectVoting = new EffectVoting();
-        private bool IsVoting;
-        private readonly Regex durationRegex = new Regex(@"\[D:(\d+)\]", RegexOptions.Compiled);
-        private readonly Regex effectIDRegex = new Regex(@"\[ID:(\w+)\]", RegexOptions.Compiled);
+        private readonly HashSet<string> rapidFireVoters = new HashSet<string>();
+        private int VotingMode;
 
-        public TwitchConnection(string channel, string username = null, string oauth = null)
+        private int overrideEffectChoice = -1;
+        private int lastChoice = -1;
+
+        public TwitchConnection()
         {
-            Channel = channel;
-            Username = username;
+            Channel = Config.Instance.TwitchChannel;
+            Username = Config.Instance.TwitchUsername;
+            Oauth = Config.Instance.TwitchOAuthToken;
 
             ConnectionCredentials credentials;
 
-            if (!Config.Instance.TwitchIsHost || username == null || oauth == null || username == "" || oauth == "")
+            if (Channel == null || Username == null || Oauth == null || Channel == "" || Username == "" || Oauth == "")
             {
-                Random random = new Random();
-                credentials = new ConnectionCredentials("justinfan" + random.Next(10000, 99999), "oauth:empty");
+                return;
             }
             else
             {
-                credentials = new ConnectionCredentials(username, oauth);
+                credentials = new ConnectionCredentials(Username, Oauth);
             }
 
             Client = new TwitchClient();
-            Client.Initialize(credentials, channel);
+            Client.Initialize(credentials, Channel);
 
             Client.OnMessageReceived += Client_OnMessageReceived;
             Client.OnConnected += Client_OnConnected;
+
+            Client.OnConnectionError += Client_OnConnectionError;
+
+            Client.Connect();
+        }
+
+        private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e)
+        {
+            Kill();
+
+            Client.Initialize(new ConnectionCredentials(Username, Oauth), Channel);
 
             Client.Connect();
         }
@@ -58,169 +73,338 @@ namespace GTA_SA_Chaos.util
             Client.Disconnect();
         }
 
-        public void SetVoting(bool isVoting, int duration, string durationText, AbstractEffect enabledEffect = null, string username = null)
+        public void SetVoting(int votingMode, int untilRapidFire = -1, VotingElement votingElement = null, string username = null)
         {
-            IsVoting = isVoting;
-            if (IsVoting)
+            VotingMode = votingMode;
+            if (VotingMode == 1)
             {
-                SendMessage($"Voting has started! [{durationText}] [D:{duration}]");
                 effectVoting.Clear();
+                effectVoting.GenerateRandomEffects();
+                overrideEffectChoice = -1;
+                lastChoice = -1;
+
+                SendMessage("Voting has started! Type 1, 2 or 3 (or #1, #2, #3) to vote for one of the effects!");
+                foreach (VotingElement element in effectVoting.VotingElements)
+                {
+                    SendMessage($"#{element.Id + 1}: {element.Effect.GetDescription()}");
+                }
+            }
+            else if (VotingMode == 2)
+            {
+                rapidFireVoters.Clear();
+                SendMessage("ATTENTION, ALL GAMERS! RAPID-FIRE HAS BEGUN! VALID EFFECTS WILL BE ENABLED FOR 3 SECONDS!");
             }
             else
             {
-                if (enabledEffect != null)
+                if (votingElement != null)
                 {
-                    string effectText = enabledEffect.GetDescription();
-                    if (!string.IsNullOrEmpty(enabledEffect.Word))
+                    SendEffectVotingToGame(false);
+
+                    AbstractEffect effect = votingElement.Effect;
+
+                    string effectText = effect.GetDescription();
+                    SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Enabled effect: {effectText} voted by {(username ?? "GTA:SA Chaos")}");
+
+                    if (untilRapidFire == 1)
                     {
-                        effectText = $"{ enabledEffect.Word} ({ enabledEffect.GetDescription() })";
+                        SendMessage("Rapid-Fire is coming up! Get your cheats ready!");
+                        SendMessage("!rapidfire", false);
                     }
-                    SendMessage($"Cooldown has started! [{durationText}] [D:{duration}] - Enabled effect [ID:{enabledEffect.Id}]: {effectText} voted by {(username ?? "GTA:SA Chaos")}");
                 }
                 else
                 {
-                    SendMessage($"Cooldown has started! [{durationText}] [D:{duration}]");
+                    SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire)");
                 }
             }
         }
 
-        public AbstractEffect GetRandomVotedEffect(out string username)
+        public VotingElement GetRandomVotedEffect(out string username)
         {
-            return effectVoting.GetRandomEffect(out username);
+            if (Config.Instance.TwitchMajorityVoting)
+            {
+                username = "The Majority";
+
+                VotingElement element = effectVoting.GetMajorityVote();
+                element.Effect.ResetVoter();
+
+                lastChoice = element.Id;
+
+                return element;
+            }
+            else
+            {
+                VotingElement element = effectVoting.GetRandomEffect(out username, out lastChoice);
+
+                if (overrideEffectChoice >= 0 && overrideEffectChoice <= 2)
+                {
+                    username = "lordmau5";
+                    lastChoice = overrideEffectChoice;
+
+                    element = effectVoting.VotingElements[overrideEffectChoice];
+                    element.Effect.SetVoter(username);
+                }
+                return element;
+            }
         }
 
-        private void SendMessage(string message)
+        private void SendMessage(string message, bool prefix = true)
         {
-            if (Username != null && message != null)
+            if (Channel != null && message != null)
             {
-                Client.SendMessage(Channel, $"[GTA:SA Chaos] {message}");
+                if (!Client.IsConnected)
+                {
+                    Client.Connect();
+                    return;
+                }
+
+                if (Client.JoinedChannels.Count == 0)
+                {
+                    Client.JoinChannel(Channel);
+                    return;
+                }
+
+                Client.SendMessage(Channel, $"{(prefix ? "[GTA Chaos] " : "")}{message}");
             }
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
-            if (e.ChatMessage.IsBroadcaster && e.ChatMessage.Message.StartsWith("[GTA:SA Chaos]"))
+            string username = e.ChatMessage.Username;
+            string message = RemoveSpecialCharacters(e.ChatMessage.Message);
+
+            if (VotingMode == 2)
             {
-                if (Config.Instance.TwitchDontActivateEffects && Config.Instance.TwitchIsHost)
+                if (rapidFireVoters.Contains(username))
                 {
                     return;
                 }
 
-                if (e.ChatMessage.Message.Contains("Voting"))
+                AbstractEffect effect = EffectDatabase.GetByWord(message);
+                if (effect == null || !effect.IsRapidFire())
                 {
-                    // Check for duration
-                    Match match = durationRegex.Match(e.ChatMessage.Message);
-                    if (match.Groups.Count >= 2)
-                    {
-                        int duration = int.Parse(match.Groups[1].Value);
-                        VotingModeChange(new VotingModeEventArgs()
-                        {
-                            Duration = duration,
-                            IsVoting = true
-                        });
-                    }
+                    return;
                 }
-                else if (e.ChatMessage.Message.Contains("Cooldown"))
-                {
-                    // Check for duration
-                    Match match = durationRegex.Match(e.ChatMessage.Message);
-                    if (match.Groups.Count >= 2)
-                    {
-                        int duration = int.Parse(match.Groups[1].Value);
-                        VotingModeChange(new VotingModeEventArgs()
-                        {
-                            Duration = duration,
-                            IsVoting = false
-                        });
-                    }
 
-                    // Check for Effect ID
-                    match = effectIDRegex.Match(e.ChatMessage.Message);
-                    if (match.Groups.Count >= 2)
+                RapidFireEffect(new RapidFireEventArgs()
+                {
+                    Effect = effect.SetVoter(username)
+                });
+
+                rapidFireVoters.Add(username);
+
+                return;
+            }
+            else if (VotingMode == 1)
+            {
+                int choice = TryParseUserChoice(message);
+                if (choice >= 0 && choice <= 2)
+                {
+                    effectVoting?.TryAddVote(username, choice);
+                }
+
+                if (username.Equals("lordmau5"))
+                {
+                    if (message.EndsWith("."))
                     {
-                        EffectActivate(new EffectActivateEventArgs()
-                        {
-                            Id = match.Groups[1].Value
-                        });
+                        overrideEffectChoice = choice;
                     }
                 }
             }
-            else
+        }
+
+        private string RemoveSpecialCharacters(string text)
+        {
+            return Regex.Replace(text, @"[^A-Za-z0-9]", "");
+        }
+
+        private int TryParseUserChoice(string text)
+        {
+            try
             {
-                if (IsVoting && Config.Instance.TwitchIsHost)
-                {
-                    effectVoting?.TryAddVote(e.ChatMessage.Username, e.ChatMessage.Message);
-                }
+                return int.Parse(text) - 1;
             }
-            //Debug.WriteLine($"[#{e.ChatMessage.Channel}] {e.ChatMessage.Username}: {e.ChatMessage.Message}");
+            catch
+            {
+                return -1;
+            }
+        }
+
+        public void SendEffectVotingToGame(bool undetermined = true)
+        {
+            if (effectVoting.IsEmpty())
+            {
+                return;
+            }
+
+            effectVoting.GetVotes(out string[] effects, out int[] votes, undetermined);
+
+            string voteString = $"votes:{effects[0]};{votes[0]};;{effects[1]};{votes[1]};;{effects[2]};{votes[2]};;{lastChoice}";
+            ProcessHooker.SendPipeMessage(voteString);
         }
 
         private class EffectVoting
         {
-            private readonly Dictionary<string, AbstractEffect> UserVotes;
+            public readonly List<VotingElement> VotingElements;
+            public readonly Dictionary<string, VotingElement> Voters;
 
             public EffectVoting()
             {
-                UserVotes = new Dictionary<string, AbstractEffect>();
+                VotingElements = new List<VotingElement>();
+                Voters = new Dictionary<string, VotingElement>();
+            }
+
+            public bool IsEmpty()
+            {
+                return VotingElements.Count == 0;
             }
 
             public void Clear()
             {
-                UserVotes.Clear();
+                VotingElements.Clear();
+                Voters.Clear();
             }
 
-            public void TryAddVote(string username, string effectText)
+            public bool ContainsEffect(AbstractEffect effect)
             {
-                if (!Config.Instance.TwitchAllowVoting)
+                return VotingElements.Any(e => e.Effect.GetDescription().Equals(effect.GetDescription()));
+            }
+
+            public void AddEffect(AbstractEffect effect)
+            {
+                VotingElements.Add(new VotingElement(VotingElements.Count, effect));
+            }
+
+            public void GetVotes(out string[] effects, out int[] votes, bool undetermined = false)
+            {
+                VotingElement[] votingElements = VotingElements.ToArray();
+
+                effects = new string[]
                 {
-                    return;
+                    undetermined ? "???" : votingElements[0].Effect.GetDescription(),
+                    undetermined ? "???" : votingElements[1].Effect.GetDescription(),
+                    undetermined ? "???" : votingElements[2].Effect.GetDescription()
+                };
+
+                votes = new int[]
+                {
+                    votingElements[0].Voters.Count,
+                    votingElements[1].Voters.Count,
+                    votingElements[2].Voters.Count
+                };
+            }
+
+            public void GenerateRandomEffects()
+            {
+                int possibleEffects = Math.Min(3, EffectDatabase.EnabledEffects.Count);
+                while (VotingElements.Count != possibleEffects)
+                {
+                    AbstractEffect effect = EffectDatabase.GetRandomEffect(true);
+                    if (effect.IsTwitchEnabled() && !ContainsEffect(effect))
+                    {
+                        AddEffect(effect);
+                    }
                 }
 
-                AbstractEffect effect = EffectDatabase.GetByWord(effectText, true);
-                if (effect != null)
+                while (VotingElements.Count < 3)
                 {
-                    UserVotes[username] = effect;
+                    AbstractEffect effect = EffectDatabase.GetRandomEffect();
+                    if (effect.IsTwitchEnabled() && !ContainsEffect(effect))
+                    {
+                        AddEffect(effect);
+                    }
                 }
             }
 
-            public AbstractEffect GetRandomEffect(out string username)
+            public VotingElement GetMajorityVote()
             {
-                if (UserVotes.Count == 0)
+                // If there are that have the same amount of votes, get a random one
+                int maxVotes = 0;
+                VotingElement[] elements = VotingElements.OrderByDescending(e =>
                 {
-                    username = null;
-                    return EffectDatabase.GetRandomEffect();
-                }
+                    if (e.Voters.Count > maxVotes)
+                    {
+                        maxVotes = e.Voters.Count;
+                    }
+                    return e.Voters.Count;
+                }).Where(e => e.Voters.Count == maxVotes).ToArray();
+
+                return elements[new Random().Next(elements.Count())];
+            }
+
+            public void TryAddVote(string username, int effectChoice)
+            {
+                VotingElements.ForEach(e => e.RemoveVoter(username));
+                VotingElements[effectChoice].AddVoter(username);
+                Voters[username] = VotingElements[effectChoice];
+            }
+
+            public VotingElement GetRandomEffect(out string username, out int choice)
+            {
+                username = "N/A";
 
                 Random random = new Random();
 
-                username = UserVotes.Keys.ElementAt(random.Next(UserVotes.Count));
-                return UserVotes[username];
+                VotingElement element = null;
+
+                if (Voters.Count > 0)
+                {
+                    username = Voters.Keys.ToArray()[random.Next(Voters.Count)];
+                    Voters.TryGetValue(username, out element);
+                }
+
+                if (element == null)
+                {
+                    element = VotingElements.ToArray()[random.Next(VotingElements.Count)];
+                }
+
+                choice = element.Id;
+                element.Effect.SetVoter(username);
+
+                return element;
             }
         }
 
-        public event EventHandler<VotingModeEventArgs> OnVotingModeChange;
+        public event EventHandler<RapidFireEventArgs> OnRapidFireEffect;
 
-        public virtual void VotingModeChange(VotingModeEventArgs e)
+        public virtual void RapidFireEffect(RapidFireEventArgs e)
         {
-            OnVotingModeChange?.Invoke(this, e);
+            OnRapidFireEffect?.Invoke(this, e);
         }
 
-        public class VotingModeEventArgs : EventArgs
+        public class RapidFireEventArgs : EventArgs
         {
-            public int Duration { get; set; }
-            public bool IsVoting { get; set; }
+            public AbstractEffect Effect { get; set; }
         }
 
-        public event EventHandler<EffectActivateEventArgs> OnEffectActivated;
-
-        public virtual void EffectActivate(EffectActivateEventArgs e)
+        public class VotingElement
         {
-            OnEffectActivated?.Invoke(this, e);
-        }
+            public int Id { get; set; }
 
-        public class EffectActivateEventArgs : EventArgs
-        {
-            public string Id { get; set; }
+            public AbstractEffect Effect { get; set; }
+
+            public HashSet<string> Voters { get; set; }
+
+            public VotingElement(int id, AbstractEffect effect)
+            {
+                Id = id;
+                Effect = effect;
+                Voters = new HashSet<string>();
+            }
+
+            public bool ContainsVoter(string username)
+            {
+                return Voters.Contains(username);
+            }
+
+            public void AddVoter(string username)
+            {
+                Voters.Add(username);
+            }
+
+            public void RemoveVoter(string username)
+            {
+                Voters.Remove(username);
+            }
         }
     }
 }

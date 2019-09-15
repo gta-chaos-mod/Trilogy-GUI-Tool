@@ -22,20 +22,20 @@ namespace GTA_SA_Chaos.util
         public bool CrypticEffects;
         public bool MainShowLastEffects;
 
-        public bool TwitchAllowVoting;
-        public bool TwitchAllowOnlyEnabledEffects;
+        public bool TwitchAllowOnlyEnabledEffectsRapidFire;
         public int TwitchVotingTime;
         public int TwitchVotingCooldown;
 
         public bool TwitchShowLastEffects;
         public bool TwitchMajorityVoting = true;
 
+        public string TwitchChannel;
         public string TwitchUsername;
         public string TwitchOAuthToken;
 
         public static int GetEffectDuration()
         {
-            return Instance.IsTwitchMode ? Instance.TwitchVotingCooldown * 3 : Instance.MainCooldown * 3;
+            return Instance.IsTwitchMode ? (Instance.TwitchVotingCooldown + Instance.TwitchVotingTime) : Instance.MainCooldown * 3;
         }
 
         public static string FToString(float value)

@@ -59,7 +59,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.Time, "Stop Game Clock, Orange Sky", "DontBringOnTheNight", "timed_cheat", "orange_sky"), // Stop game clock, orange sky
             new FunctionEffect(Category.Time, "Faster Clock", "TimeJustFliesBy", "timed_cheat", "faster_clock"), // Faster clock
 
-            new FunctionEffect(Category.VehiclesTraffic, "Blow Up All Cars", "AllCarsGoBoom", "cheat", "blow_up_all_cars"), // Blow up all cars
+            new FunctionEffect(Category.VehiclesTraffic, "Blow Up All Cars", "AllCarsGoBoom", "cheat", "blow_up_all_cars").DisableRapidFire(), // Blow up all cars
             new FunctionEffect(Category.VehiclesTraffic, "Pink Traffic", "PinkIsTheNewCool", "timed_cheat", "pink_traffic"), // Pink traffic
             new FunctionEffect(Category.VehiclesTraffic, "Black Traffic", "SoLongAsItsBlack", "timed_cheat", "black_traffic"), // Black traffic
             new FunctionEffect(Category.VehiclesTraffic, "Cheap Cars", "EveryoneIsPoor", "timed_cheat", "cheap_cars"), // Cheap cars
@@ -126,7 +126,7 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Half Gravity", "ImFeelingLightheaded", "timed_effect", "half_gravity"), // Sets the gravity to 0.004f
             new FunctionEffect(Category.CustomEffects, "Double Gravity", "KilogramOfFeathers", "timed_effect", "double_gravity"), // Sets the gravity to 0.016f
             new FunctionEffect(Category.CustomEffects, "Quadruple Gravity", "KilogramOfSteel", "timed_effect", "quadruple_gravity"), // Sets the gravity to 0.032f
-            new FunctionEffect(Category.CustomEffects, "Insane Gravity", "StraightToHell", "timed_effect", "insane_gravity"), // Sets the gravity to 0.64f
+            new FunctionEffect(Category.CustomEffects, "Insane Gravity", "StraightToHell", "timed_effect", "insane_gravity").DisableRapidFire(), // Sets the gravity to 0.64f
             new FunctionEffect(Category.CustomEffects, "Experience The Lag", "PacketLoss", "timed_effect", "experience_the_lag"), // Experience the lag
             new FunctionEffect(Category.CustomEffects, "To Drive Or Not To Drive", "ToDriveOrNotToDrive", "timed_effect", "to_drive_or_not_to_drive"), // To drive or not to drive
             new FunctionEffect(Category.CustomEffects, "Timelapse Mode", "DiscoInTheSky", "timed_effect", "timelapse"), // Timelapse mode
@@ -153,15 +153,19 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Night Vision", "NightVision", "timed_effect", "night_vision"), // Night Vision
             new FunctionEffect(Category.CustomEffects, "Thermal Vision", "ThermalVision", "timed_effect", "thermal_vision"), // Thermal Vision
             new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IllTakeAFreePass", "timed_effect", "pass_mission").DisableRapidFire(), // Pass Current Mission
-            new FunctionEffect(Category.CustomEffects, "Cryptic Effects", "ZalgoRules", "timed_effect", "cryptic_effects").DisableRapidFire(), // Cryptic Effects
+            new FunctionEffect(Category.CustomEffects, "Cryptic Effects", "ZalgoRules", "timed_effect", "cryptic_effects").DisableRapidFire().DisableTwitch(), // Cryptic Effects
             new FunctionEffect(Category.CustomEffects, "Infinite Health (Everyone)", "NoOneCanHurtAnyone", "timed_effect", "infinite_health"), // Infinite Health (Everyone)
-            new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "WheelsOnlyPlease", "timed_effect", "invisible_vehicles"), // Invisible vehicles
+            new FunctionEffect(Category.CustomEffects, "Invisible Vehicles (Only Wheels)", "WheelsOnlyPlease", "timed_effect", "wheels_only_please"), // Invisible Vehicles (Only Wheels)
+            new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "InvisibleVehicles", "timed_effect", "invisible_vehicles"), // Invisible Vehicles
             new FunctionEffect(Category.CustomEffects, "Powerpoint Presentation", "PowerpointPresentation", "timed_effect", "framerate_15"), // Powerpoint Presentation (15 FPS)
             new FunctionEffect(Category.CustomEffects, "Smooth Criminal", "SmoothCriminal", "timed_effect", "framerate_60"), // Smooth Criminal (60 FPS)
-            new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "other", "clear_active_effects"), // Clear Active Effects
+            new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "other", "clear_active_effects").DisableTwitch(), // Clear Active Effects
             new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "timed_effect", "reload_autosave").DisableRapidFire(), // Reload Autosave
             new FunctionEffect(Category.CustomEffects, "Out Of Fuel", "OutOfFuel", "timed_effect", "out_of_fuel"), // Out Of Fuel
             new FunctionEffect(Category.CustomEffects, "Infinite Health (Player)", "NoOneCanHurtMe", "timed_effect", "infinite_health_player"), // Infinite Health (Player)
+            new FunctionEffect(Category.CustomEffects, "Woozie Mode", "WoozieMode", "timed_effect", "woozie_mode").DisableRapidFire(), // Woozie Mode
+            new FunctionEffect(Category.CustomEffects, "High Pitched Audio", "CJAndTheChipmunks", "timed_effect", "chipmunks"), // High Pitched Audio
+            new FunctionEffect(Category.CustomEffects, "Pitch Shifter", "VocalRange", "timed_effect", "vocal_range"), // Pitch Shifter
 
             // All teleports are disabled during Rapid-Fire mode
             new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet),

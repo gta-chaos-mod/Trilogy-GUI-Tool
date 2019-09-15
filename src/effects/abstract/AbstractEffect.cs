@@ -11,6 +11,7 @@ namespace GTA_SA_Chaos.effects
         public readonly string Word;
         private string Voter = "N/A";
         private int rapidFire = 1;
+        private bool twitchEnabled = true;
 
         public AbstractEffect(Category category, string description, string word)
         {
@@ -31,15 +32,32 @@ namespace GTA_SA_Chaos.effects
             return this;
         }
 
+        public AbstractEffect ResetVoter()
+        {
+            Voter = "N/A";
+            return this;
+        }
+
         public AbstractEffect DisableRapidFire()
         {
             rapidFire = 0;
             return this;
         }
 
+        public AbstractEffect DisableTwitch()
+        {
+            twitchEnabled = false;
+            return this;
+        }
+
         public bool IsRapidFire()
         {
             return rapidFire == 1;
+        }
+
+        public bool IsTwitchEnabled()
+        {
+            return twitchEnabled;
         }
 
         public abstract void RunEffect();

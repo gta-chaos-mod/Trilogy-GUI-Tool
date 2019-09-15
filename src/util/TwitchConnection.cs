@@ -15,34 +15,50 @@ namespace GTA_SA_Chaos.util
     {
         public readonly TwitchClient Client;
 
+        private readonly string Channel;
         private readonly string Username;
+        private readonly string Oauth;
 
         private readonly EffectVoting effectVoting = new EffectVoting();
+        private readonly HashSet<string> rapidFireVoters = new HashSet<string>();
         private int VotingMode;
 
         private int overrideEffectChoice = -1;
         private int lastChoice = -1;
 
-        public TwitchConnection(string username, string oauth = null)
+        public TwitchConnection()
         {
-            Username = username;
+            Channel = Config.Instance.TwitchChannel;
+            Username = Config.Instance.TwitchUsername;
+            Oauth = Config.Instance.TwitchOAuthToken;
 
             ConnectionCredentials credentials;
 
-            if (username == null || oauth == null || username == "" || oauth == "")
+            if (Channel == null || Username == null || Oauth == null || Channel == "" || Username == "" || Oauth == "")
             {
                 return;
             }
             else
             {
-                credentials = new ConnectionCredentials(username, oauth);
+                credentials = new ConnectionCredentials(Username, Oauth);
             }
 
             Client = new TwitchClient();
-            Client.Initialize(credentials, Username);
+            Client.Initialize(credentials, Channel);
 
             Client.OnMessageReceived += Client_OnMessageReceived;
             Client.OnConnected += Client_OnConnected;
+
+            Client.OnConnectionError += Client_OnConnectionError;
+
+            Client.Connect();
+        }
+
+        private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e)
+        {
+            Kill();
+
+            Client.Initialize(new ConnectionCredentials(Username, Oauth), Channel);
 
             Client.Connect();
         }
@@ -57,7 +73,7 @@ namespace GTA_SA_Chaos.util
             Client.Disconnect();
         }
 
-        public void SetVoting(int votingMode, VotingElement votingElement = null, string username = null, int untilRapidFire = -1)
+        public void SetVoting(int votingMode, int untilRapidFire = -1, VotingElement votingElement = null, string username = null)
         {
             VotingMode = votingMode;
             if (VotingMode == 1)
@@ -67,7 +83,6 @@ namespace GTA_SA_Chaos.util
                 overrideEffectChoice = -1;
                 lastChoice = -1;
 
-                //SendMessage($"Voting has started! [{durationText}] [D:{duration}]");
                 SendMessage("Voting has started! Type 1, 2 or 3 (or #1, #2, #3) to vote for one of the effects!");
                 foreach (VotingElement element in effectVoting.VotingElements)
                 {
@@ -76,23 +91,18 @@ namespace GTA_SA_Chaos.util
             }
             else if (VotingMode == 2)
             {
-                //SendMessage($"ATTENTION, ALL GAMERS! RAPID-FIRE HAS BEGUN! VALID EFFECTS WILL BE ENABLED FOR 3 SECONDS! [{durationText}] [D:{duration}]");
+                rapidFireVoters.Clear();
                 SendMessage("ATTENTION, ALL GAMERS! RAPID-FIRE HAS BEGUN! VALID EFFECTS WILL BE ENABLED FOR 3 SECONDS!");
             }
             else
             {
                 if (votingElement != null)
                 {
-                    SendEffectVotingToGame();
+                    SendEffectVotingToGame(false);
 
                     AbstractEffect effect = votingElement.Effect;
 
                     string effectText = effect.GetDescription();
-                    if (!string.IsNullOrEmpty(effect.Word))
-                    {
-                        effectText = $"{ effect.Word} ({ effect.GetDescription() })";
-                    }
-                    //SendMessage($"Cooldown has started! [{durationText}] [D:{duration}] - Enabled effect [ID:{enabledEffect.Id}]: {effectText} voted by {(username ?? "GTA:SA Chaos")}");
                     SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Enabled effect: {effectText} voted by {(username ?? "GTA:SA Chaos")}");
 
                     if (untilRapidFire == 1)
@@ -103,8 +113,7 @@ namespace GTA_SA_Chaos.util
                 }
                 else
                 {
-                    //SendMessage($"Cooldown has started! [{durationText}] [D:{duration}]");
-                    SendMessage("Cooldown has started!");
+                    SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire)");
                 }
             }
         }
@@ -116,7 +125,7 @@ namespace GTA_SA_Chaos.util
                 username = "The Majority";
 
                 VotingElement element = effectVoting.GetMajorityVote();
-                element.Effect.SetVoter(username);
+                element.Effect.ResetVoter();
 
                 lastChoice = element.Id;
 
@@ -140,7 +149,7 @@ namespace GTA_SA_Chaos.util
 
         private void SendMessage(string message, bool prefix = true)
         {
-            if (Username != null && message != null)
+            if (Channel != null && message != null)
             {
                 if (!Client.IsConnected)
                 {
@@ -150,11 +159,11 @@ namespace GTA_SA_Chaos.util
 
                 if (Client.JoinedChannels.Count == 0)
                 {
-                    Client.JoinChannel(Username);
+                    Client.JoinChannel(Channel);
                     return;
                 }
 
-                Client.SendMessage(Username, $"{(prefix ? "[GTA Chaos] " : "")}{message}");
+                Client.SendMessage(Channel, $"{(prefix ? "[GTA Chaos] " : "")}{message}");
             }
         }
 
@@ -165,7 +174,12 @@ namespace GTA_SA_Chaos.util
 
             if (VotingMode == 2)
             {
-                AbstractEffect effect = EffectDatabase.GetByWord(message, Config.Instance.TwitchAllowOnlyEnabledEffects);
+                if (rapidFireVoters.Contains(username))
+                {
+                    return;
+                }
+
+                AbstractEffect effect = EffectDatabase.GetByWord(message);
                 if (effect == null || !effect.IsRapidFire())
                 {
                     return;
@@ -175,6 +189,8 @@ namespace GTA_SA_Chaos.util
                 {
                     Effect = effect.SetVoter(username)
                 });
+
+                rapidFireVoters.Add(username);
 
                 return;
             }
@@ -194,21 +210,11 @@ namespace GTA_SA_Chaos.util
                     }
                 }
             }
-
-            //if (username.Equals("lordmau5"))
-            //{
-            //    if (message.EndsWith("."))
-            //    {
-            //        message = message.Substring(0, message.Length - 3);
-            //        overrideEffect = EffectDatabase.GetByWord(message).SetVoter("lordmau5");
-            //    }
-            //}
-            //Debug.WriteLine($"[#{e.ChatMessage.Channel}] {e.ChatMessage.Username}: {e.ChatMessage.Message}");
         }
 
         private string RemoveSpecialCharacters(string text)
         {
-            return Regex.Replace(text, @"[^A-Za-z0-9.]", "");
+            return Regex.Replace(text, @"[^A-Za-z0-9]", "");
         }
 
         private int TryParseUserChoice(string text)
@@ -223,14 +229,14 @@ namespace GTA_SA_Chaos.util
             }
         }
 
-        public void SendEffectVotingToGame()
+        public void SendEffectVotingToGame(bool undetermined = true)
         {
             if (effectVoting.IsEmpty())
             {
                 return;
             }
 
-            effectVoting.GetVotes(out string[] effects, out int[] votes);
+            effectVoting.GetVotes(out string[] effects, out int[] votes, undetermined);
 
             string voteString = $"votes:{effects[0]};{votes[0]};;{effects[1]};{votes[1]};;{effects[2]};{votes[2]};;{lastChoice}";
             ProcessHooker.SendPipeMessage(voteString);
@@ -239,10 +245,12 @@ namespace GTA_SA_Chaos.util
         private class EffectVoting
         {
             public readonly List<VotingElement> VotingElements;
+            public readonly Dictionary<string, VotingElement> Voters;
 
             public EffectVoting()
             {
                 VotingElements = new List<VotingElement>();
+                Voters = new Dictionary<string, VotingElement>();
             }
 
             public bool IsEmpty()
@@ -253,6 +261,7 @@ namespace GTA_SA_Chaos.util
             public void Clear()
             {
                 VotingElements.Clear();
+                Voters.Clear();
             }
 
             public bool ContainsEffect(AbstractEffect effect)
@@ -265,15 +274,15 @@ namespace GTA_SA_Chaos.util
                 VotingElements.Add(new VotingElement(VotingElements.Count, effect));
             }
 
-            public void GetVotes(out string[] effects, out int[] votes)
+            public void GetVotes(out string[] effects, out int[] votes, bool undetermined = false)
             {
                 VotingElement[] votingElements = VotingElements.ToArray();
 
                 effects = new string[]
                 {
-                    votingElements[0].Effect.GetDescription(),
-                    votingElements[1].Effect.GetDescription(),
-                    votingElements[2].Effect.GetDescription()
+                    undetermined ? "???" : votingElements[0].Effect.GetDescription(),
+                    undetermined ? "???" : votingElements[1].Effect.GetDescription(),
+                    undetermined ? "???" : votingElements[2].Effect.GetDescription()
                 };
 
                 votes = new int[]
@@ -286,20 +295,20 @@ namespace GTA_SA_Chaos.util
 
             public void GenerateRandomEffects()
             {
-                int possibleEffects = Math.Min(3, Config.Instance.TwitchAllowOnlyEnabledEffects ? EffectDatabase.EnabledEffects.Count : 3);
+                int possibleEffects = Math.Min(3, EffectDatabase.EnabledEffects.Count);
                 while (VotingElements.Count != possibleEffects)
                 {
-                    AbstractEffect effect = EffectDatabase.GetRandomEffect(Config.Instance.TwitchAllowOnlyEnabledEffects);
-                    if (!ContainsEffect(effect))
+                    AbstractEffect effect = EffectDatabase.GetRandomEffect(true);
+                    if (effect.IsTwitchEnabled() && !ContainsEffect(effect))
                     {
                         AddEffect(effect);
                     }
                 }
 
-                if (VotingElements.Count < 3)
+                while (VotingElements.Count < 3)
                 {
                     AbstractEffect effect = EffectDatabase.GetRandomEffect();
-                    if (!ContainsEffect(effect))
+                    if (effect.IsTwitchEnabled() && !ContainsEffect(effect))
                     {
                         AddEffect(effect);
                     }
@@ -308,37 +317,46 @@ namespace GTA_SA_Chaos.util
 
             public VotingElement GetMajorityVote()
             {
-                return VotingElements.OrderByDescending(e => e.Voters.Count).ToArray()[0];
+                // If there are that have the same amount of votes, get a random one
+                int maxVotes = 0;
+                VotingElement[] elements = VotingElements.OrderByDescending(e =>
+                {
+                    if (e.Voters.Count > maxVotes)
+                    {
+                        maxVotes = e.Voters.Count;
+                    }
+                    return e.Voters.Count;
+                }).Where(e => e.Voters.Count == maxVotes).ToArray();
+
+                return elements[new Random().Next(elements.Count())];
             }
 
             public void TryAddVote(string username, int effectChoice)
             {
-                if (!Config.Instance.TwitchAllowVoting)
-                {
-                    return;
-                }
-
                 VotingElements.ForEach(e => e.RemoveVoter(username));
                 VotingElements[effectChoice].AddVoter(username);
+                Voters[username] = VotingElements[effectChoice];
             }
 
             public VotingElement GetRandomEffect(out string username, out int choice)
             {
+                username = "N/A";
+
                 Random random = new Random();
 
-                VotingElement element;
-                List<VotingElement> newElements = VotingElements.FindAll(e => e.Voters.Count > 0);
+                VotingElement element = null;
 
-                if (newElements.Count == 0)
+                if (Voters.Count > 0)
+                {
+                    username = Voters.Keys.ToArray()[random.Next(Voters.Count)];
+                    Voters.TryGetValue(username, out element);
+                }
+
+                if (element == null)
                 {
                     element = VotingElements.ToArray()[random.Next(VotingElements.Count)];
                 }
-                else
-                {
-                    element = newElements.ToArray()[random.Next(newElements.Count)];
-                }
 
-                username = element.GetRandomVoter();
                 choice = element.Id;
                 element.Effect.SetVoter(username);
 
@@ -386,11 +404,6 @@ namespace GTA_SA_Chaos.util
             public void RemoveVoter(string username)
             {
                 Voters.Remove(username);
-            }
-
-            public string GetRandomVoter()
-            {
-                return Voters.Count == 0 ? "" : Voters.ToArray()[new Random().Next(Voters.Count)];
             }
         }
     }

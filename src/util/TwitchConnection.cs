@@ -13,7 +13,7 @@ namespace GTA_SA_Chaos.util
 {
     internal class TwitchConnection
     {
-        public readonly TwitchClient Client;
+        public TwitchClient Client;
 
         private readonly string Channel;
         private readonly string Username;
@@ -43,7 +43,24 @@ namespace GTA_SA_Chaos.util
                 credentials = new ConnectionCredentials(Username, Oauth);
             }
 
-            Client = new TwitchClient();
+            var protocol = TwitchLib.Client.Enums.ClientProtocol.WebSocket;
+            // If we're not on Windows 10, force a TCP connection
+            if (System.Environment.OSVersion.Version.Major < 10)
+            {
+                protocol = TwitchLib.Client.Enums.ClientProtocol.TCP;
+            }
+
+            TryConnect(credentials, protocol);
+        }
+
+        private void TryConnect(ConnectionCredentials credentials, TwitchLib.Client.Enums.ClientProtocol protocol = TwitchLib.Client.Enums.ClientProtocol.WebSocket)
+        {
+            if (Client != null)
+            {
+                Kill();
+            }
+
+            Client = new TwitchClient(protocol: protocol);
             Client.Initialize(credentials, Channel);
 
             Client.OnMessageReceived += Client_OnMessageReceived;

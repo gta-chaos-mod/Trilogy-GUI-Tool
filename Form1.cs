@@ -159,6 +159,7 @@ namespace GTA_SA_Chaos
             checkBoxShowLastEffectsMain.Checked = Config.Instance.MainShowLastEffects;
             checkBoxShowLastEffectsTwitch.Checked = Config.Instance.TwitchShowLastEffects;
             checkBoxTwitchMajorityVoting.Checked = Config.Instance.TwitchMajorityVoting;
+            checkBoxTwitch3TimesCooldown.Checked = Config.Instance.Twitch3TimesCooldown;
 
             textBoxSeed.Text = Config.Instance.Seed;
         }
@@ -1158,6 +1159,11 @@ namespace GTA_SA_Chaos
             buttonTwitchToggle.Text = "Start / Resume";
             buttonAutoStart.Enabled = Twitch != null && Twitch.Client != null && Twitch.Client.IsConnected;
             buttonAutoStart.Text = "Auto-Start";
+        }
+
+        private void CheckBoxTwitch3TimesCooldown_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance.Twitch3TimesCooldown = checkBoxTwitch3TimesCooldown.Checked;
         }
     }
 }

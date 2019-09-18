@@ -28,6 +28,7 @@ namespace GTA_SA_Chaos.util
 
         public bool TwitchShowLastEffects;
         public bool TwitchMajorityVoting = true;
+        public bool Twitch3TimesCooldown;
 
         public string TwitchChannel;
         public string TwitchUsername;
@@ -35,7 +36,12 @@ namespace GTA_SA_Chaos.util
 
         public static int GetEffectDuration()
         {
-            return Instance.IsTwitchMode ? (Instance.TwitchVotingCooldown + Instance.TwitchVotingTime) : Instance.MainCooldown * 3;
+            if (Instance.IsTwitchMode)
+            {
+                int cooldown = Instance.TwitchVotingCooldown + Instance.TwitchVotingTime;
+                return Instance.Twitch3TimesCooldown ? cooldown * 3 : cooldown;
+            }
+            return Instance.MainCooldown * 3;
         }
 
         public static string FToString(float value)

@@ -109,7 +109,7 @@ namespace GTA_SA_Chaos.util
             else if (VotingMode == 2)
             {
                 rapidFireVoters.Clear();
-                SendMessage("ATTENTION, ALL GAMERS! RAPID-FIRE HAS BEGUN! VALID EFFECTS WILL BE ENABLED FOR 3 SECONDS!");
+                SendMessage("ATTENTION, ALL GAMERS! RAPID-FIRE HAS BEGUN! VALID EFFECTS WILL BE ENABLED FOR 15 SECONDS!");
             }
             else
             {

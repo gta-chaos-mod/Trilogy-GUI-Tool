@@ -81,6 +81,7 @@ namespace GTA_SA_Chaos
             this.buttonAutoStart = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
+            this.checkBoxTwitch3TimesCooldown = new System.Windows.Forms.CheckBox();
             this.tabSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabTwitch.SuspendLayout();
@@ -191,6 +192,7 @@ namespace GTA_SA_Chaos
             // tabTwitch
             // 
             this.tabTwitch.BackColor = System.Drawing.Color.Transparent;
+            this.tabTwitch.Controls.Add(this.checkBoxTwitch3TimesCooldown);
             this.tabTwitch.Controls.Add(this.label3);
             this.tabTwitch.Controls.Add(this.textBoxTwitchChannel);
             this.tabTwitch.Controls.Add(this.buttonResetTwitch);
@@ -611,6 +613,20 @@ namespace GTA_SA_Chaos
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
+            // checkBoxTwitch3TimesCooldown
+            // 
+            this.checkBoxTwitch3TimesCooldown.AutoSize = true;
+            this.checkBoxTwitch3TimesCooldown.Location = new System.Drawing.Point(362, 104);
+            this.checkBoxTwitch3TimesCooldown.Name = "checkBoxTwitch3TimesCooldown";
+            this.checkBoxTwitch3TimesCooldown.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxTwitch3TimesCooldown.Size = new System.Drawing.Size(87, 17);
+            this.checkBoxTwitch3TimesCooldown.TabIndex = 24;
+            this.checkBoxTwitch3TimesCooldown.Text = "3x Cooldown";
+            this.toolTipHandler.SetToolTip(this.checkBoxTwitch3TimesCooldown, "When enabled effects will have 3x their cooldown.\r\n(Cooldown in this case is the " +
+        "Voting Time + Voting Cooldown)");
+            this.checkBoxTwitch3TimesCooldown.UseVisualStyleBackColor = true;
+            this.checkBoxTwitch3TimesCooldown.CheckedChanged += new System.EventHandler(this.CheckBoxTwitch3TimesCooldown_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -698,6 +714,7 @@ namespace GTA_SA_Chaos
         private System.Windows.Forms.Button buttonResetTwitch;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxTwitchChannel;
+        private System.Windows.Forms.CheckBox checkBoxTwitch3TimesCooldown;
     }
 }
 

@@ -497,7 +497,7 @@ namespace GTA_SA_Chaos
                 "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
                 "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE38", "CE39", "CE40",
                 "CE41", "CE43", "CE44", "CE45", "CE46", "CE47", "CE48", "CE49", "CE50",
-                "CE51", "CE52", "CE53",
+                "CE51", "CE52",
 
                 "TP1"
             }));
@@ -523,8 +523,8 @@ namespace GTA_SA_Chaos
                 "CE11", "CE12",
                 "CE22", "CE23", "CE30",
                 "CE40",
-                "CE46", "CE47", "CE50",
-                "CE52", "CE53"
+                "CE46", "CE47", "CE49",
+                "CE51", "CE52"
             }));
             presetComboBox.Items.Add(new PresetComboBoxItem("Harmful", reversed: false, new string[]
             {
@@ -550,8 +550,7 @@ namespace GTA_SA_Chaos
                 "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
                 "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
                 "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE38", "CE39",
-                "CE41", "CE43", "CE44", "CE45", "CE48", "CE49",
-                "CE51",
+                "CE41", "CE43", "CE44", "CE45", "CE48", "CE50",
 
                 "TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TP7", "TP8", "TP9", "TP10",
                 "TP11", "TP12"
@@ -581,8 +580,7 @@ namespace GTA_SA_Chaos
                 "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
                 "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
                 "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE38", "CE39",
-                "CE41", "CE42", "CE43", "CE44", "CE45", "CE48", "CE49",
-                "CE51",
+                "CE41", "CE42", "CE43", "CE44", "CE45", "CE48", "CE50",
 
                 "TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TP7", "TP8", "TP9", "TP10",
                 "TP11", "TP12"

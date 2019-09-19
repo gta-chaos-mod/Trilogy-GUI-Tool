@@ -161,7 +161,6 @@ namespace GTA_SA_Chaos.effects
             new FunctionEffect(Category.CustomEffects, "Smooth Criminal", "SmoothCriminal", "timed_effect", "framerate_60"), // Smooth Criminal (60 FPS)
             new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "other", "clear_active_effects").DisableTwitch(), // Clear Active Effects
             new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "timed_effect", "reload_autosave").DisableRapidFire(), // Reload Autosave
-            new FunctionEffect(Category.CustomEffects, "Out Of Fuel", "OutOfFuel", "timed_effect", "out_of_fuel"), // Out Of Fuel
             new FunctionEffect(Category.CustomEffects, "Infinite Health (Player)", "NoOneCanHurtMe", "timed_effect", "infinite_health_player"), // Infinite Health (Player)
             new FunctionEffect(Category.CustomEffects, "Woozie Mode", "WoozieMode", "timed_effect", "woozie_mode").DisableRapidFire(), // Woozie Mode
             new FunctionEffect(Category.CustomEffects, "High Pitched Audio", "CJAndTheChipmunks", "timed_effect", "chipmunks"), // High Pitched Audio

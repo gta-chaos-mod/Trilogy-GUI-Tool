@@ -7,20 +7,21 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace GTA_SA_Chaos
 {
     public partial class Form1 : Form
     {
-        private readonly string ConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "config.cfg");
+        private readonly string configPath = Path.Combine(Directory.GetCurrentDirectory(), "config.cfg");
 
-        private readonly Stopwatch Stopwatch;
-        private readonly Dictionary<string, EffectTreeNode> IdToEffectNodeMap = new Dictionary<string, EffectTreeNode>();
-        private TwitchConnection Twitch;
+        private readonly Stopwatch stopwatch;
+        private readonly Dictionary<string, EffectTreeNode> idToEffectNodeMap = new Dictionary<string, EffectTreeNode>();
+        private TwitchConnection twitch;
 
         private int elapsedCount;
-        private readonly System.Timers.Timer AutoStartTimer;
+        private readonly System.Timers.Timer autoStartTimer;
         private int introState = 1;
 
         private int timesUntilRapidFire;
@@ -32,13 +33,13 @@ namespace GTA_SA_Chaos
             Text = "GTA:SA Chaos v1.1.3";
             tabSettings.TabPages.Remove(tabDebug);
 
-            Stopwatch = new Stopwatch();
-            AutoStartTimer = new System.Timers.Timer()
+            stopwatch = new Stopwatch();
+            autoStartTimer = new System.Timers.Timer()
             {
                 Interval = 50,
                 AutoReset = true
             };
-            AutoStartTimer.Elapsed += AutoStartTimer_Elapsed;
+            autoStartTimer.Elapsed += AutoStartTimer_Elapsed;
 
             PopulateEffectTreeList();
 
@@ -67,15 +68,15 @@ namespace GTA_SA_Chaos
                 return;
             }
 
-            MemoryHelper.Read((IntPtr)0xA4ED04, out int new_introState);
+            MemoryHelper.Read((IntPtr)0xA4ED04, out int newIntroState);
             MemoryHelper.Read((IntPtr)0xB7CB84, out int playingTime);
 
-            if (introState == 0 && new_introState == 1 && playingTime < 1000 * 60)
+            if (introState == 0 && newIntroState == 1 && playingTime < 1000 * 60)
             {
-                buttonAutoStart.Invoke(new Action(() => SetAutostart()));
+                buttonAutoStart.Invoke(new Action(SetAutostart));
             }
 
-            introState = new_introState;
+            introState = newIntroState;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -90,8 +91,8 @@ namespace GTA_SA_Chaos
             {
                 JsonSerializer serializer = new JsonSerializer();
 
-                using (StreamReader sr = new StreamReader(ConfigPath))
-                using (JsonReader reader = new JsonTextReader(sr))
+                using (StreamReader streamReader = new StreamReader(configPath))
+                using (JsonReader reader = new JsonTextReader(streamReader))
                 {
                     Config.Instance = serializer.Deserialize<Config>(reader);
 
@@ -109,7 +110,7 @@ namespace GTA_SA_Chaos
             {
                 JsonSerializer serializer = new JsonSerializer();
 
-                using (StreamWriter sw = new StreamWriter(ConfigPath))
+                using (StreamWriter sw = new StreamWriter(configPath))
                 using (JsonTextWriter writer = new JsonTextWriter(sw))
                 {
                     serializer.Serialize(writer, Config.Instance);
@@ -166,18 +167,18 @@ namespace GTA_SA_Chaos
 
         public void AddEffectToListBox(AbstractEffect effect)
         {
-            string Description = "Invalid";
+            string description = "Invalid";
             if (effect != null)
             {
-                Description = effect.GetDescription();
+                description = effect.GetDescription();
                 if (!string.IsNullOrEmpty(effect.Word))
                 {
-                    Description += " (" + effect.Word + ")";
+                    description += $" ({effect.Word})";
                 }
             }
 
             ListBox listBox = Config.Instance.IsTwitchMode ? listLastEffectsTwitch : listLastEffectsMain;
-            listBox.Items.Insert(0, Description);
+            listBox.Items.Insert(0, description);
             if (listBox.Items.Count > 7)
             {
                 listBox.Items.RemoveAt(7);
@@ -215,7 +216,7 @@ namespace GTA_SA_Chaos
             {
                 MessageBox.Show("The game needs to be running!", "Error");
 
-                buttonAutoStart.Enabled = Config.Instance.IsTwitchMode && Twitch != null && Twitch.Client != null && Twitch.Client.IsConnected;
+                buttonAutoStart.Enabled = Config.Instance.IsTwitchMode && twitch?.Client != null && twitch.Client.IsConnected;
                 buttonAutoStart.Text = "Auto-Start";
 
                 if (!Config.Instance.ContinueTimer)
@@ -223,17 +224,17 @@ namespace GTA_SA_Chaos
                     SetEnabled(false);
 
                     elapsedCount = 0;
-                    Stopwatch.Reset();
+                    stopwatch.Reset();
 
                     buttonMainToggle.Enabled = true;
-                    buttonTwitchToggle.Enabled = Twitch != null && Twitch.Client != null && Twitch.Client.IsConnected;
+                    buttonTwitchToggle.Enabled = twitch?.Client != null && twitch.Client.IsConnected;
                 }
                 return;
             }
 
             ProcessHooker.AttachExitedMethod((sender, e) => buttonAutoStart.Invoke(new Action(() =>
             {
-                buttonAutoStart.Enabled = Config.Instance.IsTwitchMode && Twitch != null && Twitch.Client != null && Twitch.Client.IsConnected;
+                buttonAutoStart.Enabled = Config.Instance.IsTwitchMode && twitch?.Client != null && twitch.Client.IsConnected;
                 buttonAutoStart.Text = "Auto-Start";
 
                 if (!Config.Instance.ContinueTimer)
@@ -241,10 +242,10 @@ namespace GTA_SA_Chaos
                     SetEnabled(false);
 
                     elapsedCount = 0;
-                    Stopwatch.Reset();
+                    stopwatch.Reset();
 
                     buttonMainToggle.Enabled = true;
-                    buttonTwitchToggle.Enabled = Twitch != null && Twitch.Client != null && Twitch.Client.IsConnected;
+                    buttonTwitchToggle.Enabled = twitch?.Client != null && twitch.Client.IsConnected;
                 }
 
                 ProcessHooker.CloseProcess();
@@ -254,9 +255,9 @@ namespace GTA_SA_Chaos
             buttonAutoStart.Text = "Waiting...";
 
             Config.Instance.Enabled = false;
-            AutoStartTimer.Start();
+            autoStartTimer.Start();
             buttonMainToggle.Enabled = false;
-            buttonTwitchToggle.Enabled = Twitch != null && Twitch.Client != null && Twitch.Client.IsConnected;
+            buttonTwitchToggle.Enabled = twitch?.Client != null && twitch.Client.IsConnected;
         }
 
         private void OnTimerTick(object sender, EventArgs e)
@@ -275,28 +276,28 @@ namespace GTA_SA_Chaos
         {
             if (!Config.Instance.Enabled) return;
 
-            int value = Math.Max(1, (int)Stopwatch.ElapsedMilliseconds);
+            int value = Math.Max(1, (int)stopwatch.ElapsedMilliseconds);
 
             // Hack to fix Windows' broken-ass progress bar handling
             progressBarMain.Value = Math.Min(value, progressBarMain.Maximum);
             progressBarMain.Value = Math.Min(value - 1, progressBarMain.Maximum);
 
-            if (Stopwatch.ElapsedMilliseconds - elapsedCount > 100)
+            if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
             {
-                long remaining = Math.Max(0, Config.Instance.MainCooldown - Stopwatch.ElapsedMilliseconds);
+                long remaining = Math.Max(0, Config.Instance.MainCooldown - stopwatch.ElapsedMilliseconds);
                 int iRemaining = (int)((float)remaining / Config.Instance.MainCooldown * 1000f);
 
                 ProcessHooker.SendEffectToGame("time", iRemaining.ToString());
 
-                elapsedCount = (int)Stopwatch.ElapsedMilliseconds;
+                elapsedCount = (int)stopwatch.ElapsedMilliseconds;
             }
 
-            if (Stopwatch.ElapsedMilliseconds >= Config.Instance.MainCooldown)
+            if (stopwatch.ElapsedMilliseconds >= Config.Instance.MainCooldown)
             {
                 progressBarMain.Value = 0;
                 CallEffect();
                 elapsedCount = 0;
-                Stopwatch.Restart();
+                stopwatch.Restart();
             }
         }
 
@@ -312,23 +313,23 @@ namespace GTA_SA_Chaos
                 }
 
                 // Hack to fix Windows' broken-ass progress bar handling
-                int value = Math.Max(1, (int)Stopwatch.ElapsedMilliseconds);
+                int value = Math.Max(1, (int)stopwatch.ElapsedMilliseconds);
                 progressBarTwitch.Value = Math.Max(progressBarTwitch.Maximum - value, 0);
                 progressBarTwitch.Value = Math.Max(progressBarTwitch.Maximum - value - 1, 0);
 
-                if (Stopwatch.ElapsedMilliseconds - elapsedCount > 100)
+                if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
-                    long remaining = Math.Max(0, Config.Instance.TwitchVotingTime - Stopwatch.ElapsedMilliseconds);
+                    long remaining = Math.Max(0, Config.Instance.TwitchVotingTime - stopwatch.ElapsedMilliseconds);
                     int iRemaining = (int)((float)remaining / Config.Instance.TwitchVotingTime * 1000f);
 
                     ProcessHooker.SendEffectToGame("time", iRemaining.ToString());
 
-                    Twitch?.SendEffectVotingToGame();
+                    twitch?.SendEffectVotingToGame();
 
-                    elapsedCount = (int)Stopwatch.ElapsedMilliseconds;
+                    elapsedCount = (int)stopwatch.ElapsedMilliseconds;
                 }
 
-                if (Stopwatch.ElapsedMilliseconds >= Config.Instance.TwitchVotingTime)
+                if (stopwatch.ElapsedMilliseconds >= Config.Instance.TwitchVotingTime)
                 {
                     ProcessHooker.SendEffectToGame("time", "0");
                     elapsedCount = 0;
@@ -336,16 +337,16 @@ namespace GTA_SA_Chaos
                     progressBarTwitch.Value = 0;
                     progressBarTwitch.Maximum = Config.Instance.TwitchVotingCooldown;
 
-                    Stopwatch.Restart();
+                    stopwatch.Restart();
                     Config.Instance.TwitchVotingMode = 0;
 
                     labelTwitchCurrentMode.Text = "Current Mode: Cooldown";
 
-                    if (Twitch != null)
+                    if (twitch != null)
                     {
-                        TwitchConnection.VotingElement element = Twitch.GetRandomVotedEffect(out string username);
+                        TwitchConnection.VotingElement element = twitch.GetRandomVotedEffect(out string username);
 
-                        Twitch.SetVoting(0, timesUntilRapidFire, element, username);
+                        twitch.SetVoting(0, timesUntilRapidFire, element, username);
                         CallEffect(element.Effect);
                     }
                 }
@@ -358,21 +359,21 @@ namespace GTA_SA_Chaos
                 }
 
                 // Hack to fix Windows' broken-ass progress bar handling
-                int value = Math.Max(1, (int)Stopwatch.ElapsedMilliseconds);
+                int value = Math.Max(1, (int)stopwatch.ElapsedMilliseconds);
                 progressBarTwitch.Value = Math.Max(progressBarTwitch.Maximum - value, 0);
                 progressBarTwitch.Value = Math.Max(progressBarTwitch.Maximum - value - 1, 0);
 
-                if (Stopwatch.ElapsedMilliseconds - elapsedCount > 100)
+                if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
-                    long remaining = Math.Max(0, (1000 * 10) - Stopwatch.ElapsedMilliseconds);
+                    long remaining = Math.Max(0, (1000 * 10) - stopwatch.ElapsedMilliseconds);
                     int iRemaining = (int)((float)remaining / (1000 * 10) * 1000f);
 
                     ProcessHooker.SendEffectToGame("time", iRemaining.ToString());
 
-                    elapsedCount = (int)Stopwatch.ElapsedMilliseconds;
+                    elapsedCount = (int)stopwatch.ElapsedMilliseconds;
                 }
 
-                if (Stopwatch.ElapsedMilliseconds >= 1000 * 10) // Set 10 seconds
+                if (stopwatch.ElapsedMilliseconds >= 1000 * 10) // Set 10 seconds
                 {
                     ProcessHooker.SendEffectToGame("time", "0");
                     elapsedCount = 0;
@@ -380,12 +381,12 @@ namespace GTA_SA_Chaos
                     progressBarTwitch.Value = 0;
                     progressBarTwitch.Maximum = Config.Instance.TwitchVotingCooldown;
 
-                    Stopwatch.Restart();
+                    stopwatch.Restart();
                     Config.Instance.TwitchVotingMode = 0;
 
                     labelTwitchCurrentMode.Text = "Current Mode: Cooldown";
 
-                    Twitch?.SetVoting(0, timesUntilRapidFire);
+                    twitch?.SetVoting(0, timesUntilRapidFire);
                 }
             }
             else if (Config.Instance.TwitchVotingMode == 0)
@@ -396,21 +397,21 @@ namespace GTA_SA_Chaos
                 }
 
                 // Hack to fix Windows' broken-ass progress bar handling
-                int value = Math.Max(1, (int)Stopwatch.ElapsedMilliseconds);
+                int value = Math.Max(1, (int)stopwatch.ElapsedMilliseconds);
                 progressBarTwitch.Value = Math.Min(value + 1, progressBarTwitch.Maximum);
                 progressBarTwitch.Value = Math.Min(value, progressBarTwitch.Maximum);
 
-                if (Stopwatch.ElapsedMilliseconds - elapsedCount > 100)
+                if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
-                    long remaining = Math.Max(0, Config.Instance.TwitchVotingCooldown - Stopwatch.ElapsedMilliseconds);
+                    long remaining = Math.Max(0, Config.Instance.TwitchVotingCooldown - stopwatch.ElapsedMilliseconds);
                     int iRemaining = Math.Min(1000, 1000 - (int)((float)remaining / Config.Instance.TwitchVotingCooldown * 1000f));
 
                     ProcessHooker.SendEffectToGame("time", iRemaining.ToString());
 
-                    elapsedCount = (int)Stopwatch.ElapsedMilliseconds;
+                    elapsedCount = (int)stopwatch.ElapsedMilliseconds;
                 }
 
-                if (Stopwatch.ElapsedMilliseconds >= Config.Instance.TwitchVotingCooldown)
+                if (stopwatch.ElapsedMilliseconds >= Config.Instance.TwitchVotingCooldown)
                 {
                     elapsedCount = 0;
 
@@ -423,7 +424,7 @@ namespace GTA_SA_Chaos
                         Config.Instance.TwitchVotingMode = 2;
                         labelTwitchCurrentMode.Text = "Current Mode: Rapid-Fire";
 
-                        Twitch?.SetVoting(2, timesUntilRapidFire);
+                        twitch?.SetVoting(2, timesUntilRapidFire);
                     }
                     else
                     {
@@ -432,9 +433,9 @@ namespace GTA_SA_Chaos
                         Config.Instance.TwitchVotingMode = 1;
                         labelTwitchCurrentMode.Text = "Current Mode: Voting";
 
-                        Twitch?.SetVoting(1, timesUntilRapidFire);
+                        twitch?.SetVoting(1, timesUntilRapidFire);
                     }
-                    Stopwatch.Restart();
+                    stopwatch.Restart();
                 }
             }
         }
@@ -463,7 +464,7 @@ namespace GTA_SA_Chaos
                     Checked = true
                 };
                 node.Nodes.Add(addedNode);
-                IdToEffectNodeMap.Add(effect.Id, addedNode);
+                idToEffectNodeMap.Add(effect.Id, addedNode);
             }
         }
 
@@ -608,7 +609,7 @@ namespace GTA_SA_Chaos
                 EnabledEffects = enabledEffects;
             }
 
-            override public string ToString()
+            public override string ToString()
             {
                 return Text;
             }
@@ -648,7 +649,7 @@ namespace GTA_SA_Chaos
                 Time = time;
             }
 
-            override public string ToString()
+            public override string ToString()
             {
                 return Text;
             }
@@ -664,7 +665,7 @@ namespace GTA_SA_Chaos
                 progressBarMain.Value = 0;
                 progressBarMain.Maximum = Config.Instance.MainCooldown;
                 elapsedCount = 0;
-                Stopwatch.Reset();
+                stopwatch.Reset();
             }
         }
 
@@ -693,7 +694,7 @@ namespace GTA_SA_Chaos
                 VotingTime = votingTime;
             }
 
-            override public string ToString()
+            public override string ToString()
             {
                 return Text;
             }
@@ -730,7 +731,7 @@ namespace GTA_SA_Chaos
                 VotingCooldown = votingCooldown;
             }
 
-            override public string ToString()
+            public override string ToString()
             {
                 return Text;
             }
@@ -744,9 +745,9 @@ namespace GTA_SA_Chaos
 
         private void SetAutostart()
         {
-            buttonAutoStart.Enabled = Config.Instance.IsTwitchMode && Twitch != null && Twitch.Client != null && Twitch.Client.IsConnected;
+            buttonAutoStart.Enabled = Config.Instance.IsTwitchMode && twitch != null && twitch.Client != null && twitch.Client.IsConnected;
             buttonAutoStart.Text = "Auto-Start";
-            Stopwatch.Reset();
+            stopwatch.Reset();
             SetEnabled(true);
         }
 
@@ -755,13 +756,13 @@ namespace GTA_SA_Chaos
             Config.Instance.Enabled = enabled;
             if (Config.Instance.Enabled)
             {
-                Stopwatch.Start();
+                stopwatch.Start();
             }
             else
             {
-                Stopwatch.Stop();
+                stopwatch.Stop();
             }
-            AutoStartTimer.Stop();
+            autoStartTimer.Stop();
             buttonMainToggle.Enabled = true;
             (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = Config.Instance.Enabled ? "Stop / Pause" : "Start / Resume";
             comboBoxMainCooldown.Enabled =
@@ -827,7 +828,7 @@ namespace GTA_SA_Chaos
 
             foreach (string effect in enabledEffects)
             {
-                if (IdToEffectNodeMap.TryGetValue(effect, out EffectTreeNode node))
+                if (idToEffectNodeMap.TryGetValue(effect, out EffectTreeNode node))
                 {
                     node.Checked = !reversed;
                     EffectDatabase.SetEffectEnabled(node.Effect, !reversed);
@@ -866,7 +867,7 @@ namespace GTA_SA_Chaos
                     }
                 }
                 Checked = newChecked;
-                Text = Name + " (" + enabled + "/" + Nodes.Count + ")";
+                Text = Name + $" ({enabled}/{Nodes.Count})";
             }
         }
 
@@ -914,7 +915,7 @@ namespace GTA_SA_Chaos
         private void SavePresetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<string> enabledEffects = new List<string>();
-            foreach (EffectTreeNode node in IdToEffectNodeMap.Values)
+            foreach (EffectTreeNode node in idToEffectNodeMap.Values)
             {
                 if (node.Checked)
                 {
@@ -940,10 +941,10 @@ namespace GTA_SA_Chaos
 
         private void ButtonConnectTwitch_Click(object sender, EventArgs e)
         {
-            if (Twitch != null && Twitch.Client.IsConnected)
+            if (twitch != null && twitch.Client.IsConnected)
             {
-                Twitch?.Kill();
-                Twitch = null;
+                twitch?.Kill();
+                twitch = null;
 
                 comboBoxVotingTime.Enabled = true;
                 comboBoxVotingCooldown.Enabled = true;
@@ -966,9 +967,9 @@ namespace GTA_SA_Chaos
             {
                 buttonConnectTwitch.Enabled = false;
 
-                Twitch = new TwitchConnection();
+                twitch = new TwitchConnection();
 
-                Twitch.OnRapidFireEffect += (_sender, rapidFireArgs) =>
+                twitch.OnRapidFireEffect += (_sender, rapidFireArgs) =>
                 {
                     Invoke(new Action(() =>
                     {
@@ -980,17 +981,17 @@ namespace GTA_SA_Chaos
                     }));
                 };
 
-                Twitch.Client.OnIncorrectLogin += (_sender, _e) =>
+                twitch.Client.OnIncorrectLogin += (_sender, _e) =>
                 {
                     MessageBox.Show("There was an error trying to log in to the account. Wrong username / OAuth token?", "Twitch Login Error");
                     Invoke(new Action(() =>
                     {
                         buttonConnectTwitch.Enabled = true;
                     }));
-                    Twitch.Kill();
+                    twitch.Kill();
                 };
 
-                Twitch.Client.OnConnected += (_sender, _e) =>
+                twitch.Client.OnConnected += (_sender, _e) =>
                 {
                     Invoke(new Action(() =>
                     {
@@ -1054,7 +1055,7 @@ namespace GTA_SA_Chaos
 
                 elapsedCount = 0;
 
-                Stopwatch.Reset();
+                stopwatch.Reset();
                 SetEnabled(false);
             }
             else
@@ -1062,7 +1063,7 @@ namespace GTA_SA_Chaos
                 Config.Instance.IsTwitchMode = true;
 
                 buttonSwitchMode.Text = "Main";
-                buttonAutoStart.Enabled = Twitch != null && Twitch.Client != null && Twitch.Client.IsConnected;
+                buttonAutoStart.Enabled = twitch != null && twitch.Client != null && twitch.Client.IsConnected;
 
                 tabSettings.TabPages.Insert(0, tabTwitch);
                 tabSettings.SelectedIndex = 0;
@@ -1073,7 +1074,7 @@ namespace GTA_SA_Chaos
 
                 elapsedCount = 0;
 
-                Stopwatch.Reset();
+                stopwatch.Reset();
                 SetEnabled(false);
             }
         }
@@ -1104,7 +1105,7 @@ namespace GTA_SA_Chaos
         private void ButtonResetMain_Click(object sender, EventArgs e)
         {
             SetEnabled(false);
-            Stopwatch.Reset();
+            stopwatch.Reset();
             elapsedCount = 0;
             progressBarMain.Value = 0;
             buttonMainToggle.Enabled = true;
@@ -1150,12 +1151,12 @@ namespace GTA_SA_Chaos
         private void ButtonResetTwitch_Click(object sender, EventArgs e)
         {
             SetEnabled(false);
-            Stopwatch.Reset();
+            stopwatch.Reset();
             elapsedCount = 0;
             progressBarTwitch.Value = 0;
-            buttonTwitchToggle.Enabled = Twitch != null && Twitch.Client != null && Twitch.Client.IsConnected;
+            buttonTwitchToggle.Enabled = twitch?.Client != null && twitch.Client.IsConnected;
             buttonTwitchToggle.Text = "Start / Resume";
-            buttonAutoStart.Enabled = Twitch != null && Twitch.Client != null && Twitch.Client.IsConnected;
+            buttonAutoStart.Enabled = twitch?.Client != null && twitch.Client.IsConnected;
             buttonAutoStart.Text = "Auto-Start";
         }
 

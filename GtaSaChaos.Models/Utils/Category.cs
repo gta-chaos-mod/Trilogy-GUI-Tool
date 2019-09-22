@@ -1,8 +1,9 @@
 ﻿// Copyright (c) 2019 Lordmau5
-using GTA_SA_Chaos.effects;
-using System.Collections.Generic;
 
-namespace GTA_SA_Chaos.util
+using System.Collections.Generic;
+using GtaChaos.Models.Effects.@abstract;
+
+namespace GtaChaos.Models.Utils
 {
     public sealed class Category
     {

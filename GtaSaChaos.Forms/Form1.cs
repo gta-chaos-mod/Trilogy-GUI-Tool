@@ -1,16 +1,17 @@
 // Copyright (c) 2019 Lordmau5
-using GTA_SA_Chaos.effects;
-using GTA_SA_Chaos.util;
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using GtaChaos.Models.Effects;
+using GtaChaos.Models.Effects.@abstract;
+using GtaChaos.Models.Utils;
+using Newtonsoft.Json;
 
-namespace GTA_SA_Chaos
+namespace GtaChaos.Forms
 {
     public partial class Form1 : Form
     {

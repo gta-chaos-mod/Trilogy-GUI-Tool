@@ -1,17 +1,18 @@
 ﻿// Copyright (c) 2019 Lordmau5
-using GTA_SA_Chaos.effects;
+
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
+using GtaChaos.Models.Effects;
+using GtaChaos.Models.Effects.@abstract;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 
-namespace GTA_SA_Chaos.util
+namespace GtaChaos.Models.Utils
 {
-    internal class TwitchConnection
+    public class TwitchConnection
     {
         public TwitchClient Client;
 

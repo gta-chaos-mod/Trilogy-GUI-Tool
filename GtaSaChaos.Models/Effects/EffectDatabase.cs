@@ -1,11 +1,15 @@
 ﻿// Copyright (c) 2019 Lordmau5
-using GTA_SA_Chaos.util;
+
 using System;
 using System.Collections.Generic;
+using GtaChaos.Models.Effects.@abstract;
+using GtaChaos.Models.Effects.extra;
+using GtaChaos.Models.Effects.impl;
+using GtaChaos.Models.Utils;
 
-namespace GTA_SA_Chaos.effects
+namespace GtaChaos.Models.Effects
 {
-    internal static class EffectDatabase
+    public static class EffectDatabase
     {
         public static List<AbstractEffect> Effects { get; } = new List<AbstractEffect>
         {

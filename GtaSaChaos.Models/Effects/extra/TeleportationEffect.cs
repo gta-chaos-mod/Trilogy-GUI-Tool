@@ -1,7 +1,9 @@
 ﻿// Copyright (c) 2019 Lordmau5
-using GTA_SA_Chaos.util;
 
-namespace GTA_SA_Chaos.effects
+using GtaChaos.Models.Effects.@abstract;
+using GtaChaos.Models.Utils;
+
+namespace GtaChaos.Models.Effects.extra
 {
     public class TeleportationEffect : AbstractEffect
     {

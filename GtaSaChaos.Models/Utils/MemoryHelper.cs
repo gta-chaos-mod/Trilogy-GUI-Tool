@@ -1,10 +1,11 @@
 ﻿// Copyright (c) 2019 Lordmau5
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace GTA_SA_Chaos.util
+namespace GtaChaos.Models.Utils
 {
     public static class MemoryHelper
     {

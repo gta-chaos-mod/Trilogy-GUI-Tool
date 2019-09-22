@@ -1,11 +1,12 @@
 // Copyright (c) 2019 Lordmau5
+
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
 using System.Linq;
 
-namespace GTA_SA_Chaos.util
+namespace GtaChaos.Models.Utils
 {
     public static class ProcessHooker
     {

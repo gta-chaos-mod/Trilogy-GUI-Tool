@@ -2,12 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-using GtaSaChaos.Models.Effects.@abstract;
-using GtaSaChaos.Models.Effects.extra;
-using GtaSaChaos.Models.Effects.impl;
-using GtaSaChaos.Models.Utils;
+using GtaChaos.Models.Effects.@abstract;
+using GtaChaos.Models.Effects.extra;
+using GtaChaos.Models.Effects.impl;
+using GtaChaos.Models.Utils;
 
-namespace GtaSaChaos.Models.Effects
+namespace GtaChaos.Models.Effects
 {
     public static class EffectDatabase
     {

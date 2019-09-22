@@ -6,12 +6,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using GtaSaChaos.Models.Effects;
-using GtaSaChaos.Models.Effects.@abstract;
-using GtaSaChaos.Models.Utils;
+using GtaChaos.Models.Effects;
+using GtaChaos.Models.Effects.@abstract;
+using GtaChaos.Models.Utils;
 using Newtonsoft.Json;
 
-namespace GtaSaChaos.Forms
+namespace GtaChaos.Forms
 {
     public partial class Form1 : Form
     {

@@ -1,9 +1,9 @@
 ﻿// Copyright (c) 2019 Lordmau5
 
-using GtaSaChaos.Models.Effects.@abstract;
-using GtaSaChaos.Models.Utils;
+using GtaChaos.Models.Effects.@abstract;
+using GtaChaos.Models.Utils;
 
-namespace GtaSaChaos.Models.Effects.extra
+namespace GtaChaos.Models.Effects.extra
 {
     internal class SpawnVehicleEffect : AbstractEffect
     {

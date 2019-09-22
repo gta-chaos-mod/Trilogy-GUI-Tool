@@ -2,7 +2,7 @@
 
 using System;
 
-namespace GtaSaChaos.Models.Utils
+namespace GtaChaos.Models.Utils
 {
     internal class VehicleNames
     {

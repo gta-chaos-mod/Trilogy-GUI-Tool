@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace GtaSaChaos.Models.Utils
+namespace GtaChaos.Models.Utils
 {
     public class Config
     {

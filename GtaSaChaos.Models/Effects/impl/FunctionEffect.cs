@@ -1,9 +1,9 @@
 ﻿// Copyright (c) 2019 Lordmau5
 
-using GtaSaChaos.Models.Effects.@abstract;
-using GtaSaChaos.Models.Utils;
+using GtaChaos.Models.Effects.@abstract;
+using GtaChaos.Models.Utils;
 
-namespace GtaSaChaos.Models.Effects.impl
+namespace GtaChaos.Models.Effects.impl
 {
     public class FunctionEffect : AbstractEffect
     {

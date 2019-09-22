@@ -1,5 +1,5 @@
 ﻿// Copyright (c) 2019 Lordmau5
-namespace GtaSaChaos.Models.Utils
+namespace GtaChaos.Models.Utils
 {
     public sealed class Location
     {

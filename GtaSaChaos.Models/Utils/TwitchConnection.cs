@@ -4,13 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using GtaSaChaos.Models.Effects;
-using GtaSaChaos.Models.Effects.@abstract;
+using GtaChaos.Models.Effects;
+using GtaChaos.Models.Effects.@abstract;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 
-namespace GtaSaChaos.Models.Utils
+namespace GtaChaos.Models.Utils
 {
     public class TwitchConnection
     {

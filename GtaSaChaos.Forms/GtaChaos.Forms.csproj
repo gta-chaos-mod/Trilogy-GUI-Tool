@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{91106072-8642-4B48-AABE-F21A254FA788}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>GtaSaChaos.Forms</RootNamespace>
-    <AssemblyName>GtaSaChaos.Forms</AssemblyName>
+    <RootNamespace>GtaChaos.Forms</RootNamespace>
+    <AssemblyName>GtaChaos.Forms</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -259,9 +259,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GtaSaChaos.Models\GtaSaChaos.Models.csproj">
+    <ProjectReference Include="..\GtaSaChaos.Models\GtaChaos.Models.csproj">
       <Project>{d0887711-4ce7-4085-8ad6-cd46c309759b}</Project>
-      <Name>GtaSaChaos.Models</Name>
+      <Name>GtaChaos.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

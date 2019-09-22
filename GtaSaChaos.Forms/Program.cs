@@ -3,7 +3,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace GtaSaChaos.Forms
+namespace GtaChaos.Forms
 {
     internal static class Program
     {

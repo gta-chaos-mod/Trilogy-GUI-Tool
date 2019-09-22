@@ -6,7 +6,7 @@ using System.IO;
 using System.IO.Pipes;
 using System.Linq;
 
-namespace GtaSaChaos.Models.Utils
+namespace GtaChaos.Models.Utils
 {
     public static class ProcessHooker
     {

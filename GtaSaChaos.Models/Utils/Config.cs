@@ -1,7 +1,8 @@
 ﻿// Copyright (c) 2019 Lordmau5
+
 using Newtonsoft.Json;
 
-namespace GTA_SA_Chaos.util
+namespace GtaSaChaos.Models.Utils
 {
     public class Config
     {

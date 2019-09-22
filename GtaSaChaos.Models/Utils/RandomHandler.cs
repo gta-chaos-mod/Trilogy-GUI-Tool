@@ -1,7 +1,8 @@
 ﻿// Copyright (c) 2019 Lordmau5
+
 using System;
 
-namespace GTA_SA_Chaos.util
+namespace GtaSaChaos.Models.Utils
 {
     public class RandomHandler
     {

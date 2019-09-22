@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{91106072-8642-4B48-AABE-F21A254FA788}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>GTA_SA_Chaos</RootNamespace>
-    <AssemblyName>GTA SA Chaos Mod</AssemblyName>
+    <RootNamespace>GtaSaChaos.Forms</RootNamespace>
+    <AssemblyName>GtaSaChaos.Forms</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -207,28 +207,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\effects\abstract\AbstractEffect.cs" />
-    <Compile Include="src\effects\extra\WeatherEffect.cs" />
-    <Compile Include="src\effects\extra\SpawnVehicleEffect.cs" />
-    <Compile Include="src\effects\extra\TeleportationEffect.cs" />
-    <Compile Include="src\effects\impl\FunctionEffect.cs" />
-    <Compile Include="src\util\Category.cs" />
-    <Compile Include="src\util\Config.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\effects\EffectDatabase.cs" />
-    <Compile Include="src\util\Location.cs" />
-    <Compile Include="src\util\MemoryHelper.cs" />
-    <Compile Include="src\util\ProcessHooker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\util\TwitchConnection.cs" />
-    <Compile Include="src\util\RandomHandler.cs" />
-    <Compile Include="src\util\VehicleNames.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -272,6 +258,13 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GtaSaChaos.Models\GtaSaChaos.Models.csproj">
+      <Project>{d0887711-4ce7-4085-8ad6-cd46c309759b}</Project>
+      <Name>GtaSaChaos.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.6.0.0\build\Fody.targets" Condition="Exists('packages\Fody.6.0.0\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

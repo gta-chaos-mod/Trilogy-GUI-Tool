@@ -1,4 +1,4 @@
-namespace GTA_SA_Chaos
+namespace GtaSaChaos.Forms
 {
     partial class Form1
     {

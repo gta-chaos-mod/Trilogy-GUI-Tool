@@ -169,7 +169,7 @@ namespace GtaChaos.Models.Effects
             new FunctionEffect(Category.CustomEffects, "High Pitched Audio", "CJAndTheChipmunks", "timed_effect", "chipmunks"), // High Pitched Audio
             new FunctionEffect(Category.CustomEffects, "Pitch Shifter", "VocalRange", "timed_effect", "vocal_range"), // Pitch Shifter
             new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IWontTakeAFreePass", "timed_effect", "fail_pass_mission"), // Fake Pass Current Mission
-            new FunctionEffect(Category.CustomEffects, "DVD Screensaver", "ItsGonnaHitTheEdges", "timed_effect", "dvd_screensaver"), // DVD Screensaver
+            new FunctionEffect(Category.CustomEffects, "DVD Screensaver", "ItsGonnaHitTheCorner", "timed_effect", "dvd_screensaver"), // DVD Screensaver
             new FunctionEffect(Category.CustomEffects, "Lightspeed Braking", "WinnersDoBrake", "timed_effect", "lightspeed_braking"), // Lightspeed Braking
 
             // All teleports are disabled during Rapid-Fire mode

@@ -30,7 +30,7 @@ namespace GtaChaos.Forms
         {
             InitializeComponent();
 
-            Text = "GTA:SA Chaos v1.1.3";
+            Text = "GTA:SA Chaos v1.1.4";
             tabSettings.TabPages.Remove(tabDebug);
 
             stopwatch = new Stopwatch();

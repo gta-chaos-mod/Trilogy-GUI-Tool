@@ -1,5 +1,4 @@
 ﻿// Copyright (c) 2019 Lordmau5
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -125,8 +124,7 @@ namespace GtaChaos.Models.Utils
 
                     if (untilRapidFire == 1)
                     {
-                        SendMessage("Rapid-Fire is coming up! Get your cheats ready!");
-                        SendMessage("!rapidfire", false);
+                        SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
                     }
                 }
                 else

@@ -1,5 +1,4 @@
 ﻿// Copyright (c) 2019 Lordmau5
-
 using System;
 using System.Collections.Generic;
 using GtaChaos.Models.Effects.@abstract;
@@ -166,9 +165,12 @@ namespace GtaChaos.Models.Effects
             new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "other", "clear_active_effects").DisableTwitch(), // Clear Active Effects
             new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "timed_effect", "reload_autosave").DisableRapidFire(), // Reload Autosave
             new FunctionEffect(Category.CustomEffects, "Infinite Health (Player)", "NoOneCanHurtMe", "timed_effect", "infinite_health_player"), // Infinite Health (Player)
-            new FunctionEffect(Category.CustomEffects, "Woozie Mode", "WoozieMode", "timed_effect", "woozie_mode").DisableRapidFire(), // Woozie Mode
+            new FunctionEffect(Category.CustomEffects, "Tunnel Vision", "TunnelVision", "timed_effect", "tunnel_vision").DisableRapidFire(), // Tunnel Vision
             new FunctionEffect(Category.CustomEffects, "High Pitched Audio", "CJAndTheChipmunks", "timed_effect", "chipmunks"), // High Pitched Audio
             new FunctionEffect(Category.CustomEffects, "Pitch Shifter", "VocalRange", "timed_effect", "vocal_range"), // Pitch Shifter
+            new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IWontTakeAFreePass", "timed_effect", "fail_pass_mission"), // Fake Pass Current Mission
+            new FunctionEffect(Category.CustomEffects, "DVD Screensaver", "ItsGonnaHitTheEdges", "timed_effect", "dvd_screensaver"), // DVD Screensaver
+            new FunctionEffect(Category.CustomEffects, "Lightspeed Braking", "WinnersDoBrake", "timed_effect", "lightspeed_braking"), // Lightspeed Braking
 
             // All teleports are disabled during Rapid-Fire mode
             new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet),

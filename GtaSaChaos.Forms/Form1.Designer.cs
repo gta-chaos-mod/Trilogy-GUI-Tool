@@ -40,6 +40,7 @@ namespace GtaChaos.Forms
             this.comboBoxMainCooldown = new System.Windows.Forms.ComboBox();
             this.listLastEffectsMain = new System.Windows.Forms.ListBox();
             this.tabTwitch = new System.Windows.Forms.TabPage();
+            this.checkBoxTwitch3TimesCooldown = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxTwitchChannel = new System.Windows.Forms.TextBox();
             this.buttonResetTwitch = new System.Windows.Forms.Button();
@@ -61,10 +62,7 @@ namespace GtaChaos.Forms
             this.buttonConnectTwitch = new System.Windows.Forms.Button();
             this.tabEffects = new System.Windows.Forms.TabPage();
             this.enabledEffectsView = new System.Windows.Forms.TreeView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.presetComboBox = new System.Windows.Forms.ComboBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.checkBoxCrypticEffects = new System.Windows.Forms.CheckBox();
             this.checkBoxContinueTimer = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxSeed = new System.Windows.Forms.TextBox();
@@ -81,7 +79,7 @@ namespace GtaChaos.Forms
             this.buttonAutoStart = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
-            this.checkBoxTwitch3TimesCooldown = new System.Windows.Forms.CheckBox();
+            this.buttonEffectsToggleAll = new System.Windows.Forms.Button();
             this.tabSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabTwitch.SuspendLayout();
@@ -217,6 +215,20 @@ namespace GtaChaos.Forms
             this.tabTwitch.Size = new System.Drawing.Size(452, 231);
             this.tabTwitch.TabIndex = 2;
             this.tabTwitch.Text = "Twitch";
+            // 
+            // checkBoxTwitch3TimesCooldown
+            // 
+            this.checkBoxTwitch3TimesCooldown.AutoSize = true;
+            this.checkBoxTwitch3TimesCooldown.Location = new System.Drawing.Point(362, 104);
+            this.checkBoxTwitch3TimesCooldown.Name = "checkBoxTwitch3TimesCooldown";
+            this.checkBoxTwitch3TimesCooldown.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxTwitch3TimesCooldown.Size = new System.Drawing.Size(87, 17);
+            this.checkBoxTwitch3TimesCooldown.TabIndex = 24;
+            this.checkBoxTwitch3TimesCooldown.Text = "3x Cooldown";
+            this.toolTipHandler.SetToolTip(this.checkBoxTwitch3TimesCooldown, "When enabled effects will have 3x their cooldown.\r\n(Cooldown in this case is the " +
+        "Voting Time + Voting Cooldown)");
+            this.checkBoxTwitch3TimesCooldown.UseVisualStyleBackColor = true;
+            this.checkBoxTwitch3TimesCooldown.CheckedChanged += new System.EventHandler(this.CheckBoxTwitch3TimesCooldown_CheckedChanged);
             // 
             // label3
             // 
@@ -409,9 +421,8 @@ namespace GtaChaos.Forms
             // tabEffects
             // 
             this.tabEffects.BackColor = System.Drawing.Color.Transparent;
+            this.tabEffects.Controls.Add(this.buttonEffectsToggleAll);
             this.tabEffects.Controls.Add(this.enabledEffectsView);
-            this.tabEffects.Controls.Add(this.label1);
-            this.tabEffects.Controls.Add(this.presetComboBox);
             this.tabEffects.Location = new System.Drawing.Point(4, 22);
             this.tabEffects.Name = "tabEffects";
             this.tabEffects.Padding = new System.Windows.Forms.Padding(3);
@@ -424,32 +435,13 @@ namespace GtaChaos.Forms
             this.enabledEffectsView.CheckBoxes = true;
             this.enabledEffectsView.Location = new System.Drawing.Point(6, 6);
             this.enabledEffectsView.Name = "enabledEffectsView";
-            this.enabledEffectsView.Size = new System.Drawing.Size(440, 163);
+            this.enabledEffectsView.Size = new System.Drawing.Size(440, 190);
             this.enabledEffectsView.TabIndex = 3;
             this.enabledEffectsView.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.EnabledEffectsView_AfterCheck);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 178);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Presets:";
-            // 
-            // presetComboBox
-            // 
-            this.presetComboBox.FormattingEnabled = true;
-            this.presetComboBox.Location = new System.Drawing.Point(57, 175);
-            this.presetComboBox.Name = "presetComboBox";
-            this.presetComboBox.Size = new System.Drawing.Size(389, 21);
-            this.presetComboBox.TabIndex = 1;
-            this.presetComboBox.SelectedIndexChanged += new System.EventHandler(this.PresetComboBox_SelectedIndexChanged);
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage1.Controls.Add(this.checkBoxCrypticEffects);
             this.tabPage1.Controls.Add(this.checkBoxContinueTimer);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.textBoxSeed);
@@ -459,18 +451,6 @@ namespace GtaChaos.Forms
             this.tabPage1.Size = new System.Drawing.Size(452, 231);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Settings";
-            // 
-            // checkBoxCrypticEffects
-            // 
-            this.checkBoxCrypticEffects.AutoSize = true;
-            this.checkBoxCrypticEffects.Location = new System.Drawing.Point(6, 185);
-            this.checkBoxCrypticEffects.Name = "checkBoxCrypticEffects";
-            this.checkBoxCrypticEffects.Size = new System.Drawing.Size(94, 17);
-            this.checkBoxCrypticEffects.TabIndex = 5;
-            this.checkBoxCrypticEffects.Text = "Cryptic Effects";
-            this.toolTipHandler.SetToolTip(this.checkBoxCrypticEffects, "Sends all effects to the game as cryptic ones.");
-            this.checkBoxCrypticEffects.UseVisualStyleBackColor = true;
-            this.checkBoxCrypticEffects.CheckedChanged += new System.EventHandler(this.CheckBoxCrypticEffects_CheckedChanged);
             // 
             // checkBoxContinueTimer
             // 
@@ -613,19 +593,15 @@ namespace GtaChaos.Forms
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
-            // checkBoxTwitch3TimesCooldown
+            // buttonEffectsToggleAll
             // 
-            this.checkBoxTwitch3TimesCooldown.AutoSize = true;
-            this.checkBoxTwitch3TimesCooldown.Location = new System.Drawing.Point(362, 104);
-            this.checkBoxTwitch3TimesCooldown.Name = "checkBoxTwitch3TimesCooldown";
-            this.checkBoxTwitch3TimesCooldown.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBoxTwitch3TimesCooldown.Size = new System.Drawing.Size(87, 17);
-            this.checkBoxTwitch3TimesCooldown.TabIndex = 24;
-            this.checkBoxTwitch3TimesCooldown.Text = "3x Cooldown";
-            this.toolTipHandler.SetToolTip(this.checkBoxTwitch3TimesCooldown, "When enabled effects will have 3x their cooldown.\r\n(Cooldown in this case is the " +
-        "Voting Time + Voting Cooldown)");
-            this.checkBoxTwitch3TimesCooldown.UseVisualStyleBackColor = true;
-            this.checkBoxTwitch3TimesCooldown.CheckedChanged += new System.EventHandler(this.CheckBoxTwitch3TimesCooldown_CheckedChanged);
+            this.buttonEffectsToggleAll.Location = new System.Drawing.Point(6, 202);
+            this.buttonEffectsToggleAll.Name = "buttonEffectsToggleAll";
+            this.buttonEffectsToggleAll.Size = new System.Drawing.Size(440, 23);
+            this.buttonEffectsToggleAll.TabIndex = 7;
+            this.buttonEffectsToggleAll.Text = "Toggle All";
+            this.buttonEffectsToggleAll.UseVisualStyleBackColor = true;
+            this.buttonEffectsToggleAll.Click += new System.EventHandler(this.ButtonEffectsToggleAll_Click);
             // 
             // Form1
             // 
@@ -649,7 +625,6 @@ namespace GtaChaos.Forms
             this.tabTwitch.ResumeLayout(false);
             this.tabTwitch.PerformLayout();
             this.tabEffects.ResumeLayout(false);
-            this.tabEffects.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabDebug.ResumeLayout(false);
@@ -669,8 +644,6 @@ namespace GtaChaos.Forms
         private System.Windows.Forms.TabPage tabMain;
         private System.Windows.Forms.TabPage tabEffects;
         private System.Windows.Forms.TreeView enabledEffectsView;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox presetComboBox;
         private System.Windows.Forms.ListBox listLastEffectsMain;
         private System.Windows.Forms.ComboBox comboBoxMainCooldown;
         private System.Windows.Forms.Label label2;
@@ -706,7 +679,6 @@ namespace GtaChaos.Forms
         private System.Windows.Forms.Button buttonGenericTest;
         private System.Windows.Forms.Button buttonResetMain;
         private System.Windows.Forms.CheckBox checkBoxContinueTimer;
-        private System.Windows.Forms.CheckBox checkBoxCrypticEffects;
         private System.Windows.Forms.CheckBox checkBoxShowLastEffectsMain;
         private System.Windows.Forms.CheckBox checkBoxShowLastEffectsTwitch;
         private System.Windows.Forms.CheckBox checkBoxTwitchAllowOnlyEnabledEffects;
@@ -715,6 +687,7 @@ namespace GtaChaos.Forms
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxTwitchChannel;
         private System.Windows.Forms.CheckBox checkBoxTwitch3TimesCooldown;
+        private System.Windows.Forms.Button buttonEffectsToggleAll;
     }
 }
 

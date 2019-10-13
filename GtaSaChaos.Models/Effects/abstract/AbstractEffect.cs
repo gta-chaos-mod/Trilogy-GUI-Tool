@@ -1,5 +1,4 @@
 ﻿// Copyright (c) 2019 Lordmau5
-
 using GtaChaos.Models.Utils;
 
 namespace GtaChaos.Models.Effects.@abstract
@@ -77,7 +76,7 @@ namespace GtaChaos.Models.Effects.@abstract
                 description = GetDescription();
             }
 
-            ProcessHooker.SendEffectToGame(type, function, duration, description, Voter, Config.Instance.TwitchVotingMode == 2 ? rapidFire : 0);
+            ProcessHooker.SendEffectToGame(type, function, duration, description, Voter, Config.Instance().TwitchVotingMode == 2 ? rapidFire : 0);
         }
     }
 }

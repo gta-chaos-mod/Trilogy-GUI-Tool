@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using GtaChaos.Models.Effects;
 using GtaChaos.Models.Effects.@abstract;
 using TwitchLib.Client;
+using TwitchLib.Client.Enums;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 
@@ -28,9 +29,9 @@ namespace GtaChaos.Models.Utils
 
         public TwitchConnection()
         {
-            Channel = Config.Instance.TwitchChannel;
-            Username = Config.Instance.TwitchUsername;
-            Oauth = Config.Instance.TwitchOAuthToken;
+            Channel = Config.Instance().TwitchChannel;
+            Username = Config.Instance().TwitchUsername;
+            Oauth = Config.Instance().TwitchOAuthToken;
 
             ConnectionCredentials credentials;
 
@@ -136,7 +137,7 @@ namespace GtaChaos.Models.Utils
 
         public VotingElement GetRandomVotedEffect(out string username)
         {
-            if (Config.Instance.TwitchMajorityVoting)
+            if (Config.Instance().TwitchMajorityVoting)
             {
                 username = "The Majority";
 

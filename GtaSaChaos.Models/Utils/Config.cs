@@ -1,12 +1,12 @@
 ﻿// Copyright (c) 2019 Lordmau5
-
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace GtaChaos.Models.Utils
 {
     public class Config
     {
-        public static Config Instance = new Config();
+        public static Config _Instance;
 
         [JsonIgnore]
         public bool Enabled;
@@ -20,8 +20,8 @@ namespace GtaChaos.Models.Utils
         public int MainCooldown;
         public bool ContinueTimer = true;
         public string Seed;
-        public bool CrypticEffects;
         public bool MainShowLastEffects;
+        public List<string> EnabledEffects = new List<string>();
 
         public bool TwitchAllowOnlyEnabledEffectsRapidFire;
         public int TwitchVotingTime;
@@ -35,14 +35,28 @@ namespace GtaChaos.Models.Utils
         public string TwitchUsername;
         public string TwitchOAuthToken;
 
+        public static Config Instance()
+        {
+            if (_Instance == null)
+            {
+                _Instance = new Config();
+            }
+            return _Instance;
+        }
+
+        public static void SetInstance(Config inst)
+        {
+            _Instance = inst;
+        }
+
         public static int GetEffectDuration()
         {
-            if (Instance.IsTwitchMode)
+            if (Instance().IsTwitchMode)
             {
-                int cooldown = Instance.TwitchVotingCooldown + Instance.TwitchVotingTime;
-                return Instance.Twitch3TimesCooldown ? cooldown * 3 : cooldown;
+                int cooldown = Instance().TwitchVotingCooldown + Instance().TwitchVotingTime;
+                return Instance().Twitch3TimesCooldown ? cooldown * 3 : cooldown;
             }
-            return Instance.MainCooldown * 3;
+            return Instance().MainCooldown * 3;
         }
 
         public static string FToString(float value)

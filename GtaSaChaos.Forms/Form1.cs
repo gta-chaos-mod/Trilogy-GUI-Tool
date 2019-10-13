@@ -27,12 +27,17 @@ namespace GtaChaos.Forms
 
         private int timesUntilRapidFire;
 
+        private readonly bool debug = false;
+
         public Form1()
         {
             InitializeComponent();
 
-            Text = "GTA:SA Chaos v1.1.5";
-            tabSettings.TabPages.Remove(tabDebug);
+            Text = "GTA Trilogy Chaos Mod v2.0.0";
+            if (!debug)
+            {
+                tabSettings.TabPages.Remove(tabDebug);
+            }
 
             stopwatch = new Stopwatch();
             autoStartTimer = new System.Timers.Timer()
@@ -64,7 +69,7 @@ namespace GtaChaos.Forms
                 return;
             }
 
-            if (Config.Instance.Enabled)
+            if (Config.Instance().Enabled)
             {
                 return;
             }
@@ -95,12 +100,12 @@ namespace GtaChaos.Forms
                 using (StreamReader streamReader = new StreamReader(configPath))
                 using (JsonReader reader = new JsonTextReader(streamReader))
                 {
-                    Config.Instance = serializer.Deserialize<Config>(reader);
-
-                    RandomHandler.SetSeed(Config.Instance.Seed);
-
-                    UpdateInterface();
+                    Config.SetInstance(serializer.Deserialize<Config>(reader));
+                    RandomHandler.SetSeed(Config.Instance().Seed);
                 }
+                LoadPreset(Config.Instance().EnabledEffects);
+
+                UpdateInterface();
             }
             catch (Exception) { }
         }
@@ -109,12 +114,18 @@ namespace GtaChaos.Forms
         {
             try
             {
+                Config.Instance().EnabledEffects.Clear();
+                foreach (var effect in EffectDatabase.EnabledEffects)
+                {
+                    Config.Instance().EnabledEffects.Add(effect.Id);
+                }
+
                 JsonSerializer serializer = new JsonSerializer();
 
                 using (StreamWriter sw = new StreamWriter(configPath))
                 using (JsonTextWriter writer = new JsonTextWriter(sw))
                 {
-                    serializer.Serialize(writer, Config.Instance);
+                    serializer.Serialize(writer, Config.Instance());
                 }
             }
             catch (Exception) { }
@@ -124,18 +135,18 @@ namespace GtaChaos.Forms
         {
             foreach (MainCooldownComboBoxItem item in comboBoxMainCooldown.Items)
             {
-                if (item.Time == Config.Instance.MainCooldown)
+                if (item.Time == Config.Instance().MainCooldown)
                 {
                     comboBoxMainCooldown.SelectedItem = item;
                     break;
                 }
             }
 
-            checkBoxTwitchAllowOnlyEnabledEffects.Checked = Config.Instance.TwitchAllowOnlyEnabledEffectsRapidFire;
+            checkBoxTwitchAllowOnlyEnabledEffects.Checked = Config.Instance().TwitchAllowOnlyEnabledEffectsRapidFire;
 
             foreach (VotingTimeComboBoxItem item in comboBoxVotingTime.Items)
             {
-                if (item.VotingTime == Config.Instance.TwitchVotingTime)
+                if (item.VotingTime == Config.Instance().TwitchVotingTime)
                 {
                     comboBoxVotingTime.SelectedItem = item;
                     break;
@@ -144,26 +155,25 @@ namespace GtaChaos.Forms
 
             foreach (VotingCooldownComboBoxItem item in comboBoxVotingCooldown.Items)
             {
-                if (item.VotingCooldown == Config.Instance.TwitchVotingCooldown)
+                if (item.VotingCooldown == Config.Instance().TwitchVotingCooldown)
                 {
                     comboBoxVotingCooldown.SelectedItem = item;
                     break;
                 }
             }
 
-            textBoxTwitchChannel.Text = Config.Instance.TwitchChannel;
-            textBoxTwitchUsername.Text = Config.Instance.TwitchUsername;
-            textBoxTwitchOAuth.Text = Config.Instance.TwitchOAuthToken;
+            textBoxTwitchChannel.Text = Config.Instance().TwitchChannel;
+            textBoxTwitchUsername.Text = Config.Instance().TwitchUsername;
+            textBoxTwitchOAuth.Text = Config.Instance().TwitchOAuthToken;
 
-            checkBoxContinueTimer.Checked = Config.Instance.ContinueTimer;
-            checkBoxCrypticEffects.Checked = Config.Instance.CrypticEffects;
+            checkBoxContinueTimer.Checked = Config.Instance().ContinueTimer;
 
-            checkBoxShowLastEffectsMain.Checked = Config.Instance.MainShowLastEffects;
-            checkBoxShowLastEffectsTwitch.Checked = Config.Instance.TwitchShowLastEffects;
-            checkBoxTwitchMajorityVoting.Checked = Config.Instance.TwitchMajorityVoting;
-            checkBoxTwitch3TimesCooldown.Checked = Config.Instance.Twitch3TimesCooldown;
+            checkBoxShowLastEffectsMain.Checked = Config.Instance().MainShowLastEffects;
+            checkBoxShowLastEffectsTwitch.Checked = Config.Instance().TwitchShowLastEffects;
+            checkBoxTwitchMajorityVoting.Checked = Config.Instance().TwitchMajorityVoting;
+            checkBoxTwitch3TimesCooldown.Checked = Config.Instance().Twitch3TimesCooldown;
 
-            textBoxSeed.Text = Config.Instance.Seed;
+            textBoxSeed.Text = Config.Instance().Seed;
         }
 
         public void AddEffectToListBox(AbstractEffect effect)
@@ -178,7 +188,7 @@ namespace GtaChaos.Forms
                 }
             }
 
-            ListBox listBox = Config.Instance.IsTwitchMode ? listLastEffectsTwitch : listLastEffectsMain;
+            ListBox listBox = Config.Instance().IsTwitchMode ? listLastEffectsTwitch : listLastEffectsMain;
             listBox.Items.Insert(0, description);
             if (listBox.Items.Count > 7)
             {
@@ -196,14 +206,17 @@ namespace GtaChaos.Forms
             if (effect == null)
             {
                 effect = EffectDatabase.RunEffect(EffectDatabase.GetRandomEffect(true));
-                effect.ResetVoter();
+                effect?.ResetVoter();
             }
             else
             {
                 EffectDatabase.RunEffect(effect);
             }
 
-            AddEffectToListBox(effect);
+            if (effect != null)
+            {
+                AddEffectToListBox(effect);
+            }
         }
 
         private void TrySetupAutostart()
@@ -217,10 +230,10 @@ namespace GtaChaos.Forms
             {
                 MessageBox.Show("The game needs to be running!", "Error");
 
-                buttonAutoStart.Enabled = Config.Instance.IsTwitchMode && twitch?.Client != null && twitch.Client.IsConnected;
+                buttonAutoStart.Enabled = Config.Instance().IsTwitchMode && twitch?.Client != null && twitch.Client.IsConnected;
                 buttonAutoStart.Text = "Auto-Start";
 
-                if (!Config.Instance.ContinueTimer)
+                if (!Config.Instance().ContinueTimer)
                 {
                     SetEnabled(false);
 
@@ -235,10 +248,10 @@ namespace GtaChaos.Forms
 
             ProcessHooker.AttachExitedMethod((sender, e) => buttonAutoStart.Invoke(new Action(() =>
             {
-                buttonAutoStart.Enabled = Config.Instance.IsTwitchMode && twitch?.Client != null && twitch.Client.IsConnected;
+                buttonAutoStart.Enabled = Config.Instance().IsTwitchMode && twitch?.Client != null && twitch.Client.IsConnected;
                 buttonAutoStart.Text = "Auto-Start";
 
-                if (!Config.Instance.ContinueTimer)
+                if (!Config.Instance().ContinueTimer)
                 {
                     SetEnabled(false);
 
@@ -255,7 +268,7 @@ namespace GtaChaos.Forms
             buttonAutoStart.Enabled = false;
             buttonAutoStart.Text = "Waiting...";
 
-            Config.Instance.Enabled = false;
+            Config.Instance().Enabled = false;
             autoStartTimer.Start();
             buttonMainToggle.Enabled = false;
             buttonTwitchToggle.Enabled = twitch?.Client != null && twitch.Client.IsConnected;
@@ -263,7 +276,7 @@ namespace GtaChaos.Forms
 
         private void OnTimerTick(object sender, EventArgs e)
         {
-            if (Config.Instance.IsTwitchMode)
+            if (Config.Instance().IsTwitchMode)
             {
                 TickTwitch();
             }
@@ -275,7 +288,7 @@ namespace GtaChaos.Forms
 
         private void TickMain()
         {
-            if (!Config.Instance.Enabled) return;
+            if (!Config.Instance().Enabled) return;
 
             int value = Math.Max(1, (int)stopwatch.ElapsedMilliseconds);
 
@@ -285,16 +298,14 @@ namespace GtaChaos.Forms
 
             if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
             {
-                long remaining = Math.Max(0, Config.Instance.MainCooldown - stopwatch.ElapsedMilliseconds);
-                int iRemaining = (int)((float)remaining / Config.Instance.MainCooldown * 1000f);
-                Log.Error(iRemaining.ToString());
+                long remaining = Math.Max(0, Config.Instance().MainCooldown - stopwatch.ElapsedMilliseconds);
 
-                ProcessHooker.SendEffectToGame("time", iRemaining.ToString());
+                ProcessHooker.SendEffectToGame("time", $"{remaining},{Config.Instance().MainCooldown}");
 
                 elapsedCount = (int)stopwatch.ElapsedMilliseconds;
             }
 
-            if (stopwatch.ElapsedMilliseconds >= Config.Instance.MainCooldown)
+            if (stopwatch.ElapsedMilliseconds >= Config.Instance().MainCooldown)
             {
                 progressBarMain.Value = 0;
                 CallEffect();
@@ -305,13 +316,13 @@ namespace GtaChaos.Forms
 
         private void TickTwitch()
         {
-            if (!Config.Instance.Enabled) return;
+            if (!Config.Instance().Enabled) return;
 
-            if (Config.Instance.TwitchVotingMode == 1)
+            if (Config.Instance().TwitchVotingMode == 1)
             {
-                if (progressBarTwitch.Maximum != Config.Instance.TwitchVotingTime)
+                if (progressBarTwitch.Maximum != Config.Instance().TwitchVotingTime)
                 {
-                    progressBarTwitch.Maximum = Config.Instance.TwitchVotingTime;
+                    progressBarTwitch.Maximum = Config.Instance().TwitchVotingTime;
                 }
 
                 // Hack to fix Windows' broken-ass progress bar handling
@@ -321,26 +332,25 @@ namespace GtaChaos.Forms
 
                 if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
-                    long remaining = Math.Max(0, Config.Instance.TwitchVotingTime - stopwatch.ElapsedMilliseconds);
-                    int iRemaining = (int)((float)remaining / Config.Instance.TwitchVotingTime * 1000f);
+                    long remaining = Math.Max(0, Config.Instance().TwitchVotingTime - stopwatch.ElapsedMilliseconds);
 
-                    ProcessHooker.SendEffectToGame("time", iRemaining.ToString());
+                    ProcessHooker.SendEffectToGame("time", $"{remaining},{Config.Instance().TwitchVotingTime}");
 
                     twitch?.SendEffectVotingToGame();
 
                     elapsedCount = (int)stopwatch.ElapsedMilliseconds;
                 }
 
-                if (stopwatch.ElapsedMilliseconds >= Config.Instance.TwitchVotingTime)
+                if (stopwatch.ElapsedMilliseconds >= Config.Instance().TwitchVotingTime)
                 {
                     ProcessHooker.SendEffectToGame("time", "0");
                     elapsedCount = 0;
 
                     progressBarTwitch.Value = 0;
-                    progressBarTwitch.Maximum = Config.Instance.TwitchVotingCooldown;
+                    progressBarTwitch.Maximum = Config.Instance().TwitchVotingCooldown;
 
                     stopwatch.Restart();
-                    Config.Instance.TwitchVotingMode = 0;
+                    Config.Instance().TwitchVotingMode = 0;
 
                     labelTwitchCurrentMode.Text = "Current Mode: Cooldown";
 
@@ -353,7 +363,7 @@ namespace GtaChaos.Forms
                     }
                 }
             }
-            else if (Config.Instance.TwitchVotingMode == 2)
+            else if (Config.Instance().TwitchVotingMode == 2)
             {
                 if (progressBarTwitch.Maximum != 1000 * 10)
                 {
@@ -368,9 +378,8 @@ namespace GtaChaos.Forms
                 if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
                     long remaining = Math.Max(0, (1000 * 10) - stopwatch.ElapsedMilliseconds);
-                    int iRemaining = (int)((float)remaining / (1000 * 10) * 1000f);
 
-                    ProcessHooker.SendEffectToGame("time", iRemaining.ToString());
+                    ProcessHooker.SendEffectToGame("time", $"{remaining},10000");
 
                     elapsedCount = (int)stopwatch.ElapsedMilliseconds;
                 }
@@ -381,21 +390,21 @@ namespace GtaChaos.Forms
                     elapsedCount = 0;
 
                     progressBarTwitch.Value = 0;
-                    progressBarTwitch.Maximum = Config.Instance.TwitchVotingCooldown;
+                    progressBarTwitch.Maximum = Config.Instance().TwitchVotingCooldown;
 
                     stopwatch.Restart();
-                    Config.Instance.TwitchVotingMode = 0;
+                    Config.Instance().TwitchVotingMode = 0;
 
                     labelTwitchCurrentMode.Text = "Current Mode: Cooldown";
 
                     twitch?.SetVoting(0, timesUntilRapidFire);
                 }
             }
-            else if (Config.Instance.TwitchVotingMode == 0)
+            else if (Config.Instance().TwitchVotingMode == 0)
             {
-                if (progressBarTwitch.Maximum != Config.Instance.TwitchVotingCooldown)
+                if (progressBarTwitch.Maximum != Config.Instance().TwitchVotingCooldown)
                 {
-                    progressBarTwitch.Maximum = Config.Instance.TwitchVotingCooldown;
+                    progressBarTwitch.Maximum = Config.Instance().TwitchVotingCooldown;
                 }
 
                 // Hack to fix Windows' broken-ass progress bar handling
@@ -405,15 +414,14 @@ namespace GtaChaos.Forms
 
                 if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
-                    long remaining = Math.Max(0, Config.Instance.TwitchVotingCooldown - stopwatch.ElapsedMilliseconds);
-                    int iRemaining = Math.Min(1000, 1000 - (int)((float)remaining / Config.Instance.TwitchVotingCooldown * 1000f));
+                    long remaining = Math.Max(0, Config.Instance().TwitchVotingCooldown - stopwatch.ElapsedMilliseconds);
 
-                    ProcessHooker.SendEffectToGame("time", iRemaining.ToString());
+                    ProcessHooker.SendEffectToGame("time", $"{remaining},{Config.Instance().TwitchVotingCooldown}");
 
                     elapsedCount = (int)stopwatch.ElapsedMilliseconds;
                 }
 
-                if (stopwatch.ElapsedMilliseconds >= Config.Instance.TwitchVotingCooldown)
+                if (stopwatch.ElapsedMilliseconds >= Config.Instance().TwitchVotingCooldown)
                 {
                     elapsedCount = 0;
 
@@ -423,16 +431,16 @@ namespace GtaChaos.Forms
 
                         timesUntilRapidFire = new Random().Next(10, 15);
 
-                        Config.Instance.TwitchVotingMode = 2;
+                        Config.Instance().TwitchVotingMode = 2;
                         labelTwitchCurrentMode.Text = "Current Mode: Rapid-Fire";
 
                         twitch?.SetVoting(2, timesUntilRapidFire);
                     }
                     else
                     {
-                        progressBarTwitch.Value = progressBarTwitch.Maximum = Config.Instance.TwitchVotingTime;
+                        progressBarTwitch.Value = progressBarTwitch.Maximum = Config.Instance().TwitchVotingTime;
 
-                        Config.Instance.TwitchVotingMode = 1;
+                        Config.Instance().TwitchVotingMode = 1;
                         labelTwitchCurrentMode.Text = "Current Mode: Voting";
 
                         twitch?.SetVoting(1, timesUntilRapidFire);
@@ -472,156 +480,12 @@ namespace GtaChaos.Forms
 
         private void PopulatePresets()
         {
-            presetComboBox.Items.Add(new PresetComboBoxItem("Speedrun", reversed: false, new string[]
+            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
             {
-                "HE1", "HE2", "HE3", "HE4", "HE5", "HE7",
-
-                "WA1", "WA2", "WA3", "WA4",
-
-                "WE1", "WE2", "WE3", "WE4", "WE5", "WE6", "WE7",
-
-                "SP1", "SP2", "SP19",
-
-                "TI1", "TI2", "TI3", "TI4", "TI5", "TI6", "TI7",
-
-                "VE1", "VE2", "VE3", "VE4", "VE5", "VE6", "VE7", "VE8", "VE9", "VE10",
-                "VE11", "VE12", "VE13", "VE14",
-
-                "PE1", "PE2", "PE3", "PE4", "PE5", "PE6", "PE7", "PE8", "PE9", "PE10",
-                "PE11", "PE12", "PE14", "PE15", "PE16", "PE17", "PE18",
-
-                "MO1", "MO2", "MO3", "MO4", "MO5",
-
-                "ST1", "ST2", "ST3", "ST4", "ST5", "ST6", "ST7", "ST8", "ST9", "ST10",
-                "ST11", "ST12",
-
-                "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
-                "CE11", "CE12", "CE13", "CE14", "CE16", "CE17", "CE18", "CE19", "CE20",
-                "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
-                "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE40",
-                "CE41", "CE43", "CE44", "CE45", "CE46", "CE47", "CE48", "CE49", "CE50",
-                "CE51", "CE52", "CE53", "CE54",
-
-                "TP1"
-            }));
-            presetComboBox.Items.Add(new PresetComboBoxItem("Harmless", reversed: false, new string[]
-            {
-                "HE1", "HE2", "HE3", "HE4", "HE5", "HE7",
-
-                "WA2", "WA3",
-
-                "WE1", "WE2",
-
-                "VE2", "VE3", "VE4", "VE5", "VE7", "VE8",
-                "VE11", "VE12", "VE13", "VE14", "VE15",
-
-                "PE3", "PE5", "PE8", "PE10",
-                "PE11", "PE12", "PE13", "PE14", "PE15", "PE16", "PE17",
-
-                "MO1", "MO2", "MO3", "MO4", "MO5",
-
-                "ST2", "ST4", "ST6", "ST8", "ST10",
-                "ST11", "ST12",
-
-                "CE11", "CE12",
-                "CE22", "CE23", "CE30",
-                "CE40",
-                "CE46", "CE47", "CE49",
-                "CE51", "CE52"
-            }));
-            presetComboBox.Items.Add(new PresetComboBoxItem("Harmful", reversed: false, new string[]
-            {
-                "HE6",
-
-                "WA1", "WA4",
-
-                "WE3", "WE4", "WE5", "WE6", "WE7",
-
-                "SP1", "SP2", "SP3", "SP4", "SP5", "SP6", "SP7", "SP8", "SP9", "SP10",
-                "SP11", "SP12", "SP13", "SP14", "SP15", "SP16", "SP17", "SP18", "SP19",
-
-                "TI1", "TI2", "TI3", "TI4", "TI5", "TI6", "TI7",
-
-                "VE1", "VE6", "VE9", "VE10",
-
-                "PE1", "PE2", "PE4", "PE6", "PE7", "PE9",
-                "PE18",
-
-                "ST1", "ST3", "ST5", "ST7", "ST9",
-
-                "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
-                "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
-                "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
-                "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE38", "CE39",
-                "CE41", "CE43", "CE44", "CE45", "CE48", "CE50", "CE53", "CE54", "CE55",
-
-                "TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TP7", "TP8", "TP9", "TP10",
-                "TP11", "TP12"
-            }));
-            presetComboBox.Items.Add(new PresetComboBoxItem("Good Luck", reversed: false, new string[]
-            {
-                "HE6",
-
-                "WA4",
-
-                "WE5", "WE6", "WE7",
-
-                "SP10",
-                "SP11", "SP15", "SP16", "SP17", "SP19",
-
-                "TI1", "TI2", "TI3", "TI4", "TI5", "TI6", "TI7",
-
-                "VE1", "VE4", "VE6", "VE7", "VE9", "VE10",
-                "VE14",
-
-                "PE1", "PE2", "PE6", "PE7", "PE8", "PE9",
-                "PE18",
-
-                "ST1", "ST3", "ST5", "ST7", "ST9",
-
-                "CE1", "CE2", "CE3", "CE4", "CE5", "CE6", "CE7", "CE8", "CE9", "CE10",
-                "CE11", "CE12", "CE13", "CE14", "CE15", "CE16", "CE17", "CE18", "CE19", "CE20",
-                "CE21", "CE22", "CE23", "CE24", "CE25", "CE26", "CE27", "CE28", "CE29", "CE30",
-                "CE31", "CE32", "CE33", "CE34", "CE35", "CE36", "CE37", "CE38", "CE39",
-                "CE41", "CE42", "CE43", "CE44", "CE45", "CE48", "CE50", "CE53", "CE54", "CE55",
-
-                "TP1", "TP2", "TP3", "TP4", "TP5", "TP6", "TP7", "TP8", "TP9", "TP10",
-                "TP11", "TP12"
-            }));
-            presetComboBox.Items.Add(new PresetComboBoxItem("Everything", reversed: true, new string[] { }));
-            presetComboBox.Items.Add(new PresetComboBoxItem("Twitch Voting", reversed: true, new string[]
-            {
-                "CE41"
-            }));
-            presetComboBox.Items.Add(new PresetComboBoxItem("Nothing", reversed: false, new string[] { }));
-
-            presetComboBox.SelectedIndex = 0;
-        }
-
-        private class PresetComboBoxItem
-        {
-            public readonly string Text;
-            public readonly bool Reversed;
-            public readonly string[] EnabledEffects;
-
-            public PresetComboBoxItem(string text, bool reversed, string[] enabledEffects)
-            {
-                Text = text;
-                Reversed = reversed;
-                EnabledEffects = enabledEffects;
+                node.Checked = false;
+                CheckAllChildNodes(node, false);
+                node.UpdateCategory();
             }
-
-            public override string ToString()
-            {
-                return Text;
-            }
-        }
-
-        private void PresetComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PresetComboBoxItem item = (PresetComboBoxItem)presetComboBox.SelectedItem;
-
-            LoadPreset(item.Reversed, item.EnabledEffects);
         }
 
         private void PopulateMainCooldowns()
@@ -633,11 +497,16 @@ namespace GtaChaos.Forms
             comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("2 minutes", 1000 * 60 * 2));
             comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("5 minutes", 1000 * 60 * 5));
             comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("10 minutes", 1000 * 60 * 10));
-            //comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 1 second", 1000));
+
+            if (debug)
+            {
+                comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 1 second", 1000));
+                comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 10ms", 10));
+            }
 
             comboBoxMainCooldown.SelectedIndex = 3;
 
-            Config.Instance.MainCooldown = 1000 * 60;
+            Config.Instance().MainCooldown = 1000 * 60;
         }
 
         private class MainCooldownComboBoxItem
@@ -660,12 +529,12 @@ namespace GtaChaos.Forms
         private void MainCooldownComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             MainCooldownComboBoxItem item = (MainCooldownComboBoxItem)comboBoxMainCooldown.SelectedItem;
-            Config.Instance.MainCooldown = item.Time;
+            Config.Instance().MainCooldown = item.Time;
 
-            if (!Config.Instance.Enabled)
+            if (!Config.Instance().Enabled)
             {
                 progressBarMain.Value = 0;
-                progressBarMain.Maximum = Config.Instance.MainCooldown;
+                progressBarMain.Maximum = Config.Instance().MainCooldown;
                 elapsedCount = 0;
                 stopwatch.Reset();
             }
@@ -682,7 +551,7 @@ namespace GtaChaos.Forms
 
             comboBoxVotingTime.SelectedIndex = 2;
 
-            Config.Instance.TwitchVotingTime = 1000 * 15;
+            Config.Instance().TwitchVotingTime = 1000 * 15;
         }
 
         private class VotingTimeComboBoxItem
@@ -705,7 +574,7 @@ namespace GtaChaos.Forms
         private void ComboBoxVotingTime_SelectedIndexChanged(object sender, EventArgs e)
         {
             VotingTimeComboBoxItem item = (VotingTimeComboBoxItem)comboBoxVotingTime.SelectedItem;
-            Config.Instance.TwitchVotingTime = item.VotingTime;
+            Config.Instance().TwitchVotingTime = item.VotingTime;
         }
 
         private void PopulateVotingCooldowns()
@@ -719,7 +588,7 @@ namespace GtaChaos.Forms
 
             comboBoxVotingCooldown.SelectedIndex = 2;
 
-            Config.Instance.TwitchVotingCooldown = 1000 * 60 * 2;
+            Config.Instance().TwitchVotingCooldown = 1000 * 60 * 2;
         }
 
         private class VotingCooldownComboBoxItem
@@ -742,12 +611,12 @@ namespace GtaChaos.Forms
         private void ComboBoxVotingCooldown_SelectedIndexChanged(object sender, EventArgs e)
         {
             VotingCooldownComboBoxItem item = (VotingCooldownComboBoxItem)comboBoxVotingCooldown.SelectedItem;
-            Config.Instance.TwitchVotingCooldown = item.VotingCooldown;
+            Config.Instance().TwitchVotingCooldown = item.VotingCooldown;
         }
 
         private void SetAutostart()
         {
-            buttonAutoStart.Enabled = Config.Instance.IsTwitchMode && twitch != null && twitch.Client != null && twitch.Client.IsConnected;
+            buttonAutoStart.Enabled = Config.Instance().IsTwitchMode && twitch != null && twitch.Client != null && twitch.Client.IsConnected;
             buttonAutoStart.Text = "Auto-Start";
             stopwatch.Reset();
             SetEnabled(true);
@@ -755,8 +624,8 @@ namespace GtaChaos.Forms
 
         private void SetEnabled(bool enabled)
         {
-            Config.Instance.Enabled = enabled;
-            if (Config.Instance.Enabled)
+            Config.Instance().Enabled = enabled;
+            if (Config.Instance().Enabled)
             {
                 stopwatch.Start();
             }
@@ -766,20 +635,20 @@ namespace GtaChaos.Forms
             }
             autoStartTimer.Stop();
             buttonMainToggle.Enabled = true;
-            (Config.Instance.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = Config.Instance.Enabled ? "Stop / Pause" : "Start / Resume";
+            (Config.Instance().IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = Config.Instance().Enabled ? "Stop / Pause" : "Start / Resume";
             comboBoxMainCooldown.Enabled =
                 buttonSwitchMode.Enabled =
                 buttonResetMain.Enabled =
-                buttonResetTwitch.Enabled = !Config.Instance.Enabled;
+                buttonResetTwitch.Enabled = !Config.Instance().Enabled;
 
             comboBoxVotingTime.Enabled =
                 comboBoxVotingCooldown.Enabled =
-                textBoxSeed.Enabled = !Config.Instance.Enabled;
+                textBoxSeed.Enabled = !Config.Instance().Enabled;
         }
 
         private void ButtonMainToggle_Click(object sender, EventArgs e)
         {
-            SetEnabled(!Config.Instance.Enabled);
+            SetEnabled(!Config.Instance().Enabled);
         }
 
         private void CheckAllChildNodes(TreeNode treeNode, bool nodeChecked)
@@ -821,20 +690,16 @@ namespace GtaChaos.Forms
             }
         }
 
-        private void LoadPreset(bool reversed, string[] enabledEffects)
+        private void LoadPreset(List<string> enabledEffects)
         {
-            foreach (TreeNode node in enabledEffectsView.Nodes)
-            {
-                node.Checked = !reversed;
-                CheckAllChildNodes(node, reversed);
-            }
+            PopulatePresets();
 
             foreach (string effect in enabledEffects)
             {
                 if (idToEffectNodeMap.TryGetValue(effect, out EffectTreeNode node))
                 {
-                    node.Checked = !reversed;
-                    EffectDatabase.SetEffectEnabled(node.Effect, !reversed);
+                    node.Checked = true;
+                    EffectDatabase.SetEffectEnabled(node.Effect, true);
                 }
             }
 
@@ -909,7 +774,7 @@ namespace GtaChaos.Forms
                 {
                     enabledEffectList.Add(effect);
                 }
-                LoadPreset(false, enabledEffectList.ToArray());
+                LoadPreset(enabledEffectList);
             }
 
             dialog.Dispose();
@@ -966,7 +831,7 @@ namespace GtaChaos.Forms
                 return;
             }
 
-            if (Config.Instance.TwitchChannel != "" && Config.Instance.TwitchUsername != "" && Config.Instance.TwitchOAuthToken != "")
+            if (Config.Instance().TwitchChannel != "" && Config.Instance().TwitchUsername != "" && Config.Instance().TwitchOAuthToken != "")
             {
                 buttonConnectTwitch.Enabled = false;
 
@@ -976,7 +841,7 @@ namespace GtaChaos.Forms
                 {
                     Invoke(new Action(() =>
                     {
-                        if (Config.Instance.TwitchVotingMode == 2)
+                        if (Config.Instance().TwitchVotingMode == 2)
                         {
                             rapidFireArgs.Effect.RunEffect();
                             AddEffectToListBox(rapidFireArgs.Effect);
@@ -1025,27 +890,27 @@ namespace GtaChaos.Forms
 
         private void TextBoxTwitchChannel_TextChanged(object sender, EventArgs e)
         {
-            Config.Instance.TwitchChannel = textBoxTwitchChannel.Text;
+            Config.Instance().TwitchChannel = textBoxTwitchChannel.Text;
             UpdateConnectTwitchState();
         }
 
         private void TextBoxUsername_TextChanged(object sender, EventArgs e)
         {
-            Config.Instance.TwitchUsername = textBoxTwitchUsername.Text;
+            Config.Instance().TwitchUsername = textBoxTwitchUsername.Text;
             UpdateConnectTwitchState();
         }
 
         private void TextBoxOAuth_TextChanged(object sender, EventArgs e)
         {
-            Config.Instance.TwitchOAuthToken = textBoxTwitchOAuth.Text;
+            Config.Instance().TwitchOAuthToken = textBoxTwitchOAuth.Text;
             UpdateConnectTwitchState();
         }
 
         private void ButtonSwitchMode_Click(object sender, EventArgs e)
         {
-            if (Config.Instance.IsTwitchMode)
+            if (Config.Instance().IsTwitchMode)
             {
-                Config.Instance.IsTwitchMode = false;
+                Config.Instance().IsTwitchMode = false;
 
                 buttonSwitchMode.Text = "Twitch";
 
@@ -1063,7 +928,7 @@ namespace GtaChaos.Forms
             }
             else
             {
-                Config.Instance.IsTwitchMode = true;
+                Config.Instance().IsTwitchMode = true;
 
                 buttonSwitchMode.Text = "Main";
                 buttonAutoStart.Enabled = twitch != null && twitch.Client != null && twitch.Client.IsConnected;
@@ -1084,13 +949,13 @@ namespace GtaChaos.Forms
 
         private void ButtonTwitchToggle_Click(object sender, EventArgs e)
         {
-            SetEnabled(!Config.Instance.Enabled);
+            SetEnabled(!Config.Instance().Enabled);
         }
 
         private void TextBoxSeed_TextChanged(object sender, EventArgs e)
         {
-            Config.Instance.Seed = textBoxSeed.Text;
-            RandomHandler.SetSeed(Config.Instance.Seed);
+            Config.Instance().Seed = textBoxSeed.Text;
+            RandomHandler.SetSeed(Config.Instance().Seed);
         }
 
         private void ButtonTestSeed_Click(object sender, EventArgs e)
@@ -1100,8 +965,9 @@ namespace GtaChaos.Forms
 
         private void ButtonGenericTest_Click(object sender, EventArgs e)
         {
-            ProcessHooker.SendEffectToGame("effect", "set_vehicle_on_fire", 60000, "Set Vehicle On Fire");
-            ProcessHooker.SendEffectToGame("timed_effect", "one_hit_ko", 60000, "One Hit K.O.", "25characterusernamehanice");
+            ProcessHooker.SendEffectToGame("effect", "never_wanted", 5000, "Never Wanted", "lordmau5");
+            ProcessHooker.SendEffectToGame("effect", "weapon_set_1", 5000, "Weapon Set 1", "senor stendec");
+            ProcessHooker.SendEffectToGame("effect", "one_hit_ko", 5000, "One Hit K.O.", "daniel salvation");
             //ProcessHooker.SendEffectToGame("timed_effect", "fail_mission", 60000, "Fail Current Mission", "lordmau5");
         }
 
@@ -1119,36 +985,31 @@ namespace GtaChaos.Forms
 
         private void CheckBoxContinueTimer_CheckedChanged(object sender, EventArgs e)
         {
-            Config.Instance.ContinueTimer = checkBoxContinueTimer.Checked;
-        }
-
-        private void CheckBoxCrypticEffects_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance.CrypticEffects = checkBoxCrypticEffects.Checked;
+            Config.Instance().ContinueTimer = checkBoxContinueTimer.Checked;
         }
 
         private void CheckBoxShowLastEffectsMain_CheckedChanged(object sender, EventArgs e)
         {
-            Config.Instance.MainShowLastEffects
+            Config.Instance().MainShowLastEffects
                 = listLastEffectsMain.Visible
                 = checkBoxShowLastEffectsMain.Checked;
         }
 
         private void CheckBoxShowLastEffectsTwitch_CheckedChanged(object sender, EventArgs e)
         {
-            Config.Instance.TwitchShowLastEffects
+            Config.Instance().TwitchShowLastEffects
                 = listLastEffectsTwitch.Visible
                 = checkBoxShowLastEffectsTwitch.Checked;
         }
 
         private void CheckBoxTwitchAllowOnlyEnabledEffects_CheckedChanged(object sender, EventArgs e)
         {
-            Config.Instance.TwitchAllowOnlyEnabledEffectsRapidFire = checkBoxTwitchAllowOnlyEnabledEffects.Checked;
+            Config.Instance().TwitchAllowOnlyEnabledEffectsRapidFire = checkBoxTwitchAllowOnlyEnabledEffects.Checked;
         }
 
         private void CheckBoxTwitchMajorityVoting_CheckedChanged(object sender, EventArgs e)
         {
-            Config.Instance.TwitchMajorityVoting = checkBoxTwitchMajorityVoting.Checked;
+            Config.Instance().TwitchMajorityVoting = checkBoxTwitchMajorityVoting.Checked;
         }
 
         private void ButtonResetTwitch_Click(object sender, EventArgs e)
@@ -1156,6 +1017,7 @@ namespace GtaChaos.Forms
             SetEnabled(false);
             stopwatch.Reset();
             elapsedCount = 0;
+            timesUntilRapidFire = new Random().Next(10, 15);
             progressBarTwitch.Value = 0;
             buttonTwitchToggle.Enabled = twitch?.Client != null && twitch.Client.IsConnected;
             buttonTwitchToggle.Text = "Start / Resume";
@@ -1165,7 +1027,36 @@ namespace GtaChaos.Forms
 
         private void CheckBoxTwitch3TimesCooldown_CheckedChanged(object sender, EventArgs e)
         {
-            Config.Instance.Twitch3TimesCooldown = checkBoxTwitch3TimesCooldown.Checked;
+            Config.Instance().Twitch3TimesCooldown = checkBoxTwitch3TimesCooldown.Checked;
+        }
+
+        private void ButtonEffectsToggleAll_Click(object sender, EventArgs e)
+        {
+            bool oneEnabled = false;
+            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            {
+                if (node.Checked)
+                {
+                    oneEnabled = true;
+                    break;
+                }
+
+                foreach (TreeNode child in node.Nodes)
+                {
+                    if (child.Checked)
+                    {
+                        oneEnabled = true;
+                        break;
+                    }
+                }
+            }
+
+            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            {
+                node.Checked = !oneEnabled;
+                CheckAllChildNodes(node, !oneEnabled);
+                node.UpdateCategory();
+            }
         }
     }
 }

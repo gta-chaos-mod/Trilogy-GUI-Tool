@@ -1,5 +1,4 @@
 ﻿// Copyright (c) 2019 Lordmau5
-
 using GtaChaos.Models.Effects.@abstract;
 using GtaChaos.Models.Utils;
 
@@ -13,11 +12,6 @@ namespace GtaChaos.Models.Effects.extra
             : base(Category.Spawning, "Spawn Vehicle", word)
         {
             vehicleID = _vehicleID;
-
-            if (vehicleID == 569)
-            {
-                vehicleID = 537; // 569 Crashes when being placed as a boat, so replace with 537
-            }
         }
 
         public override string GetDescription()

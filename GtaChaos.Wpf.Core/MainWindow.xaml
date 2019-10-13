@@ -18,9 +18,15 @@
     <materialDesign:Card Padding="32" Margin="16">
         <Grid>
             <!--Buttons-->
-            <Button Content="{x:Static resx:GuiResources.StartResume}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="120"/>
-            <Button Content="{x:Static resx:GuiResources.Reset}" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="120"/>
-            <Button Content="{x:Static resx:GuiResources.AutoStart}" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Top" Width="120"/>
+            <Button Name="StartButton"
+                Content="{x:Static resx:GuiResources.StartResume}" HorizontalAlignment="Left" Margin="0,0,0,0"
+                VerticalAlignment="Top" Width="120" Click="StartResumeClick"/>
+            <Button Name="ResetButton"
+                Content="{x:Static resx:GuiResources.Reset}" HorizontalAlignment="Left" Margin="150,0,0,0"
+                VerticalAlignment="Top" Width="120" Click="ResetButtonClick"/>
+            <Button Name="AutoStartButtonn"
+                Content="{x:Static resx:GuiResources.AutoStart}" HorizontalAlignment="Left" Margin="300,0,0,0"
+                VerticalAlignment="Top" Width="120" Click="AutoStartButtonClick"/>
             
             <!--Continue Timer Checkbox-->
             <CheckBox  Content="{x:Static resx:GuiResources.ContinueTimer}" HorizontalAlignment="Right" Margin="0,8,10,0" VerticalAlignment="Top"/>
@@ -29,24 +35,42 @@
             <CheckBox Content="{x:Static resx:GuiResources.ShowHistory}" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top"/>
             
             <!--Cooldown dropdown-->
-            <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{x:Static resx:GuiResources.Cooldown}"
+            <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                      materialDesign:HintAssist.Hint="{x:Static resx:GuiResources.Cooldown}"
                       materialDesign:HintAssist.IsFloating="True"
+                      Name="CooldownComboBox"
+                      SelectedValue="{Binding CooldownViewModel.SelectedCooldown, Mode=TwoWay}"
+                      ItemsSource="{Binding CooldownViewModel.CooldownDictionary, Mode=OneTime}"
+                      SelectedValuePath="Key"
+                      DisplayMemberPath="Value"
                       HorizontalAlignment="Left" Margin="150,50,0,0" VerticalAlignment="Top" Width="240"/>
             
             <!--Effect Preset Dropdown-->
-            <Label Content="{x:Static resx:GuiResources.EffectPreset}" HorizontalAlignment="Right" Margin="0,39,0,0" VerticalAlignment="Top" Width="240"/>
-            <ComboBox HorizontalAlignment="Right" Margin="0,60,0,0" VerticalAlignment="Top" Width="240"/>
+            <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{x:Static resx:GuiResources.EffectPreset}"
+                      materialDesign:HintAssist.IsFloating="True"
+                HorizontalAlignment="Right" Margin="0,50,0,0" VerticalAlignment="Top" Width="240"/>
             
             <!--Seed textbox-->
             <Label Content="{x:Static resx:GuiResources.Seed}" HorizontalAlignment="Right" Margin="0,99,0,0" VerticalAlignment="Top" Width="240"/>
             <TextBox
+                Name="SeedTextBox"
                 HorizontalAlignment="Right" Margin="0,120,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
-            
+            <!--Effect list-->
+            <Grid Height="380" Margin="0,0,0,30" VerticalAlignment="Bottom">
+                <Rectangle Stroke="Gray" >
+                </Rectangle>
+                <ListView Padding="5,5,5,5"  Name="EffectListView">
+                </ListView>
+            </Grid>
+
             <!--Progress bar-->
-            <ProgressBar HorizontalAlignment="Center" Height="20" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="680"/>
-            
-            <!--Effect list TODO Proper listbox?-->
-            <Rectangle HorizontalAlignment="Center" Height="350" Margin="0,0,0,30" Stroke="Black" VerticalAlignment="Bottom" Width="680"/>
+            <Grid Height="20" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="680">
+                <ProgressBar
+                    Name="ProgressBar"
+                    HorizontalAlignment="Center" Width="680" Height="20"/>
+                <Label Name="TimeLabel" Foreground="White" HorizontalAlignment="Center"/>
+            </Grid>
+
         </Grid>
     </materialDesign:Card>
 </Window>

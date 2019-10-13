@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using GtaChaos.Wpf.Core.Helpers;
 using GtaChaos.Wpf.Core.Timers;
 using GtaChaos.Wpf.Core.ViewModels;
 
@@ -40,9 +41,11 @@ namespace GtaChaos.Wpf.Core
         {
             var milliseconds = _stopWatch.ElapsedMilliseconds;
             _stopWatch.Restart();
+            var effect = EffectSelector.GetRandomEffect();
+            effect.RunEffect();
             TryExecuteWithDispatcher(() =>
             {
-                EffectListView.Items.Insert(0, $"EFFECT GOES HERE, in {milliseconds.ToString()} Millis");
+                EffectListView.Items.Insert(0, $"{effect.GetDescription()} ({effect.Word})");
             });
         }
 
@@ -73,6 +76,7 @@ namespace GtaChaos.Wpf.Core
 
         private void StartResumeClick(object sender, RoutedEventArgs e)
         {
+            ProcessHooker.HookProcess();
             _stopWatch.Start();
             _timer.Start(ViewModel.CooldownViewModel.SelectedCooldown);
         }

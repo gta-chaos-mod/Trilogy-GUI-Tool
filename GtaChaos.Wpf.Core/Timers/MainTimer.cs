@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Timers;
+using GtaChaos.Models.Utils;
 
 namespace GtaChaos.Wpf.Core.Timers
 {
@@ -20,6 +21,8 @@ namespace GtaChaos.Wpf.Core.Timers
         // of a delay with the UI or general processing stuff.
         // This stopwatch however will be in sync.
         private readonly Stopwatch _progressStopwatch;
+
+        private double _elapsedMillis;
 
         // 10 Millisecond timer interval.
         private const long PROGRESS_INTERVAL = 10;
@@ -79,6 +82,16 @@ namespace GtaChaos.Wpf.Core.Timers
 
         private void ProgressTimerOnElapsed(object sender, ElapsedEventArgs e)
         {
+            _elapsedMillis += _progressStopwatch.ElapsedMilliseconds;
+
+            if (_elapsedMillis > 100)
+            {
+                var remaining = Math.Max(0, _effectTimer.Interval - _progressStopwatch.ElapsedMilliseconds);
+                var iRemaining = (int)(remaining / _effectTimer.Interval * 1000f);
+                ProcessHooker.SendEffectToGame(EffectType.Time, iRemaining.ToString());
+                _elapsedMillis = 0;
+            }
+
             _progressCallback.Invoke(_progressStopwatch.ElapsedMilliseconds);
         }
 

@@ -9,6 +9,7 @@ using GtaChaos.Models.Effects;
 using GtaChaos.Models.Effects.@abstract;
 using GtaChaos.Models.Utils;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace GtaChaos.Forms
 {
@@ -286,6 +287,7 @@ namespace GtaChaos.Forms
             {
                 long remaining = Math.Max(0, Config.Instance.MainCooldown - stopwatch.ElapsedMilliseconds);
                 int iRemaining = (int)((float)remaining / Config.Instance.MainCooldown * 1000f);
+                Log.Error(iRemaining.ToString());
 
                 ProcessHooker.SendEffectToGame("time", iRemaining.ToString());
 

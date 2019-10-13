@@ -1,5 +1,4 @@
 // Copyright (c) 2019 Lordmau5
-
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -40,17 +39,15 @@ namespace GtaChaos.Models.Utils
             {
                 System.Threading.Thread.CurrentThread.IsBackground = true;
 
-                using (NamedPipeClientStream pipeStream = new NamedPipeClientStream("GTASAChaosPipe"))
+                using (NamedPipeClientStream pipeStream = new NamedPipeClientStream(".", "GTASAChaosPipe"))
                 {
                     try
                     {
                         if (!pipeStream.IsConnected)
-                            pipeStream.Connect(1000);
+                            pipeStream.Connect(500);
 
-                        using (StreamWriter sw = new StreamWriter(pipeStream))
+                        using (StreamWriter sw = new StreamWriter(pipeStream) { AutoFlush = true })
                         {
-                            if (sw.AutoFlush == false)
-                                sw.AutoFlush = true;
                             sw.WriteLine(func);
                         }
                     }

@@ -86,9 +86,9 @@ namespace GtaChaos.Wpf.Core.Timers
 
             if (_elapsedMillis > 100)
             {
-                var remaining = Math.Max(0, _effectTimer.Interval - _progressStopwatch.ElapsedMilliseconds);
-                var iRemaining = (int)(remaining / _effectTimer.Interval * 1000f);
-                ProcessHooker.SendEffectToGame(EffectType.Time, iRemaining.ToString());
+                var remaining = Math.Max(0, Config.Instance().MainCooldown - _progressStopwatch.ElapsedMilliseconds);
+
+                ProcessHooker.SendEffectToGame("time", $"{remaining},{Config.Instance().MainCooldown}");
                 _elapsedMillis = 0;
             }
 

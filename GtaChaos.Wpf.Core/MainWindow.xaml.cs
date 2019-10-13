@@ -17,9 +17,9 @@ namespace GtaChaos.Wpf.Core
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainTimer _timer;
-        private Stopwatch _stopWatch;
-        private List<Control> _controlList;
+        private readonly MainTimer _timer;
+        private readonly Stopwatch _stopWatch;
+        private readonly List<Control> _controlList;
 
         public MainWindowViewModel ViewModel { get; }
 
@@ -76,6 +76,7 @@ namespace GtaChaos.Wpf.Core
 
         private void StartResumeClick(object sender, RoutedEventArgs e)
         {
+            Config.Instance().MainCooldown = Convert.ToInt32(ViewModel.CooldownViewModel.SelectedCooldown) * 1000;
             ProcessHooker.HookProcess();
             _stopWatch.Start();
             _timer.Start(ViewModel.CooldownViewModel.SelectedCooldown);

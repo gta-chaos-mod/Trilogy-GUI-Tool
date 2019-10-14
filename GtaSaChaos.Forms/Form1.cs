@@ -32,7 +32,7 @@ namespace GtaChaos.Forms
         {
             InitializeComponent();
 
-            Text = "GTA Trilogy Chaos Mod v2.0.0";
+            Text = "GTA Trilogy Chaos Mod v2.0.1";
             if (!debug)
             {
                 tabSettings.TabPages.Remove(tabDebug);
@@ -760,7 +760,7 @@ namespace GtaChaos.Forms
             OpenFileDialog dialog = new OpenFileDialog
             {
                 Filter = "Preset File|*.cfg",
-                Title = "Save Preset"
+                Title = "Load Preset"
             };
             dialog.ShowDialog();
 

@@ -196,7 +196,7 @@ namespace GtaChaos.Models.Utils
                     return;
                 }
 
-                AbstractEffect effect = EffectDatabase.GetByWord(message);
+                AbstractEffect effect = EffectDatabase.GetByWord(message, Config.Instance().TwitchAllowOnlyEnabledEffectsRapidFire);
                 if (effect == null || !effect.IsRapidFire())
                 {
                     return;

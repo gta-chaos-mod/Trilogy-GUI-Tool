@@ -32,7 +32,7 @@ namespace GtaChaos.Forms
         {
             InitializeComponent();
 
-            Text = "GTA Trilogy Chaos Mod v2.0.1";
+            Text = "GTA Trilogy Chaos Mod v2.0.2";
             if (!debug)
             {
                 tabSettings.TabPages.Remove(tabDebug);

@@ -4,14 +4,21 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <SignAssembly>false</SignAssembly>
+    <ApplicationIcon />
+    <StartupObject />
+    <Win32Resource />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DefineConstants></DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="Resources\GuiResources.nl.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Resources\GuiResources.nl.resx" />
+    <EmbeddedResource Remove="Properties\GuiResources.nl.resx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +28,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.CSharp" Version="4.6.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\GuiResources.Designer.cs">
+    <Compile Update="Properties\GuiResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>GuiResources.resx</DependentUpon>
@@ -36,10 +44,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\GuiResources.resx">
+    <EmbeddedResource Update="Properties\GuiResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GuiResources.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CustomToolNamespace></CustomToolNamespace>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Properties\GuiResources.nl.resx">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Generator></Generator>
+    </None>
   </ItemGroup>
 
 </Project>

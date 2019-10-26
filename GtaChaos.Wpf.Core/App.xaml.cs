@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using GtaChaos.Models.Utils;
 
 namespace GtaChaos.Wpf.Core
 {
@@ -17,6 +18,10 @@ namespace GtaChaos.Wpf.Core
     {
         public App()
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("nl");
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("nl");
+
+            Config.Instance().Load();
         }
     }
 }

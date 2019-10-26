@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using GtaChaos.Wpf.Core.Helpers;
 using GtaChaos.Wpf.Core.Timers;
 using GtaChaos.Wpf.Core.ViewModels;
+using GtaChaos.Wpf.Core.Views;
 
 namespace GtaChaos.Wpf.Core
 {
@@ -20,6 +21,7 @@ namespace GtaChaos.Wpf.Core
         private readonly MainTimer _timer;
         private readonly Stopwatch _stopWatch;
         private readonly List<Control> _controlList;
+        private const int MaxProgress = 100;
 
         public MainWindowViewModel ViewModel { get; }
 
@@ -53,9 +55,10 @@ namespace GtaChaos.Wpf.Core
         {
             TryExecuteWithDispatcher(() =>
             {
-                var percentage = 100 - (millisecondsPassed / (ViewModel.CooldownViewModel.SelectedCooldown * 1000) * 100);
+                var percentage = MaxProgress - (millisecondsPassed / (ViewModel.CooldownViewModel.SelectedCooldown * 1000)
+                                                 * MaxProgress);
                     ProgressBar.Value = percentage;
-                    TimeLabel.Content = $"{100-Math.Round(percentage)}%";
+                    TimeLabel.Content = $"{MaxProgress - Math.Round(percentage)}%";
             });
         }
 
@@ -85,7 +88,7 @@ namespace GtaChaos.Wpf.Core
         private void ResetButtonClick(object sender, RoutedEventArgs e)
         {
             _timer.Reset();
-            ProgressBar.Value = 100;
+            ProgressBar.Value = MaxProgress;
             TimeLabel.Content = null;
         }
         #endregion
@@ -113,5 +116,15 @@ namespace GtaChaos.Wpf.Core
         }
         #endregion
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var optionsView = new Options();
+            optionsView.Show();
+        }
+
+        private void SeedTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Config.Instance().Seed = ((TextBox)e.Source).Text;
+        }
     }
 }

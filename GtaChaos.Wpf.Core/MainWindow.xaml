@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GtaChaos.Wpf.Core"
-        xmlns:resx="clr-namespace:GtaChaos.Wpf.Core.Resources"
+        xmlns:resx="clr-namespace:GtaChaos.Wpf.Core.Properties"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -27,13 +27,13 @@
             <Button Name="AutoStartButtonn"
                 Content="{x:Static resx:GuiResources.AutoStart}" HorizontalAlignment="Left" Margin="300,0,0,0"
                 VerticalAlignment="Top" Width="120" Click="AutoStartButtonClick"/>
-            
+
             <!--Continue Timer Checkbox-->
             <CheckBox  Content="{x:Static resx:GuiResources.ContinueTimer}" HorizontalAlignment="Right" Margin="0,8,10,0" VerticalAlignment="Top"/>
-            
+
             <!--Show History Checkbox-->
             <CheckBox Content="{x:Static resx:GuiResources.ShowHistory}" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top"/>
-            
+
             <!--Cooldown dropdown-->
             <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                       materialDesign:HintAssist.Hint="{x:Static resx:GuiResources.Cooldown}"
@@ -44,17 +44,16 @@
                       SelectedValuePath="Key"
                       DisplayMemberPath="Value"
                       HorizontalAlignment="Left" Margin="150,50,0,0" VerticalAlignment="Top" Width="240"/>
-            
+
             <!--Effect Preset Dropdown-->
             <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{x:Static resx:GuiResources.EffectPreset}"
                       materialDesign:HintAssist.IsFloating="True"
                 HorizontalAlignment="Right" Margin="0,50,0,0" VerticalAlignment="Top" Width="240"/>
-            
+
             <!--Seed textbox-->
-            <Label Content="{x:Static resx:GuiResources.Seed}" HorizontalAlignment="Right" Margin="0,99,0,0" VerticalAlignment="Top" Width="240"/>
             <TextBox
-                Name="SeedTextBox"
-                HorizontalAlignment="Right" Margin="0,120,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"/>
+                Name="SeedTextBox" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Seed"
+                HorizontalAlignment="Right" Margin="0,100,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" TextChanged="SeedTextBox_TextChanged"/>
             <!--Effect list-->
             <Grid Height="380" Margin="0,0,0,30" VerticalAlignment="Bottom">
                 <Rectangle Stroke="Gray" >
@@ -70,6 +69,7 @@
                     HorizontalAlignment="Center" Width="680" Height="20"/>
                 <Label Name="TimeLabel" Foreground="White" HorizontalAlignment="Center"/>
             </Grid>
+            <Button Content="Effects" HorizontalAlignment="Left" Margin="0,112,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
         </Grid>
     </materialDesign:Card>

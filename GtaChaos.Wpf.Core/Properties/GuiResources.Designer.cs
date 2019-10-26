@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GtaChaos.Wpf.Core.Resources {
+namespace GtaChaos.Wpf.Core.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GtaChaos.Wpf.Core.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GtaChaos.Wpf.Core.Resources.GuiResources", typeof(GuiResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GtaChaos.Wpf.Core.Properties.GuiResources", typeof(GuiResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

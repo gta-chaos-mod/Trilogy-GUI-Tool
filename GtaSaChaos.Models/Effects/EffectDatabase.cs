@@ -184,7 +184,7 @@ namespace GtaChaos.Models.Effects
             new TeleportationEffect("Teleport To Big Ear", "BringMeToBigEar", Location.LVSatellite),
         };
 
-        public static List<AbstractEffect> EnabledEffects { get; } = new List<AbstractEffect>();
+        public static List<AbstractEffect> EnabledEffects { get; set; } = new List<AbstractEffect>();
 
         public static AbstractEffect GetByID(string id, bool onlyEnabled = false)
         {

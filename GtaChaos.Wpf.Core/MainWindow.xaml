@@ -48,7 +48,8 @@
             <!--Effect Preset Dropdown-->
             <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{x:Static resx:GuiResources.EffectPreset}"
                       materialDesign:HintAssist.IsFloating="True"
-                HorizontalAlignment="Right" Margin="0,50,0,0" VerticalAlignment="Top" Width="240"/>
+                      Name="PresetComboBox"
+                HorizontalAlignment="Right" Margin="0,50,0,0" VerticalAlignment="Top" Width="240" SelectionChanged="ComboBox_SelectionChanged"/>
 
             <!--Seed textbox-->
             <TextBox

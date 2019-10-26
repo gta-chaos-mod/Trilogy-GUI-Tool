@@ -33,5 +33,6 @@
         <Label Content="Effects" VerticalAlignment="Top"  HorizontalAlignment="Left"  FontSize="20" Margin="10,11,0,0"/>
         <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Seed" HorizontalAlignment="Left" Margin="450,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"
                  Name="SeedTextBox"  TextChanged="TextBox_TextChanged"/>
+        <Button Content="Toggle All" HorizontalAlignment="Right" Margin="0,368,255,0" VerticalAlignment="Top" Click="Button_Click_2"/>
     </Grid>
 </Window>

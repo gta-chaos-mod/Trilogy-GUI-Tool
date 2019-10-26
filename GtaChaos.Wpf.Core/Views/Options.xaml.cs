@@ -108,6 +108,11 @@ namespace GtaChaos.Wpf.Core.Views
 
             EffectList.LoadDictionary(preset.Value.ToDictionary(keyValue => keyValue.Key, keyValue => keyValue.Value));
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            EffectList.ToggleAll();
+        }
     }
 
     public class ExportSettings

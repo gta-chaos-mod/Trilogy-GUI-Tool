@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using GtaChaos.Models.Utils;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using GtaChaos.Models.Effects;
 using GtaChaos.Wpf.Core.Helpers;
 using GtaChaos.Wpf.Core.Timers;
 using GtaChaos.Wpf.Core.ViewModels;
@@ -37,6 +39,8 @@ namespace GtaChaos.Wpf.Core
             {
                 CooldownComboBox
             };
+
+            LoadPresets();
         }
 
         private void ActivateEffect()
@@ -119,12 +123,60 @@ namespace GtaChaos.Wpf.Core
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var optionsView = new Options();
+            optionsView.Closed += (o, args) =>
+            {
+                LoadPresets();
+            };
+
             optionsView.Show();
         }
 
         private void SeedTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Config.Instance().Seed = ((TextBox)e.Source).Text;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string identifier = null;
+            try
+            {
+                identifier = (string) ((ComboBoxItem) e.AddedItems[0]).DataContext;
+            }
+            catch
+            {
+                identifier = null;
+            }
+
+            if (identifier == null)
+            {
+                return;
+            }
+
+            var presets = Config.Instance().Presets;
+
+            if (presets.ContainsKey(identifier))
+            {
+                Config.Instance().EnabledEffects = presets[identifier]
+                    .Where(effect => effect.Value)
+                    .Select(effect => effect.Key)
+                    .ToList();
+
+                EffectDatabase.EnabledEffects =
+                    EffectDatabase.Effects.Where(effect =>
+                        Config.Instance().EnabledEffects.Contains(effect.Id)).ToList();
+            }
+        }
+
+        private void LoadPresets()
+        {
+            PresetComboBox.Items.Clear();
+
+            foreach (var preset in Config.Instance().Presets)
+            {
+                PresetComboBox.Items.Add(new ComboBoxItem {Content = preset.Key, DataContext = preset.Key});
+            }
+            
         }
     }
 }

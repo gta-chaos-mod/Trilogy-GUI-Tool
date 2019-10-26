@@ -10,7 +10,7 @@ namespace GtaChaos.Wpf.Core.Helpers
     {
         public static AbstractEffect GetRandomEffect()
         {
-            return EffectDatabase.GetRandomEffect();
+            return EffectDatabase.GetRandomEffect(true);
         }
     }
 }

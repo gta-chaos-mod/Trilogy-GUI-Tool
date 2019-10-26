@@ -35,6 +35,14 @@ namespace GtaChaos.Wpf.Core.Views.Effects
             LoadDictionary(initialDictionary);
         }
 
+        public void ToggleAll()
+        {
+            var initial = !EffectDictionary.First().Value;
+
+            var dictionary = EffectDictionary.ToDictionary(key => key.Key, _ => initial);
+            LoadDictionary(dictionary);
+        }
+
         public void LoadDictionary(Dictionary<string, bool> effectDictionary)
         {
             // Clear both the already existing view list and the default enabled effects.
@@ -94,7 +102,7 @@ namespace GtaChaos.Wpf.Core.Views.Effects
                     // Save the effect to the dictionary that keeps the enabled effects.
                     if (!EffectDictionary.ContainsKey(effect.Id))
                     {
-                        EffectDictionary.Add(effect.Id, true);
+                        EffectDictionary.Add(effect.Id, effectDictionary[effect.Id]);
                     }
 
                     if (_categoryDictionary.ContainsKey(effect.Id))

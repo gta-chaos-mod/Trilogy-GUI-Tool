@@ -299,7 +299,7 @@ namespace GtaChaos.Models.Effects
             }
         }
 
-        public static List<AbstractEffect> EnabledEffects { get; } = new List<AbstractEffect>();
+        public static List<AbstractEffect> EnabledEffects { get; set; } = new List<AbstractEffect>();
 
         public static AbstractEffect GetByID(string id, bool onlyEnabled = false)
         {

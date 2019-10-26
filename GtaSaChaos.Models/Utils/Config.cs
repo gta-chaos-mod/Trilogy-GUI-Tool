@@ -9,6 +9,9 @@ namespace GtaChaos.Models.Utils
         public static Config _Instance;
 
         [JsonIgnore]
+        public string SelectedGame = "san_andreas";
+
+        [JsonIgnore]
         public bool Enabled;
 
         [JsonIgnore]

@@ -39,7 +39,7 @@ namespace GtaChaos.Models.Utils
             {
                 System.Threading.Thread.CurrentThread.IsBackground = true;
 
-                using (NamedPipeClientStream pipeStream = new NamedPipeClientStream(".", "GTASAChaosPipe"))
+                using (NamedPipeClientStream pipeStream = new NamedPipeClientStream(".", "GTATrilogyChaosModPipe"))
                 {
                     try
                     {

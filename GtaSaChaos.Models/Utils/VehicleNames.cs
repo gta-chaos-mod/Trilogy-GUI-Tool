@@ -1,12 +1,12 @@
 ﻿// Copyright (c) 2019 Lordmau5
-
 using System;
 
 namespace GtaChaos.Models.Utils
 {
     internal class VehicleNames
     {
-        private static readonly string[] vehicleNames = {
+        private static readonly string[] vehicleNames_SA =
+        {
             "Landstalker", "Bravura", "Buffalo", "Linerunner",
             "Perenail", "Sentinel", "Dumper", "Firetruck",
             "Trashmaster", "Stretch", "Manana", "Infernus",
@@ -50,9 +50,40 @@ namespace GtaChaos.Models.Utils
             "Stairs", "Boxville", "Farm Trailer", "Utility Van Trailer"
         };
 
+        private static readonly string[] vehicleNames_VC =
+        {
+            "Landstalker", "Idaho", "Stinger", "Linerunner", "Perennial", "Sentinel",
+            "Rio", "Firetruck", "Trashmaster", "Stretch", "Manana", "Infernus", "Voodoo",
+            "Pony", "Mule", "Cheetah", "Ambulance", "FBI Washington", "Moonbeam", "Esperanto",
+            "Taxi", "Washington", "Bobcat", "Mr. Whoopee", "BF Injection", "Hunter",
+            "Police Car", "Enforcer", "Securicar", "Banshee", "Predator", "Bus",
+            "Rhino", "Barracks", "Cuban Hermes", "Helicopter", "Angel", "Coach",
+            "Cabbie", "Stallion", "Rumpo", "RC Bandit", "Romero", "Packer",
+            "Sentinel XS", "Admiral", "Squalo", "Seasparrow", "Pizzaboy", "Gang Burrito",
+            "Airplane", "Dodo", "Speeder", "Reefer", "Tropic", "Flatbed", "Yankee", "Caddy",
+            "Zebra Cab", "Top Fun", "Skimmer", "PCJ 600", "Faggio", "Freeway", "RC Baron",
+            "RC Raider", "Glendale", "Oceanic", "Sanchez", "Sparrow", "Patriot",
+            "Love Fist", "Coastguard", "Dinghy", "Hermes", "Sabre", "Sabre Turbo",
+            "Phoenix", "Walton", "Regina", "Comet", "Deluxo", "Burrito", "Spand Express",
+            "Marquis", "Baggage", "Kaufman Cab", "Maverick", "VCN Maverick", "Rancher",
+            "FBI Rancher", "Virgo", "Greenwood", "Cuban Jetmax", "Hotring Racer", "Sandking",
+            "Blista Compact", "Police Maverick", "Boxville", "Benson", "Mesa Grande", "RC Goblin",
+            "Hotring Racer Alt.", "Hotring Racer Alt. 2", "Bloodring Banger", "Bloodring Banger Alt.",
+            "Cheetah"
+        };
+
         public static string GetVehicleName(int modelID)
         {
-            return vehicleNames[Math.Max(400, Math.Min(modelID, 611)) - 400];
+            if (Config.Instance().SelectedGame == "san_andreas")
+            {
+                return vehicleNames_SA[Math.Max(400, Math.Min(modelID, 611)) - 400];
+            }
+            else if (Config.Instance().SelectedGame == "vice_city")
+            {
+                return vehicleNames_VC[Math.Max(130, Math.Min(modelID, 236)) - 130];
+            }
+
+            return "";
         }
     }
 }

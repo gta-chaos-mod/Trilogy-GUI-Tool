@@ -61,6 +61,7 @@ namespace GtaChaos.Forms
             this.textBoxTwitchUsername = new System.Windows.Forms.TextBox();
             this.buttonConnectTwitch = new System.Windows.Forms.Button();
             this.tabEffects = new System.Windows.Forms.TabPage();
+            this.buttonEffectsToggleAll = new System.Windows.Forms.Button();
             this.enabledEffectsView = new System.Windows.Forms.TreeView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.checkBoxContinueTimer = new System.Windows.Forms.CheckBox();
@@ -79,7 +80,9 @@ namespace GtaChaos.Forms
             this.buttonAutoStart = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
-            this.buttonEffectsToggleAll = new System.Windows.Forms.Button();
+            this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viceCityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sanAndreasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabTwitch.SuspendLayout();
@@ -430,6 +433,16 @@ namespace GtaChaos.Forms
             this.tabEffects.TabIndex = 1;
             this.tabEffects.Text = "Effects";
             // 
+            // buttonEffectsToggleAll
+            // 
+            this.buttonEffectsToggleAll.Location = new System.Drawing.Point(6, 202);
+            this.buttonEffectsToggleAll.Name = "buttonEffectsToggleAll";
+            this.buttonEffectsToggleAll.Size = new System.Drawing.Size(440, 23);
+            this.buttonEffectsToggleAll.TabIndex = 7;
+            this.buttonEffectsToggleAll.Text = "Toggle All";
+            this.buttonEffectsToggleAll.UseVisualStyleBackColor = true;
+            this.buttonEffectsToggleAll.Click += new System.EventHandler(this.ButtonEffectsToggleAll_Click);
+            // 
             // enabledEffectsView
             // 
             this.enabledEffectsView.CheckBoxes = true;
@@ -529,7 +542,8 @@ namespace GtaChaos.Forms
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.gameToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(482, 24);
@@ -593,15 +607,28 @@ namespace GtaChaos.Forms
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
-            // buttonEffectsToggleAll
+            // gameToolStripMenuItem
             // 
-            this.buttonEffectsToggleAll.Location = new System.Drawing.Point(6, 202);
-            this.buttonEffectsToggleAll.Name = "buttonEffectsToggleAll";
-            this.buttonEffectsToggleAll.Size = new System.Drawing.Size(440, 23);
-            this.buttonEffectsToggleAll.TabIndex = 7;
-            this.buttonEffectsToggleAll.Text = "Toggle All";
-            this.buttonEffectsToggleAll.UseVisualStyleBackColor = true;
-            this.buttonEffectsToggleAll.Click += new System.EventHandler(this.ButtonEffectsToggleAll_Click);
+            this.gameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viceCityToolStripMenuItem,
+            this.sanAndreasToolStripMenuItem});
+            this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
+            this.gameToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.gameToolStripMenuItem.Text = "Game";
+            // 
+            // viceCityToolStripMenuItem
+            // 
+            this.viceCityToolStripMenuItem.Name = "viceCityToolStripMenuItem";
+            this.viceCityToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viceCityToolStripMenuItem.Text = "Vice City";
+            this.viceCityToolStripMenuItem.Click += new System.EventHandler(this.viceCityToolStripMenuItem_Click);
+            // 
+            // sanAndreasToolStripMenuItem
+            // 
+            this.sanAndreasToolStripMenuItem.Name = "sanAndreasToolStripMenuItem";
+            this.sanAndreasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sanAndreasToolStripMenuItem.Text = "San Andreas";
+            this.sanAndreasToolStripMenuItem.Click += new System.EventHandler(this.sanAndreasToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -688,6 +715,9 @@ namespace GtaChaos.Forms
         private System.Windows.Forms.TextBox textBoxTwitchChannel;
         private System.Windows.Forms.CheckBox checkBoxTwitch3TimesCooldown;
         private System.Windows.Forms.Button buttonEffectsToggleAll;
+        private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viceCityToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sanAndreasToolStripMenuItem;
     }
 }
 

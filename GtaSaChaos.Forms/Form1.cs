@@ -36,6 +36,11 @@ namespace GtaChaos.Forms
             if (!debug)
             {
                 tabSettings.TabPages.Remove(tabDebug);
+                gameToolStripMenuItem.Visible = false;
+            }
+            else
+            {
+                Text += " (DEBUG)";
             }
 
             stopwatch = new Stopwatch();
@@ -46,6 +51,7 @@ namespace GtaChaos.Forms
             };
             autoStartTimer.Elapsed += AutoStartTimer_Elapsed;
 
+            EffectDatabase.PopulateEffects("san_andreas");
             PopulateEffectTreeList();
 
             PopulateMainCooldowns();
@@ -451,18 +457,17 @@ namespace GtaChaos.Forms
 
         private void PopulateEffectTreeList()
         {
+            enabledEffectsView.Nodes.Clear();
+            idToEffectNodeMap.Clear();
+
             // Add Categories
-            enabledEffectsView.Nodes.Add(new CategoryTreeNode(Category.WeaponsAndHealth));
-            enabledEffectsView.Nodes.Add(new CategoryTreeNode(Category.WantedLevel));
-            enabledEffectsView.Nodes.Add(new CategoryTreeNode(Category.Weather));
-            enabledEffectsView.Nodes.Add(new CategoryTreeNode(Category.Spawning));
-            enabledEffectsView.Nodes.Add(new CategoryTreeNode(Category.Time));
-            enabledEffectsView.Nodes.Add(new CategoryTreeNode(Category.VehiclesTraffic));
-            enabledEffectsView.Nodes.Add(new CategoryTreeNode(Category.PedsAndCo));
-            enabledEffectsView.Nodes.Add(new CategoryTreeNode(Category.PlayerModifications));
-            enabledEffectsView.Nodes.Add(new CategoryTreeNode(Category.Stats));
-            enabledEffectsView.Nodes.Add(new CategoryTreeNode(Category.CustomEffects));
-            enabledEffectsView.Nodes.Add(new CategoryTreeNode(Category.Teleportation));
+            foreach (Category cat in Category.Categories)
+            {
+                if (cat.GetEffectCount() > 0)
+                {
+                    enabledEffectsView.Nodes.Add(new CategoryTreeNode(cat));
+                }
+            }
 
             // Add Effects
             foreach (AbstractEffect effect in EffectDatabase.Effects)
@@ -1054,6 +1059,46 @@ namespace GtaChaos.Forms
             {
                 node.Checked = !oneEnabled;
                 CheckAllChildNodes(node, !oneEnabled);
+                node.UpdateCategory();
+            }
+        }
+
+        private void viceCityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Config.Instance().SelectedGame = "vice_city";
+            Config.Instance().EnabledEffects.Clear();
+            EffectDatabase.PopulateEffects("vice_city");
+            PopulateEffectTreeList();
+
+            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            {
+                node.Checked = false;
+                CheckAllChildNodes(node, false);
+                node.UpdateCategory();
+            }
+
+            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            {
+                node.UpdateCategory();
+            }
+        }
+
+        private void sanAndreasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Config.Instance().SelectedGame = "san_andreas";
+            Config.Instance().EnabledEffects.Clear();
+            EffectDatabase.PopulateEffects("san_andreas");
+            PopulateEffectTreeList();
+
+            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            {
+                node.Checked = false;
+                CheckAllChildNodes(node, false);
+                node.UpdateCategory();
+            }
+
+            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            {
                 node.UpdateCategory();
             }
         }

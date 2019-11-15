@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GtaChaos.Models.Utils;
+using GtaChaos.Wpf.Core.Events;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 
@@ -29,6 +30,14 @@ namespace GtaChaos.Wpf.Core.Views
 
             LoadPresets();
             SeedTextBox.Text = Config.Instance().Seed;
+
+            GamesSelector.GameChanged += GameSelectorOnGameChanged;
+        }
+
+        private void GameSelectorOnGameChanged(object sender, GameChangeEventArgs e)
+        {
+            LoadPresets();
+            EffectList.LoadDictionary(new Dictionary<string, bool>());
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

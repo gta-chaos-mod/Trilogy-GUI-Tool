@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GtaChaos.Wpf.Core.Views"
         xmlns:effects="clr-namespace:GtaChaos.Wpf.Core.Views.Effects"
+        xmlns:components="clr-namespace:GtaChaos.Wpf.Core.Views.Components"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -14,7 +15,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="Options" Height="500" Width="800">
+        Title="Options" Height="600" Width="800">
     <Grid>
         <materialDesign:Card Height="400" Width="400" VerticalAlignment="Top" HorizontalAlignment="Left"
                              Margin="10,50,0,0">
@@ -33,6 +34,13 @@
         <Label Content="Effects" VerticalAlignment="Top"  HorizontalAlignment="Left"  FontSize="20" Margin="10,11,0,0"/>
         <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Seed" HorizontalAlignment="Left" Margin="450,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240"
                  Name="SeedTextBox"  TextChanged="TextBox_TextChanged"/>
-        <Button Content="Toggle All" HorizontalAlignment="Right" Margin="0,368,255,0" VerticalAlignment="Top" Click="Button_Click_2"/>
+        <Button Content="Toggle All" HorizontalAlignment="Left"
+                Margin="10,455,0,0" VerticalAlignment="Top" Click="Button_Click_2"
+                Width="400"/>
+        <components:GameSelector 
+            x:Name="GamesSelector"
+            Width="240" Height="50" HorizontalAlignment="Right"
+            VerticalAlignment="Top" Margin="0,443,110,0">
+        </components:GameSelector>
     </Grid>
 </Window>

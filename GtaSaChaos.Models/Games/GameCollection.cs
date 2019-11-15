@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using GtaChaos.Models.Effects.@abstract;
 using GtaChaos.Models.Effects.extra;
 using GtaChaos.Models.Effects.impl;
@@ -41,6 +39,11 @@ namespace GtaChaos.Models.Games
         public Game GetGame(GameIdentifiers identifier)
         {
             return _games.FirstOrDefault(game => game.Id == identifier);
+        }
+
+        public ICollection<Game> GetAll()
+        {
+            return _games;
         }
 
         #region Games

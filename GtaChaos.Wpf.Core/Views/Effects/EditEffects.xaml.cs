@@ -77,6 +77,8 @@ namespace GtaChaos.Wpf.Core.Views.Effects
                     Padding = new Thickness(0, 5, 0, 5)
                 };
 
+                rootItem.MouseLeftButtonUp += CategoryOnMouseClick;
+
                 var enabledCounter = 0;
                 // Loop over all effects within the category.
                 foreach (var effect in categoryGroup)
@@ -135,28 +137,57 @@ namespace GtaChaos.Wpf.Core.Views.Effects
             }
         }
 
+        private void CategoryOnMouseClick(object sender, MouseButtonEventArgs e)
+        {
+            var categoryItem = (CategoryItemViewModel) ((TreeViewItem) sender).DataContext;
+            var effects = EffectDatabase.Effects.Where(effect => effect.Category.Name == categoryItem.CategoryName).Select(effect => effect.Id).ToList();
+
+            var enabled = EffectDictionary[effects.First()];
+
+            foreach (var effect in effects)
+            {
+                // Reverse all effects based on the first.
+                EffectDictionary[effect] = !enabled;
+            }
+
+            // When updating the items, they will update the category themselves
+            foreach (TreeViewItem item in ((TreeViewItem) sender).Items)
+            {
+                var effect = (AbstractEffect)item.DataContext;
+                UpdateItemForEffect(item, effect.Id);
+            }
+
+            e.Handled = true;
+        }
+
         private void EffectOnMouseClick(object sender, MouseButtonEventArgs e)
         {
             // Cast the source to the view item and the effect from the data context.
             var item = ((TreeViewItem)e.Source);
             var effect = (AbstractEffect)item.DataContext;
 
+            EffectDictionary[effect.Id] = !EffectDictionary[effect.Id];
+            UpdateItemForEffect(item, effect.Id);
+
+            e.Handled = true;
+        }
+
+        private void UpdateItemForEffect(TreeViewItem effectItem, string effect)
+        {
             // Check if the effect is currently enabled.
-            if (EffectDictionary[effect.Id])
+            if (EffectDictionary[effect])
             {
-                // Disable the effect.
-                item.FontWeight = FontWeights.ExtraLight;
-                item.Header = item.Header.ToString().Replace("✔", "❌");
-                EffectDictionary[effect.Id] = false;
-                UpdateCategory(_categoryDictionary[effect.Id], false);
+                // Enable the effect.
+                effectItem.FontWeight = FontWeights.Normal;
+                effectItem.Header = effectItem.Header.ToString().Replace("❌", "✔");
+                UpdateCategory(_categoryDictionary[effect], true);
             }
             else
             {
-                // Enable the effect.
-                item.FontWeight = FontWeights.Normal;
-                item.Header = item.Header.ToString().Replace("❌", "✔");
-                EffectDictionary[effect.Id] = true;
-                UpdateCategory(_categoryDictionary[effect.Id], true);
+                // Disable the effect.
+                effectItem.FontWeight = FontWeights.ExtraLight;
+                effectItem.Header = effectItem.Header.ToString().Replace("✔", "❌");
+                UpdateCategory(_categoryDictionary[effect], false);
             }
         }
 

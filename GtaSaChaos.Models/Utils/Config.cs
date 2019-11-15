@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using GtaChaos.Models.Effects;
+using GtaChaos.Models.Presets;
 
 namespace GtaChaos.Models.Utils
 {
@@ -31,9 +32,9 @@ namespace GtaChaos.Models.Utils
         public string Seed;
         public bool MainShowLastEffects;
         public List<string> EnabledEffects = new List<string>();
-        public Dictionary<string, Dictionary<string, bool>> Presets { get; set; } =
-            new Dictionary<string, Dictionary<string, bool>>();
 
+        public ICollection<Preset> Presets = new List<Preset>();
+        
         public bool TwitchAllowOnlyEnabledEffectsRapidFire;
         public int TwitchVotingTime;
         public int TwitchVotingCooldown;

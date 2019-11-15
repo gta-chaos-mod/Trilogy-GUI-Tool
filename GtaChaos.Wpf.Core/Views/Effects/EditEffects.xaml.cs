@@ -23,6 +23,13 @@ namespace GtaChaos.Wpf.Core.Views.Effects
     public partial class EditEffects : UserControl
     {
         public Dictionary<string, bool> EffectDictionary { get; }
+
+        public List<string> GetEnabledEffects => 
+            EffectDictionary
+                .Where(keyValuePair => keyValuePair.Value)
+                .Select(keyValuePair => keyValuePair.Key)
+                .ToList();
+
         private Dictionary<string, TreeViewItem> _categoryDictionary;
 
         public EditEffects()
@@ -31,19 +38,22 @@ namespace GtaChaos.Wpf.Core.Views.Effects
 
             EffectDictionary = new Dictionary<string, bool>();
 
-            var initialDictionary = EffectDatabase.Effects.ToDictionary(effect => effect.Id, _ => true);
-            LoadDictionary(initialDictionary);
+            var effectList = EffectDatabase.Effects.Select(effect => effect.Id).ToList();
+            LoadList(effectList);
         }
 
         public void ToggleAll()
         {
             var initial = !EffectDictionary.First().Value;
 
-            var dictionary = EffectDictionary.ToDictionary(key => key.Key, _ => initial);
-            LoadDictionary(dictionary);
+            var dictionary = EffectDictionary.
+                Where(keyValuePair => keyValuePair.Value)
+                .Select(keyValuePair => keyValuePair.Key)
+                .ToList();
+            LoadList(dictionary);
         }
 
-        public void LoadDictionary(Dictionary<string, bool> effectDictionary)
+        public void LoadList(ICollection<string> effectDictionary)
         {
             // Clear both the already existing view list and the default enabled effects.
             EffectsView.Items.Clear();
@@ -62,22 +72,18 @@ namespace GtaChaos.Wpf.Core.Views.Effects
             foreach (var categoryGroup in effectCategory)
             {
                 // Make a root item for this category.
-                var rootItem = new TreeViewItem();
-                rootItem.Padding = new Thickness(0,5,0,5);
+                var rootItem = new TreeViewItem
+                {
+                    Padding = new Thickness(0, 5, 0, 5)
+                };
+
                 var enabledCounter = 0;
                 // Loop over all effects within the category.
                 foreach (var effect in categoryGroup)
                 {
-                    // If the effect is not in the dictionary, it might have been added later.
-                    // To not mess up people's old presets, add the effect disabled.
-                    if (!effectDictionary.ContainsKey(effect.Id))
-                    {
-                        effectDictionary.Add(effect.Id, false);
-                    }
-
                     // Check what the prefix will be for the effect header.
                     // If it is enabled it should show the checkmark.
-                    var isEnabled = effectDictionary[effect.Id];
+                    var isEnabled = effectDictionary.Contains(effect.Id);
                     var prefix =  isEnabled ? "✔ " : "❌ ";
 
                     if (isEnabled)
@@ -102,7 +108,7 @@ namespace GtaChaos.Wpf.Core.Views.Effects
                     // Save the effect to the dictionary that keeps the enabled effects.
                     if (!EffectDictionary.ContainsKey(effect.Id))
                     {
-                        EffectDictionary.Add(effect.Id, effectDictionary[effect.Id]);
+                        EffectDictionary.Add(effect.Id, isEnabled);
                     }
 
                     if (_categoryDictionary.ContainsKey(effect.Id))

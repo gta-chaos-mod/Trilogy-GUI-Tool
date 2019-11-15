@@ -154,28 +154,32 @@ namespace GtaChaos.Wpf.Core
                 return;
             }
 
-            var presets = Config.Instance().Presets;
+            
+            var config = Config.Instance();
+            var presetObject = config.Presets.FirstOrDefault(preset => preset.Name == identifier && preset.Game == config.SelectedGame);
 
-            if (presets.ContainsKey(identifier))
+            if (presetObject == null)
             {
-                Config.Instance().EnabledEffects = presets[identifier]
-                    .Where(effect => effect.Value)
-                    .Select(effect => effect.Key)
-                    .ToList();
+                return;
+            }
+
+            config.EnabledEffects = presetObject.EnabledEffects;
 
                 EffectDatabase.EnabledEffects =
                     EffectDatabase.Effects.Where(effect =>
                         Config.Instance().EnabledEffects.Contains(effect.Id)).ToList();
             }
-        }
 
         private void LoadPresets()
         {
             PresetComboBox.Items.Clear();
+            var config = Config.Instance();
 
-            foreach (var preset in Config.Instance().Presets)
+            foreach (var name in config.Presets
+                .Where(preset => preset.Game == config.SelectedGame)
+                .Select(preset => preset.Name))
             {
-                PresetComboBox.Items.Add(new ComboBoxItem {Content = preset.Key, DataContext = preset.Key});
+                PresetComboBox.Items.Add(new ComboBoxItem {Content = name, DataContext = name });
             }
             
         }

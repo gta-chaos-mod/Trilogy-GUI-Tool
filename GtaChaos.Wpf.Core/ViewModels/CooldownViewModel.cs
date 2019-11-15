@@ -8,7 +8,7 @@ namespace GtaChaos.Wpf.Core.ViewModels
     {
         public double SelectedCooldown { get; set; }
 
-        public Dictionary<double, string> CooldownDictionary => new Dictionary<double, string>()
+        public static Dictionary<double, string> CooldownDictionary => new Dictionary<double, string>()
         {
             {0.500, "500 Milliseconds" },
             {1, "1 Second" },

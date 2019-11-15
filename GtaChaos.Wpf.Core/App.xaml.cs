@@ -23,7 +23,7 @@ namespace GtaChaos.Wpf.Core
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("nl");
 
             Config.Instance().Load();
-            EffectDatabase.PopulateEffects(Games.SanAndreas);
+            EffectDatabase.PopulateEffects(Config.Instance().SelectedGame);
         }
     }
 }

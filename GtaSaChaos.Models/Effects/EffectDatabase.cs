@@ -21,7 +21,7 @@ namespace GtaChaos.Models.Effects
             Effects.Clear();
             EnabledEffects.Clear();
 
-            if (game == "san_andreas")
+            if (game == Games.SanAndreas)
             {
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 1", "ThugsArmoury", "weapon_set_1")); // Weapon Set 1
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 2", "ProfessionalsKit", "weapon_set_2")); // Weapon Set 2
@@ -193,7 +193,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new TeleportationEffect("Teleport To The LV Airport", "BringMeToTheLVAirport", Location.LVAirport));
                 Effects.Add(new TeleportationEffect("Teleport To Big Ear", "BringMeToBigEar", Location.LVSatellite));
             }
-            else if (game == "vice_city")
+            else if (game == Games.ViceCity)
             {
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 1", "ThugsTools", "weapon_set_1"));
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 2", "ProfessionalTools", "weapon_set_2"));

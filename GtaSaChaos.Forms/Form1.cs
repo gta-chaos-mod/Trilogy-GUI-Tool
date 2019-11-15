@@ -1086,9 +1086,9 @@ namespace GtaChaos.Forms
 
         private void sanAndreasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Config.Instance().SelectedGame = "san_andreas";
+            Config.Instance().SelectedGame = Games.SanAndreas;
             Config.Instance().EnabledEffects.Clear();
-            EffectDatabase.PopulateEffects("san_andreas");
+            EffectDatabase.PopulateEffects(Games.SanAndreas);
             PopulateEffectTreeList();
 
             foreach (CategoryTreeNode node in enabledEffectsView.Nodes)

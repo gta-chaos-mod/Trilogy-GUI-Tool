@@ -12,6 +12,7 @@ using GtaChaos.Wpf.Core.Helpers;
 using GtaChaos.Wpf.Core.Timers;
 using GtaChaos.Wpf.Core.ViewModels;
 using GtaChaos.Wpf.Core.Views;
+using GtaChaos.Wpf.Core.Views.Effects;
 
 namespace GtaChaos.Wpf.Core
 {
@@ -120,7 +121,7 @@ namespace GtaChaos.Wpf.Core
         }
         #endregion
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void EditEffects_Click(object sender, RoutedEventArgs e)
         {
             var optionsView = new Options();
             optionsView.Closed += (o, args) =>
@@ -177,6 +178,12 @@ namespace GtaChaos.Wpf.Core
                 PresetComboBox.Items.Add(new ComboBoxItem {Content = preset.Key, DataContext = preset.Key});
             }
             
+        }
+
+        private void ActiveEffects_Click(object sender, RoutedEventArgs e)
+        {
+            var effectWindow = new ViewEffects();
+            effectWindow.Show();
         }
     }
 }

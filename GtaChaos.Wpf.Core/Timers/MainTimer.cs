@@ -76,7 +76,10 @@ namespace GtaChaos.Wpf.Core.Timers
             _effectTimer.Stop();
             _progressTimer.Stop();
             _effectTimer = new Timer();
+            _effectTimer.Elapsed += EffectTimerOnElapsed;
+
             _progressTimer = new Timer(PROGRESS_INTERVAL);
+            _progressTimer.Elapsed += ProgressTimerOnElapsed;
             _progressStopwatch.Reset();
         }
 

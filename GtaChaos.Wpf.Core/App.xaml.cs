@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using GtaChaos.Models.Effects;
 using GtaChaos.Models.Utils;
 
 namespace GtaChaos.Wpf.Core
@@ -22,6 +23,7 @@ namespace GtaChaos.Wpf.Core
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("nl");
 
             Config.Instance().Load();
+            EffectDatabase.PopulateEffects(Config.Instance().SelectedGame);
         }
     }
 }

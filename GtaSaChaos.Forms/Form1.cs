@@ -52,7 +52,7 @@ namespace GtaChaos.Forms
             };
             autoStartTimer.Elapsed += AutoStartTimer_Elapsed;
 
-            EffectDatabase.PopulateEffects("san_andreas");
+            EffectDatabase.PopulateEffects(GameIdentifiers.SanAndreas);
             PopulateEffectTreeList();
 
             PopulateMainCooldowns();
@@ -1066,9 +1066,9 @@ namespace GtaChaos.Forms
 
         private void viceCityToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Config.Instance().SelectedGame = "vice_city";
+            Config.Instance().SelectedGame = GameIdentifiers.ViceCity;
             Config.Instance().EnabledEffects.Clear();
-            EffectDatabase.PopulateEffects("vice_city");
+            EffectDatabase.PopulateEffects(GameIdentifiers.ViceCity);
             PopulateEffectTreeList();
 
             foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
@@ -1086,9 +1086,9 @@ namespace GtaChaos.Forms
 
         private void sanAndreasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Config.Instance().SelectedGame = "san_andreas";
+            Config.Instance().SelectedGame = GameIdentifiers.SanAndreas;
             Config.Instance().EnabledEffects.Clear();
-            EffectDatabase.PopulateEffects("san_andreas");
+            EffectDatabase.PopulateEffects(GameIdentifiers.SanAndreas);
             PopulateEffectTreeList();
 
             foreach (CategoryTreeNode node in enabledEffectsView.Nodes)

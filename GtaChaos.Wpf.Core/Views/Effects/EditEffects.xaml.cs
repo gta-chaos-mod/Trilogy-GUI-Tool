@@ -23,6 +23,13 @@ namespace GtaChaos.Wpf.Core.Views.Effects
     public partial class EditEffects : UserControl
     {
         public Dictionary<string, bool> EffectDictionary { get; }
+
+        public List<string> GetEnabledEffects => 
+            EffectDictionary
+                .Where(keyValuePair => keyValuePair.Value)
+                .Select(keyValuePair => keyValuePair.Key)
+                .ToList();
+
         private Dictionary<string, TreeViewItem> _categoryDictionary;
 
         public EditEffects()
@@ -31,19 +38,22 @@ namespace GtaChaos.Wpf.Core.Views.Effects
 
             EffectDictionary = new Dictionary<string, bool>();
 
-            var initialDictionary = EffectDatabase.Effects.ToDictionary(effect => effect.Id, _ => true);
-            LoadDictionary(initialDictionary);
+            var effectList = EffectDatabase.Effects.Select(effect => effect.Id).ToList();
+            LoadList(effectList);
         }
 
         public void ToggleAll()
         {
             var initial = !EffectDictionary.First().Value;
 
-            var dictionary = EffectDictionary.ToDictionary(key => key.Key, _ => initial);
-            LoadDictionary(dictionary);
+            var dictionary = EffectDictionary.
+                Where(keyValuePair => keyValuePair.Value)
+                .Select(keyValuePair => keyValuePair.Key)
+                .ToList();
+            LoadList(dictionary);
         }
 
-        public void LoadDictionary(Dictionary<string, bool> effectDictionary)
+        public void LoadList(ICollection<string> effectDictionary)
         {
             // Clear both the already existing view list and the default enabled effects.
             EffectsView.Items.Clear();
@@ -62,22 +72,20 @@ namespace GtaChaos.Wpf.Core.Views.Effects
             foreach (var categoryGroup in effectCategory)
             {
                 // Make a root item for this category.
-                var rootItem = new TreeViewItem();
-                rootItem.Padding = new Thickness(0,5,0,5);
+                var rootItem = new TreeViewItem
+                {
+                    Padding = new Thickness(0, 5, 0, 5)
+                };
+
+                rootItem.MouseLeftButtonUp += CategoryOnMouseClick;
+
                 var enabledCounter = 0;
                 // Loop over all effects within the category.
                 foreach (var effect in categoryGroup)
                 {
-                    // If the effect is not in the dictionary, it might have been added later.
-                    // To not mess up people's old presets, add the effect disabled.
-                    if (!effectDictionary.ContainsKey(effect.Id))
-                    {
-                        effectDictionary.Add(effect.Id, false);
-                    }
-
                     // Check what the prefix will be for the effect header.
                     // If it is enabled it should show the checkmark.
-                    var isEnabled = effectDictionary[effect.Id];
+                    var isEnabled = effectDictionary.Contains(effect.Id);
                     var prefix =  isEnabled ? "✔ " : "❌ ";
 
                     if (isEnabled)
@@ -102,7 +110,7 @@ namespace GtaChaos.Wpf.Core.Views.Effects
                     // Save the effect to the dictionary that keeps the enabled effects.
                     if (!EffectDictionary.ContainsKey(effect.Id))
                     {
-                        EffectDictionary.Add(effect.Id, effectDictionary[effect.Id]);
+                        EffectDictionary.Add(effect.Id, isEnabled);
                     }
 
                     if (_categoryDictionary.ContainsKey(effect.Id))
@@ -129,28 +137,57 @@ namespace GtaChaos.Wpf.Core.Views.Effects
             }
         }
 
+        private void CategoryOnMouseClick(object sender, MouseButtonEventArgs e)
+        {
+            var categoryItem = (CategoryItemViewModel) ((TreeViewItem) sender).DataContext;
+            var effects = EffectDatabase.Effects.Where(effect => effect.Category.Name == categoryItem.CategoryName).Select(effect => effect.Id).ToList();
+
+            var enabled = EffectDictionary[effects.First()];
+
+            foreach (var effect in effects)
+            {
+                // Reverse all effects based on the first.
+                EffectDictionary[effect] = !enabled;
+            }
+
+            // When updating the items, they will update the category themselves
+            foreach (TreeViewItem item in ((TreeViewItem) sender).Items)
+            {
+                var effect = (AbstractEffect)item.DataContext;
+                UpdateItemForEffect(item, effect.Id);
+            }
+
+            e.Handled = true;
+        }
+
         private void EffectOnMouseClick(object sender, MouseButtonEventArgs e)
         {
             // Cast the source to the view item and the effect from the data context.
             var item = ((TreeViewItem)e.Source);
             var effect = (AbstractEffect)item.DataContext;
 
+            EffectDictionary[effect.Id] = !EffectDictionary[effect.Id];
+            UpdateItemForEffect(item, effect.Id);
+
+            e.Handled = true;
+        }
+
+        private void UpdateItemForEffect(TreeViewItem effectItem, string effect)
+        {
             // Check if the effect is currently enabled.
-            if (EffectDictionary[effect.Id])
+            if (EffectDictionary[effect])
             {
-                // Disable the effect.
-                item.FontWeight = FontWeights.ExtraLight;
-                item.Header = item.Header.ToString().Replace("✔", "❌");
-                EffectDictionary[effect.Id] = false;
-                UpdateCategory(_categoryDictionary[effect.Id], false);
+                // Enable the effect.
+                effectItem.FontWeight = FontWeights.Normal;
+                effectItem.Header = effectItem.Header.ToString().Replace("❌", "✔");
+                UpdateCategory(_categoryDictionary[effect], true);
             }
             else
             {
-                // Enable the effect.
-                item.FontWeight = FontWeights.Normal;
-                item.Header = item.Header.ToString().Replace("❌", "✔");
-                EffectDictionary[effect.Id] = true;
-                UpdateCategory(_categoryDictionary[effect.Id], true);
+                // Disable the effect.
+                effectItem.FontWeight = FontWeights.ExtraLight;
+                effectItem.Header = effectItem.Header.ToString().Replace("✔", "❌");
+                UpdateCategory(_categoryDictionary[effect], false);
             }
         }
 

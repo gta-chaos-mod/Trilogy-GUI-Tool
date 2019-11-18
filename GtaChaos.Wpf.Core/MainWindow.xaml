@@ -70,7 +70,8 @@
                     HorizontalAlignment="Center" Width="680" Height="20"/>
                 <Label Name="TimeLabel" Foreground="White" HorizontalAlignment="Center"/>
             </Grid>
-            <Button Content="Effects" HorizontalAlignment="Left" Margin="0,112,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+            <Button Content="Edit Effects" HorizontalAlignment="Left" Margin="0,112,0,0" VerticalAlignment="Top" Click="EditEffects_Click" Width="130"/>
+            <Button Content="Active Effects" HorizontalAlignment="Left" Margin="150,112,0,0" VerticalAlignment="Top" Width="130" Click="ActiveEffects_Click"/>
 
         </Grid>
     </materialDesign:Card>

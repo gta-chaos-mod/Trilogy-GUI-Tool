@@ -12,6 +12,7 @@ using GtaChaos.Wpf.Core.Helpers;
 using GtaChaos.Wpf.Core.Timers;
 using GtaChaos.Wpf.Core.ViewModels;
 using GtaChaos.Wpf.Core.Views;
+using GtaChaos.Wpf.Core.Views.Effects;
 
 namespace GtaChaos.Wpf.Core
 {
@@ -120,7 +121,7 @@ namespace GtaChaos.Wpf.Core
         }
         #endregion
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void EditEffects_Click(object sender, RoutedEventArgs e)
         {
             var optionsView = new Options();
             optionsView.Closed += (o, args) =>
@@ -153,30 +154,40 @@ namespace GtaChaos.Wpf.Core
                 return;
             }
 
-            var presets = Config.Instance().Presets;
+            
+            var config = Config.Instance();
+            var presetObject = config.Presets.FirstOrDefault(preset => preset.Name == identifier && preset.Game == config.SelectedGame);
 
-            if (presets.ContainsKey(identifier))
+            if (presetObject == null)
             {
-                Config.Instance().EnabledEffects = presets[identifier]
-                    .Where(effect => effect.Value)
-                    .Select(effect => effect.Key)
-                    .ToList();
+                return;
+            }
+
+            config.EnabledEffects = presetObject.EnabledEffects;
 
                 EffectDatabase.EnabledEffects =
                     EffectDatabase.Effects.Where(effect =>
                         Config.Instance().EnabledEffects.Contains(effect.Id)).ToList();
             }
-        }
 
         private void LoadPresets()
         {
             PresetComboBox.Items.Clear();
+            var config = Config.Instance();
 
-            foreach (var preset in Config.Instance().Presets)
+            foreach (var name in config.Presets
+                .Where(preset => preset.Game == config.SelectedGame)
+                .Select(preset => preset.Name))
             {
-                PresetComboBox.Items.Add(new ComboBoxItem {Content = preset.Key, DataContext = preset.Key});
+                PresetComboBox.Items.Add(new ComboBoxItem {Content = name, DataContext = name });
             }
             
+        }
+
+        private void ActiveEffects_Click(object sender, RoutedEventArgs e)
+        {
+            var effectWindow = new ViewEffects();
+            effectWindow.Show();
         }
     }
 }

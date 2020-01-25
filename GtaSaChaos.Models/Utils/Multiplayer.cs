@@ -1,11 +1,7 @@
 ﻿// Copyright (c) 2019 Lordmau5
-using Fleck;
-using GtaChaos.Models.Effects;
 using GtaChaos.Models.Effects.@abstract;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using WebSocketSharp;
 
 namespace GtaChaos.Models.Utils
@@ -64,6 +60,8 @@ namespace GtaChaos.Models.Utils
         public int LastChoice;
     }
 
+#pragma warning disable 0649
+
     internal class MessageType
     {
         /*
@@ -80,7 +78,6 @@ namespace GtaChaos.Models.Utils
          * 21 = Send Effect
          * 22 = Update Votes
          */
-
         public int Type;
     }
 
@@ -147,6 +144,8 @@ namespace GtaChaos.Models.Utils
         public int[] Votes;
         public int LastChoice;
     }
+
+#pragma warning restore 0649
 
     public class Multiplayer
     {

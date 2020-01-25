@@ -2,7 +2,6 @@
 using GtaChaos.Models.Effects.@abstract;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using TwitchLib.Client;
 
 namespace GtaChaos.Models.Utils

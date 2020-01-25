@@ -1,11 +1,10 @@
 ﻿// Copyright (c) 2019 Lordmau5
+using GtaChaos.Models.Effects;
+using GtaChaos.Models.Effects.@abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using GtaChaos.Models.Effects;
-using GtaChaos.Models.Effects.@abstract;
-using Newtonsoft.Json;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;

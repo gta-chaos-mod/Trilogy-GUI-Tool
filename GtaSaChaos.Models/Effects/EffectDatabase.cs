@@ -1,10 +1,10 @@
 ﻿// Copyright (c) 2019 Lordmau5
-using System;
-using System.Collections.Generic;
 using GtaChaos.Models.Effects.@abstract;
 using GtaChaos.Models.Effects.extra;
 using GtaChaos.Models.Effects.impl;
 using GtaChaos.Models.Utils;
+using System;
+using System.Collections.Generic;
 
 namespace GtaChaos.Models.Effects
 {

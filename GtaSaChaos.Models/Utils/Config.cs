@@ -1,5 +1,4 @@
 ﻿// Copyright (c) 2019 Lordmau5
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace GtaChaos.Models.Utils

@@ -6,37 +6,50 @@ namespace GtaChaos.Models.Utils
 {
     public class Config
     {
-        public static Config _Instance;
-
-        [JsonIgnore]
-        public string SelectedGame = "san_andreas";
-
-        [JsonIgnore]
-        public bool Enabled;
-
-        [JsonIgnore]
-        public bool IsTwitchMode;
-
-        [JsonIgnore]
-        public int TwitchVotingMode = 0; // 0 = Cooldown, 1 = Voting, 2 = Rapid-Fire
+        private static Config _Instance;
 
         public int MainCooldown;
         public bool ContinueTimer = true;
         public string Seed;
         public bool MainShowLastEffects;
         public List<string> EnabledEffects = new List<string>();
+        public bool PlayAudioForEffects = true;
 
-        public bool TwitchAllowOnlyEnabledEffectsRapidFire;
-        public int TwitchVotingTime;
-        public int TwitchVotingCooldown;
+        // Twitch Polls
+        public bool TwitchUsePolls;
 
-        public bool TwitchShowLastEffects;
-        public bool TwitchMajorityVoting = true;
-        public bool Twitch3TimesCooldown;
+        public string TwitchPollsPassphrase;
 
+        public bool TwitchPollsPostMessages;
+
+        public bool TwitchPollsSubscriberOnly;
+        public bool TwitchPollsSubcriberMultiplier;
+        public int TwitchPollsBitsCost = 0;
+
+        // Twitch Auth
         public string TwitchChannel;
+
         public string TwitchUsername;
         public string TwitchOAuthToken;
+
+        // Twitch Timer
+        public int TwitchVotingTime;
+
+        public int TwitchVotingCooldown;
+
+        // Twitch Settings
+        public bool TwitchAllowOnlyEnabledEffectsRapidFire;
+
+        public bool TwitchShowLastEffects;
+        public bool Twitch3TimesCooldown;
+        public bool TwitchCombineChatMessages;
+        public bool TwitchEnableMultipleEffects;
+        public bool TwitchAppendFakePassCurrentMission;
+
+        // Experimental
+        public bool Experimental_EnableAllEffects;
+
+        public bool Experimental_RunEffectOnAutoStart;
 
         public static Config Instance()
         {
@@ -54,7 +67,7 @@ namespace GtaChaos.Models.Utils
 
         public static int GetEffectDuration()
         {
-            if (Instance().IsTwitchMode)
+            if (Shared.IsTwitchMode)
             {
                 int cooldown = Instance().TwitchVotingCooldown + Instance().TwitchVotingTime;
                 return Instance().Twitch3TimesCooldown ? cooldown * 3 : cooldown;

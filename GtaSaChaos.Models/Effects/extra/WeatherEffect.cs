@@ -1,5 +1,4 @@
 ﻿// Copyright (c) 2019 Lordmau5
-
 using GtaChaos.Models.Effects.@abstract;
 using GtaChaos.Models.Utils;
 
@@ -15,9 +14,9 @@ namespace GtaChaos.Models.Effects.extra
             weatherID = _weatherID;
         }
 
-        public override void RunEffect()
+        public override void RunEffect(int seed = -1, int _duration = -1)
         {
-            SendEffectToGame("weather", weatherID.ToString());
+            SendEffectToGame("weather", weatherID.ToString(), (_duration == -1 ? -1 : _duration));
         }
     }
 }

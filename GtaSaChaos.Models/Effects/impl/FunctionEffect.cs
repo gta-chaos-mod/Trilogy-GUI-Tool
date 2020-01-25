@@ -8,15 +8,11 @@ namespace GtaChaos.Models.Effects.impl
     {
         private string type = "effect";
         private readonly string function;
-        private readonly int duration;
-        private readonly int multiplier;
 
-        public FunctionEffect(Category category, string description, string word, string _function, int _duration = -1, int _multiplier = 1)
-            : base(category, description, word)
+        public FunctionEffect(Category category, string description, string word, string _function, int duration = -1, float multiplier = 1.0f)
+            : base(category, description, word, duration, multiplier)
         {
             function = _function;
-            duration = _duration;
-            multiplier = _multiplier;
         }
 
         public FunctionEffect SetType(string type)
@@ -25,10 +21,15 @@ namespace GtaChaos.Models.Effects.impl
             return this;
         }
 
-        public override void RunEffect()
+        public override void RunEffect(int seed = -1, int _duration = -1)
         {
-            SendEffectToGame("set_seed", RandomHandler.Next(9999999).ToString());
-            SendEffectToGame(type, function, duration, "", multiplier);
+            SendEffectToGame("set_seed", seed == -1 ? RandomHandler.Next(9999999).ToString() : seed.ToString());
+            SendEffectToGame(type, function, (_duration == -1 ? Duration : _duration), "");
+
+            if (!string.IsNullOrEmpty(GetAudioPath()) && Config.Instance().PlayAudioForEffects)
+            {
+                AudioPlayer.PlayAudio(GetAudioPath());
+            }
         }
     }
 }

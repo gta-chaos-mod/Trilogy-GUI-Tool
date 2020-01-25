@@ -20,7 +20,7 @@ namespace GtaChaos.Models.Effects.extra
             return $"Spawn {((vehicleID == -1) ? randomVehicle : VehicleNames.GetVehicleName(vehicleID))}";
         }
 
-        public override void RunEffect()
+        public override void RunEffect(int seed = -1, int _duration = -1)
         {
             int actualID = vehicleID;
             if (actualID == -1)
@@ -29,7 +29,7 @@ namespace GtaChaos.Models.Effects.extra
             }
 
             string spawnString = $"Spawn {VehicleNames.GetVehicleName(actualID)}";
-            SendEffectToGame("spawn_vehicle", actualID.ToString(), -1, spawnString);
+            SendEffectToGame("spawn_vehicle", actualID.ToString(), (_duration == -1 ? -1 : _duration), spawnString);
         }
     }
 }

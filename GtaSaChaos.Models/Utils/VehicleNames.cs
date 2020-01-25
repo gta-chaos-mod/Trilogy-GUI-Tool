@@ -74,11 +74,11 @@ namespace GtaChaos.Models.Utils
 
         public static string GetVehicleName(int modelID)
         {
-            if (Config.Instance().SelectedGame == "san_andreas")
+            if (Shared.SelectedGame == "san_andreas")
             {
                 return vehicleNames_SA[Math.Max(400, Math.Min(modelID, 611)) - 400];
             }
-            else if (Config.Instance().SelectedGame == "vice_city")
+            else if (Shared.SelectedGame == "vice_city")
             {
                 return vehicleNames_VC[Math.Max(130, Math.Min(modelID, 236)) - 130];
             }

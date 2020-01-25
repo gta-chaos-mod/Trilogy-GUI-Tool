@@ -26,9 +26,9 @@
   <ItemGroup>
     <PackageReference Include="Fleck" Version="1.1.0" />
     <PackageReference Include="NAudio" Version="1.9.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3-beta1" />
-    <PackageReference Include="TwitchLib.Api" Version="3.0.6-CI-20190905-060235" />
-    <PackageReference Include="TwitchLib.Client" Version="3.0.6-CI-20190916-073325" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="TwitchLib.Api" Version="3.1.2" />
+    <PackageReference Include="TwitchLib.Client" Version="3.1.4" />
     <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
   </ItemGroup>
 </Project>

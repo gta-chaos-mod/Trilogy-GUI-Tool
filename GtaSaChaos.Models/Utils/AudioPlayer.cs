@@ -20,7 +20,7 @@ namespace GtaChaos.Models.Utils
                 {
                     reader = new MediaFoundationReader($"{type}/{path}");
                 }
-                catch (FileNotFoundException) // Didn't find an override audio file, try to use the embedded one
+                catch (Exception) // Didn't find an override audio file, try to use the embedded one
                 {
                     reader = new StreamMediaFoundationReader(s);
                 }

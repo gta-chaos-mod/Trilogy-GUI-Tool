@@ -73,8 +73,7 @@ namespace GtaChaos.Forms
 
             TryLoadConfig();
 
-            //timesUntilRapidFire = new Random().Next(10, 15);
-            timesUntilRapidFire = 1;
+            timesUntilRapidFire = new Random().Next(10, 15);
         }
 
         private void AutoStartTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)

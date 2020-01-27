@@ -1,10 +1,9 @@
 ﻿// Copyright (c) 2019 Lordmau5
-
 namespace GtaChaos.Models.Utils
 {
     public static class Shared
     {
-        public static string Version = "2.1.0";
+        public static string Version = "2.1.1";
 
         public static string SelectedGame = "san_andreas";
 

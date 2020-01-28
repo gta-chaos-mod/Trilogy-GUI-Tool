@@ -17,7 +17,7 @@ This is a tool that allows for syncing Chaos Mod effects and settings across mul
 # How to install
 Run `npm install` in this directory, then run `npm start`.
 
-If npm is throwing dependancy errors at you, you may need to update your Node.js package.
+If npm is throwing dependency errors at you, you may need to update your Node.js installation.
 
 The server will run on port 12312 by default.
 
@@ -31,7 +31,7 @@ In the Chaos Mod UI you have to enter the URL for the websocket in the Multiplay
 
 | Field    | Description                                                                                          |
 |----------|------------------------------------------------------------------------------------------------------|
-| Server   | The address of the server. The formula is `ws:\\address:port`                                        |
+| Server   | The address of the server. The formula is `ws://address:port`                                        |
 | Username | The username you'll be using on the server. Not related to the Twitch username used in the GUI tool.              |
 | Channel  | The name of the channel on the server you'll be joining. Not related to the Twitch channel set in the GUI tool.    |
 

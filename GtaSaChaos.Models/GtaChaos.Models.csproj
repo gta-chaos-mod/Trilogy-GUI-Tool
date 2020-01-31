@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -8,6 +8,7 @@
     <EmbeddedResource Include="audio\banana_phone.m4a" />
     <EmbeddedResource Include="audio\beyblade.m4a" />
     <EmbeddedResource Include="audio\busted.m4a" />
+    <EmbeddedResource Include="audio\down_under.m4a" />
     <EmbeddedResource Include="audio\elevator_music.m4a" />
     <EmbeddedResource Include="audio\here_we_go_again.m4a" />
     <EmbeddedResource Include="audio\honk_0.m4a" />

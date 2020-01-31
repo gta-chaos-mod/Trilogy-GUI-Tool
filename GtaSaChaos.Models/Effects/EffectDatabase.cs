@@ -28,7 +28,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 3", "NuttersToys", "weapon_set_3")); // Weapon Set 3
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 4", "MinigunMadness", "weapon_set_4")); // Weapon Set 4
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Health, Armor, $250k", "INeedSomeHelp", "health_armor_money")); // Health, Armor, $250k
-                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Suicide", "GoodbyeCruelWorld", "suicide").SetAudioPath("roblox_oof").DisableRapidFire()); // Suicide
+                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Suicide", "GoodbyeCruelWorld", "suicide").SetAudioFile("roblox_oof").DisableRapidFire()); // Suicide
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Infinite Ammo", "FullClip", "infinite_ammo")); // Infinite ammo
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Infinite Health (Player)", "NoOneCanHurtMe", "infinite_health")); // Infinite Health (Player)
 
@@ -129,14 +129,14 @@ namespace GtaChaos.Models.Effects
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "clear_active_effects").SetType("other").DisableTwitch()); // Clear Active Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsAllowed", "remove_all_weapons")); // Remove all weapons
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Get Busted", "GoToJail", "get_busted").SetAudioPath("busted").DisableRapidFire()); // Get's you busted on the spot
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Get Wasted", "Hospitality", "get_wasted").SetAudioPath("wasted").DisableRapidFire()); // Get's you wasted on the spot
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Get Busted", "GoToJail", "get_busted").SetAudioFile("busted").DisableRapidFire()); // Get's you busted on the spot
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Get Wasted", "Hospitality", "get_wasted").SetAudioFile("wasted").DisableRapidFire()); // Get's you wasted on the spot
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Set Everyone On Fire", "HotPotato", "set_everyone_on_fire").DisableRapidFire()); // Set everyone on fire
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Kick Player Out Of Vehicle", "ThisAintYourCar", "kick_player_out_of_vehicle")); // Kick player out of vehicle
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Lock Player Inside Vehicle", "ThereIsNoEscape", "lock_player_inside_vehicle")); // Lock player inside vehicle
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Set Current Vehicle On Fire", "WayTooHot", "set_current_vehicle_on_fire").DisableRapidFire()); // Set current vehicle on fire
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pop Tires Of All Vehicles", "TiresBeGone", "pop_tires_of_all_vehicles")); // Pop tires of all vehicles
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Send Vehicles To Space", "StairwayToHeaven", "send_vehicles_to_space").SetAudioPath("show_you_the_world")); // Gives an immense upwards boost to all vehicles
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Send Vehicles To Space", "StairwayToHeaven", "send_vehicles_to_space").SetAudioFile("show_you_the_world")); // Gives an immense upwards boost to all vehicles
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Turn Vehicles Around", "TurnAround", "turn_vehicles_around")); // Turn vehicles around
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "To The Left, To The Right", "ToTheLeftToTheRight", "to_the_left_to_the_right")); // Gives cars a random velocity
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Timelapse Mode", "DiscoInTheSky", "timelapse")); // Timelapse mode
@@ -149,7 +149,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable HUD", "FullyImmersed", "disable_hud")); // Disable HUD
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable Radar Blips", "BlipsBeGone", "disable_radar_blips")); // Disable Radar Blips
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable All Weapon Damage", "TruePacifist", "disable_all_weapon_damage")); // Disable all Weapon Damage
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "lets_take_a_break").SetAudioPath("elevator_music").DisableRapidFire()); // Let's take a break
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "lets_take_a_break").SetAudioFile("elevator_music").DisableRapidFire()); // Let's take a break
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Rainbow Cars", "AllColorsAreBeautiful", "rainbow_cars")); // Rainbow Cars
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "High Suspension Damping", "VeryDampNoBounce", "high_suspension_damping")); // Cars have high suspension damping
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Little Suspension Damping", "BouncinUpAndDown", "little_suspension_damping")); // Cars have very little suspension damping
@@ -165,12 +165,12 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "InvisibleVehicles", "invisible_vehicles")); // Invisible Vehicles
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Powerpoint Presentation", "PowerpointPresentation", "framerate_15")); // Powerpoint Presentation (15 FPS)
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Smooth Criminal", "SmoothCriminal", "framerate_60")); // Smooth Criminal (60 FPS)
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "reload_autosave").SetAudioPath("here_we_go_again").DisableRapidFire()); // Reload Autosave
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "reload_autosave").SetAudioFile("here_we_go_again").DisableRapidFire()); // Reload Autosave
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Quarter Gravity", "GroundControlToMajorTom", "quarter_gravity")); // Sets the gravity to 0.002f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Half Gravity", "ImFeelingLightheaded", "half_gravity")); // Sets the gravity to 0.004f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Double Gravity", "KilogramOfFeathers", "double_gravity")); // Sets the gravity to 0.016f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Quadruple Gravity", "KilogramOfSteel", "quadruple_gravity")); // Sets the gravity to 0.032f
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Inverted Gravity", "BeamMeUpScotty", "inverted_gravity").SetAudioPath("moon_theme").DisableRapidFire()); // Sets the gravity to -0.002f
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Inverted Gravity", "BeamMeUpScotty", "inverted_gravity").SetAudioFile("moon_theme").DisableRapidFire()); // Sets the gravity to -0.002f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Zero Gravity", "ImInSpaaaaace", "zero_gravity").DisableRapidFire()); // Sets the gravity to 0f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Insane Gravity", "StraightToHell", "insane_gravity").DisableRapidFire()); // Sets the gravity to 0.64f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Tunnel Vision", "TunnelVision", "tunnel_vision", -1, 1.0f / 3.0f).DisableRapidFire()); // Tunnel Vision
@@ -178,24 +178,24 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pitch Shifter", "VocalRange", "pitch_shifter")); // Pitch Shifter
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IWontTakeAFreePass", "fake_pass_current_mission").DisableRapidFire()); // Fake Pass Current Mission
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "DVD Screensaver", "ItsGonnaHitTheCorner", "dvd_screensaver", -1, 1.0f / 3.0f).DisableRapidFire()); // DVD Screensaver
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Lightspeed Braking", "WinnersDoBrake", "lightspeed_braking").DisableRapidFire()); // Lightspeed Braking
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Oh Hey, Tanks!", "OhHeyTanks", "oh_hey_tanks").SetAudioPath("oh_hey_tanks")); // Spawns tanks around the player
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Honk Boost", "GottaHonkFast", "honk_boost")); // Honk Boost
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Oh Hey, Tanks!", "OhHeyTanks", "oh_hey_tanks").SetAudioFile("oh_hey_tanks")); // Spawns tanks around the player
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Always Wanted", "ICanSeeStars", "always_wanted").DisableRapidFire()); // Always Wanted
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Cinematic Vehicle Camera", "MachinimaMode", "cinematic_vehicle_camera")); // Cinematic Vehicle Camera
                 //Effects.Add(new FunctionEffect(Category.CustomEffects, "Top Down Camera", "ReturnToTheClassics", "top_down_camera")); // Top Down Camera - BROKEN - CAN FLICKER AND SOFTLOCK
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Your Car Floats Away When Hit", "ImTheBubbleCar", "your_car_floats_away_when_hit")); // Your Car Floats Away When Hit
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Ring Ring !!", "RingRing", "ring_ring").SetAudioPath("banana_phone")); // Ring Ring !!
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Ring Ring !!", "RingRing", "ring_ring").SetAudioFile("banana_phone")); // Ring Ring !!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Peds Explode When Run Over", "ExplosivePeds", "peds_explode_when_run_over")); // Peds Explode When Run Over
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "HONK!!!", "HONKHONK", "honk_vehicle").SetAudioPath("honk", 5)); // Honk Vehicle
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Quake FOV", "QuakeFOV", "quake_fov").SetAudioPath("welcome_to_quake")); // Quake FOV
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Beyblade", "LetItRip", "beyblade").SetAudioPath("beyblade")); // Beyblade
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "HONK!!!", "HONKHONK", "honk_vehicle").SetAudioFile("honk", 5)); // Honk Vehicle
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Quake FOV", "QuakeFOV", "quake_fov").SetAudioFile("welcome_to_quake")); // Quake FOV
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Beyblade", "LetItRip", "beyblade").SetAudioFile("beyblade")); // Beyblade
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Weapon Roulette", "WeaponRoulette", "weapon_roulette")); // Weapon Roulette
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Need To Hurry", "NoNeedToHurry", "no_need_to_hurry")); // No Need To Hurry
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Drunk Player", "DrunkPlayer", "drunk_player")); // Drunk Player
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Force Vehicle Mouse Steering", "ForceVehicleMouseSteering", "force_vehicle_mouse_steering")); // Force Vehicle Mouse Steering
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Upside-Down Screen", "WhatsUpIsDown", "upside_down_screen")); // Upside-Down Screen
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Mirrored Screen", "WhatsLeftIsRight", "mirrored_screen")); // Mirrored Screen
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen")); // Greyscale Screen
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Upside-Down Screen", "WhatsUpIsDown", "upside_down_screen", -1, 1.0f / 3.0f).SetAudioFile("down_under")); // Upside-Down Screen
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Mirrored Screen", "WhatsLeftIsRight", "mirrored_screen", -1, 1.0f / 3.0f)); // Mirrored Screen
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen", -1, 1.0f / 3.0f)); // Greyscale Screen
 
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet));

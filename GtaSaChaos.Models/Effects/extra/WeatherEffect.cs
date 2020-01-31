@@ -16,6 +16,8 @@ namespace GtaChaos.Models.Effects.extra
 
         public override void RunEffect(int seed = -1, int _duration = -1)
         {
+            base.RunEffect(seed, _duration);
+
             SendEffectToGame("weather", weatherID.ToString(), (_duration == -1 ? -1 : _duration));
         }
     }

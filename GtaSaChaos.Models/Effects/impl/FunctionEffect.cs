@@ -21,15 +21,19 @@ namespace GtaChaos.Models.Effects.impl
             return this;
         }
 
+        public override string GetAudioFile()
+        {
+            string file = base.GetAudioFile();
+
+            return string.IsNullOrWhiteSpace(file) ? function : file;
+        }
+
         public override void RunEffect(int seed = -1, int _duration = -1)
         {
+            base.RunEffect(seed, _duration);
+
             SendEffectToGame("set_seed", seed == -1 ? RandomHandler.Next(9999999).ToString() : seed.ToString());
             SendEffectToGame(type, function, (_duration == -1 ? Duration : _duration), "");
-
-            if (!string.IsNullOrEmpty(GetAudioPath()) && Config.Instance().PlayAudioForEffects)
-            {
-                AudioPlayer.PlayAudio(GetAudioPath());
-            }
         }
     }
 }

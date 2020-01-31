@@ -83,14 +83,14 @@ namespace GtaChaos.Models.Effects.@abstract
             return twitchEnabled;
         }
 
-        public AbstractEffect SetAudioPath(string name, int variations = 0)
+        public AbstractEffect SetAudioFile(string name, int variations = 0)
         {
             audioName = name;
             audioVariations = variations;
             return this;
         }
 
-        public string GetAudioPath()
+        public virtual string GetAudioFile()
         {
             if (audioVariations == 0)
             {
@@ -103,7 +103,13 @@ namespace GtaChaos.Models.Effects.@abstract
             }
         }
 
-        public abstract void RunEffect(int seed = -1, int _duration = -1);
+        public virtual void RunEffect(int seed = -1, int _duration = -1)
+        {
+            if (Config.Instance().PlayAudioForEffects)
+            {
+                AudioPlayer.PlayAudio(GetAudioFile());
+            }
+        }
 
         public void SendEffectToGame(string type, string function, int duration = -1, string description = "")
         {
@@ -125,7 +131,20 @@ namespace GtaChaos.Models.Effects.@abstract
                 description = GetDescription();
             }
 
-            ProcessHooker.SendEffectToGame(type, function, duration, description, Voter, Shared.TwitchVotingMode == 2 ? rapidFire : 0);
+            int rapidFire = 0;
+            if (Shared.IsTwitchMode) {
+                if (Shared.TwitchVotingMode == 2)
+                {
+                    rapidFire = this.rapidFire;
+                }
+
+                if (Config.Instance().Experimental_TwitchAnarchyMode)
+                {
+                    rapidFire = 1;
+                }
+            }
+
+            ProcessHooker.SendEffectToGame(type, function, duration, description, Voter, rapidFire);
         }
     }
 }

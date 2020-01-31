@@ -22,6 +22,8 @@ namespace GtaChaos.Models.Effects.extra
 
         public override void RunEffect(int seed = -1, int _duration = -1)
         {
+            base.RunEffect(seed, _duration);
+
             int actualID = vehicleID;
             if (actualID == -1)
             {

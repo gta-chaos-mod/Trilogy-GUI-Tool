@@ -50,6 +50,8 @@ namespace GtaChaos.Models.Utils
 
         public bool Experimental_RunEffectOnAutoStart;
 
+        public bool Experimental_TwitchAnarchyMode;
+
         public static Config Instance()
         {
             if (_Instance == null)

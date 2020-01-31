@@ -210,15 +210,10 @@ namespace GtaChaos.Models.Utils
             string username = e.ChatMessage.Username;
             string message = RemoveSpecialCharacters(e.ChatMessage.Message);
 
-            if (VotingMode == 2)
+            if (Config.Instance().Experimental_TwitchAnarchyMode)
             {
-                if (rapidFireVoters.Contains(username))
-                {
-                    return;
-                }
-
-                AbstractEffect effect = EffectDatabase.GetByWord(message, Config.Instance().TwitchAllowOnlyEnabledEffectsRapidFire);
-                if (effect == null || !effect.IsRapidFire())
+                AbstractEffect effect = EffectDatabase.GetByWord(message);
+                if (effect == null)
                 {
                     return;
                 }
@@ -228,16 +223,39 @@ namespace GtaChaos.Models.Utils
                     Effect = effect.SetVoter(username)
                 });
 
-                rapidFireVoters.Add(username);
-
                 return;
             }
-            else if (VotingMode == 1)
+            else
             {
-                int choice = TryParseUserChoice(message);
-                if (choice >= 0 && choice <= 2)
+                if (VotingMode == 2)
                 {
-                    effectVoting?.TryAddVote(username, choice);
+                    if (rapidFireVoters.Contains(username))
+                    {
+                        return;
+                    }
+
+                    AbstractEffect effect = EffectDatabase.GetByWord(message, Config.Instance().TwitchAllowOnlyEnabledEffectsRapidFire);
+                    if (effect == null || !effect.IsRapidFire())
+                    {
+                        return;
+                    }
+
+                    RapidFireEffect(new RapidFireEventArgs()
+                    {
+                        Effect = effect.SetVoter(username)
+                    });
+
+                    rapidFireVoters.Add(username);
+
+                    return;
+                }
+                else if (VotingMode == 1)
+                {
+                    int choice = TryParseUserChoice(message);
+                    if (choice >= 0 && choice <= 2)
+                    {
+                        effectVoting?.TryAddVote(username, choice);
+                    }
                 }
             }
         }

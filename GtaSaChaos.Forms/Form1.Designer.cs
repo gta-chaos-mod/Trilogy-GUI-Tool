@@ -92,7 +92,7 @@ namespace GtaChaos.Forms
             this.textBoxMultiplayerServer = new System.Windows.Forms.TextBox();
             this.buttonMultiplayerConnect = new System.Windows.Forms.Button();
             this.tabExperimental = new System.Windows.Forms.TabPage();
-            this.checkBoxExperimental_EnableEffectOnAutoStart = new System.Windows.Forms.CheckBox();
+            this.checkBoxExperimental_RunEffectOnAutoStart = new System.Windows.Forms.CheckBox();
             this.checkBoxExperimental_EnableAllEffects = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,6 +107,7 @@ namespace GtaChaos.Forms
             this.buttonAutoStart = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
+            this.checkBoxExperimental_TwitchAnarchyMode = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabTwitch.SuspendLayout();
@@ -799,7 +800,8 @@ namespace GtaChaos.Forms
             // tabExperimental
             // 
             this.tabExperimental.BackColor = System.Drawing.Color.Transparent;
-            this.tabExperimental.Controls.Add(this.checkBoxExperimental_EnableEffectOnAutoStart);
+            this.tabExperimental.Controls.Add(this.checkBoxExperimental_TwitchAnarchyMode);
+            this.tabExperimental.Controls.Add(this.checkBoxExperimental_RunEffectOnAutoStart);
             this.tabExperimental.Controls.Add(this.checkBoxExperimental_EnableAllEffects);
             this.tabExperimental.Location = new System.Drawing.Point(4, 22);
             this.tabExperimental.Name = "tabExperimental";
@@ -810,16 +812,16 @@ namespace GtaChaos.Forms
             // 
             // checkBoxExperimental_EnableEffectOnAutoStart
             // 
-            this.checkBoxExperimental_EnableEffectOnAutoStart.AutoSize = true;
-            this.checkBoxExperimental_EnableEffectOnAutoStart.Location = new System.Drawing.Point(6, 29);
-            this.checkBoxExperimental_EnableEffectOnAutoStart.Name = "checkBoxExperimental_EnableEffectOnAutoStart";
-            this.checkBoxExperimental_EnableEffectOnAutoStart.Size = new System.Drawing.Size(246, 17);
-            this.checkBoxExperimental_EnableEffectOnAutoStart.TabIndex = 12;
-            this.checkBoxExperimental_EnableEffectOnAutoStart.Text = "EXPERIMENTAL: Enable Effect On Auto-Start";
-            this.toolTipHandler.SetToolTip(this.checkBoxExperimental_EnableEffectOnAutoStart, "When auto-start kicks in\r\nit will enable an effect immediately\r\ninstead of only s" +
+            this.checkBoxExperimental_RunEffectOnAutoStart.AutoSize = true;
+            this.checkBoxExperimental_RunEffectOnAutoStart.Location = new System.Drawing.Point(6, 29);
+            this.checkBoxExperimental_RunEffectOnAutoStart.Name = "checkBoxExperimental_EnableEffectOnAutoStart";
+            this.checkBoxExperimental_RunEffectOnAutoStart.Size = new System.Drawing.Size(246, 17);
+            this.checkBoxExperimental_RunEffectOnAutoStart.TabIndex = 12;
+            this.checkBoxExperimental_RunEffectOnAutoStart.Text = "EXPERIMENTAL: Enable Effect On Auto-Start";
+            this.toolTipHandler.SetToolTip(this.checkBoxExperimental_RunEffectOnAutoStart, "When auto-start kicks in\r\nit will enable an effect immediately\r\ninstead of only s" +
         "tarting the\r\ntimer.\r\nDoesn\'t work for Twitch mode.");
-            this.checkBoxExperimental_EnableEffectOnAutoStart.UseVisualStyleBackColor = true;
-            this.checkBoxExperimental_EnableEffectOnAutoStart.Click += new System.EventHandler(this.CheckBoxExperimental_EnableEffectOnAutoStart_CheckedChanged);
+            this.checkBoxExperimental_RunEffectOnAutoStart.UseVisualStyleBackColor = true;
+            this.checkBoxExperimental_RunEffectOnAutoStart.Click += new System.EventHandler(this.CheckBoxExperimental_EnableEffectOnAutoStart_CheckedChanged);
             // 
             // checkBoxExperimental_EnableAllEffects
             // 
@@ -932,6 +934,19 @@ namespace GtaChaos.Forms
             this.buttonSwitchMode.Text = "Twitch";
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
+            // 
+            // checkBoxTwitchAnarchyMode
+            // 
+            this.checkBoxExperimental_TwitchAnarchyMode.AutoSize = true;
+            this.checkBoxExperimental_TwitchAnarchyMode.Location = new System.Drawing.Point(6, 52);
+            this.checkBoxExperimental_TwitchAnarchyMode.Name = "checkBoxTwitchAnarchyMode";
+            this.checkBoxExperimental_TwitchAnarchyMode.Size = new System.Drawing.Size(219, 17);
+            this.checkBoxExperimental_TwitchAnarchyMode.TabIndex = 13;
+            this.checkBoxExperimental_TwitchAnarchyMode.Text = "EXPERIMENTAL: Twitch Anarchy Mode";
+            this.toolTipHandler.SetToolTip(this.checkBoxExperimental_TwitchAnarchyMode, "When auto-start kicks in\r\nit will enable an effect immediately\r\ninstead of only s" +
+        "tarting the\r\ntimer.\r\nDoesn\'t work for Twitch mode.");
+            this.checkBoxExperimental_TwitchAnarchyMode.UseVisualStyleBackColor = true;
+            this.checkBoxExperimental_TwitchAnarchyMode.CheckedChanged += new System.EventHandler(this.checkBoxTwitchAnarchyMode_CheckedChanged);
             // 
             // Form1
             // 
@@ -1048,8 +1063,9 @@ namespace GtaChaos.Forms
         private System.Windows.Forms.ListBox listBoxMultiplayerChat;
         private System.Windows.Forms.TabPage tabExperimental;
         private System.Windows.Forms.ToolStripMenuItem experimentalToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkBoxExperimental_EnableEffectOnAutoStart;
+        private System.Windows.Forms.CheckBox checkBoxExperimental_RunEffectOnAutoStart;
         private System.Windows.Forms.CheckBox checkBoxExperimental_EnableAllEffects;
+        private System.Windows.Forms.CheckBox checkBoxExperimental_TwitchAnarchyMode;
     }
 }
 

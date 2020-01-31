@@ -408,15 +408,10 @@ namespace GtaChaos.Models.Utils
             string message = RemoveSpecialCharacters(e.ChatMessage.Message);
 
             // Rapid Fire
-            if (VotingMode == 2)
+            if (Config.Instance().Experimental_TwitchAnarchyMode)
             {
-                if (rapidFireVoters.Contains(username))
-                {
-                    return;
-                }
-
-                AbstractEffect effect = EffectDatabase.GetByWord(message, Config.Instance().TwitchAllowOnlyEnabledEffectsRapidFire);
-                if (effect == null || !effect.IsRapidFire())
+                AbstractEffect effect = EffectDatabase.GetByWord(message);
+                if (effect == null)
                 {
                     return;
                 }
@@ -426,9 +421,32 @@ namespace GtaChaos.Models.Utils
                     Effect = effect.SetVoter(username)
                 });
 
-                rapidFireVoters.Add(username);
-
                 return;
+            }
+            else
+            {
+                if (VotingMode == 2)
+                {
+                    if (rapidFireVoters.Contains(username))
+                    {
+                        return;
+                    }
+
+                    AbstractEffect effect = EffectDatabase.GetByWord(message, Config.Instance().TwitchAllowOnlyEnabledEffectsRapidFire);
+                    if (effect == null || !effect.IsRapidFire())
+                    {
+                        return;
+                    }
+
+                    RapidFireEffect(new RapidFireEventArgs()
+                    {
+                        Effect = effect.SetVoter(username)
+                    });
+
+                    rapidFireVoters.Add(username);
+
+                    return;
+                }
             }
         }
 

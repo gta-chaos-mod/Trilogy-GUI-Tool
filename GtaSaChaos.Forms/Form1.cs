@@ -217,7 +217,8 @@ namespace GtaChaos.Forms
             checkBoxTwitchAppendFakePassCurrentMission.Checked = Config.Instance().TwitchAppendFakePassCurrentMission;
 
             checkBoxExperimental_EnableAllEffects.Checked = Config.Instance().Experimental_EnableAllEffects;
-            checkBoxExperimental_EnableEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
+            checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
+            checkBoxExperimental_TwitchAnarchyMode.Checked = Config.Instance().Experimental_TwitchAnarchyMode;
 
             textBoxSeed.Text = Config.Instance().Seed;
 
@@ -994,15 +995,15 @@ namespace GtaChaos.Forms
                 {
                     Invoke(new Action(() =>
                     {
-                        if (Shared.TwitchVotingMode == 2)
+                        if (Shared.TwitchVotingMode == 2 || Config.Instance().Experimental_TwitchAnarchyMode)
                         {
                             if (Shared.Multiplayer != null)
                             {
-                                Shared.Multiplayer.SendEffect(rapidFireArgs.Effect);
+                                Shared.Multiplayer.SendEffect(rapidFireArgs.Effect, 1000 * 15);
                             }
                             else
                             {
-                                rapidFireArgs.Effect.RunEffect();
+                                rapidFireArgs.Effect.RunEffect(-1, 1000 * 15);
                                 AddEffectToListBox(rapidFireArgs.Effect);
                             }
                         }
@@ -1068,15 +1069,16 @@ namespace GtaChaos.Forms
             UpdateConnectTwitchState();
         }
 
-        private void ButtonSwitchMode_Click(object sender, EventArgs e)
+        private void SwitchMode(bool isTwitchMode)
         {
-            if (Shared.IsTwitchMode)
+            if (!isTwitchMode)
             {
-                Shared.IsTwitchMode = false;
-
                 buttonSwitchMode.Text = "Twitch";
 
-                tabs.TabPages.Insert(0, tabMain);
+                if (!tabs.TabPages.Contains(tabMain))
+                {
+                    tabs.TabPages.Insert(0, tabMain);
+                }
                 tabs.SelectedIndex = 0;
                 tabs.TabPages.Remove(tabTwitch);
 
@@ -1092,16 +1094,17 @@ namespace GtaChaos.Forms
             }
             else
             {
-                Shared.IsTwitchMode = true;
-
                 buttonSwitchMode.Text = "Main";
                 buttonAutoStart.Enabled = twitch != null && twitch.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
 
-                tabs.TabPages.Insert(0, tabTwitch);
+                if (!tabs.TabPages.Contains(tabTwitch))
+                {
+                    tabs.TabPages.Insert(0, tabTwitch);
+                }
                 tabs.SelectedIndex = 0;
                 tabs.TabPages.Remove(tabMain);
 
-                if (Config.Instance().TwitchUsePolls)
+                if (Config.Instance().TwitchUsePolls && !tabs.TabPages.Contains(tabPolls))
                 {
                     tabs.TabPages.Insert(2, tabPolls);
                 }
@@ -1114,6 +1117,12 @@ namespace GtaChaos.Forms
                 stopwatch.Reset();
                 SetEnabled(false);
             }
+        }
+
+        private void ButtonSwitchMode_Click(object sender, EventArgs e)
+        {
+            Shared.IsTwitchMode = !Shared.IsTwitchMode;
+            SwitchMode(Shared.IsTwitchMode);
         }
 
         private void ButtonTwitchToggle_Click(object sender, EventArgs e)
@@ -1378,6 +1387,7 @@ namespace GtaChaos.Forms
                     buttonResetMain.Enabled = true;
                     buttonAutoStart.Enabled = true;
                     comboBoxMainCooldown.Enabled = true;
+                    enabledEffectsView.Enabled = true;
                 }
                 else if (state == 1) // Connecting...
                 {
@@ -1474,6 +1484,9 @@ namespace GtaChaos.Forms
                         buttonResetMain.Enabled = false;
                         buttonAutoStart.Enabled = false;
                         comboBoxMainCooldown.Enabled = false;
+                        enabledEffectsView.Enabled = false;
+
+                        SwitchMode(false);
                     }
 
                     labelMultiplayerHost.Text = $"Host: {args.HostUsername}";
@@ -1580,7 +1593,7 @@ namespace GtaChaos.Forms
 
         private void CheckBoxExperimental_EnableEffectOnAutoStart_CheckedChanged(object sender, EventArgs e)
         {
-            Config.Instance().Experimental_RunEffectOnAutoStart = checkBoxExperimental_EnableEffectOnAutoStart.Checked;
+            Config.Instance().Experimental_RunEffectOnAutoStart = checkBoxExperimental_RunEffectOnAutoStart.Checked;
         }
 
         private void ExperimentalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1590,6 +1603,11 @@ namespace GtaChaos.Forms
                 tabs.TabPages.Add(tabExperimental);
             }
             experimentalToolStripMenuItem.Visible = false;
+        }
+
+        private void checkBoxTwitchAnarchyMode_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance().Experimental_TwitchAnarchyMode = checkBoxExperimental_TwitchAnarchyMode.Checked;
         }
     }
 }

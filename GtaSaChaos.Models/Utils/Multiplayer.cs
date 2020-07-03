@@ -365,7 +365,6 @@ namespace GtaChaos.Models.Utils
         public void SendEffect(AbstractEffect effect, int _duration = -1)
         {
             int duration = effect.Duration > 0 ? effect.Duration : Config.GetEffectDuration();
-            duration = (int)Math.Round(duration * effect.GetMultiplier());
 
             if (_duration != -1)
             {

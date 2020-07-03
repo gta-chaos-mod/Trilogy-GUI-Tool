@@ -141,7 +141,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "To The Left, To The Right", "ToTheLeftToTheRight", "to_the_left_to_the_right")); // Gives cars a random velocity
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Timelapse Mode", "DiscoInTheSky", "timelapse")); // Timelapse mode
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Where Is Everybody?", "ImHearingVoices", "where_is_everybody")); // Where is everybody?
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Everybody Bleed Now!", "EverybodyBleedNow", "everybody_bleed_now")); // Everybody bleed now!
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Everybody Bleed Now!", "EverybodyBleedNow", "everybody_bleed_now", -1, 0.5f)); // Everybody bleed now!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "To Drive Or Not To Drive", "ToDriveOrNotToDrive", "to_drive_or_not_to_drive")); // To drive or not to drive
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "One Hit K.O.", "ILikeToLiveDangerously", "one_hit_ko").DisableRapidFire()); // One Hit K.O.
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Experience The Lag", "PacketLoss", "experience_the_lag")); // Experience the lag

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Lordmau5
+// Copyright (c) 2019 Lordmau5
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -1605,7 +1605,7 @@ namespace GtaChaos.Forms
             experimentalToolStripMenuItem.Visible = false;
         }
 
-        private void checkBoxTwitchAnarchyMode_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxTwitchAnarchyMode_CheckedChanged(object sender, EventArgs e)
         {
             Config.Instance().Experimental_TwitchAnarchyMode = checkBoxExperimental_TwitchAnarchyMode.Checked;
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Lordmau5
+// Copyright (c) 2019 Lordmau5
 using System.Collections.Generic;
 
 namespace GtaChaos.Models.Utils

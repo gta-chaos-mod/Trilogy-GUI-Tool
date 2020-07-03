@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Lordmau5
+// Copyright (c) 2019 Lordmau5
 using GtaChaos.Models.Effects;
 using GtaChaos.Models.Effects.@abstract;
 using System;
@@ -110,7 +110,6 @@ namespace GtaChaos.Models.Utils
 
                 if (Config.Instance().TwitchCombineChatMessages)
                 {
-                    //SendMessage("Voting has started! Type 1, 2 or 3 (or #1, #2, #3) to vote for one of the effects!");
                     string messageToSend = "Voting has started! Type 1, 2 or 3 (or #1, #2, #3) to vote for one of the effects! ";
 
                     foreach (ChatVotingElement element in effectVoting.GetVotingElements())
@@ -122,7 +121,6 @@ namespace GtaChaos.Models.Utils
                         }
 
                         messageToSend += $"#{element.Id + 1}: {description}. ";
-                        //SendMessage($"#{element.Id + 1}: {element.Effect.GetDescription()}");
                     }
 
                     SendMessage(messageToSend);

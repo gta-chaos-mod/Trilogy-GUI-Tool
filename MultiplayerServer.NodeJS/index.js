@@ -34,6 +34,8 @@ wss.on('connection', ws => {
 
 			if (Channels.has(data.Channel)) {
 				const c = Channels.get(data.Channel);
+				if (!c) return;
+
 				if (c.hasUser(data.Username)) {
 					ws.send(JSON.stringify({ Type: 1 }));
 				}
@@ -68,6 +70,8 @@ wss.on('connection', ws => {
 
 		else if (data.Type == 20) { // Time Update
 			const c = Channels.get(ws._channel);
+			if (!c) return;
+
 			if (c.getHost() != ws._username) return;
 
 			for (const u of c.getUsers()) {
@@ -78,6 +82,8 @@ wss.on('connection', ws => {
 		}
 		else if (data.Type == 21) { // Send Effect
 			const c = Channels.get(ws._channel);
+			if (!c) return;
+
 			if (c.getHost() != ws._username) return;
 
 			for (const u of c.getUsers()) {
@@ -86,6 +92,8 @@ wss.on('connection', ws => {
 		}
 		else if (data.Type == 22) { // Votes
 			const c = Channels.get(ws._channel);
+			if (!c) return;
+			
 			if (c.getHost() != ws._username) return;
 
 			for (const u of c.getUsers()) {

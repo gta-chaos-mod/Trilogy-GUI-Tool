@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Lordmau5
+// Copyright (c) 2019 Lordmau5
 using Fleck;
 using GtaChaos.Models.Effects;
 using GtaChaos.Models.Effects.@abstract;
@@ -247,7 +247,7 @@ namespace GtaChaos.Models.Utils
                 {
                     if (Config.Instance().TwitchCombineChatMessages)
                     {
-                        string messageToSend = "Voting has started! On mobile? Type \"/vote ID\" (1, 2 or 3) to vote instead! ";
+                        string messageToSend = "Voting has started! ";
 
                         foreach (PollVotingElement element in effectVoting.GetVotingElements())
                         {
@@ -264,7 +264,7 @@ namespace GtaChaos.Models.Utils
                     }
                     else
                     {
-                        SendMessage("Voting has started! On mobile? Type \"/vote ID\" (1, 2 or 3) to vote instead!");
+                        SendMessage("Voting has started!");
 
                         foreach (PollVotingElement element in effectVoting.GetVotingElements())
                         {

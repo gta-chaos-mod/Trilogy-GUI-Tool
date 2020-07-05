@@ -150,7 +150,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable Radar Blips", "BlipsBeGone", "disable_radar_blips")); // Disable Radar Blips
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable All Weapon Damage", "TruePacifist", "disable_all_weapon_damage")); // Disable all Weapon Damage
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "lets_take_a_break").SetAudioFile("elevator_music").DisableRapidFire()); // Let's take a break
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Rainbow Cars", "AllColorsAreBeautiful", "rainbow_cars")); // Rainbow Cars
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Pride Cars", "AllColorsAreBeautiful", "pride_cars")); // Pride Cars
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "High Suspension Damping", "VeryDampNoBounce", "high_suspension_damping")); // Cars have high suspension damping
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Little Suspension Damping", "BouncinUpAndDown", "little_suspension_damping")); // Cars have very little suspension damping
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Zero Suspension Damping", "LowrideAllNight", "zero_suspension_damping"));  // Cars have almost zero suspension damping

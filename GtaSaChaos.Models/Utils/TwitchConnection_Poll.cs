@@ -294,6 +294,11 @@ namespace GtaChaos.Models.Utils
                             // Twitch doesn't like honks, so Honk Honk, everyone!
                             description = description.Replace("O", "ഠ");
                         }
+                        else if (elements.Effect.Word.Equals("LoveConquersAll"))
+                        {
+                            // Twitch apparently also doesn't like the word "kinky", so let's do more magic!
+                            description = description.Replace("i", "ὶ");
+                        }
                         return description;
                     }).ToList(),
                     subscriberMultiplier = Config.Instance().TwitchPollsSubcriberMultiplier,

@@ -159,7 +159,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Fail Current Mission", "MissionFailed", "fail_current_mission").DisableRapidFire()); // Fail Current Mission
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Night Vision", "NightVision", "night_vision")); // Night Vision
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Thermal Vision", "ThermalVision", "thermal_vision")); // Thermal Vision
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IllTakeAFreePass", "pass_current_mission").DisableRapidFire()); // Pass Current Mission
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IllTakeAFreePass", "pass_current_mission")); // Pass Current Mission
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Infinite Health (Everyone)", "NoOneCanHurtAnyone", "infinite_health_everyone")); // Infinite Health (Everyone)
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "InvisibleVehicles", "invisible_vehicles")); // Invisible Vehicles
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Powerpoint Presentation", "PowerpointPresentation", "framerate_15")); // Powerpoint Presentation (15 FPS)

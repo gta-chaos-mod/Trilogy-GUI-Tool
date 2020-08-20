@@ -200,7 +200,9 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pedal To The Metal", "PedalToTheMetal", "pedal_to_the_metal")); // Pedal To The Metal
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Unflippable Vehicles", "ThereGoesMyBurrito", "unflippable_vehicles")); // Vehicles are unflippable
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Freefall!", "Freefall", "freefall")); // Freefall! - Gives CJ a parachute and teleports him very high
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Vehicular Rain", "VehicularRain", "vehicular_rain")); // Vehicular Rain - Makes vehicles rain from the sky!
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Carpocalypse", "Carpocalypse", "carpocalypse")); // Carpocalypse - Makes vehicles rain from the sky!
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Usain Bolt", "UsainBolt", "usain_bolt")); // Usain Bolt - Let's you run at incredibly high speeds!
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Roll Credits", "RollCredits", "roll_credits")); // Roll Credits - Rolls the credits but only visually!
 
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet));

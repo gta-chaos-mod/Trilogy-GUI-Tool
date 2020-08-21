@@ -203,8 +203,11 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Carpocalypse", "Carpocalypse", "carpocalypse")); // Carpocalypse - Makes vehicles rain from the sky!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "I Am Speed", "IAmSpeed", "i_am_speed")); // I Am Speed - Let's you run at incredibly high speeds!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Roll Credits", "WaitItsOver", "roll_credits")); // Roll Credits - Rolls the credits but only visually!
-
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Instantly Hungry", "IllHave2Number9s", "instantly_hungry")); // Instantly Hungry - Makes CJ instantly hungry
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Vehicle Bumper Camera", "BumperCars", "vehicle_bumper_camera")); // Vehicle Bumper Camera - Forces the vehicle's bumper camera
+
+                //Effects.Add(new FunctionEffect(Category.CustomEffects, "Random Teleport", "LetsGoSightseeing", "random_teleport")); // Random Teleport - Teleports CJ to a random location on the map
+
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet));
                 Effects.Add(new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower));

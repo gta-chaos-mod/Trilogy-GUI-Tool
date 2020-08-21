@@ -147,7 +147,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Experience The Lag", "PacketLoss", "experience_the_lag")); // Experience the lag
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Ghost Rider", "GhostRider", "ghost_rider")); // Set current vehicle constantly on fire
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable HUD", "FullyImmersed", "disable_hud")); // Disable HUD
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable Radar Blips", "BlipsBeGone", "disable_radar_blips")); // Disable Radar Blips
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable Blips / Markers / Pickups", "INeedSomeInstructions", "disable_blips_markers_pickups")); // Disable Blips / Markers / Pickups
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable All Weapon Damage", "TruePacifist", "disable_all_weapon_damage")); // Disable all Weapon Damage
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "lets_take_a_break").SetAudioFile("elevator_music").DisableRapidFire()); // Let's take a break
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pride Cars", "AllColorsAreBeautiful", "pride_cars")); // Pride Cars

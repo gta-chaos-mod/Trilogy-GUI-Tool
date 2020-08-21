@@ -201,7 +201,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Unflippable Vehicles", "ThereGoesMyBurrito", "unflippable_vehicles")); // Vehicles are unflippable
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Freefall!", "Freefall", "freefall")); // Freefall! - Gives CJ a parachute and teleports him very high
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Carpocalypse", "Carpocalypse", "carpocalypse")); // Carpocalypse - Makes vehicles rain from the sky!
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Usain Bolt", "UsainBolt", "usain_bolt")); // Usain Bolt - Let's you run at incredibly high speeds!
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "I Am Speed", "IAmSpeed", "i_am_speed")); // I Am Speed - Let's you run at incredibly high speeds!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Roll Credits", "RollCredits", "roll_credits")); // Roll Credits - Rolls the credits but only visually!
 
                 // All teleports are disabled during Rapid-Fire mode

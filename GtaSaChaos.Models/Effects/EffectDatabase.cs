@@ -206,8 +206,6 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Instantly Hungry", "IllHave2Number9s", "instantly_hungry")); // Instantly Hungry - Makes CJ instantly hungry
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Vehicle Bumper Camera", "FrontRowSeat", "vehicle_bumper_camera")); // Vehicle Bumper Camera - Forces the vehicle's bumper camera
 
-                //Effects.Add(new FunctionEffect(Category.CustomEffects, "Random Teleport", "LetsGoSightseeing", "random_teleport")); // Random Teleport - Teleports CJ to a random location on the map
-
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet));
                 Effects.Add(new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower));
@@ -221,6 +219,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new TeleportationEffect("Teleport To A Quarry", "BringMeToAQuarry", Location.LVQuarry));
                 Effects.Add(new TeleportationEffect("Teleport To The LV Airport", "BringMeToTheLVAirport", Location.LVAirport));
                 Effects.Add(new TeleportationEffect("Teleport To Big Ear", "BringMeToBigEar", Location.LVSatellite));
+                Effects.Add(new FunctionEffect(Category.Teleportation, "Random Teleport", "LetsGoSightseeing", "random_teleport")); // Random Teleport - Teleports CJ to a random location on the map
             }
             else if (game == "vice_city")
             {

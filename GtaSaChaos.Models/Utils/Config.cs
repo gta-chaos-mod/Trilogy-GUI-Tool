@@ -52,6 +52,8 @@ namespace GtaChaos.Models.Utils
 
         public bool Experimental_TwitchAnarchyMode;
 
+        public bool Experimental_TwitchDisableRapidFire;
+
         public static Config Instance()
         {
             if (_Instance == null)

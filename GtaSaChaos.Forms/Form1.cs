@@ -10,6 +10,7 @@ using GtaChaos.Models.Effects;
 using GtaChaos.Models.Effects.@abstract;
 using GtaChaos.Models.Utils;
 using Newtonsoft.Json;
+using WebSocketSharp;
 
 namespace GtaChaos.Forms
 {
@@ -43,6 +44,8 @@ namespace GtaChaos.Forms
             {
                 gameToolStripMenuItem.Visible = false;
                 tabs.TabPages.Remove(tabExperimental);
+                textBoxExperimentalEffectName.Visible = false;
+                buttonExperimentalRunEffect.Visible = false;
             }
             else
             {
@@ -219,6 +222,7 @@ namespace GtaChaos.Forms
             checkBoxExperimental_EnableAllEffects.Checked = Config.Instance().Experimental_EnableAllEffects;
             checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
             checkBoxExperimental_TwitchAnarchyMode.Checked = Config.Instance().Experimental_TwitchAnarchyMode;
+            checkBoxExperimental_TwitchDisableRapidFire.Checked = Config.Instance().Experimental_TwitchDisableRapidFire;
 
             textBoxSeed.Text = Config.Instance().Seed;
 
@@ -554,7 +558,12 @@ namespace GtaChaos.Forms
                 {
                     elapsedCount = 0;
 
-                    if (--timesUntilRapidFire == 0)
+                    if (!Config.Instance().Experimental_TwitchDisableRapidFire)
+                    {
+                        timesUntilRapidFire--;
+                    }
+
+                    if (timesUntilRapidFire == 0)
                     {
                         progressBarTwitch.Value = progressBarTwitch.Maximum = 1000 * 10;
 
@@ -1608,6 +1617,27 @@ namespace GtaChaos.Forms
         private void CheckBoxTwitchAnarchyMode_CheckedChanged(object sender, EventArgs e)
         {
             Config.Instance().Experimental_TwitchAnarchyMode = checkBoxExperimental_TwitchAnarchyMode.Checked;
+        }
+
+        private void ButtonExperimentalRunEffect_Click(object sender, EventArgs e)
+        {
+            if (textBoxExperimentalEffectName.Text.IsNullOrEmpty())
+            {
+                return;
+            }
+
+            var effect = EffectDatabase.GetByWord(textBoxExperimentalEffectName.Text);
+            if (effect == null)
+            {
+                return;
+            }
+
+            effect.RunEffect();
+        }
+
+        private void CheckBoxTwitchDisableRapidFire_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance().Experimental_TwitchDisableRapidFire = checkBoxExperimental_TwitchDisableRapidFire.Checked;
         }
     }
 }

@@ -319,11 +319,18 @@ namespace GtaChaos.Models.Utils
             {
                 SendEffectVotingToGame(false);
 
-                SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Poll Failed :(");
-
-                if (untilRapidFire == 1)
+                if (Config.Instance().Experimental_TwitchDisableRapidFire)
                 {
-                    SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+                    SendMessage($"Cooldown has started! - Poll Failed :(");
+                }
+                else
+                {
+                    SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Poll Failed :(");
+
+                    if (untilRapidFire == 1)
+                    {
+                        SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+                    }
                 }
 
                 // Make sure we end poll, thank
@@ -346,11 +353,18 @@ namespace GtaChaos.Models.Utils
 
                     string allEffects = string.Join(", ", votingElements.Select(e => e.GetEffect().GetDescription()));
 
-                    SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Enabled effects: {allEffects}");
-
-                    if (untilRapidFire == 1)
+                    if (Config.Instance().Experimental_TwitchDisableRapidFire)
                     {
-                        SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+                        SendMessage($"Cooldown has started! - Enabled effects: {allEffects}");
+                    }
+                    else
+                    {
+                        SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Enabled effects: {allEffects}");
+
+                        if (untilRapidFire == 1)
+                        {
+                            SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+                        }
                     }
 
                     // Make sure we end poll, thank
@@ -367,11 +381,18 @@ namespace GtaChaos.Models.Utils
                 }
                 else
                 {
-                    SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire)");
-
-                    if (untilRapidFire == 1)
+                    if (Config.Instance().Experimental_TwitchDisableRapidFire)
                     {
-                        SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+                        SendMessage($"Cooldown has started!");
+                    }
+                    else
+                    {
+                        SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire)");
+
+                        if (untilRapidFire == 1)
+                        {
+                            SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+                        }
                     }
                 }
             }

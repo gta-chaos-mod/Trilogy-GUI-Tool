@@ -200,8 +200,8 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pedal To The Metal", "PedalToTheMetal", "pedal_to_the_metal")); // Pedal To The Metal
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Unflippable Vehicles", "ThereGoesMyBurrito", "unflippable_vehicles")); // Vehicles are unflippable
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Freefall!", "WhereWeDroppingBoys", "freefall")); // Freefall! - Gives CJ a parachute and teleports him very high
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Carpocalypse", "Carpocalypse", "carpocalypse")); // Carpocalypse - Makes vehicles rain from the sky!
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "I Am Speed", "IAmSpeed", "i_am_speed")); // I Am Speed - Let's you run at incredibly high speeds!
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Carmageddon", "Carmageddon", "carmageddon")); // Carmageddon - Makes vehicles rain from the sky!
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Usain Bolt", "FastestManAlive", "usain_bolt")); // Usain Bolt - Let's you run at incredibly high speeds!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Roll Credits", "WaitItsOver", "roll_credits")); // Roll Credits - Rolls the credits but only visually!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Instantly Hungry", "IllHave2Number9s", "instantly_hungry")); // Instantly Hungry - Makes CJ instantly hungry
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Vehicle Bumper Camera", "FrontRowSeat", "vehicle_bumper_camera")); // Vehicle Bumper Camera - Forces the vehicle's bumper camera

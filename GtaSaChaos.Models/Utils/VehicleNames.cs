@@ -8,7 +8,7 @@ namespace GtaChaos.Models.Utils
         private static readonly string[] vehicleNames_SA =
         {
             "Landstalker", "Bravura", "Buffalo", "Linerunner",
-            "Perenail", "Sentinel", "Dumper", "Firetruck",
+            "Perennial", "Sentinel", "Dumper", "Firetruck",
             "Trashmaster", "Stretch", "Manana", "Infernus",
             "Voodoo", "Pony", "Mule", "Cheetah", "Ambulance",
             "Leviathan", "Moonbeam", "Esperanto", "Taxi", "Washington",

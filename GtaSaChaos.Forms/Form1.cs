@@ -279,6 +279,11 @@ namespace GtaChaos.Forms
                     {
                         effect = EffectDatabase.RunEffect(effect);
                         effect?.ResetVoter();
+
+                        if (effect != null)
+                        {
+                            AddEffectToListBox(effect);
+                        }
                     }
                 }
             }
@@ -291,12 +296,8 @@ namespace GtaChaos.Forms
                 else
                 {
                     EffectDatabase.RunEffect(effect);
+                    AddEffectToListBox(effect);
                 }
-            }
-
-            if (effect != null)
-            {
-                AddEffectToListBox(effect);
             }
         }
 
@@ -1397,6 +1398,7 @@ namespace GtaChaos.Forms
                     buttonAutoStart.Enabled = true;
                     comboBoxMainCooldown.Enabled = true;
                     enabledEffectsView.Enabled = true;
+                    textBoxSeed.Enabled = true;
                 }
                 else if (state == 1) // Connecting...
                 {
@@ -1488,14 +1490,16 @@ namespace GtaChaos.Forms
                 {
                     if (!args.IsHost)
                     {
+                        SwitchMode(false);
+
                         buttonSwitchMode.Enabled = false;
                         buttonMainToggle.Enabled = false;
                         buttonResetMain.Enabled = false;
                         buttonAutoStart.Enabled = false;
                         comboBoxMainCooldown.Enabled = false;
                         enabledEffectsView.Enabled = false;
-
-                        SwitchMode(false);
+                        buttonResetMain.Enabled = false;
+                        textBoxSeed.Enabled = false;
                     }
 
                     labelMultiplayerHost.Text = $"Host: {args.HostUsername}";
@@ -1557,6 +1561,8 @@ namespace GtaChaos.Forms
                         effect.SetVoter(args.Voter);
                     }
                     EffectDatabase.RunEffect(effect, args.Seed, args.Duration);
+
+                    AddEffectToListBox(effect);
                 }
             };
 

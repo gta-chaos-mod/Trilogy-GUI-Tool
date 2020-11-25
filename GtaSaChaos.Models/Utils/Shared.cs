@@ -3,7 +3,7 @@ namespace GtaChaos.Models.Utils
 {
     public static class Shared
     {
-        public static string Version = "2.3.3";
+        public static string Version = "2.3.4";
 
         public static string SelectedGame = "san_andreas";
 

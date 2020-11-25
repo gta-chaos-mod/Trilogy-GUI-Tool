@@ -92,6 +92,7 @@ namespace GtaChaos.Forms
             this.textBoxMultiplayerServer = new System.Windows.Forms.TextBox();
             this.buttonMultiplayerConnect = new System.Windows.Forms.Button();
             this.tabExperimental = new System.Windows.Forms.TabPage();
+            this.checkBoxExperimental_TwitchDisableRapidFire = new System.Windows.Forms.CheckBox();
             this.buttonExperimentalRunEffect = new System.Windows.Forms.Button();
             this.textBoxExperimentalEffectName = new System.Windows.Forms.TextBox();
             this.checkBoxExperimental_TwitchAnarchyMode = new System.Windows.Forms.CheckBox();
@@ -110,7 +111,7 @@ namespace GtaChaos.Forms
             this.buttonAutoStart = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
-            this.checkBoxExperimental_TwitchDisableRapidFire = new System.Windows.Forms.CheckBox();
+            this.checkBoxRunEffectsWhenZeroVotes = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabTwitch.SuspendLayout();
@@ -575,6 +576,7 @@ namespace GtaChaos.Forms
             // tabSettings
             // 
             this.tabSettings.BackColor = System.Drawing.Color.Transparent;
+            this.tabSettings.Controls.Add(this.checkBoxRunEffectsWhenZeroVotes);
             this.tabSettings.Controls.Add(this.checkBoxPlayAudioForEffects);
             this.tabSettings.Controls.Add(this.checkBoxTwitchAppendFakePassCurrentMission);
             this.tabSettings.Controls.Add(this.checkBoxTwitchUsePolls);
@@ -814,6 +816,17 @@ namespace GtaChaos.Forms
             this.tabExperimental.TabIndex = 7;
             this.tabExperimental.Text = "Experimental";
             // 
+            // checkBoxExperimental_TwitchDisableRapidFire
+            // 
+            this.checkBoxExperimental_TwitchDisableRapidFire.AutoSize = true;
+            this.checkBoxExperimental_TwitchDisableRapidFire.Location = new System.Drawing.Point(6, 75);
+            this.checkBoxExperimental_TwitchDisableRapidFire.Name = "checkBoxExperimental_TwitchDisableRapidFire";
+            this.checkBoxExperimental_TwitchDisableRapidFire.Size = new System.Drawing.Size(236, 17);
+            this.checkBoxExperimental_TwitchDisableRapidFire.TabIndex = 16;
+            this.checkBoxExperimental_TwitchDisableRapidFire.Text = "EXPERIMENTAL: Twitch Disable Rapid-Fire";
+            this.checkBoxExperimental_TwitchDisableRapidFire.UseVisualStyleBackColor = true;
+            this.checkBoxExperimental_TwitchDisableRapidFire.CheckedChanged += new System.EventHandler(this.CheckBoxTwitchDisableRapidFire_CheckedChanged);
+            // 
             // buttonExperimentalRunEffect
             // 
             this.buttonExperimentalRunEffect.Location = new System.Drawing.Point(371, 205);
@@ -967,16 +980,19 @@ namespace GtaChaos.Forms
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
-            // checkBoxTwitchDisableRapidFire
+            // checkBoxRunEffectsWhenZeroVotes
             // 
-            this.checkBoxExperimental_TwitchDisableRapidFire.AutoSize = true;
-            this.checkBoxExperimental_TwitchDisableRapidFire.Location = new System.Drawing.Point(6, 75);
-            this.checkBoxExperimental_TwitchDisableRapidFire.Name = "checkBoxTwitchDisableRapidFire";
-            this.checkBoxExperimental_TwitchDisableRapidFire.Size = new System.Drawing.Size(236, 17);
-            this.checkBoxExperimental_TwitchDisableRapidFire.TabIndex = 16;
-            this.checkBoxExperimental_TwitchDisableRapidFire.Text = "EXPERIMENTAL: Twitch Disable Rapid-Fire";
-            this.checkBoxExperimental_TwitchDisableRapidFire.UseVisualStyleBackColor = true;
-            this.checkBoxExperimental_TwitchDisableRapidFire.CheckedChanged += new System.EventHandler(this.CheckBoxTwitchDisableRapidFire_CheckedChanged);
+            this.checkBoxRunEffectsWhenZeroVotes.AutoSize = true;
+            this.checkBoxRunEffectsWhenZeroVotes.Location = new System.Drawing.Point(293, 139);
+            this.checkBoxRunEffectsWhenZeroVotes.Name = "checkBoxRunEffectsWhenZeroVotes";
+            this.checkBoxRunEffectsWhenZeroVotes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxRunEffectsWhenZeroVotes.Size = new System.Drawing.Size(153, 17);
+            this.checkBoxRunEffectsWhenZeroVotes.TabIndex = 9;
+            this.checkBoxRunEffectsWhenZeroVotes.Text = "Run Effects When 0 Votes";
+            this.toolTipHandler.SetToolTip(this.checkBoxRunEffectsWhenZeroVotes, "When enabled it will run effects when 0 votes in total happen.\r\nOtherwise no effe" +
+        "ct will be enabled.\r\nUseful for when a poll fails.");
+            this.checkBoxRunEffectsWhenZeroVotes.UseVisualStyleBackColor = true;
+            this.checkBoxRunEffectsWhenZeroVotes.CheckedChanged += new System.EventHandler(this.checkBoxRunEffectWhenZeroVotes_CheckedChanged);
             // 
             // Form1
             // 
@@ -1099,6 +1115,7 @@ namespace GtaChaos.Forms
         private System.Windows.Forms.Button buttonExperimentalRunEffect;
         private System.Windows.Forms.TextBox textBoxExperimentalEffectName;
         private System.Windows.Forms.CheckBox checkBoxExperimental_TwitchDisableRapidFire;
+        private System.Windows.Forms.CheckBox checkBoxRunEffectsWhenZeroVotes;
     }
 }
 

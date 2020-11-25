@@ -218,6 +218,7 @@ namespace GtaChaos.Forms
             numericUpDownTwitchPollsBitsCost.Value = Config.Instance().TwitchPollsBitsCost;
             textBoxTwitchPollsPassphrase.Text = Config.Instance().TwitchPollsPassphrase;
             checkBoxTwitchAppendFakePassCurrentMission.Checked = Config.Instance().TwitchAppendFakePassCurrentMission;
+            checkBoxRunEffectsWhenZeroVotes.Checked = Config.Instance().TwitchRunEffectsWhenZeroVotes;
 
             checkBoxExperimental_EnableAllEffects.Checked = Config.Instance().Experimental_EnableAllEffects;
             checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
@@ -483,14 +484,26 @@ namespace GtaChaos.Forms
                     {
                         List<IVotingElement> elements = twitch.GetMajorityVotes();
 
-                        twitch.SetVoting(0, timesUntilRapidFire, elements);
+                        bool zeroVotes = true;
                         elements.ForEach(e =>
                         {
-                            float multiplier = e.GetEffect().GetMultiplier();
-                            e.GetEffect().SetMultiplier(multiplier / elements.Count);
-                            CallEffect(e.GetEffect());
-                            e.GetEffect().SetMultiplier(multiplier);
+                            if (e.GetVotes() > 0)
+                            {
+                                zeroVotes = false;
+                            }
                         });
+
+                        twitch.SetVoting(0, timesUntilRapidFire, zeroVotes ? null : elements);
+                        if (!zeroVotes)
+                        {
+                            elements.ForEach(e =>
+                            {
+                                float multiplier = e.GetEffect().GetMultiplier();
+                                e.GetEffect().SetMultiplier(multiplier / elements.Count);
+                                CallEffect(e.GetEffect());
+                                e.GetEffect().SetMultiplier(multiplier);
+                            });
+                        }
                     }
                 }
             }
@@ -1644,6 +1657,11 @@ namespace GtaChaos.Forms
         private void CheckBoxTwitchDisableRapidFire_CheckedChanged(object sender, EventArgs e)
         {
             Config.Instance().Experimental_TwitchDisableRapidFire = checkBoxExperimental_TwitchDisableRapidFire.Checked;
+        }
+
+        private void checkBoxRunEffectWhenZeroVotes_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance().TwitchRunEffectsWhenZeroVotes = checkBoxRunEffectsWhenZeroVotes.Checked;
         }
     }
 }

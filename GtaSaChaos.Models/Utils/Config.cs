@@ -44,6 +44,7 @@ namespace GtaChaos.Models.Utils
         public bool TwitchCombineChatMessages;
         public bool TwitchEnableMultipleEffects;
         public bool TwitchAppendFakePassCurrentMission;
+        public bool TwitchRunEffectsWhenZeroVotes;
 
         // Experimental
         public bool Experimental_EnableAllEffects;

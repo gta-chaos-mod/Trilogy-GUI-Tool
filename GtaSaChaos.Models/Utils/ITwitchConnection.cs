@@ -33,5 +33,7 @@ namespace GtaChaos.Models.Utils
         int GetId();
 
         AbstractEffect GetEffect();
+
+        int GetVotes();
     }
 }

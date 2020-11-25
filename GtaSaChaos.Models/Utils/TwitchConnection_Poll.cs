@@ -639,6 +639,11 @@ namespace GtaChaos.Models.Utils
             {
                 return Effect;
             }
+
+            public int GetVotes()
+            {
+                return Votes;
+            }
         }
     }
 }

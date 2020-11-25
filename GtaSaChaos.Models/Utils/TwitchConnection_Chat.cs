@@ -451,6 +451,11 @@ namespace GtaChaos.Models.Utils
                 return Effect;
             }
 
+            public int GetVotes()
+            {
+                return Voters.Count;
+            }
+
             public bool ContainsVoter(string username)
             {
                 return Voters.Contains(username);

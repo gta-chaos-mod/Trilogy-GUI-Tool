@@ -233,10 +233,25 @@ namespace GtaChaos.Models.Effects
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Rubberbanding", "ImGettingAllDizzy", "rubberbanding"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "It's Rewind Time!", "ItsRewindTime", "its_rewind_time"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Teleport All Peds To Player", "WhoAreYouPeople", "teleport_all_peds_to_player"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Backwards Peds", "BackwardsPeds", "backwards_peds"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Helicopter Helicopter!", "HelicopterPeds", "helicopter_peds"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "ASSERT DOMINANCE", "AssertDominance", "t_pose_peds"));
+
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "One Bullet Magazines", "OneInTheChamber", "one_bullet_magazines"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Everyone Leaves All Vehicles", "ImTiredOfDriving", "everyone_leaves_all_vehicles"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Give Peds An RPG", "RocketParty", "give_peds_an_rpg"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Teleport All Peds To Player", "WhoAreYouPeople", "teleport_all_peds_to_player"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Launch All Peds", "RocketParty", "launch_all_peds"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Explode All Peds", "BoomGoesTheDynamite", "explode_all_peds"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disarm All Peds", "LeaveTheGunsToMe", "disarm_all_peds"));
+
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Reset Camera", "NaturalView", "reset_camera"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Freeze Vehicle", "StuckInTime", "freeze_vehcle", 1000 * 5));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete Vehicle", "GoodbyeSweetRide", "delete_vehicle"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete All Vehicles", "GoodbyeAllSweetRides", "delete_all_vehicles"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "No Tasks Allowed", "NoTasksAllowed", "no_tasks_allowed", 1000 * 10));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk Off", "LetsGoForAWalk", "walk_off", -1, 1.0f / 3.0f));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Pause", "LetsPause", "pause"));
 
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet));

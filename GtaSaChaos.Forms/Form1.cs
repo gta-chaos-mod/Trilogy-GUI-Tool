@@ -1653,7 +1653,11 @@ namespace GtaChaos.Forms
                 return;
             }
 
+            // Try and get an effect by it's ID
             var effect = EffectDatabase.GetByID(textInput);
+            // Try and get an effect by it's ID with "effect_" at the start
+            if (effect == null) effect = EffectDatabase.GetByID($"effect_{textInput}");
+            // Try and get an effect by it's "cheat" word
             if (effect == null) effect = EffectDatabase.GetByWord(textInput);
             if (effect != null)
             {

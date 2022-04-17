@@ -246,13 +246,14 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disarm All Peds", "LeaveTheGunsToMe", "disarm_all_peds"));
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Reset Camera", "NaturalView", "reset_camera"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Freeze Vehicle", "StuckInTime", "freeze_vehcle", 1000 * 5));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Freeze Vehicle", "StuckInTime", "freeze_vehicle", 1000 * 5));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete Vehicle", "GoodbyeSweetRide", "delete_vehicle"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete All Vehicles", "GoodbyeAllSweetRides", "delete_all_vehicles"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Tasks Allowed", "NoTasksAllowed", "no_tasks_allowed", 1000 * 10));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk Off", "LetsGoForAWalk", "walk_off", -1, 1.0f / 3.0f));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pause", "LetsPause", "pause"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Fake Crash", "TooManyModsInstalled", "fake_crash"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk On Water", "JesusInTheHouse", "walk_on_water"));
 
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet));

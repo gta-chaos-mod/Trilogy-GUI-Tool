@@ -55,6 +55,8 @@ namespace GtaChaos.Models.Utils
 
         public bool Experimental_TwitchDisableRapidFire;
 
+        public string Experimental_EffectName;
+
         public static Config Instance()
         {
             if (_Instance == null)

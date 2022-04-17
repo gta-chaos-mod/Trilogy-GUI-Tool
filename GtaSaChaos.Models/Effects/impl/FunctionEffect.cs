@@ -6,34 +6,36 @@ namespace GtaChaos.Models.Effects.impl
 {
     public class FunctionEffect : AbstractEffect
     {
-        private string type = "effect";
-        private readonly string function;
+        private readonly string EffectID;
 
-        public FunctionEffect(Category category, string description, string word, string _function, int duration = -1, float multiplier = 1.0f)
-            : base(category, description, word, duration, multiplier)
+        public FunctionEffect(Category category, string displayName, string word, string effectID, int duration = -1, float multiplier = 1.0f)
+            : base(category, displayName, word, duration, multiplier)
         {
-            function = _function;
+            EffectID = $"effect_{effectID}";
         }
 
-        public FunctionEffect SetType(string type)
+        public override string GetId()
         {
-            this.type = type;
-            return this;
+            return EffectID;
         }
 
         public override string GetAudioFile()
         {
             string file = base.GetAudioFile();
 
-            return string.IsNullOrWhiteSpace(file) ? function : file;
+            return string.IsNullOrWhiteSpace(file) ? EffectID : file;
         }
 
-        public override void RunEffect(int seed = -1, int _duration = -1)
+        public override void RunEffect(int seed = -1, int duration = -1)
         {
-            base.RunEffect(seed, _duration);
+            base.RunEffect(seed, duration);
 
-            SendEffectToGame("set_seed", seed == -1 ? RandomHandler.Next(9999999).ToString() : seed.ToString());
-            SendEffectToGame(type, function, (_duration == -1 ? Duration : _duration), "");
+            seed = seed == -1 ? RandomHandler.Next(9999999) : seed;
+
+            ProcessHooker.SendEffectToGame(EffectID, new
+            {
+                seed
+            }, GetDuration(duration), GetDisplayName(), GetVoter(), GetRapidFire());
         }
     }
 }

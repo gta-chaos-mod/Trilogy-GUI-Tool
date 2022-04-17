@@ -1,14 +1,23 @@
 // Copyright (c) 2019 Lordmau5
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
 using System.Linq;
+using System.Threading.Tasks;
+using WebSocketSharp;
 
 namespace GtaChaos.Models.Utils
 {
+    // TODO: Rework as singleton (public static readonly ProcessHooker INSTANCE = new ProcessHooker();
     public static class ProcessHooker
     {
+        private static WebSocket socket;
+        private static bool socketConnected = false;
+        private static List<string> socketBuffer = new List<string>();
         private static Process Process = null;
 
         public static void HookProcess()
@@ -33,36 +42,152 @@ namespace GtaChaos.Models.Utils
             return Process == null ? IntPtr.Zero : Process.Handle;
         }
 
-        public static void SendPipeMessage(string func)
+        private static void ConnectWebsocket()
         {
-            new System.Threading.Thread(() =>
+            try
             {
-                System.Threading.Thread.CurrentThread.IsBackground = true;
-
-                using (NamedPipeClientStream pipeStream = new NamedPipeClientStream(".", "GTATrilogyChaosModPipe"))
+                if (socket == null)
                 {
-                    try
-                    {
-                        if (!pipeStream.IsConnected)
-                            pipeStream.Connect(500);
+                    socket = new WebSocket("ws://localhost:9001");
+                    socket.OnOpen += Socket_OnOpen;
+                    socket.OnClose += Socket_OnClose;
+                    socket.OnError += Socket_OnError;
 
-                        using (StreamWriter sw = new StreamWriter(pipeStream) { AutoFlush = true })
-                        {
-                            sw.WriteLine(func);
-                        }
-                    }
-                    catch
-                    {
-                        // Timeouts are okay, don't log anything
-                    }
+                    socket.Connect();
                 }
-            }).Start();
+            }
+            catch (Exception e) {
+                Console.WriteLine(e);
+            }
         }
 
-        public static void SendEffectToGame(string type, string function, int duration = -1, string description = "N/A", string voter = "N/A", int rapidfire = 0)
+        private static void Socket_OnOpen(object sender, EventArgs e)
         {
-            string builtString = $"{type}:{function}:{duration}:{description}:{voter}:{rapidfire}";
-            SendPipeMessage(builtString);
+            socketConnected = true;
+        }
+
+        private static void Socket_OnError(object sender, WebSocketSharp.ErrorEventArgs e)
+        {
+            socketConnected = false;
+            socket = null;
+        }
+
+        private static void Socket_OnClose(object sender, CloseEventArgs e)
+        {
+            socketConnected = false;
+            socket = null;
+        }
+
+        public static void SendDataToWebsocket(JObject jsonObject)
+        {
+            Task.Run(() =>
+            {
+                string json = JsonConvert.SerializeObject(jsonObject);
+
+                if (true)
+                {
+                    Console.WriteLine(JsonConvert.SerializeObject(jsonObject, Formatting.Indented));
+                }
+
+                ConnectWebsocket();
+
+                if (socketConnected)
+                {
+                    if (socketBuffer.Count > 0)
+                    {
+                        foreach (string buffer in socketBuffer)
+                        {
+                            socket?.Send(buffer);
+                        }
+
+                        socketBuffer.Clear();
+                    }
+
+                    socket?.Send(json);
+                }
+                else
+                {
+                    if (jsonObject["type"].ToObject<string>() != "time")
+                    {
+                        //socketBuffer.Add(json);
+                    }
+                }
+            });
+        }
+
+        public static void SendTimeToGame(int remaining, int cooldown = 0, string mode = "")
+        {
+            var jsonObject = JObject.FromObject(new
+            {
+                type = "time",
+                data = new
+                {
+                    remaining,
+                    cooldown,
+                    mode
+                }
+            });
+
+            SendDataToWebsocket(jsonObject);
+        }
+
+        public static void SendVotes(string[] effects, int[] votes, int pickedChoice = -1)
+        {
+            var jsonObject = JObject.FromObject(new
+            {
+                type = "votes",
+                data = new
+                {
+                    effects,
+                    votes,
+                    pickedChoice
+                }
+            });
+
+            SendDataToWebsocket(jsonObject);
+        }
+
+        public static void SendEffectToGame(string effectID, object effectData = null, int duration = -1, string displayName = "", string twitchVoter = "", bool rapidFire = false)
+        {
+            if (rapidFire)
+            {
+                duration = 1000 * 15; // 15 seconds for Rapid-Fire
+            }
+
+            JObject jsonObject = JObject.FromObject(new
+            {
+                type = "effect",
+                data = new
+                {
+                    effectID,
+                    effectData = effectData ?? (new { }),
+                    duration,
+                    displayName = displayName.IsNullOrEmpty() ? effectID : displayName
+                }
+            });
+
+            if (!twitchVoter.IsNullOrEmpty())
+            {
+                jsonObject["data"]["twitchData"] = JObject.FromObject(new
+                {
+                    voter = twitchVoter
+                    // TODO: effectPercentage = XYZ (so it can show "Voter (32%)" ingame perhaps - Issue 106 on GitHub)
+                });
+            }
+
+            // TODO: Implement JSON data in Crowd Control like this
+            /*
+            if (crowdControlID != -1)
+            {
+                jsonObject["data"]["crowdControlData"] = JObject.FromObject(new
+                {
+                    id = crowdControlID,
+                    buyer = "Joshimuz"
+                });
+            }
+            */
+
+            SendDataToWebsocket(jsonObject);
         }
 
         public static void AttachExitedMethod(EventHandler method)

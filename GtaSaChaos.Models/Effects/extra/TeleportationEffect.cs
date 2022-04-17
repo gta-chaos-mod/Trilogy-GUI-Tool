@@ -16,11 +16,21 @@ namespace GtaChaos.Models.Effects.extra
             DisableRapidFire();
         }
 
-        public override void RunEffect(int seed = -1, int _duration = -1)
+        public override string GetId()
         {
-            base.RunEffect(seed, _duration);
+            return $"teleport_{location.Id}";
+        }
 
-            SendEffectToGame("teleport", location.ToString(), (_duration == -1 ? -1 : _duration));
+        public override void RunEffect(int seed = -1, int duration = -1)
+        {
+            base.RunEffect(seed, duration);
+
+            ProcessHooker.SendEffectToGame("effect_teleport", new
+            {
+                posX = location.X,
+                posY = location.Y,
+                posZ = location.Z
+            }, GetDuration(duration), GetDisplayName(), GetVoter(), GetRapidFire());
         }
     }
 }

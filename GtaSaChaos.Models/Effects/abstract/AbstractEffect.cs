@@ -6,47 +6,54 @@ namespace GtaChaos.Models.Effects.@abstract
 {
     public abstract class AbstractEffect
     {
-        public readonly string Id;
         public readonly Category Category;
-        private readonly string Description;
+        private readonly string DisplayName;
         public readonly string Word;
         public readonly int Duration;
         private float Multiplier;
-        private string Voter = "N/A";
+        private string TwitchVoter = "";
         private int rapidFire = 1;
         private bool twitchEnabled = true;
         private string audioName = "";
         private int audioVariations = 0;
 
-        public AbstractEffect(Category category, string description, string word, int duration = -1, float multiplier = 1.0f)
+        public AbstractEffect(Category category, string displayName, string word, int duration = -1, float multiplier = 1.0f)
         {
-            Id = category.AddEffectToCategory(this);
             Category = category;
-            Description = description;
+            DisplayName = displayName;
             Word = word;
             Duration = duration;
             Multiplier = multiplier;
+
+            category.AddEffectToCategory(this);
         }
 
-        public virtual string GetDescription()
+        public abstract string GetId();
+
+        public virtual string GetDisplayName(string displayName = "")
         {
-            return Description;
+            if (string.IsNullOrEmpty(displayName))
+            {
+                displayName = DisplayName;
+            }
+
+            return displayName;
         }
 
         public string GetVoter()
         {
-            return Voter;
+            return TwitchVoter;
         }
 
-        public AbstractEffect SetVoter(string voter)
+        public AbstractEffect SetTwitchVoter(string voter)
         {
-            Voter = voter;
+            TwitchVoter = voter;
             return this;
         }
 
-        public AbstractEffect ResetVoter()
+        public AbstractEffect ResetTwitchVoter()
         {
-            Voter = "N/A";
+            TwitchVoter = "";
             return this;
         }
 
@@ -111,7 +118,7 @@ namespace GtaChaos.Models.Effects.@abstract
             }
         }
 
-        public void SendEffectToGame(string type, string function, int duration = -1, string description = "")
+        public int GetDuration(int duration = -1)
         {
             if (Duration > 0)
             {
@@ -126,25 +133,26 @@ namespace GtaChaos.Models.Effects.@abstract
                 duration = (int)Math.Round(duration * Multiplier);
             }
 
-            if (string.IsNullOrEmpty(description))
-            {
-                description = GetDescription();
-            }
+            return duration;
+        }
 
-            int rapidFire = 0;
-            if (Shared.IsTwitchMode) {
+        public bool GetRapidFire()
+        {
+            bool rapidFire = false;
+            if (Shared.IsTwitchMode)
+            {
                 if (Shared.TwitchVotingMode == 2)
                 {
-                    rapidFire = this.rapidFire;
+                    rapidFire = this.rapidFire == 1;
                 }
 
                 if (Config.Instance().Experimental_TwitchAnarchyMode)
                 {
-                    rapidFire = 1;
+                    rapidFire = true;
                 }
             }
 
-            ProcessHooker.SendEffectToGame(type, function, duration, description, Voter, rapidFire);
+            return rapidFire;
         }
     }
 }

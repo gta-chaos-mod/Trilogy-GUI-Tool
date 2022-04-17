@@ -251,7 +251,7 @@ namespace GtaChaos.Models.Utils
 
                         foreach (PollVotingElement element in effectVoting.GetVotingElements())
                         {
-                            string description = element.Effect.GetDescription();
+                            string description = element.Effect.GetDisplayName();
                             if (element.Effect.Word.Equals("IWontTakeAFreePass") && Config.Instance().TwitchAppendFakePassCurrentMission)
                             {
                                 description = $"{description} (Fake)";
@@ -268,7 +268,7 @@ namespace GtaChaos.Models.Utils
 
                         foreach (PollVotingElement element in effectVoting.GetVotingElements())
                         {
-                            string description = element.Effect.GetDescription();
+                            string description = element.Effect.GetDisplayName();
                             if (element.Effect.Word.Equals("IWontTakeAFreePass") && Config.Instance().TwitchAppendFakePassCurrentMission)
                             {
                                 description = $"{description} (Fake)";
@@ -284,7 +284,7 @@ namespace GtaChaos.Models.Utils
                     duration = Config.Instance().TwitchVotingTime / 1000,
                     choices = effectVoting.GetVotingElements().Select(elements =>
                     {
-                        string description = elements.Effect.GetDescription();
+                        string description = elements.Effect.GetDisplayName();
                         if (elements.Effect.Word.Equals("IWontTakeAFreePass") && Config.Instance().TwitchAppendFakePassCurrentMission)
                         {
                             description = $"{description} (Fake)";
@@ -351,7 +351,7 @@ namespace GtaChaos.Models.Utils
                 {
                     SendEffectVotingToGame(false);
 
-                    string allEffects = string.Join(", ", votingElements.Select(e => e.GetEffect().GetDescription()));
+                    string allEffects = string.Join(", ", votingElements.Select(e => e.GetEffect().GetDisplayName()));
 
                     if (Config.Instance().Experimental_TwitchDisableRapidFire)
                     {
@@ -401,7 +401,7 @@ namespace GtaChaos.Models.Utils
         public List<IVotingElement> GetMajorityVotes()
         {
             List<IVotingElement> elements = effectVoting.GetMajorityVotes();
-            elements.ForEach(e => e.GetEffect().ResetVoter());
+            elements.ForEach(e => e.GetEffect().ResetTwitchVoter());
 
             lastChoice = elements.Count > 1 ? -1 : elements.First().GetId();
 
@@ -444,7 +444,7 @@ namespace GtaChaos.Models.Utils
 
                 RapidFireEffect(new RapidFireEventArgs()
                 {
-                    Effect = effect.SetVoter(username)
+                    Effect = effect.SetTwitchVoter(username)
                 });
 
                 return;
@@ -466,7 +466,7 @@ namespace GtaChaos.Models.Utils
 
                     RapidFireEffect(new RapidFireEventArgs()
                     {
-                        Effect = effect.SetVoter(username)
+                        Effect = effect.SetTwitchVoter(username)
                     });
 
                     rapidFireVoters.Add(username);
@@ -496,8 +496,7 @@ namespace GtaChaos.Models.Utils
             }
             else
             {
-                string voteString = $"votes:{effects[0]};{votes[0]};;{effects[1]};{votes[1]};;{effects[2]};{votes[2]};;{lastChoice}";
-                ProcessHooker.SendPipeMessage(voteString);
+                ProcessHooker.SendVotes(effects, votes, lastChoice);
             }
         }
 
@@ -527,7 +526,7 @@ namespace GtaChaos.Models.Utils
 
             public bool ContainsEffect(AbstractEffect effect)
             {
-                return votingElements.Any(e => e.Effect.GetDescription().Equals(effect.GetDescription()));
+                return votingElements.Any(e => e.Effect.GetDisplayName().Equals(effect.GetDisplayName()));
             }
 
             public void AddEffect(AbstractEffect effect)
@@ -541,9 +540,9 @@ namespace GtaChaos.Models.Utils
 
                 effects = new string[]
                 {
-                    undetermined ? "???" : votingElements[0].Effect.GetDescription(),
-                    undetermined ? "???" : votingElements[1].Effect.GetDescription(),
-                    undetermined ? "???" : votingElements[2].Effect.GetDescription()
+                    undetermined ? "???" : votingElements[0].Effect.GetDisplayName(),
+                    undetermined ? "???" : votingElements[1].Effect.GetDisplayName(),
+                    undetermined ? "???" : votingElements[2].Effect.GetDisplayName()
                 };
 
                 votes = new int[]

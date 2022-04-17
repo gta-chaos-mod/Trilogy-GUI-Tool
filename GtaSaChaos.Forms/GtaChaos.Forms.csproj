@@ -218,8 +218,8 @@
     <Reference Include="TwitchLib.PubSub, Version=3.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TwitchLib.PubSub.3.1.3\lib\netstandard2.0\TwitchLib.PubSub.dll</HintPath>
     </Reference>
-    <Reference Include="websocket-sharp, Version=1.0.2.59611, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebSocketSharp.1.0.3-rc11\lib\websocket-sharp.dll</HintPath>
+    <Reference Include="websocket-sharp-core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\websocketsharp.core.1.0.0\lib\netstandard2.0\websocket-sharp-core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

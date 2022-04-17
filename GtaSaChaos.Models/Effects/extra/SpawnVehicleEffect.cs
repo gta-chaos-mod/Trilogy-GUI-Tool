@@ -6,32 +6,41 @@ namespace GtaChaos.Models.Effects.extra
 {
     internal class SpawnVehicleEffect : AbstractEffect
     {
-        private readonly int vehicleID;
+        private readonly int VehicleID;
 
-        public SpawnVehicleEffect(string word, int _vehicleID)
+        public SpawnVehicleEffect(string word, int vehicleID)
             : base(Category.Spawning, "Spawn Vehicle", word)
         {
-            vehicleID = _vehicleID;
+            VehicleID = vehicleID;
         }
 
-        public override string GetDescription()
+        public override string GetId()
+        {
+            return $"spawn_vehicle_{VehicleID}";
+        }
+
+        public override string GetDisplayName(string displayName = "")
         {
             string randomVehicle = "Random Vehicle";
-            return $"Spawn {((vehicleID == -1) ? randomVehicle : VehicleNames.GetVehicleName(vehicleID))}";
+            return $"Spawn {((VehicleID == -1) ? randomVehicle : VehicleNames.GetVehicleName(VehicleID))}";
         }
 
-        public override void RunEffect(int seed = -1, int _duration = -1)
+        public override void RunEffect(int seed = -1, int duration = -1)
         {
-            base.RunEffect(seed, _duration);
+            base.RunEffect(seed, duration);
 
-            int actualID = vehicleID;
-            if (actualID == -1)
+            int vehicleID = VehicleID;
+            if (vehicleID == -1)
             {
-                actualID = RandomHandler.Next(400, 611);
+                vehicleID = RandomHandler.Next(400, 611);
             }
 
-            string spawnString = $"Spawn {VehicleNames.GetVehicleName(actualID)}";
-            SendEffectToGame("spawn_vehicle", actualID.ToString(), (_duration == -1 ? -1 : _duration), spawnString);
+            string spawnString = $"Spawn {VehicleNames.GetVehicleName(vehicleID)}";
+
+            ProcessHooker.SendEffectToGame("effect_spawn_vehicle", new
+            {
+                vehicleID
+            }, GetDuration(duration), spawnString, GetVoter(), GetRapidFire());
         }
     }
 }

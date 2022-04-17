@@ -8,17 +8,25 @@ namespace GtaChaos.Models.Effects.extra
     {
         private readonly int weatherID;
 
-        public WeatherEffect(string description, string word, int _weatherID)
-            : base(Category.Weather, description, word)
+        public WeatherEffect(string description, string word, int _weatherID, int duration = -1)
+            : base(Category.Weather, description, word, duration)
         {
             weatherID = _weatherID;
         }
 
-        public override void RunEffect(int seed = -1, int _duration = -1)
+        public override string GetId()
         {
-            base.RunEffect(seed, _duration);
+            return $"weather_{weatherID}";
+        }
 
-            SendEffectToGame("weather", weatherID.ToString(), (_duration == -1 ? -1 : _duration));
+        public override void RunEffect(int seed = -1, int duration = -1)
+        {
+            base.RunEffect(seed, duration);
+
+            ProcessHooker.SendEffectToGame("effect_weather", new
+            {
+                weatherID
+            }, GetDuration(duration), GetDisplayName(), GetVoter(), GetRapidFire());
         }
     }
 }

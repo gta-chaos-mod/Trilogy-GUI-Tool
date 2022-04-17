@@ -10,7 +10,6 @@ using GtaChaos.Models.Effects;
 using GtaChaos.Models.Effects.@abstract;
 using GtaChaos.Models.Utils;
 using Newtonsoft.Json;
-using WebSocketSharp;
 
 namespace GtaChaos.Forms
 {
@@ -134,7 +133,7 @@ namespace GtaChaos.Forms
                 Config.Instance().EnabledEffects.Clear();
                 foreach (var effect in EffectDatabase.EnabledEffects)
                 {
-                    Config.Instance().EnabledEffects.Add(effect.Id);
+                    Config.Instance().EnabledEffects.Add(effect.GetId());
                 }
 
                 JsonSerializer serializer = new JsonSerializer();
@@ -224,6 +223,7 @@ namespace GtaChaos.Forms
             checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
             checkBoxExperimental_TwitchAnarchyMode.Checked = Config.Instance().Experimental_TwitchAnarchyMode;
             checkBoxExperimental_TwitchDisableRapidFire.Checked = Config.Instance().Experimental_TwitchDisableRapidFire;
+            textBoxExperimentalEffectName.Text = Config.Instance().Experimental_EffectName;
 
             textBoxSeed.Text = Config.Instance().Seed;
 
@@ -237,7 +237,7 @@ namespace GtaChaos.Forms
             string description = "Invalid";
             if (effect != null)
             {
-                description = effect.GetDescription();
+                description = effect.GetDisplayName();
                 if (!string.IsNullOrEmpty(effect.Word))
                 {
                     description += $" ({effect.Word})";
@@ -266,7 +266,7 @@ namespace GtaChaos.Forms
                     foreach (AbstractEffect e in EffectDatabase.EnabledEffects)
                     {
                         EffectDatabase.RunEffect(e);
-                        e?.ResetVoter();
+                        e?.ResetTwitchVoter();
                     }
                 }
                 else
@@ -279,7 +279,7 @@ namespace GtaChaos.Forms
                     else
                     {
                         effect = EffectDatabase.RunEffect(effect);
-                        effect?.ResetVoter();
+                        effect?.ResetTwitchVoter();
 
                         if (effect != null)
                         {
@@ -313,7 +313,7 @@ namespace GtaChaos.Forms
             {
                 MessageBox.Show("The game needs to be running!", "Error");
 
-                buttonAutoStart.Enabled = Shared.IsTwitchMode && twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
+                buttonAutoStart.Enabled = Shared.IsTwitchMode ? (twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected) : true;
                 buttonAutoStart.Text = "Auto-Start";
 
                 if (!Config.Instance().ContinueTimer)
@@ -379,12 +379,13 @@ namespace GtaChaos.Forms
             progressBarMain.Value = Math.Min(value, progressBarMain.Maximum);
             progressBarMain.Value = Math.Min(value - 1, progressBarMain.Maximum);
 
+            int remaining = (int)Math.Max(0, Config.Instance().MainCooldown - stopwatch.ElapsedMilliseconds);
+
+            ProcessHooker.SendTimeToGame(remaining, Config.Instance().MainCooldown);
+
             if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
             {
-                long remaining = Math.Max(0, Config.Instance().MainCooldown - stopwatch.ElapsedMilliseconds);
-
-                ProcessHooker.SendEffectToGame("time", $"{remaining},{Config.Instance().MainCooldown}");
-                Shared.Multiplayer?.SendTimeUpdate((int)remaining, Config.Instance().MainCooldown);
+                Shared.Multiplayer?.SendTimeUpdate(remaining, Config.Instance().MainCooldown);
 
                 elapsedCount = (int)stopwatch.ElapsedMilliseconds;
             }
@@ -414,12 +415,13 @@ namespace GtaChaos.Forms
                 progressBarTwitch.Value = Math.Max(progressBarTwitch.Maximum - value, 0);
                 progressBarTwitch.Value = Math.Max(progressBarTwitch.Maximum - value - 1, 0);
 
+                int remaining = (int) Math.Max(0, Config.Instance().TwitchVotingTime - stopwatch.ElapsedMilliseconds);
+
+                ProcessHooker.SendTimeToGame(remaining, Config.Instance().TwitchVotingTime, "Voting");
+                
                 if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
-                    long remaining = Math.Max(0, Config.Instance().TwitchVotingTime - stopwatch.ElapsedMilliseconds);
-
-                    ProcessHooker.SendEffectToGame("time", $"{remaining},{Config.Instance().TwitchVotingTime}");
-                    Shared.Multiplayer?.SendTimeUpdate((int)remaining, Config.Instance().TwitchVotingTime);
+                    Shared.Multiplayer?.SendTimeUpdate(remaining, Config.Instance().TwitchVotingTime);
 
                     twitch?.SendEffectVotingToGame();
 
@@ -442,7 +444,7 @@ namespace GtaChaos.Forms
                         {
                             labelTwitchCurrentMode.Text = "Current Mode: Cooldown (Poll Failed)";
 
-                            ProcessHooker.SendEffectToGame("time", "0");
+                            ProcessHooker.SendTimeToGame(0);
                             Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().TwitchVotingCooldown);
                             elapsedCount = 0;
 
@@ -468,7 +470,7 @@ namespace GtaChaos.Forms
 
                 if (didFinish)
                 {
-                    ProcessHooker.SendEffectToGame("time", "0");
+                    ProcessHooker.SendTimeToGame(0);
                     Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().TwitchVotingCooldown);
                     elapsedCount = 0;
 
@@ -519,19 +521,20 @@ namespace GtaChaos.Forms
                 progressBarTwitch.Value = Math.Max(progressBarTwitch.Maximum - value, 0);
                 progressBarTwitch.Value = Math.Max(progressBarTwitch.Maximum - value - 1, 0);
 
+                int remaining = (int) Math.Max(0, (1000 * 10) - stopwatch.ElapsedMilliseconds);
+
+                ProcessHooker.SendTimeToGame(remaining, 10000, "Rapid-Fire");
+                
                 if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
-                    long remaining = Math.Max(0, (1000 * 10) - stopwatch.ElapsedMilliseconds);
-
-                    ProcessHooker.SendEffectToGame("time", $"{remaining},10000");
-                    Shared.Multiplayer?.SendTimeUpdate((int)remaining, 10000);
+                    Shared.Multiplayer?.SendTimeUpdate(remaining, 10000);
 
                     elapsedCount = (int)stopwatch.ElapsedMilliseconds;
                 }
 
                 if (stopwatch.ElapsedMilliseconds >= 1000 * 10) // Set 10 seconds
                 {
-                    ProcessHooker.SendEffectToGame("time", "0");
+                    ProcessHooker.SendTimeToGame(0);
                     Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().TwitchVotingCooldown);
                     elapsedCount = 0;
 
@@ -558,12 +561,13 @@ namespace GtaChaos.Forms
                 progressBarTwitch.Value = Math.Min(value + 1, progressBarTwitch.Maximum);
                 progressBarTwitch.Value = Math.Min(value, progressBarTwitch.Maximum);
 
+                int remaining = (int) Math.Max(0, Config.Instance().TwitchVotingCooldown - stopwatch.ElapsedMilliseconds);
+
+                ProcessHooker.SendTimeToGame(remaining, Config.Instance().TwitchVotingCooldown, "Cooldown");
+                
                 if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
-                    long remaining = Math.Max(0, Config.Instance().TwitchVotingCooldown - stopwatch.ElapsedMilliseconds);
-
-                    ProcessHooker.SendEffectToGame("time", $"{remaining},{Config.Instance().TwitchVotingCooldown}");
-                    Shared.Multiplayer?.SendTimeUpdate((int)remaining, Config.Instance().TwitchVotingCooldown);
+                    Shared.Multiplayer?.SendTimeUpdate(remaining, Config.Instance().TwitchVotingCooldown);
 
                     elapsedCount = (int)stopwatch.ElapsedMilliseconds;
                 }
@@ -619,9 +623,13 @@ namespace GtaChaos.Forms
             // Add Effects
             foreach (AbstractEffect effect in EffectDatabase.Effects)
             {
+                if (idToEffectNodeMap.ContainsKey(effect.GetId())) {
+
+                }
+
                 TreeNode node = enabledEffectsView.Nodes.Find(effect.Category.Name, false).FirstOrDefault();
 
-                string Description = effect.GetDescription();
+                string Description = effect.GetDisplayName();
 
                 if (effect.Word.Equals("IWontTakeAFreePass"))
                 {
@@ -633,7 +641,7 @@ namespace GtaChaos.Forms
                     Checked = true,
                 };
                 node.Nodes.Add(addedNode);
-                idToEffectNodeMap.Add(effect.Id, addedNode);
+                idToEffectNodeMap[effect.GetId()] = addedNode;
             }
         }
 
@@ -953,7 +961,7 @@ namespace GtaChaos.Forms
             {
                 if (node.Checked)
                 {
-                    enabledEffects.Add(node.Effect.Id);
+                    enabledEffects.Add(node.Effect.GetId());
                 }
             }
             string joined = string.Join(",", enabledEffects);
@@ -1556,7 +1564,7 @@ namespace GtaChaos.Forms
             {
                 if (!Shared.Multiplayer.IsHost)
                 {
-                    ProcessHooker.SendEffectToGame("time", $"{args.Remaining},{args.Total}");
+                    ProcessHooker.SendTimeToGame(args.Remaining, args.Total);
                 }
             };
 
@@ -1567,11 +1575,11 @@ namespace GtaChaos.Forms
                 {
                     if (string.IsNullOrEmpty(args.Voter) || args.Voter == "N/A")
                     {
-                        effect.ResetVoter();
+                        effect.ResetTwitchVoter();
                     }
                     else
                     {
-                        effect.SetVoter(args.Voter);
+                        effect.SetTwitchVoter(args.Voter);
                     }
                     EffectDatabase.RunEffect(effect, args.Seed, args.Duration);
 
@@ -1584,8 +1592,7 @@ namespace GtaChaos.Forms
                 string[] effects = args.Effects;
                 int[] votes = args.Votes;
 
-                string voteString = $"votes:{effects[0]};{votes[0]};;{effects[1]};{votes[1]};;{effects[2]};{votes[2]};;{args.LastChoice}";
-                ProcessHooker.SendPipeMessage(voteString);
+                ProcessHooker.SendVotes(effects, votes, args.LastChoice);
             };
 
             Shared.Multiplayer.Connect();
@@ -1640,18 +1647,22 @@ namespace GtaChaos.Forms
 
         private void ButtonExperimentalRunEffect_Click(object sender, EventArgs e)
         {
-            if (textBoxExperimentalEffectName.Text.IsNullOrEmpty())
+            string textInput = textBoxExperimentalEffectName.Text;
+            if (string.IsNullOrEmpty(textInput))
             {
                 return;
             }
 
-            var effect = EffectDatabase.GetByWord(textBoxExperimentalEffectName.Text);
-            if (effect == null)
+            var effect = EffectDatabase.GetByID(textInput);
+            if (effect == null) effect = EffectDatabase.GetByWord(textInput);
+            if (effect != null)
             {
+                effect.RunEffect();
                 return;
             }
 
-            effect.RunEffect();
+            int duration = Config.GetEffectDuration();
+            ProcessHooker.SendEffectToGame(textBoxExperimentalEffectName.Text, null, duration);
         }
 
         private void CheckBoxTwitchDisableRapidFire_CheckedChanged(object sender, EventArgs e)
@@ -1662,6 +1673,11 @@ namespace GtaChaos.Forms
         private void checkBoxRunEffectWhenZeroVotes_CheckedChanged(object sender, EventArgs e)
         {
             Config.Instance().TwitchRunEffectsWhenZeroVotes = checkBoxRunEffectsWhenZeroVotes.Checked;
+        }
+
+        private void textBoxExperimentalEffectName_TextChanged(object sender, EventArgs e)
+        {
+            Config.Instance().Experimental_EffectName = textBoxExperimentalEffectName.Text;
         }
     }
 }

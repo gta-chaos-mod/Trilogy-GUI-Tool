@@ -72,6 +72,7 @@ namespace GtaChaos.Forms
             this.buttonEffectsToggleAll = new System.Windows.Forms.Button();
             this.enabledEffectsView = new System.Windows.Forms.TreeView();
             this.tabSettings = new System.Windows.Forms.TabPage();
+            this.checkBoxRunEffectsWhenZeroVotes = new System.Windows.Forms.CheckBox();
             this.checkBoxPlayAudioForEffects = new System.Windows.Forms.CheckBox();
             this.checkBoxTwitchAppendFakePassCurrentMission = new System.Windows.Forms.CheckBox();
             this.checkBoxTwitchUsePolls = new System.Windows.Forms.CheckBox();
@@ -111,7 +112,6 @@ namespace GtaChaos.Forms
             this.buttonAutoStart = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
-            this.checkBoxRunEffectsWhenZeroVotes = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabTwitch.SuspendLayout();
@@ -591,6 +591,20 @@ namespace GtaChaos.Forms
             this.tabSettings.TabIndex = 3;
             this.tabSettings.Text = "Settings";
             // 
+            // checkBoxRunEffectsWhenZeroVotes
+            // 
+            this.checkBoxRunEffectsWhenZeroVotes.AutoSize = true;
+            this.checkBoxRunEffectsWhenZeroVotes.Location = new System.Drawing.Point(293, 139);
+            this.checkBoxRunEffectsWhenZeroVotes.Name = "checkBoxRunEffectsWhenZeroVotes";
+            this.checkBoxRunEffectsWhenZeroVotes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxRunEffectsWhenZeroVotes.Size = new System.Drawing.Size(153, 17);
+            this.checkBoxRunEffectsWhenZeroVotes.TabIndex = 9;
+            this.checkBoxRunEffectsWhenZeroVotes.Text = "Run Effects When 0 Votes";
+            this.toolTipHandler.SetToolTip(this.checkBoxRunEffectsWhenZeroVotes, "When enabled it will run effects when 0 votes in total happen.\r\nOtherwise no effe" +
+        "ct will be enabled.\r\nUseful for when a poll fails.");
+            this.checkBoxRunEffectsWhenZeroVotes.UseVisualStyleBackColor = true;
+            this.checkBoxRunEffectsWhenZeroVotes.CheckedChanged += new System.EventHandler(this.checkBoxRunEffectWhenZeroVotes_CheckedChanged);
+            // 
             // checkBoxPlayAudioForEffects
             // 
             this.checkBoxPlayAudioForEffects.AutoSize = true;
@@ -843,6 +857,7 @@ namespace GtaChaos.Forms
             this.textBoxExperimentalEffectName.Name = "textBoxExperimentalEffectName";
             this.textBoxExperimentalEffectName.Size = new System.Drawing.Size(359, 20);
             this.textBoxExperimentalEffectName.TabIndex = 14;
+            this.textBoxExperimentalEffectName.TextChanged += new System.EventHandler(this.textBoxExperimentalEffectName_TextChanged);
             // 
             // checkBoxExperimental_TwitchAnarchyMode
             // 
@@ -979,20 +994,6 @@ namespace GtaChaos.Forms
             this.buttonSwitchMode.Text = "Twitch";
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
-            // 
-            // checkBoxRunEffectsWhenZeroVotes
-            // 
-            this.checkBoxRunEffectsWhenZeroVotes.AutoSize = true;
-            this.checkBoxRunEffectsWhenZeroVotes.Location = new System.Drawing.Point(293, 139);
-            this.checkBoxRunEffectsWhenZeroVotes.Name = "checkBoxRunEffectsWhenZeroVotes";
-            this.checkBoxRunEffectsWhenZeroVotes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBoxRunEffectsWhenZeroVotes.Size = new System.Drawing.Size(153, 17);
-            this.checkBoxRunEffectsWhenZeroVotes.TabIndex = 9;
-            this.checkBoxRunEffectsWhenZeroVotes.Text = "Run Effects When 0 Votes";
-            this.toolTipHandler.SetToolTip(this.checkBoxRunEffectsWhenZeroVotes, "When enabled it will run effects when 0 votes in total happen.\r\nOtherwise no effe" +
-        "ct will be enabled.\r\nUseful for when a poll fails.");
-            this.checkBoxRunEffectsWhenZeroVotes.UseVisualStyleBackColor = true;
-            this.checkBoxRunEffectsWhenZeroVotes.CheckedChanged += new System.EventHandler(this.checkBoxRunEffectWhenZeroVotes_CheckedChanged);
             // 
             // Form1
             // 

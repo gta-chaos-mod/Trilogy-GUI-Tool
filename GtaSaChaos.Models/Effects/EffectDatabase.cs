@@ -196,7 +196,6 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Mirrored Screen", "WhatsLeftIsRight", "mirrored_screen", -1, 1.0f / 3.0f)); // Mirrored Screen
                 //Effects.Add(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen", -1, 1.0f / 3.0f)); // Greyscale Screen
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Mirrored World", "LetsTalkAboutParallelUniverses", "mirrored_world")); // Mirrored World
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Big Heads", "BigHeadsMode", "big_heads")); // Big Heads
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pedal To The Metal", "PedalToTheMetal", "pedal_to_the_metal")); // Pedal To The Metal
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Unflippable Vehicles", "ThereGoesMyBurrito", "unflippable_vehicles")); // Vehicles are unflippable
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Freefall!", "WhereWeDroppingBoys", "freefall")); // Freefall! - Gives CJ a parachute and teleports him very high
@@ -224,18 +223,21 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Relative Car Gravity", "SpiderCars", "vehicle_driving_on_walls"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Vehicle Boost", "FullForceForward", "vehicle_boost"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Invert Vehicle Speed", "LetsGoBack", "invert_vehicle_speed"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Rubberbanding", "ImGettingAllDizzy", "rubberbanding"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "It's Rewind Time!", "ItsRewindTime", "its_rewind_time"));
 
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Big Heads", "BigHeadsMode", "big_heads"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Tiny Peds", "SmolPeepoPeds", "ped_size_tiny"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Large Peds", "LargPeepoPeds", "ped_size_large"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Long Necks", "ICanSeeMyHouseFromUpHere", "long_necks"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Hold The F Up...", "HoldTheFUp", "hold_the_f_up"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Don't Lose Your Head", "DontLoseYourHead", "dont_lose_your_head"));
 
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Rubberbanding", "ImGettingAllDizzy", "rubberbanding"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "It's Rewind Time!", "ItsRewindTime", "its_rewind_time"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Backwards Peds", "BackwardsPeds", "backwards_peds"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Upside-Down Peds", "InALandDownUnder", "upside_down_peds"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Helicopter Helicopter!", "HelicopterPeds", "helicopter_peds"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "ASSERT DOMINANCE", "AssertDominance", "t_pose_peds"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Action Figures", "ILikePlayingWithToys", "action_figures"));
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "One Bullet Magazines", "OneInTheChamber", "one_bullet_magazines"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Everyone Leaves All Vehicles", "ImTiredOfDriving", "everyone_leaves_all_vehicles"));
@@ -250,10 +252,19 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete Vehicle", "GoodbyeSweetRide", "delete_vehicle"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete All Vehicles", "GoodbyeAllSweetRides", "delete_all_vehicles"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Tasks Allowed", "NoTasksAllowed", "no_tasks_allowed", 1000 * 10));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk Off", "LetsGoForAWalk", "walk_off", -1, 1.0f / 3.0f));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk Off", "LetsGoForAWalk", "walk_off", 1000 * 5));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pause", "LetsPause", "pause"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Fake Crash", "TooManyModsInstalled", "fake_crash"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk On Water", "JesusInTheHouse", "walk_on_water"));
+
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Bankrupt", "CrashTookAllMyMoney", "bankrupt"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Millionaire", "IJustWonTheLottery", "millionaire"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Switch To Unarmed", "PleaseUseYourFists", "switch_to_unarmed"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Blind", "WhoTurnedTheLightsOff", "blind", 1000 * 10));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Drive Wander", "Autopilot", "drive_wander", 1000 * 10));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Steer Bias (Left)", "LeftSideBias", "steer_bias_left"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Steer Bias (Right)", "RightSideBias", "steer_bias_right"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "The Firing Circus", "TheFiringCircus", "the_firing_circus", 1000 * 5));
 
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet));

@@ -90,23 +90,30 @@ namespace GtaChaos.Models.Effects.@abstract
             return twitchEnabled;
         }
 
-        public AbstractEffect SetAudioFile(string name, int variations = 0)
+        public AbstractEffect SetAudioFile(string name)
         {
             audioName = name;
+            return this;
+        }
+
+        public AbstractEffect SetAudioVariations(int variations = 0)
+        {
             audioVariations = variations;
             return this;
         }
 
         public virtual string GetAudioFile()
         {
+            string file = string.IsNullOrEmpty(audioName) ? GetId() : audioName;
+
             if (audioVariations == 0)
             {
-                return audioName;
+                return file;
             }
             else
             {
                 Random random = new Random();
-                return $"{audioName}_{random.Next(audioVariations)}";
+                return $"{file}_{random.Next(audioVariations)}";
             }
         }
 
@@ -114,7 +121,7 @@ namespace GtaChaos.Models.Effects.@abstract
         {
             if (Config.Instance().PlayAudioForEffects)
             {
-                AudioPlayer.PlayAudio(GetAudioFile());
+                AudioPlayer.INSTANCE.PlayAudio(GetAudioFile());
             }
         }
 

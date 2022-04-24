@@ -34,6 +34,7 @@ namespace GtaChaos.Forms
             this.progressBarMain = new System.Windows.Forms.ProgressBar();
             this.tabs = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
+            this.checkBoxAutoStart = new System.Windows.Forms.CheckBox();
             this.checkBoxShowLastEffectsMain = new System.Windows.Forms.CheckBox();
             this.buttonResetMain = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -109,7 +110,6 @@ namespace GtaChaos.Forms
             this.viceCityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sanAndreasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonAutoStart = new System.Windows.Forms.Button();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
@@ -161,6 +161,7 @@ namespace GtaChaos.Forms
             // tabMain
             // 
             this.tabMain.BackColor = System.Drawing.Color.Transparent;
+            this.tabMain.Controls.Add(this.checkBoxAutoStart);
             this.tabMain.Controls.Add(this.checkBoxShowLastEffectsMain);
             this.tabMain.Controls.Add(this.buttonResetMain);
             this.tabMain.Controls.Add(this.label2);
@@ -174,6 +175,17 @@ namespace GtaChaos.Forms
             this.tabMain.Size = new System.Drawing.Size(452, 231);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main";
+            // 
+            // checkBoxAutoStart
+            // 
+            this.checkBoxAutoStart.AutoSize = true;
+            this.checkBoxAutoStart.Location = new System.Drawing.Point(6, 39);
+            this.checkBoxAutoStart.Name = "checkBoxAutoStart";
+            this.checkBoxAutoStart.Size = new System.Drawing.Size(73, 17);
+            this.checkBoxAutoStart.TabIndex = 8;
+            this.checkBoxAutoStart.Text = "Auto-Start";
+            this.checkBoxAutoStart.UseVisualStyleBackColor = true;
+            this.checkBoxAutoStart.CheckedChanged += new System.EventHandler(this.checkBoxAutoStart_CheckedChanged);
             // 
             // checkBoxShowLastEffectsMain
             // 
@@ -969,16 +981,6 @@ namespace GtaChaos.Forms
             this.sanAndreasToolStripMenuItem.Text = "San Andreas";
             this.sanAndreasToolStripMenuItem.Click += new System.EventHandler(this.SanAndreasToolStripMenuItem_Click);
             // 
-            // buttonAutoStart
-            // 
-            this.buttonAutoStart.Location = new System.Drawing.Point(12, 27);
-            this.buttonAutoStart.Name = "buttonAutoStart";
-            this.buttonAutoStart.Size = new System.Drawing.Size(75, 23);
-            this.buttonAutoStart.TabIndex = 6;
-            this.buttonAutoStart.Text = "Auto-Start";
-            this.buttonAutoStart.UseVisualStyleBackColor = true;
-            this.buttonAutoStart.Click += new System.EventHandler(this.ButtonAutoStart_Click);
-            // 
             // timerMain
             // 
             this.timerMain.Enabled = true;
@@ -1001,7 +1003,6 @@ namespace GtaChaos.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 325);
             this.Controls.Add(this.buttonSwitchMode);
-            this.Controls.Add(this.buttonAutoStart);
             this.Controls.Add(this.tabs);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -1063,7 +1064,6 @@ namespace GtaChaos.Forms
         private System.Windows.Forms.ComboBox comboBoxVotingTime;
         private System.Windows.Forms.ProgressBar progressBarTwitch;
         private System.Windows.Forms.Button buttonTwitchToggle;
-        private System.Windows.Forms.Button buttonAutoStart;
         private System.Windows.Forms.Timer timerMain;
         private System.Windows.Forms.Button buttonSwitchMode;
         private System.Windows.Forms.Label labelTwitchCurrentMode;
@@ -1117,6 +1117,7 @@ namespace GtaChaos.Forms
         private System.Windows.Forms.TextBox textBoxExperimentalEffectName;
         private System.Windows.Forms.CheckBox checkBoxExperimental_TwitchDisableRapidFire;
         private System.Windows.Forms.CheckBox checkBoxRunEffectsWhenZeroVotes;
+        private System.Windows.Forms.CheckBox checkBoxAutoStart;
     }
 }
 

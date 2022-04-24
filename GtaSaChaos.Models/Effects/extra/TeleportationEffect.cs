@@ -25,7 +25,7 @@ namespace GtaChaos.Models.Effects.extra
         {
             base.RunEffect(seed, duration);
 
-            ProcessHooker.SendEffectToGame("effect_teleport", new
+            WebsocketHandler.INSTANCE.SendEffectToGame("effect_teleport", new
             {
                 posX = location.X,
                 posY = location.Y,

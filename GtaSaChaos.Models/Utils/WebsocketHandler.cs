@@ -3,91 +3,83 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.IO.Pipes;
-using System.Linq;
 using System.Threading.Tasks;
 using WebSocketSharp;
 
 namespace GtaChaos.Models.Utils
 {
-    // TODO: Rework as singleton (public static readonly ProcessHooker INSTANCE = new ProcessHooker();
-    public static class ProcessHooker
+    public class SocketMessageEventArgs : EventArgs
     {
-        private static WebSocket socket;
-        private static bool socketConnected = false;
-        private static List<string> socketBuffer = new List<string>();
-        private static Process Process = null;
+        public string Data { get; set; }
+    }
 
-        public static void HookProcess()
-        {
-            CloseProcess();
+    public class WebsocketHandler
+    {
+        public static WebsocketHandler INSTANCE = new WebsocketHandler();
 
-            Process = Process.GetProcessesByName("gta_sa").FirstOrDefault();
-            if (Process == null)
-            {
-                Process = Process.GetProcessesByName("gta-sa").FirstOrDefault();
-            }
-            if (Process == null)
-            {
-                return;
-            }
+        public event EventHandler<SocketMessageEventArgs> OnSocketMessage;
 
-            Process.EnableRaisingEvents = true;
-        }
+        private WebSocket socket;
+        private bool socketIsConnecting = false;
+        private bool socketConnected = false;
+        private readonly List<string> socketBuffer = new List<string>();
 
-        public static IntPtr GetHandle()
-        {
-            return Process == null ? IntPtr.Zero : Process.Handle;
-        }
-
-        private static void ConnectWebsocket()
+        public void ConnectWebsocket()
         {
             try
             {
-                if (socket == null)
+                if (!socketConnected && !socketIsConnecting)
                 {
                     socket = new WebSocket("ws://localhost:9001");
                     socket.OnOpen += Socket_OnOpen;
                     socket.OnClose += Socket_OnClose;
                     socket.OnError += Socket_OnError;
+                    socket.OnMessage += Socket_OnMessage;
+
+                    socketIsConnecting = true;
 
                     socket.Connect();
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine(e);
+
+                socketConnected = false;
+                socketIsConnecting = false;
             }
         }
 
-        private static void Socket_OnOpen(object sender, EventArgs e)
+        private void Socket_OnMessage(object sender, MessageEventArgs e)
+        {
+            if (!e.IsText) return;
+
+            OnSocketMessage?.Invoke(this, new SocketMessageEventArgs { Data = e.Data });
+        }
+
+        private void Socket_OnOpen(object sender, EventArgs e)
         {
             socketConnected = true;
+            socketIsConnecting = false;
         }
 
-        private static void Socket_OnError(object sender, WebSocketSharp.ErrorEventArgs e)
+        private void Socket_OnError(object sender, WebSocketSharp.ErrorEventArgs e)
         {
             socketConnected = false;
-            socket = null;
+            socketIsConnecting = false;
         }
 
-        private static void Socket_OnClose(object sender, CloseEventArgs e)
+        private void Socket_OnClose(object sender, CloseEventArgs e)
         {
             socketConnected = false;
-            socket = null;
+            socketIsConnecting = false;
         }
 
-        public static void SendDataToWebsocket(JObject jsonObject)
+        public void SendDataToWebsocket(JObject jsonObject)
         {
             Task.Run(() =>
             {
                 string json = JsonConvert.SerializeObject(jsonObject);
-
-                if (true)
-                {
-                    Console.WriteLine(JsonConvert.SerializeObject(jsonObject, Formatting.Indented));
-                }
 
                 ConnectWebsocket();
 
@@ -109,13 +101,13 @@ namespace GtaChaos.Models.Utils
                 {
                     if (jsonObject["type"].ToObject<string>() != "time")
                     {
-                        //socketBuffer.Add(json);
+                        socketBuffer.Add(json);
                     }
                 }
             });
         }
 
-        public static void SendTimeToGame(int remaining, int cooldown = 0, string mode = "")
+        public void SendTimeToGame(int remaining, int cooldown = 0, string mode = "")
         {
             var jsonObject = JObject.FromObject(new
             {
@@ -131,7 +123,7 @@ namespace GtaChaos.Models.Utils
             SendDataToWebsocket(jsonObject);
         }
 
-        public static void SendVotes(string[] effects, int[] votes, int pickedChoice = -1)
+        public void SendVotes(string[] effects, int[] votes, int pickedChoice = -1)
         {
             var jsonObject = JObject.FromObject(new
             {
@@ -147,7 +139,7 @@ namespace GtaChaos.Models.Utils
             SendDataToWebsocket(jsonObject);
         }
 
-        public static void SendEffectToGame(string effectID, object effectData = null, int duration = -1, string displayName = "", string twitchVoter = "", bool rapidFire = false)
+        public void SendEffectToGame(string effectID, object effectData = null, int duration = -1, string displayName = "", string twitchVoter = "", bool rapidFire = false)
         {
             if (rapidFire)
             {
@@ -188,28 +180,6 @@ namespace GtaChaos.Models.Utils
             */
 
             SendDataToWebsocket(jsonObject);
-        }
-
-        public static void AttachExitedMethod(EventHandler method)
-        {
-            if (Process != null)
-            {
-                Process.Exited += method;
-            }
-        }
-
-        public static bool HasExited()
-        {
-            return Process == null || Process.HasExited;
-        }
-
-        public static void CloseProcess()
-        {
-            try
-            {
-                Process = null;
-            }
-            catch { }
         }
     }
 }

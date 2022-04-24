@@ -23,7 +23,7 @@ namespace GtaChaos.Models.Effects.extra
         {
             base.RunEffect(seed, duration);
 
-            ProcessHooker.SendEffectToGame("effect_weather", new
+            WebsocketHandler.INSTANCE.SendEffectToGame("effect_weather", new
             {
                 weatherID
             }, GetDuration(duration), GetDisplayName(), GetVoter(), GetRapidFire());

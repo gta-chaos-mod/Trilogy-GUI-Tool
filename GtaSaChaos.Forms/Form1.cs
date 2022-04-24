@@ -5,11 +5,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using GtaChaos.Models.Effects;
 using GtaChaos.Models.Effects.@abstract;
 using GtaChaos.Models.Utils;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace GtaChaos.Forms
 {
@@ -18,13 +20,11 @@ namespace GtaChaos.Forms
         private readonly string configPath = Path.Combine(Directory.GetCurrentDirectory(), "config.cfg");
 
         private readonly Stopwatch stopwatch;
-        private readonly Dictionary<string, EffectTreeNode> idToEffectNodeMap = new Dictionary<string, EffectTreeNode>();
+        private readonly Dictionary<string, EffectTreeNode> idToEffectNodeMap = new();
         private ITwitchConnection twitch;
 
+        private readonly System.Timers.Timer websocketReconnectionTimer;
         private int elapsedCount;
-        private readonly System.Timers.Timer autoStartTimer;
-        private int introState = 1;
-
         private int timesUntilRapidFire;
 
 #if DEBUG
@@ -55,12 +55,6 @@ namespace GtaChaos.Forms
             tabs.TabPages.Remove(tabPolls);
 
             stopwatch = new Stopwatch();
-            autoStartTimer = new System.Timers.Timer()
-            {
-                Interval = 50,
-                AutoReset = true
-            };
-            autoStartTimer.Elapsed += AutoStartTimer_Elapsed;
 
             EffectDatabase.PopulateEffects("san_andreas");
             PopulateEffectTreeList();
@@ -76,35 +70,48 @@ namespace GtaChaos.Forms
             TryLoadConfig();
 
             timesUntilRapidFire = new Random().Next(10, 15);
+
+            WebsocketHandler.INSTANCE.ConnectWebsocket();
+            WebsocketHandler.INSTANCE.OnSocketMessage += OnSocketMessage;
+
+            websocketReconnectionTimer = new System.Timers.Timer()
+            {
+                Interval = 1000,
+                AutoReset = true
+            };
+            websocketReconnectionTimer.Elapsed += WebsocketReconnectionTimer_Elapsed;
+            websocketReconnectionTimer.Start();
         }
 
-        private void AutoStartTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void WebsocketReconnectionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (ProcessHooker.HasExited())
+            // This is hacky but it works
+            WebsocketHandler.INSTANCE.ConnectWebsocket();
+        }
+
+        private void OnSocketMessage(object sender, SocketMessageEventArgs e)
+        {
+            try
             {
-                return;
+                var json = JObject.Parse(e.Data);
+
+                var type = Convert.ToString(json["type"]);
+                var state = Convert.ToString(json["state"]);
+
+                if (type == "ChaosMod" && state == "auto_start")
+                {
+                    Invoke(new Action(() =>
+                    {
+                        DoAutostart();
+                    }));
+                }
             }
-
-            if (Shared.TimerEnabled)
-            {
-                return;
-            }
-
-            MemoryHelper.Read((IntPtr)0xA4ED04, out int newIntroState);
-            MemoryHelper.Read((IntPtr)0xB7CB84, out int playingTime);
-
-            if (introState == 0 && newIntroState == 1 && playingTime < 1000 * 60)
-            {
-                buttonAutoStart.Invoke(new Action(SetAutostart));
-            }
-
-            introState = newIntroState;
+            catch (Exception) { }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveConfig();
-            ProcessHooker.CloseProcess();
         }
 
         private void TryLoadConfig()
@@ -164,6 +171,8 @@ namespace GtaChaos.Forms
                 comboBoxMainCooldown.SelectedIndex = 3;
                 Config.Instance().MainCooldown = 1000 * 60;
             }
+
+            checkBoxAutoStart.Checked = Config.Instance().AutoStart;
 
             checkBoxTwitchAllowOnlyEnabledEffects.Checked = Config.Instance().TwitchAllowOnlyEnabledEffectsRapidFire;
 
@@ -252,11 +261,6 @@ namespace GtaChaos.Forms
             }
         }
 
-        private void ButtonAutoStart_Click(object sender, EventArgs e)
-        {
-            TrySetupAutostart();
-        }
-
         private void CallEffect(AbstractEffect effect = null)
         {
             if (effect == null)
@@ -302,61 +306,6 @@ namespace GtaChaos.Forms
             }
         }
 
-        private void TrySetupAutostart()
-        {
-            if (ProcessHooker.HasExited()) // Make sure we are hooked
-            {
-                ProcessHooker.HookProcess();
-            }
-
-            if (ProcessHooker.HasExited())
-            {
-                MessageBox.Show("The game needs to be running!", "Error");
-
-                buttonAutoStart.Enabled = Shared.IsTwitchMode ? (twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected) : true;
-                buttonAutoStart.Text = "Auto-Start";
-
-                if (!Config.Instance().ContinueTimer)
-                {
-                    SetEnabled(false);
-
-                    elapsedCount = 0;
-                    stopwatch.Reset();
-
-                    buttonMainToggle.Enabled = true;
-                    buttonTwitchToggle.Enabled = twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
-                }
-                return;
-            }
-
-            ProcessHooker.AttachExitedMethod((sender, e) => buttonAutoStart.Invoke(new Action(() =>
-            {
-                buttonAutoStart.Enabled = Shared.IsTwitchMode && twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
-                buttonAutoStart.Text = "Auto-Start";
-
-                if (!Config.Instance().ContinueTimer)
-                {
-                    SetEnabled(false);
-
-                    elapsedCount = 0;
-                    stopwatch.Reset();
-
-                    buttonMainToggle.Enabled = true;
-                    buttonTwitchToggle.Enabled = twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
-                }
-
-                ProcessHooker.CloseProcess();
-            })));
-
-            buttonAutoStart.Enabled = false;
-            buttonAutoStart.Text = "Waiting...";
-
-            Shared.TimerEnabled = false;
-            autoStartTimer.Start();
-            buttonMainToggle.Enabled = false;
-            buttonTwitchToggle.Enabled = twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
-        }
-
         private void OnTimerTick(object sender, EventArgs e)
         {
             if (Shared.IsTwitchMode)
@@ -381,7 +330,7 @@ namespace GtaChaos.Forms
 
             int remaining = (int)Math.Max(0, Config.Instance().MainCooldown - stopwatch.ElapsedMilliseconds);
 
-            ProcessHooker.SendTimeToGame(remaining, Config.Instance().MainCooldown);
+            WebsocketHandler.INSTANCE.SendTimeToGame(remaining, Config.Instance().MainCooldown);
 
             if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
             {
@@ -417,7 +366,7 @@ namespace GtaChaos.Forms
 
                 int remaining = (int) Math.Max(0, Config.Instance().TwitchVotingTime - stopwatch.ElapsedMilliseconds);
 
-                ProcessHooker.SendTimeToGame(remaining, Config.Instance().TwitchVotingTime, "Voting");
+                WebsocketHandler.INSTANCE.SendTimeToGame(remaining, Config.Instance().TwitchVotingTime, "Voting");
                 
                 if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
@@ -444,7 +393,7 @@ namespace GtaChaos.Forms
                         {
                             labelTwitchCurrentMode.Text = "Current Mode: Cooldown (Poll Failed)";
 
-                            ProcessHooker.SendTimeToGame(0);
+                            WebsocketHandler.INSTANCE.SendTimeToGame(0);
                             Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().TwitchVotingCooldown);
                             elapsedCount = 0;
 
@@ -470,7 +419,7 @@ namespace GtaChaos.Forms
 
                 if (didFinish)
                 {
-                    ProcessHooker.SendTimeToGame(0);
+                    WebsocketHandler.INSTANCE.SendTimeToGame(0);
                     Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().TwitchVotingCooldown);
                     elapsedCount = 0;
 
@@ -523,7 +472,7 @@ namespace GtaChaos.Forms
 
                 int remaining = (int) Math.Max(0, (1000 * 10) - stopwatch.ElapsedMilliseconds);
 
-                ProcessHooker.SendTimeToGame(remaining, 10000, "Rapid-Fire");
+                WebsocketHandler.INSTANCE.SendTimeToGame(remaining, 10000, "Rapid-Fire");
                 
                 if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
@@ -534,7 +483,7 @@ namespace GtaChaos.Forms
 
                 if (stopwatch.ElapsedMilliseconds >= 1000 * 10) // Set 10 seconds
                 {
-                    ProcessHooker.SendTimeToGame(0);
+                    WebsocketHandler.INSTANCE.SendTimeToGame(0);
                     Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().TwitchVotingCooldown);
                     elapsedCount = 0;
 
@@ -563,7 +512,7 @@ namespace GtaChaos.Forms
 
                 int remaining = (int) Math.Max(0, Config.Instance().TwitchVotingCooldown - stopwatch.ElapsedMilliseconds);
 
-                ProcessHooker.SendTimeToGame(remaining, Config.Instance().TwitchVotingCooldown, "Cooldown");
+                WebsocketHandler.INSTANCE.SendTimeToGame(remaining, Config.Instance().TwitchVotingCooldown, "Cooldown");
                 
                 if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
                 {
@@ -783,10 +732,11 @@ namespace GtaChaos.Forms
             Config.Instance().TwitchVotingCooldown = item.VotingCooldown;
         }
 
-        private void SetAutostart()
+        private void DoAutostart()
         {
-            buttonAutoStart.Enabled = Shared.IsTwitchMode && twitch != null && twitch.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
-            buttonAutoStart.Text = "Auto-Start";
+            if (!checkBoxAutoStart.Checked) return;
+
+            elapsedCount = 0;
             stopwatch.Reset();
             SetEnabled(true);
 
@@ -807,7 +757,7 @@ namespace GtaChaos.Forms
             {
                 stopwatch.Stop();
             }
-            autoStartTimer.Stop();
+
             buttonMainToggle.Enabled = true;
             (Shared.IsTwitchMode ? buttonTwitchToggle : buttonMainToggle).Text = Shared.TimerEnabled ? "Stop / Pause" : "Start / Resume";
             comboBoxMainCooldown.Enabled =
@@ -1058,8 +1008,6 @@ namespace GtaChaos.Forms
                         buttonConnectTwitch.Enabled = true;
                         buttonTwitchToggle.Enabled = true;
 
-                        buttonAutoStart.Enabled = true;
-
                         buttonConnectTwitch.Text = "Disconnect";
 
                         textBoxTwitchChannel.Enabled = false;
@@ -1126,7 +1074,6 @@ namespace GtaChaos.Forms
             else
             {
                 buttonSwitchMode.Text = "Main";
-                buttonAutoStart.Enabled = twitch != null && twitch.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
 
                 if (!tabs.TabPages.Contains(tabTwitch))
                 {
@@ -1176,8 +1123,6 @@ namespace GtaChaos.Forms
             progressBarMain.Value = 0;
             buttonMainToggle.Enabled = true;
             buttonMainToggle.Text = "Start / Resume";
-            buttonAutoStart.Enabled = true;
-            buttonAutoStart.Text = "Auto-Start";
         }
 
         private void CheckBoxContinueTimer_CheckedChanged(object sender, EventArgs e)
@@ -1216,8 +1161,6 @@ namespace GtaChaos.Forms
             progressBarTwitch.Value = 0;
             buttonTwitchToggle.Enabled = twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
             buttonTwitchToggle.Text = "Start / Resume";
-            buttonAutoStart.Enabled = twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
-            buttonAutoStart.Text = "Auto-Start";
         }
 
         private void CheckBoxTwitch3TimesCooldown_CheckedChanged(object sender, EventArgs e)
@@ -1416,7 +1359,6 @@ namespace GtaChaos.Forms
                     buttonSwitchMode.Enabled = true;
                     buttonMainToggle.Enabled = true;
                     buttonResetMain.Enabled = true;
-                    buttonAutoStart.Enabled = true;
                     comboBoxMainCooldown.Enabled = true;
                     enabledEffectsView.Enabled = true;
                     textBoxSeed.Enabled = true;
@@ -1516,7 +1458,6 @@ namespace GtaChaos.Forms
                         buttonSwitchMode.Enabled = false;
                         buttonMainToggle.Enabled = false;
                         buttonResetMain.Enabled = false;
-                        buttonAutoStart.Enabled = false;
                         comboBoxMainCooldown.Enabled = false;
                         enabledEffectsView.Enabled = false;
                         buttonResetMain.Enabled = false;
@@ -1564,7 +1505,7 @@ namespace GtaChaos.Forms
             {
                 if (!Shared.Multiplayer.IsHost)
                 {
-                    ProcessHooker.SendTimeToGame(args.Remaining, args.Total);
+                    WebsocketHandler.INSTANCE.SendTimeToGame(args.Remaining, args.Total);
                 }
             };
 
@@ -1592,7 +1533,7 @@ namespace GtaChaos.Forms
                 string[] effects = args.Effects;
                 int[] votes = args.Votes;
 
-                ProcessHooker.SendVotes(effects, votes, args.LastChoice);
+                WebsocketHandler.INSTANCE.SendVotes(effects, votes, args.LastChoice);
             };
 
             Shared.Multiplayer.Connect();
@@ -1666,7 +1607,7 @@ namespace GtaChaos.Forms
             }
 
             int duration = Config.GetEffectDuration();
-            ProcessHooker.SendEffectToGame(textBoxExperimentalEffectName.Text, null, duration);
+            WebsocketHandler.INSTANCE.SendEffectToGame(textBoxExperimentalEffectName.Text, null, duration);
         }
 
         private void CheckBoxTwitchDisableRapidFire_CheckedChanged(object sender, EventArgs e)
@@ -1682,6 +1623,11 @@ namespace GtaChaos.Forms
         private void textBoxExperimentalEffectName_TextChanged(object sender, EventArgs e)
         {
             Config.Instance().Experimental_EffectName = textBoxExperimentalEffectName.Text;
+        }
+
+        private void checkBoxAutoStart_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance().AutoStart = checkBoxAutoStart.Checked;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace GtaChaos.Models.Effects.extra
 
             string spawnString = $"Spawn {VehicleNames.GetVehicleName(vehicleID)}";
 
-            ProcessHooker.SendEffectToGame("effect_spawn_vehicle", new
+            WebsocketHandler.INSTANCE.SendEffectToGame("effect_spawn_vehicle", new
             {
                 vehicleID
             }, GetDuration(duration), spawnString, GetVoter(), GetRapidFire());

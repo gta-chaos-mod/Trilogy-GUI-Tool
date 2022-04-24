@@ -8,6 +8,7 @@ namespace GtaChaos.Models.Utils
         private static Config _Instance;
 
         public int MainCooldown;
+        public bool AutoStart = true;
         public bool ContinueTimer = true;
         public string Seed;
         public bool MainShowLastEffects;

@@ -1,44 +1,73 @@
 ﻿// Copyright (c) 2019 Lordmau5
 using NAudio.Wave;
+using NAudio.Vorbis;
 using System;
 using System.IO;
 using System.Reflection;
 
 namespace GtaChaos.Models.Utils
 {
-    public static class AudioPlayer
+    public class AudioPlayer
     {
-        private static void PlayEmbeddedResource(string type, string path)
+        public static readonly AudioPlayer INSTANCE = new AudioPlayer();
+
+        private readonly string[] supportedFormats =
         {
+            "mp3", "wav", "aac", "m4a"
+        };
+
+        private void PlayEmbeddedResource(string type, string path)
+        {
+            Assembly a = Assembly.GetExecutingAssembly();
+            Stream s = a.GetManifestResourceStream($"GtaChaos.Models.{type}.{path}.m4a");
+
+            string fullPath = $"{type}/{path}";
+
+            WaveStream stream = null;
+
+            // ogg / Vorbis
             try
             {
-                Assembly a = Assembly.GetExecutingAssembly();
-                Stream s = a.GetManifestResourceStream($"GtaChaos.Models.{type}.{path}");
+                stream = new VorbisWaveReader($"{fullPath}.ogg");
+            }
+            catch { }
 
-                MediaFoundationReader reader = null;
+            // Iterate over supported formats
+            if (stream == null)
+            {
+                foreach (string format in supportedFormats)
+                {
+                    try
+                    {
+                        stream = new MediaFoundationReader($"{fullPath}.{format}");
+
+                        if (stream != null) break;
+                    }
+                    catch { }
+                }
+            }
+
+            // Try embedded resources
+            if (stream == null)
+            {
                 try
                 {
-                    reader = new MediaFoundationReader($"{type}/{path}");
+                    stream = new StreamMediaFoundationReader(s);
                 }
-                catch (Exception) // Didn't find an override audio file, try to use the embedded one
-                {
-                    reader = new StreamMediaFoundationReader(s);
-                }
-
-                WaveOutEvent outputDevice = new WaveOutEvent();
-                outputDevice.Init(reader);
-
-                outputDevice.Play();
+                catch { }
             }
-            catch (Exception)
-            {
-                // File not found >:(
-            }
+
+            if (stream == null) return;
+
+            WaveOutEvent outputDevice = new WaveOutEvent();
+            outputDevice.Init(stream);
+
+            outputDevice.Play();
         }
 
-        public static void PlayAudio(string res)
+        public void PlayAudio(string res)
         {
-            PlayEmbeddedResource("audio", $"{res}.m4a");
+            PlayEmbeddedResource("audio", res);
         }
     }
 }

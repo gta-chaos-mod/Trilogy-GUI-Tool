@@ -303,7 +303,7 @@ namespace GtaChaos.Models.Utils
             }
             else
             {
-                ProcessHooker.SendVotes(effects, votes, lastChoice);
+                WebsocketHandler.INSTANCE.SendVotes(effects, votes, lastChoice);
             }
         }
 

@@ -32,7 +32,7 @@ namespace GtaChaos.Models.Effects.impl
 
             seed = seed == -1 ? RandomHandler.Next(9999999) : seed;
 
-            ProcessHooker.SendEffectToGame(EffectID, new
+            WebsocketHandler.INSTANCE.SendEffectToGame(EffectID, new
             {
                 seed
             }, GetDuration(duration), GetDisplayName(), GetVoter(), GetRapidFire());

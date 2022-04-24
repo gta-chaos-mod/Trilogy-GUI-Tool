@@ -5,31 +5,34 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="audio\banana_phone.m4a" />
-    <EmbeddedResource Include="audio\beyblade.m4a" />
-    <EmbeddedResource Include="audio\busted.m4a" />
-    <EmbeddedResource Include="audio\down_under.m4a" />
-    <EmbeddedResource Include="audio\elevator_music.m4a" />
-    <EmbeddedResource Include="audio\here_we_go_again.m4a" />
-    <EmbeddedResource Include="audio\honk_0.m4a" />
-    <EmbeddedResource Include="audio\honk_1.m4a" />
-    <EmbeddedResource Include="audio\honk_2.m4a" />
-    <EmbeddedResource Include="audio\honk_3.m4a" />
-    <EmbeddedResource Include="audio\honk_4.m4a" />
-    <EmbeddedResource Include="audio\moon_theme.m4a" />
-    <EmbeddedResource Include="audio\oh_hey_tanks.m4a" />
-    <EmbeddedResource Include="audio\roblox_oof.m4a" />
-    <EmbeddedResource Include="audio\show_you_the_world.m4a" />
-    <EmbeddedResource Include="audio\wasted.m4a" />
-    <EmbeddedResource Include="audio\welcome_to_quake.m4a" />
+    <EmbeddedResource Include="audio\effect_ring_ring.m4a" />
+    <EmbeddedResource Include="audio\effect_beyblade.m4a" />
+    <EmbeddedResource Include="audio\effect_get_busted.m4a" />
+    <EmbeddedResource Include="audio\effect_upside_down_screen.m4a" />
+    <EmbeddedResource Include="audio\effect_lets_take_a_break.m4a" />
+    <EmbeddedResource Include="audio\effect_reload_autosave.m4a" />
+    <EmbeddedResource Include="audio\effect_honk_vehicle_0.m4a" />
+    <EmbeddedResource Include="audio\effect_honk_vehicle_1.m4a" />
+    <EmbeddedResource Include="audio\effect_honk_vehicle_2.m4a" />
+    <EmbeddedResource Include="audio\effect_honk_vehicle_3.m4a" />
+    <EmbeddedResource Include="audio\effect_honk_vehicle_4.m4a" />
+    <EmbeddedResource Include="audio\effect_inverted_gravity.m4a" />
+    <EmbeddedResource Include="audio\effect_oh_hey_tanks.m4a" />
+    <EmbeddedResource Include="audio\effect_suicide.m4a" />
+    <EmbeddedResource Include="audio\effect_send_vehicles_to_space.m4a" />
+    <EmbeddedResource Include="audio\effect_get_wasted.m4a" />
+    <EmbeddedResource Include="audio\effect_quake_fov.m4a" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fleck" Version="1.1.0" />
-    <PackageReference Include="NAudio" Version="1.9.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="TwitchLib.Api" Version="3.1.2" />
-    <PackageReference Include="TwitchLib.Client" Version="3.1.4" />
+    <PackageReference Include="Fleck" Version="1.2.0" />
+    <PackageReference Include="NAudio" Version="2.0.1" />
+    <PackageReference Include="NAudio.Vorbis" Version="1.5.0" />
+    <PackageReference Include="NAudio.Wasapi" Version="2.0.0" />
+    <PackageReference Include="NAudio.WinMM" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="TwitchLib.Api" Version="3.5.2" />
+    <PackageReference Include="TwitchLib.Client" Version="3.2.4" />
     <PackageReference Include="websocketsharp.core" Version="1.0.0" />
   </ItemGroup>
 </Project>

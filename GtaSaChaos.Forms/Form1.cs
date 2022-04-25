@@ -1607,7 +1607,10 @@ namespace GtaChaos.Forms
             }
 
             int duration = Config.GetEffectDuration();
-            WebsocketHandler.INSTANCE.SendEffectToGame(textBoxExperimentalEffectName.Text, null, duration);
+            WebsocketHandler.INSTANCE.SendEffectToGame(textBoxExperimentalEffectName.Text, new
+            {
+                seed = RandomHandler.Next(9999999)
+            }, duration);
         }
 
         private void CheckBoxTwitchDisableRapidFire_CheckedChanged(object sender, EventArgs e)

@@ -65,10 +65,10 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new SpawnVehicleEffect("MonsterMash", 556)); // Spawn Monster
                 Effects.Add(new SpawnVehicleEffect("SurpriseDriver", -1)); // Spawn Random Vehicle
 
-                Effects.Add(new FunctionEffect(Category.Time, "0.25x Game Speed", "MatrixMode", "quarter_gamespeed", -1, 1.0f / 3.0f)); // Quarter Gamespeed
-                Effects.Add(new FunctionEffect(Category.Time, "0.5x Game Speed", "SlowItDown", "half_gamespeed", -1, 2.0f / 3.0f)); // Half Gamespeed
-                Effects.Add(new FunctionEffect(Category.Time, "2x Game Speed", "SpeedItUp", "double_gamespeed")); // Double Gamespeed
-                Effects.Add(new FunctionEffect(Category.Time, "4x Game Speed", "YoureTooSlow", "quadruple_gamespeed")); // Quadruple Gamespeed
+                Effects.Add(new FunctionEffect(Category.Time, "0.25x Game Speed", "MatrixMode", "quarter_game_speed", -1, 1.0f / 3.0f)); // Quarter Gamespeed
+                Effects.Add(new FunctionEffect(Category.Time, "0.5x Game Speed", "SlowItDown", "half_game_speed", -1, 2.0f / 3.0f)); // Half Gamespeed
+                Effects.Add(new FunctionEffect(Category.Time, "2x Game Speed", "SpeedItUp", "double_game_speed")); // Double Gamespeed
+                Effects.Add(new FunctionEffect(Category.Time, "4x Game Speed", "YoureTooSlow", "quadruple_game_speed")); // Quadruple Gamespeed
                 Effects.Add(new FunctionEffect(Category.Time, "Always Midnight", "NightProwler", "always_midnight")); // Always midnight
                 Effects.Add(new FunctionEffect(Category.Time, "Stop Game Clock", "DontBringOnTheNight", "stop_game_clock")); // Stop game clock, orange sky
                 Effects.Add(new FunctionEffect(Category.Time, "Faster Clock", "TimeJustFliesBy", "faster_clock")); // Faster clock
@@ -265,6 +265,9 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Steer Bias (Left)", "LeftSideBias", "steer_bias_left"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Steer Bias (Right)", "RightSideBias", "steer_bias_right"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "The Firing Circus", "TheFiringCircus", "the_firing_circus", 1000 * 5));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Random Outfit", "ASetOfNewClothes", "random_outfit"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "No Shooting Allowed", "GunsAreDangerous", "no_shooting_allowed"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Pacifist", "TillDeathDoUsPart", "pacifist"));
 
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet));

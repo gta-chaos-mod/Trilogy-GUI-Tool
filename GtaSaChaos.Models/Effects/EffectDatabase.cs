@@ -30,7 +30,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Health, Armor, $250k", "INeedSomeHelp", "health_armor_money")); // Health, Armor, $250k
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Suicide", "GoodbyeCruelWorld", "suicide").DisableRapidFire()); // Suicide
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Infinite Ammo", "FullClip", "infinite_ammo")); // Infinite ammo
-                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Infinite Health (Player)", "NoOneCanHurtMe", "infinite_health")); // Infinite Health (Player)
+                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Infinite Health (Player)", "NoOneCanHurtMe", "infinite_health_player")); // Infinite Health (Player)
 
                 Effects.Add(new FunctionEffect(Category.WantedLevel, "Wanted Level +2 Stars", "TurnUpTheHeat", "wanted_level_plus_two")); // Wanted level +2 stars
                 Effects.Add(new FunctionEffect(Category.WantedLevel, "Clear Wanted Level", "TurnDownTheHeat", "clear_wanted_level")); // Clear wanted level
@@ -268,6 +268,10 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Random Outfit", "ASetOfNewClothes", "random_outfit"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Shooting Allowed", "GunsAreDangerous", "no_shooting_allowed"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pacifist", "TillDeathDoUsPart", "pacifist"));
+
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "No Visible Water", "OceanManGoneAgain", "no_visible_water"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "No Water Physics", "LetsVisitAtlantis", "no_water_physics"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Underwater View", "HelloHowAreYouIAmUnderTheWater", "underwater_view"));
 
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet));

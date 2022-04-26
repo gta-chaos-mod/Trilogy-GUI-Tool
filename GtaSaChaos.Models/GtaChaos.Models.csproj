@@ -5,23 +5,45 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="audio\effect_ring_ring.m4a" />
-    <EmbeddedResource Include="audio\effect_beyblade.m4a" />
-    <EmbeddedResource Include="audio\effect_get_busted.m4a" />
-    <EmbeddedResource Include="audio\effect_upside_down_screen.m4a" />
-    <EmbeddedResource Include="audio\effect_lets_take_a_break.m4a" />
-    <EmbeddedResource Include="audio\effect_reload_autosave.m4a" />
-    <EmbeddedResource Include="audio\effect_honk_vehicle_0.m4a" />
-    <EmbeddedResource Include="audio\effect_honk_vehicle_1.m4a" />
-    <EmbeddedResource Include="audio\effect_honk_vehicle_2.m4a" />
-    <EmbeddedResource Include="audio\effect_honk_vehicle_3.m4a" />
-    <EmbeddedResource Include="audio\effect_honk_vehicle_4.m4a" />
-    <EmbeddedResource Include="audio\effect_inverted_gravity.m4a" />
-    <EmbeddedResource Include="audio\effect_oh_hey_tanks.m4a" />
-    <EmbeddedResource Include="audio\effect_suicide.m4a" />
-    <EmbeddedResource Include="audio\effect_send_vehicles_to_space.m4a" />
-    <EmbeddedResource Include="audio\effect_get_wasted.m4a" />
-    <EmbeddedResource Include="audio\effect_quake_fov.m4a" />
+    <None Remove="audio\effect_beyblade.ogg" />
+    <None Remove="audio\effect_get_busted.ogg" />
+    <None Remove="audio\effect_get_wasted.ogg" />
+    <None Remove="audio\effect_honk_vehicle_0.ogg" />
+    <None Remove="audio\effect_honk_vehicle_1.ogg" />
+    <None Remove="audio\effect_honk_vehicle_2.ogg" />
+    <None Remove="audio\effect_honk_vehicle_3.ogg" />
+    <None Remove="audio\effect_honk_vehicle_4.ogg" />
+    <None Remove="audio\effect_inverted_gravity.ogg" />
+    <None Remove="audio\effect_lets_take_a_break.ogg" />
+    <None Remove="audio\effect_oh_hey_tanks.ogg" />
+    <None Remove="audio\effect_quake_fov.ogg" />
+    <None Remove="audio\effect_reload_autosave.ogg" />
+    <None Remove="audio\effect_ring_ring.ogg" />
+    <None Remove="audio\effect_send_vehicles_to_space.ogg" />
+    <None Remove="audio\effect_suicide.ogg" />
+    <None Remove="audio\effect_underwater_view.ogg" />
+    <None Remove="audio\effect_upside_down_screen.ogg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="audio\effect_beyblade.ogg" />
+    <EmbeddedResource Include="audio\effect_get_busted.ogg" />
+    <EmbeddedResource Include="audio\effect_get_wasted.ogg" />
+    <EmbeddedResource Include="audio\effect_honk_vehicle_0.ogg" />
+    <EmbeddedResource Include="audio\effect_honk_vehicle_1.ogg" />
+    <EmbeddedResource Include="audio\effect_honk_vehicle_2.ogg" />
+    <EmbeddedResource Include="audio\effect_honk_vehicle_3.ogg" />
+    <EmbeddedResource Include="audio\effect_honk_vehicle_4.ogg" />
+    <EmbeddedResource Include="audio\effect_inverted_gravity.ogg" />
+    <EmbeddedResource Include="audio\effect_lets_take_a_break.ogg" />
+    <EmbeddedResource Include="audio\effect_oh_hey_tanks.ogg" />
+    <EmbeddedResource Include="audio\effect_quake_fov.ogg" />
+    <EmbeddedResource Include="audio\effect_reload_autosave.ogg" />
+    <EmbeddedResource Include="audio\effect_ring_ring.ogg" />
+    <EmbeddedResource Include="audio\effect_send_vehicles_to_space.ogg" />
+    <EmbeddedResource Include="audio\effect_suicide.ogg" />
+    <EmbeddedResource Include="audio\effect_underwater_view.ogg" />
+    <EmbeddedResource Include="audio\effect_upside_down_screen.ogg" />
   </ItemGroup>
 
   <ItemGroup>

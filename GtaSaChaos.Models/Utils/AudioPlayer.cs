@@ -19,7 +19,7 @@ namespace GtaChaos.Models.Utils
         private void PlayEmbeddedResource(string type, string path)
         {
             Assembly a = Assembly.GetExecutingAssembly();
-            Stream s = a.GetManifestResourceStream($"GtaChaos.Models.{type}.{path}.m4a");
+            Stream s = a.GetManifestResourceStream($"GtaChaos.Models.{type}.{path}.ogg");
 
             string fullPath = $"{type}/{path}";
 
@@ -52,7 +52,7 @@ namespace GtaChaos.Models.Utils
             {
                 try
                 {
-                    stream = new StreamMediaFoundationReader(s);
+                    stream = new VorbisWaveReader(s);
                 }
                 catch { }
             }

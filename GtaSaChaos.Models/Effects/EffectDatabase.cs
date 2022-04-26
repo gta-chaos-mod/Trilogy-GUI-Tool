@@ -65,8 +65,8 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new SpawnVehicleEffect("MonsterMash", 556)); // Spawn Monster
                 Effects.Add(new SpawnVehicleEffect("SurpriseDriver", -1)); // Spawn Random Vehicle
 
-                Effects.Add(new FunctionEffect(Category.Time, "0.25x Game Speed", "MatrixMode", "quarter_game_speed", -1, 1.0f / 3.0f)); // Quarter Gamespeed
-                Effects.Add(new FunctionEffect(Category.Time, "0.5x Game Speed", "SlowItDown", "half_game_speed", -1, 2.0f / 3.0f)); // Half Gamespeed
+                Effects.Add(new FunctionEffect(Category.Time, "0.25x Game Speed", "MatrixMode", "quarter_game_speed", -1, 1.0f)); // Quarter Gamespeed
+                Effects.Add(new FunctionEffect(Category.Time, "0.5x Game Speed", "SlowItDown", "half_game_speed", -1, 2.0f)); // Half Gamespeed
                 Effects.Add(new FunctionEffect(Category.Time, "2x Game Speed", "SpeedItUp", "double_game_speed")); // Double Gamespeed
                 Effects.Add(new FunctionEffect(Category.Time, "4x Game Speed", "YoureTooSlow", "quadruple_game_speed")); // Quadruple Gamespeed
                 Effects.Add(new FunctionEffect(Category.Time, "Always Midnight", "NightProwler", "always_midnight")); // Always midnight
@@ -141,7 +141,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "To The Left, To The Right", "ToTheLeftToTheRight", "to_the_left_to_the_right")); // Gives cars a random velocity
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Timelapse Mode", "DiscoInTheSky", "timelapse")); // Timelapse mode
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Where Is Everybody?", "ImHearingVoices", "where_is_everybody")); // Where is everybody?
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Everybody Bleed Now!", "EverybodyBleedNow", "everybody_bleed_now", -1, 0.5f)); // Everybody bleed now!
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Everybody Bleed Now!", "EverybodyBleedNow", "everybody_bleed_now", -1, 1.5f)); // Everybody bleed now!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "To Drive Or Not To Drive", "ToDriveOrNotToDrive", "to_drive_or_not_to_drive")); // To drive or not to drive
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "One Hit K.O.", "ILikeToLiveDangerously", "one_hit_ko").DisableRapidFire()); // One Hit K.O.
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Experience The Lag", "PacketLoss", "experience_the_lag")); // Experience the lag
@@ -172,11 +172,11 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Inverted Gravity", "BeamMeUpScotty", "inverted_gravity").DisableRapidFire()); // Sets the gravity to -0.002f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Zero Gravity", "ImInSpaaaaace", "zero_gravity").DisableRapidFire()); // Sets the gravity to 0f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Insane Gravity", "StraightToHell", "insane_gravity").DisableRapidFire()); // Sets the gravity to 0.64f
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Tunnel Vision", "TunnelVision", "tunnel_vision", -1, 1.0f / 3.0f).DisableRapidFire()); // Tunnel Vision
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Tunnel Vision", "TunnelVision", "tunnel_vision", -1, 1.0f).DisableRapidFire()); // Tunnel Vision
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "High Pitched Audio", "CJAndTheChipmunks", "high_pitched_audio")); // High Pitched Audio
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pitch Shifter", "VocalRange", "pitch_shifter")); // Pitch Shifter
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IWontTakeAFreePass", "fake_pass_current_mission").DisableRapidFire()); // Fake Pass Current Mission
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "DVD Screensaver", "ItsGonnaHitTheCorner", "dvd_screensaver", -1, 1.0f / 3.0f).DisableRapidFire()); // DVD Screensaver
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "DVD Screensaver", "ItsGonnaHitTheCorner", "dvd_screensaver", -1, 1.0f).DisableRapidFire()); // DVD Screensaver
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Honk Boost", "GottaHonkFast", "honk_boost")); // Honk Boost
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Oh Hey, Tanks!", "OhHeyTanks", "oh_hey_tanks")); // Spawns tanks around the player
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Always Wanted", "ICanSeeStars", "always_wanted").DisableRapidFire()); // Always Wanted
@@ -192,8 +192,8 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Need To Hurry", "NoNeedToHurry", "no_need_to_hurry")); // No Need To Hurry
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Drunk Player", "DrunkPlayer", "drunk_player")); // Drunk Player
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Force Vehicle Mouse Steering", "ForceVehicleMouseSteering", "force_vehicle_mouse_steering")); // Force Vehicle Mouse Steering
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Upside-Down Screen", "WhatsUpIsDown", "upside_down_screen", -1, 1.0f / 3.0f)); // Upside-Down Screen
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Mirrored Screen", "WhatsLeftIsRight", "mirrored_screen", -1, 1.0f / 3.0f)); // Mirrored Screen
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Upside-Down Screen", "WhatsUpIsDown", "upside_down_screen", -1, 1.0f)); // Upside-Down Screen
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Mirrored Screen", "WhatsLeftIsRight", "mirrored_screen", -1, 1.0f)); // Mirrored Screen
                 //Effects.Add(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen", -1, 1.0f / 3.0f)); // Greyscale Screen
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Mirrored World", "LetsTalkAboutParallelUniverses", "mirrored_world")); // Mirrored World
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pedal To The Metal", "PedalToTheMetal", "pedal_to_the_metal")); // Pedal To The Metal

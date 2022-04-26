@@ -8,7 +8,7 @@ namespace GtaChaos.Models.Effects.impl
     {
         private readonly string EffectID;
 
-        public FunctionEffect(Category category, string displayName, string word, string effectID, int duration = -1, float multiplier = 1.0f)
+        public FunctionEffect(Category category, string displayName, string word, string effectID, int duration = -1, float multiplier = 3.0f)
             : base(category, displayName, word, duration, multiplier)
         {
             EffectID = $"effect_{effectID}";

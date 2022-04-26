@@ -17,7 +17,7 @@ namespace GtaChaos.Models.Effects.@abstract
         private string audioName = "";
         private int audioVariations = 0;
 
-        public AbstractEffect(Category category, string displayName, string word, int duration = -1, float multiplier = 1.0f)
+        public AbstractEffect(Category category, string displayName, string word, int duration = -1, float multiplier = 3.0f)
         {
             Category = category;
             DisplayName = displayName;

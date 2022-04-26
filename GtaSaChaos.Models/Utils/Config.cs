@@ -77,9 +77,9 @@ namespace GtaChaos.Models.Utils
             if (Shared.IsTwitchMode)
             {
                 int cooldown = Instance().TwitchVotingCooldown + Instance().TwitchVotingTime;
-                return Instance().Twitch3TimesCooldown ? cooldown * 3 : cooldown;
+                return Instance().Twitch3TimesCooldown ? cooldown / 3 : cooldown;
             }
-            return Instance().MainCooldown * 3;
+            return Instance().MainCooldown;
         }
 
         public static string FToString(float value)

@@ -89,10 +89,10 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "All Taxis Have Nitrous", "SpeedyTaxis", "all_taxis_have_nitro")); // All taxis have nitrous
                 Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Invisible Vehicles (Only Wheels)", "WheelsOnlyPlease", "wheels_only_please")); // Invisible Vehicles (Only Wheels)
 
-                Effects.Add(new FunctionEffect(Category.PedsAndCo, "Peds Attack Each Other", "RoughNeighbourhood", "peds_attack_each_other")); // Peds attack other (+ get golf club)
+                Effects.Add(new FunctionEffect(Category.PedsAndCo, "NPCs Attack Each Other", "RoughNeighbourhood", "npcs_attack_each_other")); // NPCs attack other (+ get golf club)
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Have A Bounty On Your Head", "StopPickingOnMe", "have_a_bounty_on_your_head")); // Have a bounty on your head
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Elvis Is Everywhere", "BlueSuedeShoes", "elvis_is_everywhere")); // Elvis is everywhere
-                Effects.Add(new FunctionEffect(Category.PedsAndCo, "Peds Attack You", "AttackOfTheVillagePeople", "peds_attack_you")); // Peds attack you
+                Effects.Add(new FunctionEffect(Category.PedsAndCo, "NPCs Attack You", "AttackOfTheVillagePeople", "npcs_attack_you")); // NPCs attack you
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Gang Members Everywhere", "OnlyHomiesAllowed", "gang_members_everywhere")); // Gang members everywhere
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Gangs Control The Streets", "BetterStayIndoors", "gangs_control_the_streets")); // Gangs control the streets
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Riot Mode", "StateOfEmergency", "riot_mode")); // Riot mode
@@ -241,11 +241,11 @@ namespace GtaChaos.Models.Effects
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "One Bullet Magazines", "OneInTheChamber", "one_bullet_magazines"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Everyone Leaves All Vehicles", "ImTiredOfDriving", "everyone_leaves_all_vehicles"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Give Peds An RPG", "RocketParty", "give_peds_an_rpg"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Teleport All Peds To Player", "WhoAreYouPeople", "teleport_all_peds_to_player"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Launch All Peds", "RocketParty", "launch_all_peds"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Explode All Peds", "BoomGoesTheDynamite", "explode_all_peds"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disarm All Peds", "LeaveTheGunsToMe", "disarm_all_peds"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Give NPCs An RPG", "RocketParty", "give_npcs_an_rpg"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Teleport All NPCs To Player", "WhoAreYouPeople", "teleport_all_npcs_to_player"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Launch All NPCs", "RocketParty", "launch_all_npcs"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Explode All NPCs", "BoomGoesTheDynamite", "explode_all_npcs"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disarm All NPCs", "LeaveTheGunsToMe", "disarm_all_npcs"));
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Reset Camera", "NaturalView", "reset_camera"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Freeze Vehicle", "StuckInTime", "freeze_vehicle", 1000 * 5));

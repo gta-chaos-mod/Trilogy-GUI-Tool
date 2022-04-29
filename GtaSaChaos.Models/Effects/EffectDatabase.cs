@@ -162,8 +162,8 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IllTakeAFreePass", "pass_current_mission")); // Pass Current Mission
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Infinite Health (Everyone)", "NoOneCanHurtAnyone", "infinite_health_everyone")); // Infinite Health (Everyone)
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "InvisibleVehicles", "invisible_vehicles")); // Invisible Vehicles
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Powerpoint Presentation", "PowerpointPresentation", "framerate_15")); // Powerpoint Presentation (15 FPS)
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Smooth Criminal", "SmoothCriminal", "framerate_60")); // Smooth Criminal (60 FPS)
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Powerpoint Presentation", "PowerpointPresentation", "fps_15")); // Powerpoint Presentation (15 FPS)
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Smooth Criminal", "SmoothCriminal", "fps_60")); // Smooth Criminal (60 FPS)
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "reload_autosave").DisableRapidFire()); // Reload Autosave
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Quarter Gravity", "GroundControlToMajorTom", "quarter_gravity")); // Sets the gravity to 0.002f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Half Gravity", "ImFeelingLightheaded", "half_gravity")); // Sets the gravity to 0.004f
@@ -181,7 +181,6 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Oh Hey, Tanks!", "OhHeyTanks", "oh_hey_tanks")); // Spawns tanks around the player
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Always Wanted", "ICanSeeStars", "always_wanted").DisableRapidFire()); // Always Wanted
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Cinematic Vehicle Camera", "MachinimaMode", "cinematic_vehicle_camera")); // Cinematic Vehicle Camera
-                //Effects.Add(new FunctionEffect(Category.CustomEffects, "Top Down Camera", "ReturnToTheClassics", "top_down_camera")); // Top Down Camera - BROKEN - CAN FLICKER AND SOFTLOCK
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Your Car Floats Away When Hit", "ImTheBubbleCar", "your_car_floats_away_when_hit")); // Your Car Floats Away When Hit
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Ring Ring !!", "RingRing", "ring_ring")); // Ring Ring !!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Peds Explode When Run Over", "ExplosivePeds", "peds_explode_when_run_over")); // Peds Explode When Run Over
@@ -243,7 +242,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Everyone Leaves All Vehicles", "ImTiredOfDriving", "everyone_leaves_all_vehicles"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Give NPCs An RPG", "RocketParty", "give_npcs_an_rpg"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Teleport All NPCs To Player", "WhoAreYouPeople", "teleport_all_npcs_to_player"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Launch All NPCs", "RocketParty", "launch_all_npcs"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Launch All NPCs", "UpUpAndAway", "launch_all_npcs"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Explode All NPCs", "BoomGoesTheDynamite", "explode_all_npcs"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disarm All NPCs", "LeaveTheGunsToMe", "disarm_all_npcs"));
 
@@ -265,17 +264,30 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Steer Bias (Left)", "LeftSideBias", "steer_bias_left"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Steer Bias (Right)", "RightSideBias", "steer_bias_right"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "The Firing Circus", "TheFiringCircus", "the_firing_circus", 1000 * 5));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Random Outfit", "ASetOfNewClothes", "random_outfit"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "No Shooting Allowed", "GunsAreDangerous", "no_shooting_allowed"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Pacifist", "TillDeathDoUsPart", "pacifist"));
-
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Visible Water", "OceanManGoneAgain", "no_visible_water"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "No Water Physics", "LetsVisitAtlantis", "no_water_physics"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "No Water Physics", "FastTrackToAtlantis", "no_water_physics"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Arcade Racer Camera", "SegaRallyChampionship", "arcade_racer_camera"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Explosive Bullets", "BombasticImpact", "explosive_bullets"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Fire Bullets", "OilOnTheStreets", "fire_bullets"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Random Outfit", "ASetOfNewClothes", "random_outfit"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Pacifist", "TillDeathDoUsPart", "pacifist"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "No Shooting Allowed", "GunsAreDangerous", "no_shooting_allowed"));
+
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable Aiming", "IForgotHowToAim", "disable_aiming"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable Shooting", "IForgotHowToShoot", "disable_shooting"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable Jumping", "DisableJumping", "disable_jumping"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Aiming", "ICanOnlyAim", "forced_aiming"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Shooting", "ICanOnlyShoot", "forced_shooting"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Look Behind", "EyesInTheBack", "forced_look_behind"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Walk", "AWalkInThePark", "forced_walk"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Lock Mouse", "WhoUnpluggedMyMouse", "lock_mouse"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Shaky Hands", "IJustCantHoldStill", "shaky_hands"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Weapon Recoil", "ThoseAreSomeStrongWeapons", "weapon_recoil"));
+
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Underwater View", "HelloHowAreYouIAmUnderTheWater", "underwater_view"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Galaxy Note 7", "DangerousPhoneCalls", "galaxy_note_7"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Freeze Radar", "OutdatedMaps", "freeze_radar"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Portrait Mode", "PortraitMode", "portrait_mode"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable Jumping", "DisableJumping", "disable_jumping"));
 
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet));
@@ -291,7 +303,7 @@ namespace GtaChaos.Models.Effects
                 Effects.Add(new TeleportationEffect("Teleport To The LV Airport", "BringMeToTheLVAirport", Location.LVAirport));
                 Effects.Add(new TeleportationEffect("Teleport To Big Ear", "BringMeToBigEar", Location.LVSatellite));
                 Effects.Add(new FunctionEffect(Category.Teleportation, "Random Teleport", "LetsGoSightseeing", "random_teleport")); // Random Teleport - Teleports CJ to a random location on the map
-                Effects.Add(new FunctionEffect(Category.Teleportation, "Fake Teleport", "HahaGotYourNose", "fake_teleport", 1000 * 3)); // Fake Teleport
+                Effects.Add(new FunctionEffect(Category.Teleportation, "Fake Teleport", "HahaGotYourNose", "fake_teleport", 1000 * 5)); // Fake Teleport
                 Effects.Add(new FunctionEffect(Category.Teleportation, "Teleport To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Fake Teleport
             }
             else if (game == "vice_city")

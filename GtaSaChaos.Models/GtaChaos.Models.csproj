@@ -15,6 +15,7 @@
     <None Remove="audio\effect_honk_vehicle_4.ogg" />
     <None Remove="audio\effect_inverted_gravity.ogg" />
     <None Remove="audio\effect_lets_take_a_break.ogg" />
+    <None Remove="audio\effect_long_necks.ogg" />
     <None Remove="audio\effect_oh_hey_tanks.ogg" />
     <None Remove="audio\effect_quake_fov.ogg" />
     <None Remove="audio\effect_reload_autosave.ogg" />
@@ -36,6 +37,7 @@
     <EmbeddedResource Include="audio\effect_honk_vehicle_4.ogg" />
     <EmbeddedResource Include="audio\effect_inverted_gravity.ogg" />
     <EmbeddedResource Include="audio\effect_lets_take_a_break.ogg" />
+    <EmbeddedResource Include="audio\effect_long_necks.ogg" />
     <EmbeddedResource Include="audio\effect_oh_hey_tanks.ogg" />
     <EmbeddedResource Include="audio\effect_quake_fov.ogg" />
     <EmbeddedResource Include="audio\effect_reload_autosave.ogg" />

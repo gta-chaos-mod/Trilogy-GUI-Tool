@@ -1,0 +1,39 @@
+﻿// Copyright (c) 2019 Lordmau5
+using GTAChaos.Effects;
+using System;
+using System.Collections.Generic;
+using TwitchLib.Client;
+
+namespace GTAChaos.Utils
+{
+    public class RapidFireEventArgs : EventArgs
+    {
+        public AbstractEffect Effect { get; set; }
+    }
+
+    public interface ITwitchConnection
+    {
+        event EventHandler<RapidFireEventArgs> OnRapidFireEffect;
+
+        int GetRemaining();
+
+        TwitchClient GetTwitchClient();
+
+        void Kill();
+
+        void SendEffectVotingToGame(bool undetermined = true);
+
+        void SetVoting(int votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null);
+
+        List<IVotingElement> GetVotedEffects();
+    }
+
+    public interface IVotingElement
+    {
+        int GetId();
+
+        AbstractEffect GetEffect();
+
+        int GetVotes();
+    }
+}

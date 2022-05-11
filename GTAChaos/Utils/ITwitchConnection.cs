@@ -14,13 +14,16 @@ namespace GTAChaos.Utils
 
     public interface ITwitchConnection
     {
+        event EventHandler<EventArgs> OnConnected;
+        event EventHandler<EventArgs> OnDisconnected;
+        event EventHandler<EventArgs> OnLoginError;
         event EventHandler<RapidFireEventArgs> OnRapidFireEffect;
 
         int GetRemaining();
 
         Task<bool> TryConnect();
 
-        TwitchClient GetTwitchClient();
+        bool IsConnected();
 
         void Kill();
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -351,8 +351,8 @@
     <Compile Include="Utils\Multiplayer.cs" />
     <Compile Include="Utils\RandomHandler.cs" />
     <Compile Include="Utils\Shared.cs" />
-    <Compile Include="Utils\TwitchConnection_Chat.cs" />
-    <Compile Include="Utils\TwitchConnection_Poll.cs" />
+    <Compile Include="Utils\TwitchChatConnection.cs" />
+    <Compile Include="Utils\TwitchPollConnection.cs" />
     <Compile Include="Utils\VehicleNames.cs" />
     <Compile Include="Utils\WebsocketHandler.cs" />
     <EmbeddedResource Include="Form1.resx">

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TwitchLib.Api;
+using TwitchLib.Api.Helix.Models.Polls;
+using TwitchLib.Api.Helix.Models.Polls.CreatePoll;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
@@ -14,22 +16,28 @@ using TwitchLib.Communication.Models;
 
 namespace GTAChaos.Utils
 {
-    public class TwitchConnection_Chat : ITwitchConnection
+    public class TwitchPollConnection : ITwitchConnection
     {
         public TwitchClient Client;
         private readonly TwitchAPI api;
 
         private readonly string AccessToken;
-        private string Channel;
         private string Username;
+        private string Channel;
+        private string UserID;
 
-        private readonly ChatEffectVoting effectVoting = new ChatEffectVoting();
+        private readonly PollEffectVoting effectVoting = new PollEffectVoting();
         private readonly HashSet<string> rapidFireVoters = new HashSet<string>();
         private int VotingMode;
 
         private int lastChoice = -1;
 
-        public TwitchConnection_Chat()
+        private bool createdPoll = false;
+        private Poll activePoll;
+
+        private System.Timers.Timer activePollTimer;
+
+        public TwitchPollConnection()
         {
             AccessToken = Config.Instance().TwitchAccessToken;
 
@@ -41,23 +49,35 @@ namespace GTAChaos.Utils
             api = new TwitchAPI();
             api.Settings.ClientId = "d9rifiqcfbgz93ft16o8bsya9ho2ih";
             api.Settings.AccessToken = AccessToken;
+
+            activePollTimer = new()
+            {
+                AutoReset = true,
+                Interval = 1000
+            };
+            activePollTimer.Elapsed += ActivePollTimer_Elapsed;
+            activePollTimer.Start();
         }
 
-        public TwitchClient GetTwitchClient()
+        private async void ActivePollTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            return Client;
+            if (!createdPoll || activePoll == null) return;
+
+            List<string> pollIds = new List<string>();
+            pollIds.Add(activePoll.Id);
+
+            var polls = await api.Helix.Polls.GetPollsAsync(UserID, pollIds);
+            var updatedPoll = polls.Data[0];
+
+            activePoll = updatedPoll;
+            for (int i = 0; i < 3; i++)
+            {
+                effectVoting.SetVotes(i, activePoll.Choices[i].Votes);
+            }
         }
 
-        public async Task<bool> TryConnect()
+        private void InitializeTwitchClient()
         {
-            if (Client != null) Kill();
-
-            var data = await api.Auth.ValidateAccessTokenAsync();
-            if (data == null) return false;
-
-            Username = data.Login;
-            Channel = data.Login;
-
             ConnectionCredentials credentials = new ConnectionCredentials(Username, AccessToken);
 
             WebSocketClient customClient = new WebSocketClient(
@@ -74,37 +94,79 @@ namespace GTAChaos.Utils
             Client.OnConnected += Client_OnConnected;
 
             Client.OnConnectionError += Client_OnConnectionError;
+            Client.OnIncorrectLogin += Client_OnIncorrectLogin;
+        }
+
+        public async Task<bool> TryConnect()
+        {
+            Kill();
+
+            var data = await api.Auth.ValidateAccessTokenAsync();
+            if (data == null) return false;
+
+            Username = data.Login;
+            Channel = data.Login;
+            UserID = data.UserId;
+
+            InitializeTwitchClient();
 
             Client.Connect();
 
             return true;
         }
 
+        public bool IsConnected()
+        {
+            return Client?.IsConnected == true;
+        }
+
         private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e)
         {
             Kill();
 
-            Client.Initialize(new ConnectionCredentials(Username, AccessToken), Channel);
+            //Client?.Initialize(new ConnectionCredentials(Username, AccessToken), Channel);
 
-            Client.Connect();
+            //Client?.Connect();
         }
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
+            OnConnected?.Invoke(this, e);
+
             SendMessage("Connected!");
+        }
+
+        private void Client_OnIncorrectLogin(object sender, OnIncorrectLoginArgs e)
+        {
+            OnLoginError?.Invoke(sender, e);
         }
 
         public void Kill()
         {
-            Client.Disconnect();
+            if (Client != null)
+            {
+                OnDisconnected?.Invoke(this, new EventArgs());
+
+                Client.OnMessageReceived -= Client_OnMessageReceived;
+                Client.OnConnected -= Client_OnConnected;
+
+                Client.OnConnectionError -= Client_OnConnectionError;
+                Client.OnIncorrectLogin -= Client_OnIncorrectLogin;
+
+                Client.Disconnect();
+            }
+
+            Client = null;
         }
 
         public int GetRemaining()
         {
-            return 0;
+            if (activePoll == null) return -1;
+            if (activePoll.Status == "COMPLETED") return 0;
+            return activePoll.DurationSeconds;
         }
 
-        public void SetVoting(int votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null)
+        public async void SetVoting(int votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null)
         {
             VotingMode = votingMode;
             if (VotingMode == 1)
@@ -113,33 +175,79 @@ namespace GTAChaos.Utils
                 effectVoting.GenerateRandomEffects();
                 lastChoice = -1;
 
-                if (Config.Instance().TwitchCombineChatMessages)
+                if (Config.Instance().TwitchPollsPostMessages)
                 {
-                    string messageToSend = "Voting has started! Type 1, 2 or 3 (or #1, #2, #3) to vote for one of the effects! ";
-
-                    foreach (ChatVotingElement element in effectVoting.GetVotingElements())
+                    if (Config.Instance().TwitchCombineChatMessages)
                     {
-                        string description = element.Effect.GetDisplayName();
-                        messageToSend += $"#{element.Id + 1}: {description}. ";
-                    }
+                        string messageToSend = "Voting has started! ";
 
-                    SendMessage(messageToSend);
+                        foreach (PollVotingElement element in effectVoting.GetVotingElements())
+                        {
+                            string description = element.Effect.GetDisplayName();
+                            messageToSend += $"#{element.Id + 1}: {description}. ";
+                        }
+
+                        SendMessage(messageToSend);
+                    }
+                    else
+                    {
+                        SendMessage("Voting has started!");
+
+                        foreach (PollVotingElement element in effectVoting.GetVotingElements())
+                        {
+                            string description = element.Effect.GetDisplayName();
+                            SendMessage($"#{element.Id + 1}: {description}");
+                        }
+                    }
                 }
-                else
+
+                CreatePollRequest createPoll = new CreatePollRequest()
                 {
-                    SendMessage("Voting has started! Type 1, 2 or 3 (or #1, #2, #3) to vote for one of the effects!");
+                    Title = "[GTA Chaos] Next Effect",
+                    BroadcasterId = UserID,
+                    DurationSeconds = Config.Instance().TwitchVotingTime / 1000,
+                    Choices = effectVoting.GetPollChoices(),
+                    BitsVotingEnabled = Config.Instance().TwitchPollsBitsCost != 0,
+                    BitsPerVote = Config.Instance().TwitchPollsBitsCost,
+                    ChannelPointsVotingEnabled = Config.Instance().TwitchPollsBitsCost != 0,
+                    ChannelPointsPerVote = Config.Instance().TwitchPollsBitsCost,
+                };
 
-                    foreach (ChatVotingElement element in effectVoting.GetVotingElements())
-                    {
-                        string description = element.Effect.GetDisplayName();
-                        SendMessage($"#{element.Id + 1}: {description}");
-                    }
-                }
+                activePoll = (await api.Helix.Polls.CreatePollAsync(createPoll)).Data[0];
+                createdPoll = true;
+
+                //SocketBroadcast(JsonConvert.SerializeObject(createPoll));
             }
             else if (VotingMode == 2)
             {
                 rapidFireVoters.Clear();
                 SendMessage("ATTENTION, ALL GAMERS! RAPID-FIRE HAS BEGUN! VALID EFFECTS WILL BE ENABLED FOR 15 SECONDS!");
+            }
+            else if (VotingMode == 3) // Poll Failed
+            {
+                SendEffectVotingToGame(false);
+
+                if (Config.Instance().TwitchEnableRapidFire)
+                {
+                    SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Poll Failed :(");
+
+                    if (untilRapidFire == 1)
+                    {
+                        SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+                    }
+                }
+                else
+                {
+                    SendMessage($"Cooldown has started! - Poll Failed :(");
+                }
+
+                // Make sure we end poll, thank
+                //if (activePoll != null)
+                //{
+                //    var response = api.Helix.Polls.EndPollAsync(UserID, activePoll.Id, TwitchLib.Api.Core.Enums.PollStatusEnum.ARCHIVED);
+                //}
+                activePoll = null;
+                createdPoll = false;
             }
             else
             {
@@ -152,6 +260,7 @@ namespace GTAChaos.Utils
                     if (Config.Instance().TwitchEnableRapidFire)
                     {
                         SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Enabled effects: {allEffects}");
+
                         if (untilRapidFire == 1)
                         {
                             SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
@@ -161,12 +270,21 @@ namespace GTAChaos.Utils
                     {
                         SendMessage($"Cooldown has started! - Enabled effects: {allEffects}");
                     }
+
+                    // Make sure we end poll, thank
+                    //if (activePoll != null)
+                    //{
+                    //    var response = api.Helix.Polls.EndPollAsync(UserID, activePoll.Id, TwitchLib.Api.Core.Enums.PollStatusEnum.ARCHIVED);
+                    //}
+                    activePoll = null;
+                    createdPoll = false;
                 }
                 else
                 {
                     if (Config.Instance().TwitchEnableRapidFire)
                     {
                         SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire)");
+
                         if (untilRapidFire == 1)
                         {
                             SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
@@ -176,7 +294,6 @@ namespace GTAChaos.Utils
                     {
                         SendMessage($"Cooldown has started!");
                     }
-
                 }
             }
         }
@@ -193,7 +310,7 @@ namespace GTAChaos.Utils
 
         private void SendMessage(string message, bool prefix = true)
         {
-            if (Channel != null && message != null)
+            if (IsConnected() && Channel != null && message != null)
             {
                 if (!Client.IsConnected)
                 {
@@ -216,6 +333,7 @@ namespace GTAChaos.Utils
             string username = e.ChatMessage.Username;
             string message = RemoveSpecialCharacters(e.ChatMessage.Message);
 
+            // Rapid Fire
             if (VotingMode == 2)
             {
                 if (rapidFireVoters.Contains(username))
@@ -238,31 +356,11 @@ namespace GTAChaos.Utils
 
                 return;
             }
-            else if (VotingMode == 1)
-            {
-                int choice = TryParseUserChoice(message);
-                if (choice >= 0 && choice <= 2)
-                {
-                    effectVoting?.TryAddVote(username, choice);
-                }
-            }
         }
 
         private string RemoveSpecialCharacters(string text)
         {
             return Regex.Replace(text, @"[^A-Za-z0-9]", "");
-        }
-
-        private int TryParseUserChoice(string text)
-        {
-            try
-            {
-                return int.Parse(text) - 1;
-            }
-            catch
-            {
-                return -1;
-            }
         }
 
         public void SendEffectVotingToGame(bool undetermined = true)
@@ -284,15 +382,13 @@ namespace GTAChaos.Utils
             }
         }
 
-        private class ChatEffectVoting
+        private class PollEffectVoting
         {
-            private readonly List<ChatVotingElement> votingElements;
-            private readonly Dictionary<string, ChatVotingElement> voters;
+            private readonly List<PollVotingElement> votingElements;
 
-            public ChatEffectVoting()
+            public PollEffectVoting()
             {
-                votingElements = new List<ChatVotingElement>();
-                voters = new Dictionary<string, ChatVotingElement>();
+                votingElements = new List<PollVotingElement>();
             }
 
             public bool IsEmpty()
@@ -303,12 +399,38 @@ namespace GTAChaos.Utils
             public void Clear()
             {
                 votingElements.Clear();
-                voters.Clear();
             }
 
-            public List<ChatVotingElement> GetVotingElements()
+            public List<PollVotingElement> GetVotingElements()
             {
                 return votingElements;
+            }
+
+            public TwitchLib.Api.Helix.Models.Polls.CreatePoll.Choice[] GetPollChoices()
+            {
+                var choices = new List<TwitchLib.Api.Helix.Models.Polls.CreatePoll.Choice>();
+
+                foreach (var element in GetVotingElements())
+                {
+                    string description = element.Effect.GetDisplayName();
+                    if (element.Effect.Word.Equals("HONKHONK"))
+                    {
+                        // Twitch doesn't like honks, so Honk Honk, everyone!
+                        description = description.Replace("O", "ഠ");
+                    }
+                    else if (element.Effect.Word.Equals("LoveConquersAll"))
+                    {
+                        // Twitch apparently also doesn't like the word "kinky", so let's do more magic!
+                        description = description.Replace("i", "ὶ");
+                    }
+
+                    choices.Add(new TwitchLib.Api.Helix.Models.Polls.CreatePoll.Choice()
+                    {
+                        Title = description
+                    });
+                }
+
+                return choices.ToArray();
             }
 
             public bool ContainsEffect(AbstractEffect effect)
@@ -318,12 +440,12 @@ namespace GTAChaos.Utils
 
             public void AddEffect(AbstractEffect effect)
             {
-                votingElements.Add(new ChatVotingElement(votingElements.Count, effect));
+                votingElements.Add(new PollVotingElement(votingElements.Count, effect));
             }
 
             public void GetVotes(out string[] effects, out int[] votes, bool undetermined = false)
             {
-                ChatVotingElement[] votingElements = GetVotingElements().ToArray();
+                PollVotingElement[] votingElements = GetVotingElements().ToArray();
 
                 effects = new string[]
                 {
@@ -334,10 +456,17 @@ namespace GTAChaos.Utils
 
                 votes = new int[]
                 {
-                    votingElements[0].Voters.Count,
-                    votingElements[1].Voters.Count,
-                    votingElements[2].Voters.Count
+                    votingElements[0].Votes,
+                    votingElements[1].Votes,
+                    votingElements[2].Votes
                 };
+            }
+
+            public void SetVotes(int elementId, int votes)
+            {
+                if (elementId < 0 || elementId > 2) return;
+
+                if (votingElements.Count > elementId) votingElements[elementId].Votes = votes;
             }
 
             public void GenerateRandomEffects()
@@ -366,14 +495,14 @@ namespace GTAChaos.Utils
             {
                 // If there are effects that have the same amount of votes, get a random one
                 int maxVotes = 0;
-                ChatVotingElement[] elements = votingElements.OrderByDescending(e =>
+                PollVotingElement[] elements = votingElements.OrderByDescending(e =>
                 {
-                    if (e.Voters.Count > maxVotes)
+                    if (e.Votes > maxVotes)
                     {
-                        maxVotes = e.Voters.Count;
+                        maxVotes = e.Votes;
                     }
-                    return e.Voters.Count;
-                }).Where(e => e.Voters.Count == maxVotes).ToArray();
+                    return e.Votes;
+                }).Where(e => e.Votes == maxVotes).ToArray();
 
                 List<IVotingElement> votes = new List<IVotingElement>();
                 if (Config.Instance().TwitchEnableMultipleEffects)
@@ -393,7 +522,7 @@ namespace GTAChaos.Utils
 
                 // Calculate total votes
                 int totalVotes = 0;
-                votingElements.ForEach(e => totalVotes += e.Voters.Count);
+                votingElements.ForEach(e => totalVotes += e.Votes);
 
                 if (totalVotes == 0)
                 {
@@ -423,14 +552,14 @@ namespace GTAChaos.Utils
                  * rN <= 20 -> Add, then break
                  */
 
-                // Calculate random number
+                // Calculate random number - TODO: Use Seed
                 int randomNumber = new Random().Next(totalVotes) + 1;
 
                 foreach (var e in votingElements)
                 {
-                    if (randomNumber > e.Voters.Count)
+                    if (randomNumber > e.Votes)
                     {
-                        randomNumber -= e.Voters.Count;
+                        randomNumber -= e.Votes;
                         continue;
                     }
 
@@ -439,35 +568,20 @@ namespace GTAChaos.Utils
                 }
                 return votes;
             }
-
-            public void TryAddVote(string username, int effectChoice)
-            {
-                votingElements.ForEach(e => e.RemoveVoter(username));
-                votingElements[effectChoice].AddVoter(username);
-                voters[username] = votingElements[effectChoice];
-            }
         }
 
-        public event EventHandler<RapidFireEventArgs> OnRapidFireEffect;
-
-        public virtual void RapidFireEffect(RapidFireEventArgs e)
-        {
-            OnRapidFireEffect?.Invoke(this, e);
-        }
-
-        public class ChatVotingElement : IVotingElement
+        public class PollVotingElement : IVotingElement
         {
             public int Id { get; set; }
 
             public AbstractEffect Effect { get; set; }
 
-            public HashSet<string> Voters { get; set; }
+            public int Votes { get; set; }
 
-            public ChatVotingElement(int id, AbstractEffect effect)
+            public PollVotingElement(int id, AbstractEffect effect)
             {
                 Id = id;
                 Effect = effect;
-                Voters = new HashSet<string>();
             }
 
             public int GetId()
@@ -482,23 +596,19 @@ namespace GTAChaos.Utils
 
             public int GetVotes()
             {
-                return Voters.Count;
+                return Votes;
             }
+        }
 
-            public bool ContainsVoter(string username)
-            {
-                return Voters.Contains(username);
-            }
+        // Events
+        public event EventHandler<EventArgs> OnConnected;
+        public event EventHandler<EventArgs> OnDisconnected;
+        public event EventHandler<EventArgs> OnLoginError;
+        public event EventHandler<RapidFireEventArgs> OnRapidFireEffect;
 
-            public void AddVoter(string username)
-            {
-                Voters.Add(username);
-            }
-
-            public void RemoveVoter(string username)
-            {
-                Voters.Remove(username);
-            }
+        public virtual void RapidFireEffect(RapidFireEventArgs e)
+        {
+            OnRapidFireEffect?.Invoke(this, e);
         }
     }
 }

@@ -40,6 +40,7 @@ namespace GTAChaos.Forms
             this.comboBoxMainCooldown = new System.Windows.Forms.ComboBox();
             this.listLastEffectsMain = new System.Windows.Forms.ListBox();
             this.tabTwitch = new System.Windows.Forms.TabPage();
+            this.labelTwitchAccessToken = new System.Windows.Forms.Label();
             this.linkLabelTwitchGetAccessToken = new System.Windows.Forms.LinkLabel();
             this.checkBoxTwitchCombineVotingMessages = new System.Windows.Forms.CheckBox();
             this.checkBoxTwitchUsePolls = new System.Windows.Forms.CheckBox();
@@ -103,7 +104,6 @@ namespace GTAChaos.Forms
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
-            this.labelTwitchAccessToken = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabTwitch.SuspendLayout();
@@ -132,7 +132,7 @@ namespace GTAChaos.Forms
             this.progressBarMain.Location = new System.Drawing.Point(206, 6);
             this.progressBarMain.Maximum = 60;
             this.progressBarMain.Name = "progressBarMain";
-            this.progressBarMain.Size = new System.Drawing.Size(362, 23);
+            this.progressBarMain.Size = new System.Drawing.Size(338, 23);
             this.progressBarMain.Step = 1;
             this.progressBarMain.TabIndex = 1;
             // 
@@ -145,10 +145,10 @@ namespace GTAChaos.Forms
             this.tabs.Controls.Add(this.tabSettings);
             this.tabs.Controls.Add(this.tabMultiplayer);
             this.tabs.Controls.Add(this.tabExperimental);
-            this.tabs.Location = new System.Drawing.Point(0, 56);
+            this.tabs.Location = new System.Drawing.Point(0, 41);
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(584, 355);
+            this.tabs.Size = new System.Drawing.Size(558, 318);
             this.tabs.TabIndex = 4;
             // 
             // tabMain
@@ -164,7 +164,7 @@ namespace GTAChaos.Forms
             this.tabMain.Location = new System.Drawing.Point(4, 22);
             this.tabMain.Name = "tabMain";
             this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMain.Size = new System.Drawing.Size(576, 329);
+            this.tabMain.Size = new System.Drawing.Size(550, 292);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main";
             // 
@@ -173,7 +173,7 @@ namespace GTAChaos.Forms
             this.checkBoxShowLastEffectsMain.AutoSize = true;
             this.checkBoxShowLastEffectsMain.Checked = true;
             this.checkBoxShowLastEffectsMain.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowLastEffectsMain.Location = new System.Drawing.Point(6, 114);
+            this.checkBoxShowLastEffectsMain.Location = new System.Drawing.Point(6, 111);
             this.checkBoxShowLastEffectsMain.Name = "checkBoxShowLastEffectsMain";
             this.checkBoxShowLastEffectsMain.Size = new System.Drawing.Size(112, 17);
             this.checkBoxShowLastEffectsMain.TabIndex = 8;
@@ -194,7 +194,7 @@ namespace GTAChaos.Forms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(384, 38);
+            this.label2.Location = new System.Drawing.Point(360, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 6;
@@ -203,7 +203,7 @@ namespace GTAChaos.Forms
             // comboBoxMainCooldown
             // 
             this.comboBoxMainCooldown.FormattingEnabled = true;
-            this.comboBoxMainCooldown.Location = new System.Drawing.Point(447, 35);
+            this.comboBoxMainCooldown.Location = new System.Drawing.Point(423, 35);
             this.comboBoxMainCooldown.Name = "comboBoxMainCooldown";
             this.comboBoxMainCooldown.Size = new System.Drawing.Size(121, 21);
             this.comboBoxMainCooldown.TabIndex = 5;
@@ -212,9 +212,9 @@ namespace GTAChaos.Forms
             // listLastEffectsMain
             // 
             this.listLastEffectsMain.FormattingEnabled = true;
-            this.listLastEffectsMain.Location = new System.Drawing.Point(6, 137);
+            this.listLastEffectsMain.Location = new System.Drawing.Point(6, 134);
             this.listLastEffectsMain.Name = "listLastEffectsMain";
-            this.listLastEffectsMain.Size = new System.Drawing.Size(562, 186);
+            this.listLastEffectsMain.Size = new System.Drawing.Size(538, 147);
             this.listLastEffectsMain.TabIndex = 4;
             // 
             // tabTwitch
@@ -243,14 +243,23 @@ namespace GTAChaos.Forms
             this.tabTwitch.Controls.Add(this.buttonConnectTwitch);
             this.tabTwitch.Location = new System.Drawing.Point(4, 22);
             this.tabTwitch.Name = "tabTwitch";
-            this.tabTwitch.Size = new System.Drawing.Size(576, 329);
+            this.tabTwitch.Size = new System.Drawing.Size(550, 292);
             this.tabTwitch.TabIndex = 2;
             this.tabTwitch.Text = "Twitch";
+            // 
+            // labelTwitchAccessToken
+            // 
+            this.labelTwitchAccessToken.AutoSize = true;
+            this.labelTwitchAccessToken.Location = new System.Drawing.Point(25, 11);
+            this.labelTwitchAccessToken.Name = "labelTwitchAccessToken";
+            this.labelTwitchAccessToken.Size = new System.Drawing.Size(79, 13);
+            this.labelTwitchAccessToken.TabIndex = 31;
+            this.labelTwitchAccessToken.Text = "Access Token:";
             // 
             // linkLabelTwitchGetAccessToken
             // 
             this.linkLabelTwitchGetAccessToken.AutoSize = true;
-            this.linkLabelTwitchGetAccessToken.Location = new System.Drawing.Point(472, 35);
+            this.linkLabelTwitchGetAccessToken.Location = new System.Drawing.Point(448, 35);
             this.linkLabelTwitchGetAccessToken.Name = "linkLabelTwitchGetAccessToken";
             this.linkLabelTwitchGetAccessToken.Size = new System.Drawing.Size(96, 13);
             this.linkLabelTwitchGetAccessToken.TabIndex = 30;
@@ -261,7 +270,7 @@ namespace GTAChaos.Forms
             // checkBoxTwitchCombineVotingMessages
             // 
             this.checkBoxTwitchCombineVotingMessages.AutoSize = true;
-            this.checkBoxTwitchCombineVotingMessages.Location = new System.Drawing.Point(124, 164);
+            this.checkBoxTwitchCombineVotingMessages.Location = new System.Drawing.Point(124, 121);
             this.checkBoxTwitchCombineVotingMessages.Name = "checkBoxTwitchCombineVotingMessages";
             this.checkBoxTwitchCombineVotingMessages.Size = new System.Drawing.Size(186, 17);
             this.checkBoxTwitchCombineVotingMessages.TabIndex = 29;
@@ -271,7 +280,7 @@ namespace GTAChaos.Forms
             // checkBoxTwitchUsePolls
             // 
             this.checkBoxTwitchUsePolls.AutoSize = true;
-            this.checkBoxTwitchUsePolls.Location = new System.Drawing.Point(415, 159);
+            this.checkBoxTwitchUsePolls.Location = new System.Drawing.Point(391, 64);
             this.checkBoxTwitchUsePolls.Name = "checkBoxTwitchUsePolls";
             this.checkBoxTwitchUsePolls.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBoxTwitchUsePolls.Size = new System.Drawing.Size(153, 17);
@@ -287,7 +296,7 @@ namespace GTAChaos.Forms
             this.checkBoxTwitchMajorityVotes.AutoSize = true;
             this.checkBoxTwitchMajorityVotes.Checked = true;
             this.checkBoxTwitchMajorityVotes.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTwitchMajorityVotes.Location = new System.Drawing.Point(441, 136);
+            this.checkBoxTwitchMajorityVotes.Location = new System.Drawing.Point(417, 116);
             this.checkBoxTwitchMajorityVotes.Name = "checkBoxTwitchMajorityVotes";
             this.checkBoxTwitchMajorityVotes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBoxTwitchMajorityVotes.Size = new System.Drawing.Size(127, 17);
@@ -302,7 +311,7 @@ namespace GTAChaos.Forms
             this.checkBoxTwitchEnableRapidFire.AutoSize = true;
             this.checkBoxTwitchEnableRapidFire.Checked = true;
             this.checkBoxTwitchEnableRapidFire.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTwitchEnableRapidFire.Location = new System.Drawing.Point(458, 228);
+            this.checkBoxTwitchEnableRapidFire.Location = new System.Drawing.Point(434, 185);
             this.checkBoxTwitchEnableRapidFire.Name = "checkBoxTwitchEnableRapidFire";
             this.checkBoxTwitchEnableRapidFire.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBoxTwitchEnableRapidFire.Size = new System.Drawing.Size(110, 17);
@@ -314,7 +323,7 @@ namespace GTAChaos.Forms
             // checkBoxTwitchEnableMultipleEffects
             // 
             this.checkBoxTwitchEnableMultipleEffects.AutoSize = true;
-            this.checkBoxTwitchEnableMultipleEffects.Location = new System.Drawing.Point(442, 182);
+            this.checkBoxTwitchEnableMultipleEffects.Location = new System.Drawing.Point(418, 139);
             this.checkBoxTwitchEnableMultipleEffects.Name = "checkBoxTwitchEnableMultipleEffects";
             this.checkBoxTwitchEnableMultipleEffects.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBoxTwitchEnableMultipleEffects.Size = new System.Drawing.Size(126, 17);
@@ -328,7 +337,7 @@ namespace GTAChaos.Forms
             this.checkBoxTwitch3TimesCooldown.AutoSize = true;
             this.checkBoxTwitch3TimesCooldown.Checked = true;
             this.checkBoxTwitch3TimesCooldown.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTwitch3TimesCooldown.Location = new System.Drawing.Point(481, 205);
+            this.checkBoxTwitch3TimesCooldown.Location = new System.Drawing.Point(457, 162);
             this.checkBoxTwitch3TimesCooldown.Name = "checkBoxTwitch3TimesCooldown";
             this.checkBoxTwitch3TimesCooldown.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBoxTwitch3TimesCooldown.Size = new System.Drawing.Size(87, 17);
@@ -353,7 +362,7 @@ namespace GTAChaos.Forms
             // checkBoxTwitchAllowOnlyEnabledEffects
             // 
             this.checkBoxTwitchAllowOnlyEnabledEffects.AutoSize = true;
-            this.checkBoxTwitchAllowOnlyEnabledEffects.Location = new System.Drawing.Point(420, 250);
+            this.checkBoxTwitchAllowOnlyEnabledEffects.Location = new System.Drawing.Point(396, 207);
             this.checkBoxTwitchAllowOnlyEnabledEffects.Name = "checkBoxTwitchAllowOnlyEnabledEffects";
             this.checkBoxTwitchAllowOnlyEnabledEffects.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBoxTwitchAllowOnlyEnabledEffects.Size = new System.Drawing.Size(148, 17);
@@ -369,7 +378,7 @@ namespace GTAChaos.Forms
             this.checkBoxShowLastEffectsTwitch.AutoSize = true;
             this.checkBoxShowLastEffectsTwitch.Checked = true;
             this.checkBoxShowLastEffectsTwitch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowLastEffectsTwitch.Location = new System.Drawing.Point(8, 164);
+            this.checkBoxShowLastEffectsTwitch.Location = new System.Drawing.Point(8, 121);
             this.checkBoxShowLastEffectsTwitch.Name = "checkBoxShowLastEffectsTwitch";
             this.checkBoxShowLastEffectsTwitch.Size = new System.Drawing.Size(112, 17);
             this.checkBoxShowLastEffectsTwitch.TabIndex = 18;
@@ -380,7 +389,7 @@ namespace GTAChaos.Forms
             // labelTwitchCurrentMode
             // 
             this.labelTwitchCurrentMode.AutoSize = true;
-            this.labelTwitchCurrentMode.Location = new System.Drawing.Point(8, 90);
+            this.labelTwitchCurrentMode.Location = new System.Drawing.Point(8, 71);
             this.labelTwitchCurrentMode.Name = "labelTwitchCurrentMode";
             this.labelTwitchCurrentMode.Size = new System.Drawing.Size(124, 13);
             this.labelTwitchCurrentMode.TabIndex = 17;
@@ -400,7 +409,7 @@ namespace GTAChaos.Forms
             // comboBoxVotingCooldown
             // 
             this.comboBoxVotingCooldown.FormattingEnabled = true;
-            this.comboBoxVotingCooldown.Location = new System.Drawing.Point(413, 300);
+            this.comboBoxVotingCooldown.Location = new System.Drawing.Point(389, 257);
             this.comboBoxVotingCooldown.Name = "comboBoxVotingCooldown";
             this.comboBoxVotingCooldown.Size = new System.Drawing.Size(155, 21);
             this.comboBoxVotingCooldown.TabIndex = 14;
@@ -409,7 +418,7 @@ namespace GTAChaos.Forms
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(317, 303);
+            this.label7.Location = new System.Drawing.Point(293, 260);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(90, 13);
             this.label7.TabIndex = 13;
@@ -418,7 +427,7 @@ namespace GTAChaos.Forms
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(341, 276);
+            this.label6.Location = new System.Drawing.Point(317, 233);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(66, 13);
             this.label6.TabIndex = 12;
@@ -427,7 +436,7 @@ namespace GTAChaos.Forms
             // comboBoxVotingTime
             // 
             this.comboBoxVotingTime.FormattingEnabled = true;
-            this.comboBoxVotingTime.Location = new System.Drawing.Point(413, 273);
+            this.comboBoxVotingTime.Location = new System.Drawing.Point(389, 230);
             this.comboBoxVotingTime.Name = "comboBoxVotingTime";
             this.comboBoxVotingTime.Size = new System.Drawing.Size(155, 21);
             this.comboBoxVotingTime.TabIndex = 11;
@@ -435,34 +444,34 @@ namespace GTAChaos.Forms
             // 
             // progressBarTwitch
             // 
-            this.progressBarTwitch.Location = new System.Drawing.Point(8, 64);
+            this.progressBarTwitch.Location = new System.Drawing.Point(8, 87);
             this.progressBarTwitch.Name = "progressBarTwitch";
-            this.progressBarTwitch.Size = new System.Drawing.Size(560, 23);
+            this.progressBarTwitch.Size = new System.Drawing.Size(536, 23);
             this.progressBarTwitch.TabIndex = 10;
             // 
             // listLastEffectsTwitch
             // 
             this.listLastEffectsTwitch.FormattingEnabled = true;
-            this.listLastEffectsTwitch.Location = new System.Drawing.Point(8, 187);
+            this.listLastEffectsTwitch.Location = new System.Drawing.Point(8, 144);
             this.listLastEffectsTwitch.Name = "listLastEffectsTwitch";
-            this.listLastEffectsTwitch.Size = new System.Drawing.Size(303, 134);
+            this.listLastEffectsTwitch.Size = new System.Drawing.Size(273, 134);
             this.listLastEffectsTwitch.TabIndex = 8;
             // 
             // textBoxTwitchAccessToken
             // 
-            this.textBoxTwitchAccessToken.Location = new System.Drawing.Point(110, 8);
+            this.textBoxTwitchAccessToken.Location = new System.Drawing.Point(110, 7);
             this.textBoxTwitchAccessToken.Name = "textBoxTwitchAccessToken";
             this.textBoxTwitchAccessToken.PasswordChar = '*';
-            this.textBoxTwitchAccessToken.Size = new System.Drawing.Size(297, 20);
+            this.textBoxTwitchAccessToken.Size = new System.Drawing.Size(307, 20);
             this.textBoxTwitchAccessToken.TabIndex = 3;
             this.textBoxTwitchAccessToken.TextChanged += new System.EventHandler(this.TextBoxOAuth_TextChanged);
             // 
             // buttonConnectTwitch
             // 
             this.buttonConnectTwitch.Enabled = false;
-            this.buttonConnectTwitch.Location = new System.Drawing.Point(413, 6);
+            this.buttonConnectTwitch.Location = new System.Drawing.Point(423, 6);
             this.buttonConnectTwitch.Name = "buttonConnectTwitch";
-            this.buttonConnectTwitch.Size = new System.Drawing.Size(155, 23);
+            this.buttonConnectTwitch.Size = new System.Drawing.Size(121, 22);
             this.buttonConnectTwitch.TabIndex = 1;
             this.buttonConnectTwitch.Text = "Connect to Twitch";
             this.buttonConnectTwitch.UseVisualStyleBackColor = true;
@@ -479,7 +488,7 @@ namespace GTAChaos.Forms
             this.tabPolls.Location = new System.Drawing.Point(4, 22);
             this.tabPolls.Name = "tabPolls";
             this.tabPolls.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPolls.Size = new System.Drawing.Size(576, 329);
+            this.tabPolls.Size = new System.Drawing.Size(550, 292);
             this.tabPolls.TabIndex = 5;
             this.tabPolls.Text = "Polls";
             // 
@@ -547,15 +556,15 @@ namespace GTAChaos.Forms
             this.tabEffects.Location = new System.Drawing.Point(4, 22);
             this.tabEffects.Name = "tabEffects";
             this.tabEffects.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEffects.Size = new System.Drawing.Size(576, 329);
+            this.tabEffects.Size = new System.Drawing.Size(550, 292);
             this.tabEffects.TabIndex = 1;
             this.tabEffects.Text = "Effects";
             // 
             // buttonEffectsToggleAll
             // 
-            this.buttonEffectsToggleAll.Location = new System.Drawing.Point(6, 298);
+            this.buttonEffectsToggleAll.Location = new System.Drawing.Point(6, 259);
             this.buttonEffectsToggleAll.Name = "buttonEffectsToggleAll";
-            this.buttonEffectsToggleAll.Size = new System.Drawing.Size(562, 23);
+            this.buttonEffectsToggleAll.Size = new System.Drawing.Size(538, 23);
             this.buttonEffectsToggleAll.TabIndex = 7;
             this.buttonEffectsToggleAll.Text = "Toggle All";
             this.buttonEffectsToggleAll.UseVisualStyleBackColor = true;
@@ -566,7 +575,7 @@ namespace GTAChaos.Forms
             this.enabledEffectsView.CheckBoxes = true;
             this.enabledEffectsView.Location = new System.Drawing.Point(6, 6);
             this.enabledEffectsView.Name = "enabledEffectsView";
-            this.enabledEffectsView.Size = new System.Drawing.Size(562, 286);
+            this.enabledEffectsView.Size = new System.Drawing.Size(538, 247);
             this.enabledEffectsView.TabIndex = 3;
             this.enabledEffectsView.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.EnabledEffectsView_AfterCheck);
             this.enabledEffectsView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.EnabledEffectsView_NodeMouseDoubleClick);
@@ -580,7 +589,7 @@ namespace GTAChaos.Forms
             this.tabSettings.Location = new System.Drawing.Point(4, 22);
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(576, 329);
+            this.tabSettings.Size = new System.Drawing.Size(550, 292);
             this.tabSettings.TabIndex = 3;
             this.tabSettings.Text = "Settings";
             // 
@@ -589,7 +598,7 @@ namespace GTAChaos.Forms
             this.checkBoxPlayAudioForEffects.AutoSize = true;
             this.checkBoxPlayAudioForEffects.Checked = true;
             this.checkBoxPlayAudioForEffects.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxPlayAudioForEffects.Location = new System.Drawing.Point(8, 304);
+            this.checkBoxPlayAudioForEffects.Location = new System.Drawing.Point(9, 32);
             this.checkBoxPlayAudioForEffects.Name = "checkBoxPlayAudioForEffects";
             this.checkBoxPlayAudioForEffects.Size = new System.Drawing.Size(130, 17);
             this.checkBoxPlayAudioForEffects.TabIndex = 8;
@@ -613,7 +622,7 @@ namespace GTAChaos.Forms
             // 
             this.textBoxSeed.Location = new System.Drawing.Point(47, 6);
             this.textBoxSeed.Name = "textBoxSeed";
-            this.textBoxSeed.Size = new System.Drawing.Size(521, 20);
+            this.textBoxSeed.Size = new System.Drawing.Size(497, 20);
             this.textBoxSeed.TabIndex = 1;
             this.textBoxSeed.TextChanged += new System.EventHandler(this.TextBoxSeed_TextChanged);
             // 
@@ -635,16 +644,16 @@ namespace GTAChaos.Forms
             this.tabMultiplayer.Name = "tabMultiplayer";
             this.tabMultiplayer.Padding = new System.Windows.Forms.Padding(3);
             this.tabMultiplayer.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabMultiplayer.Size = new System.Drawing.Size(576, 329);
+            this.tabMultiplayer.Size = new System.Drawing.Size(550, 292);
             this.tabMultiplayer.TabIndex = 6;
             this.tabMultiplayer.Text = "Multiplayer";
             // 
             // buttonMultiplayerSend
             // 
             this.buttonMultiplayerSend.Enabled = false;
-            this.buttonMultiplayerSend.Location = new System.Drawing.Point(481, 301);
+            this.buttonMultiplayerSend.Location = new System.Drawing.Point(457, 260);
             this.buttonMultiplayerSend.Name = "buttonMultiplayerSend";
-            this.buttonMultiplayerSend.Size = new System.Drawing.Size(87, 20);
+            this.buttonMultiplayerSend.Size = new System.Drawing.Size(87, 22);
             this.buttonMultiplayerSend.TabIndex = 10;
             this.buttonMultiplayerSend.Text = "Send";
             this.buttonMultiplayerSend.UseVisualStyleBackColor = true;
@@ -652,10 +661,10 @@ namespace GTAChaos.Forms
             // 
             // textBoxMultiplayerChat
             // 
-            this.textBoxMultiplayerChat.Location = new System.Drawing.Point(6, 301);
+            this.textBoxMultiplayerChat.Location = new System.Drawing.Point(6, 261);
             this.textBoxMultiplayerChat.MaxLength = 128;
             this.textBoxMultiplayerChat.Name = "textBoxMultiplayerChat";
-            this.textBoxMultiplayerChat.Size = new System.Drawing.Size(469, 20);
+            this.textBoxMultiplayerChat.Size = new System.Drawing.Size(445, 20);
             this.textBoxMultiplayerChat.TabIndex = 9;
             this.textBoxMultiplayerChat.TextChanged += new System.EventHandler(this.TextBoxMultiplayerChat_TextChanged);
             this.textBoxMultiplayerChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxMultiplayerChat_KeyDown);
@@ -663,10 +672,10 @@ namespace GTAChaos.Forms
             // listBoxMultiplayerChat
             // 
             this.listBoxMultiplayerChat.FormattingEnabled = true;
-            this.listBoxMultiplayerChat.Location = new System.Drawing.Point(6, 96);
+            this.listBoxMultiplayerChat.Location = new System.Drawing.Point(6, 95);
             this.listBoxMultiplayerChat.Name = "listBoxMultiplayerChat";
             this.listBoxMultiplayerChat.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBoxMultiplayerChat.Size = new System.Drawing.Size(562, 199);
+            this.listBoxMultiplayerChat.Size = new System.Drawing.Size(538, 160);
             this.listBoxMultiplayerChat.TabIndex = 8;
             // 
             // labelMultiplayerHost
@@ -736,7 +745,7 @@ namespace GTAChaos.Forms
             this.buttonMultiplayerConnect.Enabled = false;
             this.buttonMultiplayerConnect.Location = new System.Drawing.Point(404, 31);
             this.buttonMultiplayerConnect.Name = "buttonMultiplayerConnect";
-            this.buttonMultiplayerConnect.Size = new System.Drawing.Size(164, 23);
+            this.buttonMultiplayerConnect.Size = new System.Drawing.Size(140, 22);
             this.buttonMultiplayerConnect.TabIndex = 4;
             this.buttonMultiplayerConnect.Text = "Connect";
             this.buttonMultiplayerConnect.UseVisualStyleBackColor = true;
@@ -752,15 +761,15 @@ namespace GTAChaos.Forms
             this.tabExperimental.Location = new System.Drawing.Point(4, 22);
             this.tabExperimental.Name = "tabExperimental";
             this.tabExperimental.Padding = new System.Windows.Forms.Padding(3);
-            this.tabExperimental.Size = new System.Drawing.Size(576, 329);
+            this.tabExperimental.Size = new System.Drawing.Size(550, 292);
             this.tabExperimental.TabIndex = 7;
             this.tabExperimental.Text = "Experimental";
             // 
             // buttonExperimentalRunEffect
             // 
-            this.buttonExperimentalRunEffect.Location = new System.Drawing.Point(495, 298);
+            this.buttonExperimentalRunEffect.Location = new System.Drawing.Point(469, 263);
             this.buttonExperimentalRunEffect.Name = "buttonExperimentalRunEffect";
-            this.buttonExperimentalRunEffect.Size = new System.Drawing.Size(75, 23);
+            this.buttonExperimentalRunEffect.Size = new System.Drawing.Size(75, 22);
             this.buttonExperimentalRunEffect.TabIndex = 15;
             this.buttonExperimentalRunEffect.Text = "Run";
             this.buttonExperimentalRunEffect.UseVisualStyleBackColor = true;
@@ -768,9 +777,9 @@ namespace GTAChaos.Forms
             // 
             // textBoxExperimentalEffectName
             // 
-            this.textBoxExperimentalEffectName.Location = new System.Drawing.Point(6, 300);
+            this.textBoxExperimentalEffectName.Location = new System.Drawing.Point(8, 264);
             this.textBoxExperimentalEffectName.Name = "textBoxExperimentalEffectName";
-            this.textBoxExperimentalEffectName.Size = new System.Drawing.Size(483, 20);
+            this.textBoxExperimentalEffectName.Size = new System.Drawing.Size(455, 20);
             this.textBoxExperimentalEffectName.TabIndex = 14;
             this.textBoxExperimentalEffectName.TextChanged += new System.EventHandler(this.TextBoxExperimentalEffectName_TextChanged);
             // 
@@ -803,7 +812,7 @@ namespace GTAChaos.Forms
             // checkBoxAutoStart
             // 
             this.checkBoxAutoStart.AutoSize = true;
-            this.checkBoxAutoStart.Location = new System.Drawing.Point(499, 7);
+            this.checkBoxAutoStart.Location = new System.Drawing.Point(402, 16);
             this.checkBoxAutoStart.Name = "checkBoxAutoStart";
             this.checkBoxAutoStart.Size = new System.Drawing.Size(73, 17);
             this.checkBoxAutoStart.TabIndex = 8;
@@ -818,7 +827,7 @@ namespace GTAChaos.Forms
             this.gameToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(584, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(560, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -892,7 +901,7 @@ namespace GTAChaos.Forms
             // 
             // buttonSwitchMode
             // 
-            this.buttonSwitchMode.Location = new System.Drawing.Point(499, 30);
+            this.buttonSwitchMode.Location = new System.Drawing.Point(481, 12);
             this.buttonSwitchMode.Name = "buttonSwitchMode";
             this.buttonSwitchMode.Size = new System.Drawing.Size(73, 23);
             this.buttonSwitchMode.TabIndex = 7;
@@ -900,20 +909,11 @@ namespace GTAChaos.Forms
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
-            // labelTwitchAccessToken
-            // 
-            this.labelTwitchAccessToken.AutoSize = true;
-            this.labelTwitchAccessToken.Location = new System.Drawing.Point(25, 11);
-            this.labelTwitchAccessToken.Name = "labelTwitchAccessToken";
-            this.labelTwitchAccessToken.Size = new System.Drawing.Size(79, 13);
-            this.labelTwitchAccessToken.TabIndex = 31;
-            this.labelTwitchAccessToken.Text = "Access Token:";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 411);
+            this.ClientSize = new System.Drawing.Size(560, 360);
             this.Controls.Add(this.checkBoxAutoStart);
             this.Controls.Add(this.buttonSwitchMode);
             this.Controls.Add(this.tabs);

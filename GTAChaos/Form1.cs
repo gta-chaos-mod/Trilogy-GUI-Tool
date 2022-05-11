@@ -372,7 +372,7 @@ namespace GTAChaos.Forms
 
                 if (Config.Instance().TwitchUsePolls && twitch != null)
                 {
-                    didFinish = twitch.GetRemaining() <= 0;
+                    didFinish = twitch.GetRemaining() == 0;
 
                     if (stopwatch.ElapsedMilliseconds >= Config.Instance().TwitchVotingTime)
                     {
@@ -394,10 +394,7 @@ namespace GTAChaos.Forms
                             stopwatch.Restart();
                             Shared.TwitchVotingMode = 0;
 
-                            if (twitch != null)
-                            {
-                                twitch.SetVoting(3, timesUntilRapidFire, null);
-                            }
+                            twitch?.SetVoting(3, timesUntilRapidFire, null);
 
                             return;
                         }
@@ -925,7 +922,7 @@ namespace GTAChaos.Forms
 
         private async void ButtonConnectTwitch_Click(object sender, EventArgs e)
         {
-            if ((twitch != null && twitch.GetTwitchClient()?.IsConnected == true) || buttonConnectTwitch.Text == "Disconnect")
+            if (twitch?.IsConnected() == true || buttonConnectTwitch.Text == "Disconnect")
             {
                 twitch?.Kill();
                 twitch = null;
@@ -958,11 +955,11 @@ namespace GTAChaos.Forms
 
                 if (Config.Instance().TwitchUsePolls)
                 {
-                    twitch = new TwitchConnection_Poll();
+                    twitch = new TwitchPollConnection();
                 }
                 else
                 {
-                    twitch = new TwitchConnection_Chat();
+                    twitch = new TwitchChatConnection();
                 }
 
                 bool connected = await twitch.TryConnect();
@@ -997,7 +994,7 @@ namespace GTAChaos.Forms
                     }));
                 };
 
-                twitch.GetTwitchClient().OnIncorrectLogin += (_sender, _e) =>
+                twitch.OnLoginError += (_sender, _e) =>
                 {
                     MessageBox.Show("There was an error trying to log in to the account. Invalid Access Token?", "Twitch Login Error");
                     Invoke(new Action(() =>
@@ -1009,21 +1006,44 @@ namespace GTAChaos.Forms
                     twitch = null;
                 };
 
-                twitch.GetTwitchClient().OnConnected += (_sender, _e) =>
+                twitch.OnConnected += (_sender, _e) =>
                 {
                     Invoke(new Action(() =>
                     {
                         buttonConnectTwitch.Enabled = true;
                         buttonTwitchToggle.Enabled = true;
 
-                        comboBoxVotingTime.Enabled = false;
-                        comboBoxVotingCooldown.Enabled = false;
-
                         buttonConnectTwitch.Text = "Disconnect";
 
                         textBoxTwitchAccessToken.Enabled = false;
 
                         checkBoxTwitchUsePolls.Enabled = false;
+                    }));
+                };
+
+                twitch.OnDisconnected += (_sender, _e) =>
+                {
+                    Invoke(new Action(() =>
+                    {
+                        twitch = null;
+
+                        comboBoxVotingTime.Enabled = true;
+                        comboBoxVotingCooldown.Enabled = true;
+
+                        textBoxTwitchAccessToken.Enabled = true;
+
+                        buttonTwitchToggle.Enabled = false;
+
+                        checkBoxTwitchUsePolls.Enabled = true;
+
+                        buttonConnectTwitch.Text = "Connect to Twitch";
+
+                        if (!tabs.TabPages.Contains(tabEffects))
+                        {
+                            tabs.TabPages.Insert(tabs.TabPages.IndexOf(tabTwitch), tabEffects);
+                        }
+
+                        SetEnabled(false);
                     }));
                 };
             }
@@ -1142,7 +1162,7 @@ namespace GTAChaos.Forms
             Shared.TwitchVotingMode = 0;
             timesUntilRapidFire = new Random().Next(10, 15);
             progressBarTwitch.Value = 0;
-            buttonTwitchToggle.Enabled = twitch?.GetTwitchClient() != null && twitch.GetTwitchClient().IsConnected;
+            buttonTwitchToggle.Enabled = twitch?.IsConnected() == true;
             buttonTwitchToggle.Text = "Start / Resume";
         }
 

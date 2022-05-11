@@ -17,6 +17,7 @@ namespace GTAChaos.Utils
     public class TwitchChatConnection : ITwitchConnection
     {
         public TwitchClient Client;
+        private WebSocketClient customClient;
         private readonly TwitchAPI api;
 
         private readonly string AccessToken;
@@ -52,7 +53,7 @@ namespace GTAChaos.Utils
         {
             ConnectionCredentials credentials = new ConnectionCredentials(Username, AccessToken);
 
-            WebSocketClient customClient = new WebSocketClient(
+            customClient = new WebSocketClient(
                 new ClientOptions()
                 {
                     MessagesAllowedInPeriod = 750,
@@ -93,7 +94,9 @@ namespace GTAChaos.Utils
 
         private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e)
         {
-            Kill();
+            //Kill();
+
+            Client?.Reconnect();
 
             //Client?.Initialize(new ConnectionCredentials(Username, AccessToken), Channel);
 
@@ -118,16 +121,12 @@ namespace GTAChaos.Utils
             {
                 OnDisconnected?.Invoke(this, new EventArgs());
 
-                Client.OnMessageReceived -= Client_OnMessageReceived;
-                Client.OnConnected -= Client_OnConnected;
-
-                Client.OnConnectionError -= Client_OnConnectionError;
-                Client.OnIncorrectLogin -= Client_OnIncorrectLogin;
-
                 Client.Disconnect();
             }
-
             Client = null;
+
+            customClient?.Dispose();
+            customClient = null;
         }
 
         public int GetRemaining()

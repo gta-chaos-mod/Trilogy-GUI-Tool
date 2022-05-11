@@ -2,6 +2,7 @@
 using GTAChaos.Effects;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace GTAChaos.Utils
     public class TwitchPollConnection : ITwitchConnection
     {
         public TwitchClient Client;
+        private WebSocketClient customClient;
         private readonly TwitchAPI api;
 
         private readonly string AccessToken;
@@ -80,7 +82,7 @@ namespace GTAChaos.Utils
         {
             ConnectionCredentials credentials = new ConnectionCredentials(Username, AccessToken);
 
-            WebSocketClient customClient = new WebSocketClient(
+            customClient = new WebSocketClient(
                 new ClientOptions()
                 {
                     MessagesAllowedInPeriod = 750,
@@ -101,7 +103,7 @@ namespace GTAChaos.Utils
         {
             Kill();
 
-            var data = await api.Auth.ValidateAccessTokenAsync();
+            var data = await api.Auth.ValidateAccessTokenAsync(AccessToken);
             if (data == null) return false;
 
             Username = data.Login;
@@ -122,7 +124,9 @@ namespace GTAChaos.Utils
 
         private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e)
         {
-            Kill();
+            //Kill();
+
+            Client?.Reconnect();
 
             //Client?.Initialize(new ConnectionCredentials(Username, AccessToken), Channel);
 
@@ -147,16 +151,12 @@ namespace GTAChaos.Utils
             {
                 OnDisconnected?.Invoke(this, new EventArgs());
 
-                Client.OnMessageReceived -= Client_OnMessageReceived;
-                Client.OnConnected -= Client_OnConnected;
-
-                Client.OnConnectionError -= Client_OnConnectionError;
-                Client.OnIncorrectLogin -= Client_OnIncorrectLogin;
-
                 Client.Disconnect();
             }
-
             Client = null;
+
+            customClient?.Dispose();
+            customClient = null;
         }
 
         public int GetRemaining()
@@ -164,6 +164,30 @@ namespace GTAChaos.Utils
             if (activePoll == null) return -1;
             if (activePoll.Status == "COMPLETED") return 0;
             return activePoll.DurationSeconds;
+        }
+
+        private async Task<bool> TryPoll(CreatePollRequest createPoll, int tries = 0)
+        {
+            try
+            {
+                activePoll = (await api.Helix.Polls.CreatePollAsync(createPoll, AccessToken)).Data[0];
+            }
+            catch
+            {
+                tries += 1;
+                Debug.WriteLine($"Couldn't start poll. Attempt {tries}/10.");
+
+                if (tries > 5)
+                {
+                    return false;
+                }
+
+                await Task.Delay(500);
+
+                return await TryPoll(createPoll, tries);
+            }
+
+            return true;
         }
 
         public async void SetVoting(int votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null)
@@ -207,14 +231,20 @@ namespace GTAChaos.Utils
                     BroadcasterId = UserID,
                     DurationSeconds = Config.Instance().TwitchVotingTime / 1000,
                     Choices = effectVoting.GetPollChoices(),
-                    BitsVotingEnabled = Config.Instance().TwitchPollsBitsCost != 0,
+                    BitsVotingEnabled = Config.Instance().TwitchPollsBitsCost > 0,
                     BitsPerVote = Config.Instance().TwitchPollsBitsCost,
-                    ChannelPointsVotingEnabled = Config.Instance().TwitchPollsBitsCost != 0,
-                    ChannelPointsPerVote = Config.Instance().TwitchPollsBitsCost,
+                    ChannelPointsVotingEnabled = Config.Instance().TwitchPollsChannelPointsCost > 0,
+                    ChannelPointsPerVote = Config.Instance().TwitchPollsChannelPointsCost,
                 };
 
-                activePoll = (await api.Helix.Polls.CreatePollAsync(createPoll)).Data[0];
-                createdPoll = true;
+                List<string> effects = new List<string>();
+                foreach (var el in createPoll.Choices)
+                {
+                    effects.Add(el.Title);
+                }
+                Debug.WriteLine(string.Join(", ", effects.ToArray()));
+
+                createdPoll = await TryPoll(createPoll);
 
                 //SocketBroadcast(JsonConvert.SerializeObject(createPoll));
             }
@@ -413,20 +443,10 @@ namespace GTAChaos.Utils
                 foreach (var element in GetVotingElements())
                 {
                     string description = element.Effect.GetDisplayName();
-                    if (element.Effect.Word.Equals("HONKHONK"))
-                    {
-                        // Twitch doesn't like honks, so Honk Honk, everyone!
-                        description = description.Replace("O", "ഠ");
-                    }
-                    else if (element.Effect.Word.Equals("LoveConquersAll"))
-                    {
-                        // Twitch apparently also doesn't like the word "kinky", so let's do more magic!
-                        description = description.Replace("i", "ὶ");
-                    }
 
                     choices.Add(new TwitchLib.Api.Helix.Models.Polls.CreatePoll.Choice()
                     {
-                        Title = description
+                        Title = description.Substring(0, Math.Min(25, description.Length))
                     });
                 }
 

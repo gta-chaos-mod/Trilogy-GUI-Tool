@@ -40,7 +40,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new WeatherEffect("Rainy Weather", "StayInAndWatchTV", 16)); // Rainy weather
                 Effects.Add(new WeatherEffect("Foggy Weather", "CantSeeWhereImGoing", 9)); // Foggy weather
                 Effects.Add(new WeatherEffect("Sandstorm", "SandInMyEars", 19)); // Sandstorm
-                Effects.Add(new WeatherEffect("Weather?!", "WhatsThisWeatherAbout", 131, 1000 * 10)); // Sand storm
+                Effects.Add(new WeatherEffect("Weather?!", "WhatsThisWeatherAbout", 131, 1000 * 10)); // Weird weather
 
                 Effects.Add(new FunctionEffect(Category.Spawning, "Get Parachute", "LetsGoBaseJumping", "get_parachute")); // Get Parachute
                 Effects.Add(new FunctionEffect(Category.Spawning, "Get Jetpack", "Rocketman", "get_jetpack")); // Get Jetpack
@@ -190,7 +190,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Force Vehicle Mouse Steering", "ForceVehicleMouseSteering", "force_vehicle_mouse_steering")); // Force Vehicle Mouse Steering
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Upside-Down Screen", "WhatsUpIsDown", "upside_down_screen", -1, 1.0f)); // Upside-Down Screen
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Mirrored Screen", "WhatsLeftIsRight", "mirrored_screen", -1, 1.0f)); // Mirrored Screen
-                //Effects.Add(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen", -1, 1.0f / 3.0f)); // Greyscale Screen
+                //Effects.Add(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen", -1, 1.0f)); // Greyscale Screen
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Mirrored World", "LetsTalkAboutParallelUniverses", "mirrored_world")); // Mirrored World
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pedal To The Metal", "PedalToTheMetal", "pedal_to_the_metal")); // Pedal To The Metal
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Unflippable Vehicles", "ThereGoesMyBurrito", "unflippable_vehicles")); // Vehicles are unflippable
@@ -231,7 +231,7 @@ namespace GTAChaos.Effects
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Backwards Peds", "BackwardsPeds", "backwards_peds"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Upside-Down Peds", "InALandDownUnder", "upside_down_peds"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Helicopter Helicopter!", "HelicopterPeds", "helicopter_peds"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Speeeeeen!", "Speeeeeen", "rotating_peds"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "ASSERT DOMINANCE", "AssertDominance", "t_pose_peds"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Action Figures", "ILikePlayingWithToys", "action_figures"));
 
@@ -407,6 +407,8 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Turn Vehicles Around", "TurnVehiclesAround", "turn_vehicles_around"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Zero Suspension Damping", "ZeroSuspensionDamping", "zero_suspension_damping"));
             }
+
+            Effects.Sort((first, second) => string.Compare(first.GetDisplayName(), second.GetDisplayName(), StringComparison.CurrentCultureIgnoreCase));
         }
 
         public static List<AbstractEffect> EnabledEffects { get; } = new List<AbstractEffect>();

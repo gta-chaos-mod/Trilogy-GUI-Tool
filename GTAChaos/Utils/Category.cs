@@ -19,6 +19,8 @@ namespace GTAChaos.Utils
             if (!Categories.Contains(this))
             {
                 Categories.Add(this);
+
+                Categories.Sort((first, second) => string.Compare(first.Name, second.Name, System.StringComparison.CurrentCultureIgnoreCase));
             }
         }
 

@@ -243,7 +243,7 @@ namespace GTAChaos.Forms
             this.tabTwitch.Controls.Add(this.buttonConnectTwitch);
             this.tabTwitch.Location = new System.Drawing.Point(4, 22);
             this.tabTwitch.Name = "tabTwitch";
-            this.tabTwitch.Size = new System.Drawing.Size(550, 292);
+            this.tabTwitch.Size = new System.Drawing.Size(552, 293);
             this.tabTwitch.TabIndex = 2;
             this.tabTwitch.Text = "Twitch";
             // 
@@ -488,7 +488,7 @@ namespace GTAChaos.Forms
             this.tabPolls.Location = new System.Drawing.Point(4, 22);
             this.tabPolls.Name = "tabPolls";
             this.tabPolls.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPolls.Size = new System.Drawing.Size(550, 292);
+            this.tabPolls.Size = new System.Drawing.Size(552, 293);
             this.tabPolls.TabIndex = 5;
             this.tabPolls.Text = "Polls";
             // 
@@ -505,7 +505,7 @@ namespace GTAChaos.Forms
             // 
             this.numericUpDownTwitchPollsChannelPointsCost.Location = new System.Drawing.Point(233, 56);
             this.numericUpDownTwitchPollsChannelPointsCost.Maximum = new decimal(new int[] {
-            10000,
+            1000000,
             0,
             0,
             0});
@@ -556,7 +556,7 @@ namespace GTAChaos.Forms
             this.tabEffects.Location = new System.Drawing.Point(4, 22);
             this.tabEffects.Name = "tabEffects";
             this.tabEffects.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEffects.Size = new System.Drawing.Size(550, 292);
+            this.tabEffects.Size = new System.Drawing.Size(552, 293);
             this.tabEffects.TabIndex = 1;
             this.tabEffects.Text = "Effects";
             // 
@@ -589,7 +589,7 @@ namespace GTAChaos.Forms
             this.tabSettings.Location = new System.Drawing.Point(4, 22);
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(550, 292);
+            this.tabSettings.Size = new System.Drawing.Size(552, 293);
             this.tabSettings.TabIndex = 3;
             this.tabSettings.Text = "Settings";
             // 
@@ -644,7 +644,7 @@ namespace GTAChaos.Forms
             this.tabMultiplayer.Name = "tabMultiplayer";
             this.tabMultiplayer.Padding = new System.Windows.Forms.Padding(3);
             this.tabMultiplayer.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabMultiplayer.Size = new System.Drawing.Size(550, 292);
+            this.tabMultiplayer.Size = new System.Drawing.Size(552, 293);
             this.tabMultiplayer.TabIndex = 6;
             this.tabMultiplayer.Text = "Multiplayer";
             // 
@@ -761,7 +761,7 @@ namespace GTAChaos.Forms
             this.tabExperimental.Location = new System.Drawing.Point(4, 22);
             this.tabExperimental.Name = "tabExperimental";
             this.tabExperimental.Padding = new System.Windows.Forms.Padding(3);
-            this.tabExperimental.Size = new System.Drawing.Size(550, 292);
+            this.tabExperimental.Size = new System.Drawing.Size(552, 293);
             this.tabExperimental.TabIndex = 7;
             this.tabExperimental.Text = "Experimental";
             // 

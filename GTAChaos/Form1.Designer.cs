@@ -148,7 +148,7 @@ namespace GTAChaos.Forms
             this.tabs.Location = new System.Drawing.Point(0, 41);
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(558, 318);
+            this.tabs.Size = new System.Drawing.Size(560, 319);
             this.tabs.TabIndex = 4;
             // 
             // tabMain
@@ -164,7 +164,7 @@ namespace GTAChaos.Forms
             this.tabMain.Location = new System.Drawing.Point(4, 22);
             this.tabMain.Name = "tabMain";
             this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMain.Size = new System.Drawing.Size(550, 292);
+            this.tabMain.Size = new System.Drawing.Size(552, 293);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main";
             // 
@@ -822,6 +822,7 @@ namespace GTAChaos.Forms
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.gameToolStripMenuItem});

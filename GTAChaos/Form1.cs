@@ -513,7 +513,7 @@ namespace GTAChaos.Forms
                 {
                     elapsedCount = 0;
 
-                    if (!Config.Instance().TwitchEnableRapidFire)
+                    if (Config.Instance().TwitchEnableRapidFire)
                     {
                         timesUntilRapidFire--;
                     }

@@ -1,8 +1,7 @@
 ﻿// Copyright (c) 2019 Lordmau5
-using GTAChaos.Effects;
 using GTAChaos.Utils;
 
-namespace GTAChaos.Effects.impl
+namespace GTAChaos.Effects
 {
     public class FunctionEffect : AbstractEffect
     {

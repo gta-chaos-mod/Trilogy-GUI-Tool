@@ -2,6 +2,7 @@
 using GTAChaos.Effects;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TwitchLib.Client;
 
 namespace GTAChaos.Utils
@@ -16,6 +17,8 @@ namespace GTAChaos.Utils
         event EventHandler<RapidFireEventArgs> OnRapidFireEffect;
 
         int GetRemaining();
+
+        Task<bool> TryConnect();
 
         TwitchClient GetTwitchClient();
 

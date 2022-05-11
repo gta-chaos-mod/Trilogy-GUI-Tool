@@ -1,5 +1,4 @@
 ﻿// Copyright (c) 2019 Lordmau5
-
 using System;
 
 namespace GTAChaos.Utils

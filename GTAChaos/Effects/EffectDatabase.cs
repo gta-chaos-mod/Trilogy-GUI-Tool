@@ -1,7 +1,4 @@
 // Copyright (c) 2019 Lordmau5
-using GTAChaos.Effects;
-using GTAChaos.Effects.extra;
-using GTAChaos.Effects.impl;
 using GTAChaos.Utils;
 using System;
 using System.Collections.Generic;

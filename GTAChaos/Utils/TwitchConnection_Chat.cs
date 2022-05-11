@@ -4,19 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using TwitchLib.Api;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
+using TwitchLib.Communication.Clients;
+using TwitchLib.Communication.Models;
 
 namespace GTAChaos.Utils
 {
     public class TwitchConnection_Chat : ITwitchConnection
     {
         public TwitchClient Client;
+        private readonly TwitchAPI api;
 
-        private readonly string Channel;
-        private readonly string Username;
-        private readonly string Oauth;
+        private readonly string AccessToken;
+        private string Channel;
+        private string Username;
 
         private readonly ChatEffectVoting effectVoting = new ChatEffectVoting();
         private readonly HashSet<string> rapidFireVoters = new HashSet<string>();
@@ -26,29 +31,16 @@ namespace GTAChaos.Utils
 
         public TwitchConnection_Chat()
         {
-            Channel = Config.Instance().TwitchChannel;
-            Username = Config.Instance().TwitchUsername;
-            Oauth = Config.Instance().TwitchOAuthToken;
+            AccessToken = Config.Instance().TwitchAccessToken;
 
-            ConnectionCredentials credentials;
-
-            if (Channel == null || Username == null || Oauth == null || Channel == "" || Username == "" || Oauth == "")
+            if (AccessToken == null || AccessToken == "")
             {
                 return;
             }
-            else
-            {
-                credentials = new ConnectionCredentials(Username, Oauth);
-            }
 
-            var protocol = TwitchLib.Client.Enums.ClientProtocol.WebSocket;
-            // If we're not on Windows 10, force a TCP connection
-            if (System.Environment.OSVersion.Version.Major < 10)
-            {
-                protocol = TwitchLib.Client.Enums.ClientProtocol.TCP;
-            }
-
-            TryConnect(credentials, protocol);
+            api = new TwitchAPI();
+            api.Settings.ClientId = "d9rifiqcfbgz93ft16o8bsya9ho2ih";
+            api.Settings.AccessToken = AccessToken;
         }
 
         public TwitchClient GetTwitchClient()
@@ -56,14 +48,26 @@ namespace GTAChaos.Utils
             return Client;
         }
 
-        private void TryConnect(ConnectionCredentials credentials, TwitchLib.Client.Enums.ClientProtocol protocol = TwitchLib.Client.Enums.ClientProtocol.WebSocket)
+        public async Task<bool> TryConnect()
         {
-            if (Client != null)
-            {
-                Kill();
-            }
+            if (Client != null) Kill();
 
-            Client = new TwitchClient(protocol: protocol);
+            var data = await api.Auth.ValidateAccessTokenAsync();
+            if (data == null) return false;
+
+            Username = data.Login;
+            Channel = data.Login;
+
+            ConnectionCredentials credentials = new ConnectionCredentials(Username, AccessToken);
+
+            WebSocketClient customClient = new WebSocketClient(
+                new ClientOptions()
+                {
+                    MessagesAllowedInPeriod = 750,
+                    ThrottlingPeriod = TimeSpan.FromSeconds(30)
+                }
+            );
+            Client = new TwitchClient(customClient);
             Client.Initialize(credentials, Channel);
 
             Client.OnMessageReceived += Client_OnMessageReceived;
@@ -72,13 +76,15 @@ namespace GTAChaos.Utils
             Client.OnConnectionError += Client_OnConnectionError;
 
             Client.Connect();
+
+            return true;
         }
 
         private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e)
         {
             Kill();
 
-            Client.Initialize(new ConnectionCredentials(Username, Oauth), Channel);
+            Client.Initialize(new ConnectionCredentials(Username, AccessToken), Channel);
 
             Client.Connect();
         }

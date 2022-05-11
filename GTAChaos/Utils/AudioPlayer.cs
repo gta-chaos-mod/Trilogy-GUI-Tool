@@ -1,10 +1,8 @@
 ﻿// Copyright (c) 2019 Lordmau5
-using NAudio.Wave;
 using NAudio.Vorbis;
-using System;
+using NAudio.Wave;
 using System.IO;
 using System.Reflection;
-using System.Diagnostics;
 
 namespace GTAChaos.Utils
 {

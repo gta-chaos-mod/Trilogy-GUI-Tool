@@ -17,18 +17,12 @@ namespace GTAChaos.Utils
         // Twitch Polls
         public bool TwitchUsePolls;
 
-        public string TwitchPollsPassphrase;
-
         public bool TwitchPollsPostMessages;
-
-        public bool TwitchPollsSubscriberOnly;
-        public bool TwitchPollsSubcriberMultiplier;
         public int TwitchPollsBitsCost = 0;
+        public int TwitchPollsChannelPointsCost = 0;
 
         // Twitch Auth
-        public string TwitchChannel;
-        public string TwitchUsername;
-        public string TwitchOAuthToken;
+        public string TwitchAccessToken;
 
         // Twitch Timer
         public int TwitchVotingTime;

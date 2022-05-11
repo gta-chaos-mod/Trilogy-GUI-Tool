@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using WebSocketSharp;
 
@@ -43,7 +44,7 @@ namespace GTAChaos.Utils
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Debug.WriteLine(e);
 
                 socketConnected = false;
                 socketIsConnecting = false;

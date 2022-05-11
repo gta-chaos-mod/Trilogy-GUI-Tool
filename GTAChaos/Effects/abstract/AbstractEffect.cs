@@ -127,7 +127,7 @@ namespace GTAChaos.Effects
 
         public int GetDuration(int duration = -1)
         {
-            if (Duration > 0)
+            if (Duration != -1)
             {
                 duration = Duration;
             }

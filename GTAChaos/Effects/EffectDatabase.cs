@@ -2,6 +2,7 @@
 using GTAChaos.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace GTAChaos.Effects
 {
@@ -27,7 +28,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Health, Armor, $250k", "INeedSomeHelp", "health_armor_money")); // Health, Armor, $250k
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Suicide", "GoodbyeCruelWorld", "suicide").DisableRapidFire()); // Suicide
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Infinite Ammo", "FullClip", "infinite_ammo")); // Infinite ammo
-                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Infinite Health (Player)", "NoOneCanHurtMe", "infinite_health_player")); // Infinite Health (Player)
+                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Invincible (Player)", "NoOneCanHurtMe", "infinite_health_player")); // Infinite Health (Player)
 
                 Effects.Add(new FunctionEffect(Category.WantedLevel, "Wanted Level +2 Stars", "TurnUpTheHeat", "wanted_level_plus_two")); // Wanted level +2 stars
                 Effects.Add(new FunctionEffect(Category.WantedLevel, "Clear Wanted Level", "TurnDownTheHeat", "clear_wanted_level")); // Clear wanted level
@@ -84,10 +85,10 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "All Cars Have Nitro", "SpeedFreak", "all_cars_have_nitro")); // All cars have nitro
                 Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Cars Float Away When Hit", "BubbleCars", "cars_float_away_when_hit")); // Cars float away when hit
                 Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "All Taxis Have Nitrous", "SpeedyTaxis", "all_taxis_have_nitro")); // All taxis have nitrous
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Invisible Vehicles (Only Wheels)", "WheelsOnlyPlease", "wheels_only_please")); // Invisible Vehicles (Only Wheels)
+                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Ghost Cars (Only Wheels)", "WheelsOnlyPlease", "wheels_only_please")); // Invisible Vehicles (Only Wheels)
 
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "NPCs Attack Each Other", "RoughNeighbourhood", "npcs_attack_each_other")); // NPCs attack other (+ get golf club)
-                Effects.Add(new FunctionEffect(Category.PedsAndCo, "Have A Bounty On Your Head", "StopPickingOnMe", "have_a_bounty_on_your_head")); // Have a bounty on your head
+                Effects.Add(new FunctionEffect(Category.PedsAndCo, "Bounty On Your Head", "StopPickingOnMe", "have_a_bounty_on_your_head")); // Have a bounty on your head
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Elvis Is Everywhere", "BlueSuedeShoes", "elvis_is_everywhere")); // Elvis is everywhere
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "NPCs Attack You", "AttackOfTheVillagePeople", "npcs_attack_you")); // NPCs attack you
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Gang Members Everywhere", "OnlyHomiesAllowed", "gang_members_everywhere")); // Gang members everywhere
@@ -101,11 +102,11 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Ghost Town", "GhostTown", "ghost_town")); // Reduced traffic
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Beach Party", "LifesABeach", "beach_theme")); // Beach party
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Ninja Theme", "NinjaTown", "ninja_theme")); // Ninja theme
-                Effects.Add(new FunctionEffect(Category.PedsAndCo, "Kinky Theme", "LoveConquersAll", "kinky_theme")); // Kinky theme
+                Effects.Add(new FunctionEffect(Category.PedsAndCo, "Naughty Theme", "LoveConquersAll", "naughty_theme")); // Naughty theme
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Funhouse Theme", "CrazyTown", "funhouse_theme")); // Funhouse theme
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Country Traffic", "HicksVille", "country_traffic")); // Country traffic
 
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Weapon Aiming While Driving", "IWannaDriveBy", "weapon_aiming_while_driving")); // Weapon aiming while driving
+                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Drive-By Aiming", "IWannaDriveBy", "weapon_aiming_while_driving")); // Weapon aiming while driving
                 Effects.Add(new FunctionEffect(Category.PlayerModifications, "Huge Bunny Hop", "CJPhoneHome", "huge_bunny_hop")); // Huge bunny hop
                 Effects.Add(new FunctionEffect(Category.PlayerModifications, "Mega Jump", "Kangaroo", "mega_jump")); // Mega jump
                 Effects.Add(new FunctionEffect(Category.PlayerModifications, "Infinite Oxygen", "ManFromAtlantis", "infinite_oxygen")); // Infinite oxygen
@@ -116,8 +117,8 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.Stats, "Skinny Player", "LeanAndMean", "skinny_player")); // Skinny player
                 Effects.Add(new FunctionEffect(Category.Stats, "Max Stamina", "ICanGoAllNight", "max_stamina")); // Max stamina
                 Effects.Add(new FunctionEffect(Category.Stats, "No Stamina", "ImAllOutOfBreath", "no_stamina")); // No stamina
-                Effects.Add(new FunctionEffect(Category.Stats, "Hitman Level For All Weapons", "ProfessionalKiller", "hitman_level_for_all_weapons")); // Hitman level for all weapons
-                Effects.Add(new FunctionEffect(Category.Stats, "Beginner Level For All Weapons", "BabysFirstGun", "beginner_level_for_all_weapons")); // Beginner level for all weapons
+                Effects.Add(new FunctionEffect(Category.Stats, "Hitman Weapon Skills", "ProfessionalKiller", "hitman_level_for_all_weapons")); // Hitman level for all weapons
+                Effects.Add(new FunctionEffect(Category.Stats, "Beginner Weapon Skills", "BabysFirstGun", "beginner_level_for_all_weapons")); // Beginner level for all weapons
                 Effects.Add(new FunctionEffect(Category.Stats, "Max Driving Skills", "NaturalTalent", "max_driving_skills")); // Max driving skills
                 Effects.Add(new FunctionEffect(Category.Stats, "No Driving Skills", "BackToDrivingSchool", "no_driving_skills")); // No driving skills
                 Effects.Add(new FunctionEffect(Category.Stats, "Never Get Hungry", "IAmNeverHungry", "never_get_hungry")); // Never get hungry
@@ -129,9 +130,9 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Get Busted", "GoToJail", "get_busted").DisableRapidFire()); // Get's you busted on the spot
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Get Wasted", "Hospitality", "get_wasted").DisableRapidFire()); // Get's you wasted on the spot
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Set Everyone On Fire", "HotPotato", "set_everyone_on_fire").DisableRapidFire()); // Set everyone on fire
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Kick Player Out Of Vehicle", "ThisAintYourCar", "kick_player_out_of_vehicle")); // Kick player out of vehicle
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Lock Player Inside Vehicle", "ThereIsNoEscape", "lock_player_inside_vehicle")); // Lock player inside vehicle
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Set Current Vehicle On Fire", "WayTooHot", "set_current_vehicle_on_fire").DisableRapidFire()); // Set current vehicle on fire
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Kick Out Of Vehicle", "ThisAintYourCar", "kick_player_out_of_vehicle")); // Kick player out of vehicle
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Lock Vehicle Doors", "ThereIsNoEscape", "lock_player_inside_vehicle")); // Lock player inside vehicle
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Ignite Current Vehicle", "WayTooHot", "set_current_vehicle_on_fire").DisableRapidFire()); // Set current vehicle on fire
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pop Tires Of All Vehicles", "TiresBeGone", "pop_tires_of_all_vehicles")); // Pop tires of all vehicles
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Send Vehicles To Space", "StairwayToHeaven", "send_vehicles_to_space")); // Gives an immense upwards boost to all vehicles
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Turn Vehicles Around", "TurnAround", "turn_vehicles_around")); // Turn vehicles around
@@ -144,7 +145,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Experience The Lag", "PacketLoss", "experience_the_lag")); // Experience the lag
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Ghost Rider", "GhostRider", "ghost_rider")); // Set current vehicle constantly on fire
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable HUD", "FullyImmersed", "disable_hud")); // Disable HUD
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable Blips / Markers / Pickups", "INeedSomeInstructions", "disable_blips_markers_pickups")); // Disable Blips / Markers / Pickups
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "No Blips/Markers/Pickups", "INeedSomeInstructions", "disable_blips_markers_pickups")); // Disable Blips / Markers / Pickups
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable All Weapon Damage", "TruePacifist", "disable_all_weapon_damage")); // Disable all Weapon Damage
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "lets_take_a_break").DisableRapidFire()); // Let's take a break
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pride Traffic", "AllColorsAreBeautiful", "pride_traffic")); // Pride Traffic / Rainbow Cars
@@ -157,18 +158,18 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Night Vision", "NightVision", "night_vision")); // Night Vision
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Thermal Vision", "ThermalVision", "thermal_vision")); // Thermal Vision
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IllTakeAFreePass", "pass_current_mission")); // Pass Current Mission
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Infinite Health (Everyone)", "NoOneCanHurtAnyone", "infinite_health_everyone")); // Infinite Health (Everyone)
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "InvisibleVehicles", "invisible_vehicles")); // Invisible Vehicles
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Powerpoint Presentation", "PowerpointPresentation", "fps_15")); // Powerpoint Presentation (15 FPS)
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Invincible (Everyone)", "NoOneCanHurtAnyone", "infinite_health_everyone")); // Infinite Health (Everyone)
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Ghost Cars", "InvisibleVehicles", "invisible_vehicles")); // Invisible Vehicles
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Powerpoint Presentation", "PowerpointPresentation", "fps_15", -1, 1.0f)); // Powerpoint Presentation (15 FPS)
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Smooth Criminal", "SmoothCriminal", "fps_60")); // Smooth Criminal (60 FPS)
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "reload_autosave").DisableRapidFire()); // Reload Autosave
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Quarter Gravity", "GroundControlToMajorTom", "quarter_gravity")); // Sets the gravity to 0.002f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Half Gravity", "ImFeelingLightheaded", "half_gravity")); // Sets the gravity to 0.004f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Double Gravity", "KilogramOfFeathers", "double_gravity")); // Sets the gravity to 0.016f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Quadruple Gravity", "KilogramOfSteel", "quadruple_gravity")); // Sets the gravity to 0.032f
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Inverted Gravity", "BeamMeUpScotty", "inverted_gravity").DisableRapidFire()); // Sets the gravity to -0.002f
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Zero Gravity", "ImInSpaaaaace", "zero_gravity").DisableRapidFire()); // Sets the gravity to 0f
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Insane Gravity", "StraightToHell", "insane_gravity").DisableRapidFire()); // Sets the gravity to 0.64f
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Inverted Gravity", "BeamMeUpScotty", "inverted_gravity", 1000 * 10).DisableRapidFire()); // Sets the gravity to -0.002f
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Zero Gravity", "ImInSpaaaaace", "zero_gravity", 1000 * 10).DisableRapidFire()); // Sets the gravity to 0f
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Insane Gravity", "StraightToHell", "insane_gravity", 1000 * 5).DisableRapidFire()); // Sets the gravity to 0.64f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Tunnel Vision", "TunnelVision", "tunnel_vision", -1, 1.0f).DisableRapidFire()); // Tunnel Vision
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "High Pitched Audio", "CJAndTheChipmunks", "high_pitched_audio")); // High Pitched Audio
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pitch Shifter", "VocalRange", "pitch_shifter")); // Pitch Shifter
@@ -177,17 +178,17 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Honk Boost", "GottaHonkFast", "honk_boost")); // Honk Boost
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Oh Hey, Tanks!", "OhHeyTanks", "oh_hey_tanks")); // Spawns tanks around the player
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Always Wanted", "ICanSeeStars", "always_wanted").DisableRapidFire()); // Always Wanted
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Cinematic Vehicle Camera", "MachinimaMode", "cinematic_vehicle_camera")); // Cinematic Vehicle Camera
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Your Car Floats Away When Hit", "ImTheBubbleCar", "your_car_floats_away_when_hit")); // Your Car Floats Away When Hit
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Ring Ring !!", "RingRing", "ring_ring")); // Ring Ring !!
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Peds Explode When Run Over", "ExplosivePeds", "peds_explode_when_run_over")); // Peds Explode When Run Over
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Cinematic Vehicle Camera", "MachinimaMode", "cinematic_vehicle_camera", -1, 1.0f)); // Cinematic Vehicle Camera
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Your Car Floats When Hit", "ImTheBubbleCar", "your_car_floats_away_when_hit")); // Your Car Floats Away When Hit
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Ring Ring !!", "RingRing", "ring_ring", 1000 * 30)); // Ring Ring !!
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Peds Explode If Run Over", "ExplosivePeds", "peds_explode_when_run_over")); // Peds Explode If Run Over
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "HONK!!!", "HONKHONK", "honk_vehicle").SetAudioVariations(5)); // Honk Vehicle
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Quake FOV", "QuakeFOV", "quake_fov")); // Quake FOV
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Beyblade", "LetItRip", "beyblade")); // Beyblade
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Weapon Roulette", "WeaponRoulette", "weapon_roulette")); // Weapon Roulette
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Need To Hurry", "NoNeedToHurry", "no_need_to_hurry")); // No Need To Hurry
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Drunk Player", "DrunkPlayer", "drunk_player")); // Drunk Player
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Force Vehicle Mouse Steering", "ForceVehicleMouseSteering", "force_vehicle_mouse_steering")); // Force Vehicle Mouse Steering
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Force Mouse Steering", "ForceVehicleMouseSteering", "force_vehicle_mouse_steering")); // Force Mouse Steering
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Upside-Down Screen", "WhatsUpIsDown", "upside_down_screen", -1, 1.0f)); // Upside-Down Screen
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Mirrored Screen", "WhatsLeftIsRight", "mirrored_screen", -1, 1.0f)); // Mirrored Screen
                 //Effects.Add(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen", -1, 1.0f)); // Greyscale Screen
@@ -236,9 +237,9 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Action Figures", "ILikePlayingWithToys", "action_figures"));
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "One Bullet Magazines", "OneInTheChamber", "one_bullet_magazines"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Everyone Leaves All Vehicles", "ImTiredOfDriving", "everyone_leaves_all_vehicles"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Everyone Leaves All Cars", "ImTiredOfDriving", "everyone_leaves_all_vehicles"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Give NPCs An RPG", "RocketParty", "give_npcs_an_rpg"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Teleport All NPCs To Player", "WhoAreYouPeople", "teleport_all_npcs_to_player"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "TP All NPCs To Player", "WhoAreYouPeople", "teleport_all_npcs_to_player"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Launch All NPCs", "UpUpAndAway", "launch_all_npcs"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Explode All NPCs", "BoomGoesTheDynamite", "explode_all_npcs"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disarm All NPCs", "LeaveTheGunsToMe", "disarm_all_npcs"));
@@ -263,7 +264,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "The Firing Circus", "TheFiringCircus", "the_firing_circus", 1000 * 5));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Visible Water", "OceanManGoneAgain", "no_visible_water"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Water Physics", "FastTrackToAtlantis", "no_water_physics"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Arcade Racer Camera", "SegaRallyChampionship", "arcade_racer_camera"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Arcade Racer Camera", "SegaRallyChampionship", "arcade_racer_camera", -1, 1.0f));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Explosive Bullets", "BombasticImpact", "explosive_bullets"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Fire Bullets", "OilOnTheStreets", "fire_bullets"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Random Outfit", "ASetOfNewClothes", "random_outfit"));
@@ -287,21 +288,21 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Portrait Mode", "PortraitMode", "portrait_mode"));
 
                 // All teleports are disabled during Rapid-Fire mode
-                Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet));
-                Effects.Add(new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower));
-                Effects.Add(new TeleportationEffect("Teleport To A Pier", "BringMeToAPier", Location.LSPier));
-                Effects.Add(new TeleportationEffect("Teleport To The LS Airport", "BringMeToTheLSAirport", Location.LSAirport));
-                Effects.Add(new TeleportationEffect("Teleport To The Docks", "BringMeToTheDocks", Location.LSDocks));
-                Effects.Add(new TeleportationEffect("Teleport To A Mountain", "BringMeToAMountain", Location.MountChiliad));
-                Effects.Add(new TeleportationEffect("Teleport To The SF Airport", "BringMeToTheSFAirport", Location.SFAirport));
-                Effects.Add(new TeleportationEffect("Teleport To A Bridge", "BringMeToABridge", Location.SFBridge));
-                Effects.Add(new TeleportationEffect("Teleport To A Secret Place", "BringMeToASecretPlace", Location.Area52));
-                Effects.Add(new TeleportationEffect("Teleport To A Quarry", "BringMeToAQuarry", Location.LVQuarry));
-                Effects.Add(new TeleportationEffect("Teleport To The LV Airport", "BringMeToTheLVAirport", Location.LVAirport));
-                Effects.Add(new TeleportationEffect("Teleport To Big Ear", "BringMeToBigEar", Location.LVSatellite));
+                Effects.Add(new TeleportationEffect("TP Home", "BringMeHome", Location.GrooveStreet));
+                Effects.Add(new TeleportationEffect("TP To A Tower", "BringMeToATower", Location.LSTower));
+                Effects.Add(new TeleportationEffect("TP To A Pier", "BringMeToAPier", Location.LSPier));
+                Effects.Add(new TeleportationEffect("TP To The LS Airport", "BringMeToTheLSAirport", Location.LSAirport));
+                Effects.Add(new TeleportationEffect("TP To The Docks", "BringMeToTheDocks", Location.LSDocks));
+                Effects.Add(new TeleportationEffect("TP To A Mountain", "BringMeToAMountain", Location.MountChiliad));
+                Effects.Add(new TeleportationEffect("TP To The SF Airport", "BringMeToTheSFAirport", Location.SFAirport));
+                Effects.Add(new TeleportationEffect("TP To A Bridge", "BringMeToABridge", Location.SFBridge));
+                Effects.Add(new TeleportationEffect("TP To A Secret Place", "BringMeToASecretPlace", Location.Area52));
+                Effects.Add(new TeleportationEffect("TP To A Quarry", "BringMeToAQuarry", Location.LVQuarry));
+                Effects.Add(new TeleportationEffect("TP To The LV Airport", "BringMeToTheLVAirport", Location.LVAirport));
+                Effects.Add(new TeleportationEffect("TP To Big Ear", "BringMeToBigEar", Location.LVSatellite));
                 Effects.Add(new FunctionEffect(Category.Teleportation, "Random Teleport", "LetsGoSightseeing", "random_teleport")); // Random Teleport - Teleports CJ to a random location on the map
                 Effects.Add(new FunctionEffect(Category.Teleportation, "Fake Teleport", "HahaGotYourNose", "fake_teleport", 1000 * 5)); // Fake Teleport
-                Effects.Add(new FunctionEffect(Category.Teleportation, "Teleport To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Fake Teleport
+                Effects.Add(new FunctionEffect(Category.Teleportation, "TP To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Fake Teleport
             }
             else if (game == "vice_city")
             {
@@ -379,7 +380,7 @@ namespace GTAChaos.Effects
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable All Weapon Damage", "DisableAllWeaponDamage", "disable_all_weapon_damage"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Everybody Bleed Now", "EverybodyBleedNow", "everybody_bleed_now"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Infinite Health (Everyone)", "InfiniteHealthEveryone", "infinite_health_everyone"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Invincible (Everyone)", "InfiniteHealthEveryone", "infinite_health_everyone"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Long Live The Rich", "LongLiveTheRich", "long_live_the_rich"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "One Hit K.O.", "OneHitKO", "one_hit_ko"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "RemoveAllWeapons", "remove_all_weapons"));
@@ -395,7 +396,7 @@ namespace GTAChaos.Effects
 
                 //Effects.Add(new FunctionEffect(Category.CustomEffects, "Ghost Rider", "GhostRider", "ghost_rider"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "High Suspension Damping", "HighSuspensionDamping", "high_suspension_damping"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Invisible Vehicles", "InvisibleVehicles", "invisible_vehicles"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Ghost Cars", "InvisibleVehicles", "invisible_vehicles"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Lightspeed Braking", "LightspeedBraking", "lightspeed_braking"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Little Suspension Damping", "LittleSuspensionDamping", "little_suspension_damping"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pop Tires Of All Vehicles", "PopTiresOfAllVehicles", "pop_tires_of_all_vehicles"));
@@ -409,6 +410,16 @@ namespace GTAChaos.Effects
             }
 
             Effects.Sort((first, second) => string.Compare(first.GetDisplayName(), second.GetDisplayName(), StringComparison.CurrentCultureIgnoreCase));
+
+            Effects.ForEach(e =>
+            {
+                string displayName = e.GetDisplayName();
+                if (displayName.Length > 25)
+                {
+                    Debug.WriteLine($"WARNING: The following effect is {displayName.Length - 25} characters too long: '{displayName}'");
+                    Debug.WriteLine($"{displayName.Substring(0, 25)}");
+                }
+            });
         }
 
         public static List<AbstractEffect> EnabledEffects { get; } = new List<AbstractEffect>();

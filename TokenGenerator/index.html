@@ -13,13 +13,23 @@
 
 <body class="text-center">
     <main class="token-form">
-        <h1 class="h3 mb-3 fw-normal">GTA Trilogy Chaos Mod Token Generator</h1>
+        <h1 class="mb-3">GTA Trilogy Chaos Mod Token Generator</h1>
 
         <div class="input-group mb-3">
             <input id="tokenInput" type="password" readonly="true" class="form-control" aria-label="Token">
-            <button class="btn btn-primary" type="button" disabled="true" onclick="copyToClipboard()">Copy</button>
+            <button id="tokenCopyToClipboard" class="btn btn-primary" type="button" disabled="true"
+                onclick="copyToClipboard()">Copy</button>
         </div>
         <button class="w-100 btn btn-lg btn-primary" onclick="generateToken()">Generate Token</button>
+
+        <h4 class="mt-3 fw-normal">To revoke access, disconnect "GTA Trilogy Chaos Mod" from your <a
+                href="http://www.twitch.tv/settings/connections" target="_blank">Twitch settings</a>.</h4>
+
+        <p class="mt-3">(<strong>Technical:</strong> This application uses the <a
+                href="https://dev.twitch.tv/docs/v5/guides/authentication/" target="_blank">implicit grant flow</a> for
+            the Twitch API to retrieve
+            your token. This
+            means that your token is only ever visible to your browser and not our server.)</p>
     </main>
 
     <script src="main.js"></script>

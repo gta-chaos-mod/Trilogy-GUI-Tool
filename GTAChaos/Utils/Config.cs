@@ -1,4 +1,5 @@
 // Copyright (c) 2019 Lordmau5
+using System;
 using System.Collections.Generic;
 
 namespace GTAChaos.Utils
@@ -63,7 +64,7 @@ namespace GTAChaos.Utils
             if (Shared.IsTwitchMode)
             {
                 int cooldown = Instance().TwitchVotingCooldown + Instance().TwitchVotingTime;
-                return Instance().Twitch3TimesCooldown ? cooldown / 3 : cooldown;
+                return Instance().Twitch3TimesCooldown ? cooldown : (int) Math.Round(cooldown / 3.0f);
             }
             return Instance().MainCooldown;
         }

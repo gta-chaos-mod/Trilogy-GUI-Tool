@@ -147,7 +147,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable HUD", "FullyImmersed", "disable_hud")); // Disable HUD
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Blips/Markers/Pickups", "INeedSomeInstructions", "disable_blips_markers_pickups")); // Disable Blips / Markers / Pickups
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable All Weapon Damage", "TruePacifist", "disable_all_weapon_damage")); // Disable all Weapon Damage
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "lets_take_a_break").DisableRapidFire()); // Let's take a break
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "lets_take_a_break", 1000 * 10).DisableRapidFire()); // Let's take a break
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pride Traffic", "AllColorsAreBeautiful", "pride_traffic")); // Pride Traffic / Rainbow Cars
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "High Suspension Damping", "VeryDampNoBounce", "high_suspension_damping")); // Cars have high suspension damping
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Zero Suspension Damping", "LowrideAllNight", "zero_suspension_damping"));  // Cars have almost zero suspension damping
@@ -169,7 +169,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Quadruple Gravity", "KilogramOfSteel", "quadruple_gravity")); // Sets the gravity to 0.032f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Inverted Gravity", "BeamMeUpScotty", "inverted_gravity", 1000 * 10).DisableRapidFire()); // Sets the gravity to -0.002f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Zero Gravity", "ImInSpaaaaace", "zero_gravity", 1000 * 10).DisableRapidFire()); // Sets the gravity to 0f
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Insane Gravity", "StraightToHell", "insane_gravity", 1000 * 5).DisableRapidFire()); // Sets the gravity to 0.64f
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Insane Gravity", "StraightToHell", "insane_gravity", 1000 * 10).DisableRapidFire()); // Sets the gravity to 0.64f
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Tunnel Vision", "TunnelVision", "tunnel_vision", -1, 1.0f).DisableRapidFire()); // Tunnel Vision
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "High Pitched Audio", "CJAndTheChipmunks", "high_pitched_audio")); // High Pitched Audio
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pitch Shifter", "VocalRange", "pitch_shifter")); // Pitch Shifter
@@ -302,7 +302,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new TeleportationEffect("TP To Big Ear", "BringMeToBigEar", Location.LVSatellite));
                 Effects.Add(new FunctionEffect(Category.Teleportation, "Random Teleport", "LetsGoSightseeing", "random_teleport")); // Random Teleport - Teleports CJ to a random location on the map
                 Effects.Add(new FunctionEffect(Category.Teleportation, "Fake Teleport", "HahaGotYourNose", "fake_teleport", 1000 * 5)); // Fake Teleport
-                Effects.Add(new FunctionEffect(Category.Teleportation, "TP To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Fake Teleport
+                Effects.Add(new FunctionEffect(Category.Teleportation, "TP To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Teleport To Marker
             }
             else if (game == "vice_city")
             {

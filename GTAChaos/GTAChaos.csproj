@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -329,12 +329,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Effects\abstract\AbstractEffect.cs" />
-    <Compile Include="Effects\EffectDatabase.cs" />
-    <Compile Include="Effects\extra\SpawnVehicleEffect.cs" />
-    <Compile Include="Effects\extra\TeleportationEffect.cs" />
-    <Compile Include="Effects\extra\WeatherEffect.cs" />
-    <Compile Include="Effects\impl\FunctionEffect.cs" />
+    <Compile Include="src\effects\abstract\AbstractEffect.cs" />
+    <Compile Include="src\effects\EffectDatabase.cs" />
+    <Compile Include="src\effects\extra\SpawnVehicleEffect.cs" />
+    <Compile Include="src\effects\extra\TeleportationEffect.cs" />
+    <Compile Include="src\effects\extra\WeatherEffect.cs" />
+    <Compile Include="src\effects\impl\FunctionEffect.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -343,18 +343,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\AudioPlayer.cs" />
-    <Compile Include="Utils\Category.cs" />
-    <Compile Include="Utils\Config.cs" />
-    <Compile Include="Utils\ITwitchConnection.cs" />
-    <Compile Include="Utils\Location.cs" />
-    <Compile Include="Utils\Multiplayer.cs" />
-    <Compile Include="Utils\RandomHandler.cs" />
-    <Compile Include="Utils\Shared.cs" />
-    <Compile Include="Utils\TwitchChatConnection.cs" />
-    <Compile Include="Utils\TwitchPollConnection.cs" />
-    <Compile Include="Utils\VehicleNames.cs" />
-    <Compile Include="Utils\WebsocketHandler.cs" />
+    <Compile Include="src\utils\AudioPlayer.cs" />
+    <Compile Include="src\utils\Category.cs" />
+    <Compile Include="src\utils\Config.cs" />
+    <Compile Include="src\utils\ITwitchConnection.cs" />
+    <Compile Include="src\utils\Location.cs" />
+    <Compile Include="src\utils\Multiplayer.cs" />
+    <Compile Include="src\utils\RandomHandler.cs" />
+    <Compile Include="src\utils\Shared.cs" />
+    <Compile Include="src\utils\TwitchChatConnection.cs" />
+    <Compile Include="src\utils\TwitchPollConnection.cs" />
+    <Compile Include="src\utils\VehicleNames.cs" />
+    <Compile Include="src\utils\WebsocketHandler.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -384,25 +384,26 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="audio\effect_beyblade.ogg" />
-    <EmbeddedResource Include="audio\effect_get_busted.ogg" />
-    <EmbeddedResource Include="audio\effect_get_wasted.ogg" />
-    <EmbeddedResource Include="audio\effect_honk_vehicle_0.ogg" />
-    <EmbeddedResource Include="audio\effect_honk_vehicle_1.ogg" />
-    <EmbeddedResource Include="audio\effect_honk_vehicle_2.ogg" />
-    <EmbeddedResource Include="audio\effect_honk_vehicle_3.ogg" />
-    <EmbeddedResource Include="audio\effect_honk_vehicle_4.ogg" />
-    <EmbeddedResource Include="audio\effect_inverted_gravity.ogg" />
-    <EmbeddedResource Include="audio\effect_lets_take_a_break.ogg" />
-    <EmbeddedResource Include="audio\effect_long_necks.ogg" />
-    <EmbeddedResource Include="audio\effect_oh_hey_tanks.ogg" />
-    <EmbeddedResource Include="audio\effect_quake_fov.ogg" />
-    <EmbeddedResource Include="audio\effect_reload_autosave.ogg" />
-    <EmbeddedResource Include="audio\effect_ring_ring.ogg" />
-    <EmbeddedResource Include="audio\effect_send_vehicles_to_space.ogg" />
-    <EmbeddedResource Include="audio\effect_suicide.ogg" />
-    <EmbeddedResource Include="audio\effect_underwater_view.ogg" />
-    <EmbeddedResource Include="audio\effect_upside_down_screen.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_beyblade.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_get_busted.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_get_wasted.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_0.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_1.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_2.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_3.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_4.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_inverted_gravity.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_lets_take_a_break.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_long_necks.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_oh_hey_tanks.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_quake_fov.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_reload_autosave.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_ring_ring.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_send_vehicles_to_space.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_suicide.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_underwater_view.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_upside_down_screen.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_rotating_peds.ogg" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="icon.ico" />
   </ItemGroup>

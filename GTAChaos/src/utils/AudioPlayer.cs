@@ -18,7 +18,7 @@ namespace GTAChaos.Utils
         private void PlayEmbeddedResource(string type, string path)
         {
             Assembly a = Assembly.GetExecutingAssembly();
-            Stream s = a.GetManifestResourceStream($"GTAChaos.{type}.{path}.ogg");
+            Stream s = a.GetManifestResourceStream($"GTAChaos.assets.{type}.{path}.ogg");
 
             string fullPath = $"{type}/{path}";
 

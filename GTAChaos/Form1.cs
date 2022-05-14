@@ -124,11 +124,11 @@ namespace GTAChaos.Forms
                     Config.SetInstance(serializer.Deserialize<Config>(reader));
                     RandomHandler.SetSeed(Config.Instance().Seed);
                 }
-                LoadPreset(Config.Instance().EnabledEffects);
-
-                UpdateInterface();
             }
             catch (Exception) { }
+
+            LoadPreset(Config.Instance().EnabledEffects);
+            UpdateInterface();
         }
 
         private void SaveConfig()
@@ -562,7 +562,7 @@ namespace GTAChaos.Forms
             {
                 if (idToEffectNodeMap.ContainsKey(effect.GetId()))
                 {
-
+                    MessageBox.Show($"Tried adding effect with ID that was already present: '{effect.GetId()}'");
                 }
 
                 TreeNode node = enabledEffectsView.Nodes.Find(effect.Category.Name, false).FirstOrDefault();

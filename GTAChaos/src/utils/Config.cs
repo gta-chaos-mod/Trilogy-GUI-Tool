@@ -1,6 +1,8 @@
 // Copyright (c) 2019 Lordmau5
+using GTAChaos.Effects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GTAChaos.Utils
 {
@@ -50,6 +52,9 @@ namespace GTAChaos.Utils
             if (_Instance == null)
             {
                 _Instance = new Config();
+
+                // Set all effects to enabled by default
+                _Instance.EnabledEffects.AddRange(from effect in EffectDatabase.Effects select effect.GetId());
             }
             return _Instance;
         }

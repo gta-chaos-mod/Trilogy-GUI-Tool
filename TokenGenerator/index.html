@@ -15,21 +15,38 @@
     <main class="token-form">
         <h1 class="mb-3">GTA Trilogy Chaos Mod Token Generator</h1>
 
-        <div class="input-group mb-3">
-            <input id="tokenInput" type="password" readonly="true" class="form-control" aria-label="Token">
-            <button id="tokenCopyToClipboard" class="btn btn-primary" type="button" disabled="true"
-                onclick="copyToClipboard()">Copy</button>
+        <div class="form-group mb-3">
+            <label for="clientIDInput">Client ID</label>
+            <input id="clientIDInput" type="password" class="form-control" aria-label="Client ID"
+                oninput="clientIDChange()">
         </div>
-        <button class="w-100 btn btn-lg btn-primary" onclick="generateToken()">Generate Token</button>
+        <div class="form-group mb-3">
+            <label for="tokenInputGroup">Returned Access Token</label>
+            <div id="tokenInputGroup" class="input-group">
+                <input id="tokenInput" type="password" readonly="true" class="form-control" aria-label="Token">
+                <button id="tokenCopyToClipboard" class="btn btn-primary" type="button" disabled="true"
+                    onclick="copyToClipboard()">Copy</button>
+            </div>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" id="generateTokenButton" disabled="true"
+            onclick="generateToken()">Generate Token</button>
 
-        <h4 class="mt-3 fw-normal">To revoke access, disconnect "GTA Trilogy Chaos Mod" from your <a
+        <h4 class="mt-3 fw-normal">To get started, head to the <a href="https://dev.twitch.tv/console/apps"
+                target="_blank">Twitch Developer Dashboard</a> and create a new Application with the category set to
+            "Website Integration".</h4>
+
+        <h4 class="mt-3 fw-normal">Name it whatever you want and set the OAuth Redirect URL to <kbd
+                onclick="onRedirectURLClick()">
+                https://chaos.lord.moe/</kbd></h4>
+
+        <h4 class="mt-3 fw-normal">To revoke access, disconnect the app you created from your <a
                 href="http://www.twitch.tv/settings/connections" target="_blank">Twitch settings</a>.</h4>
 
         <p class="mt-3">(<strong>Technical:</strong> This application uses the <a
                 href="https://dev.twitch.tv/docs/v5/guides/authentication/" target="_blank">implicit grant flow</a> for
             the Twitch API to retrieve
             your token. This
-            means that your token is only ever visible to your browser and not our server.)</p>
+            means that your token is only ever visible to your browser and not our server)</p>
     </main>
 
     <script src="main.js"></script>

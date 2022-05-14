@@ -19,7 +19,7 @@ namespace GTAChaos.Forms
 
         private readonly Stopwatch stopwatch;
         private readonly Dictionary<string, EffectTreeNode> idToEffectNodeMap = new();
-        private ITwitchConnection twitch;
+        private IStreamConnection stream;
 
         private readonly System.Timers.Timer websocketReconnectionTimer;
         private int elapsedCount;
@@ -180,6 +180,7 @@ namespace GTAChaos.Forms
                 if (item.VotingTime == Config.Instance().TwitchVotingTime)
                 {
                     comboBoxVotingTime.SelectedItem = item;
+                    found = true;
                     break;
                 }
             }
@@ -195,6 +196,7 @@ namespace GTAChaos.Forms
                 if (item.VotingCooldown == Config.Instance().TwitchVotingCooldown)
                 {
                     comboBoxVotingCooldown.SelectedItem = item;
+                    found = true;
                     break;
                 }
             }
@@ -205,6 +207,7 @@ namespace GTAChaos.Forms
             }
 
             textBoxTwitchAccessToken.Text = Config.Instance().TwitchAccessToken;
+            textBoxTwitchClientID.Text = Config.Instance().TwitchClientID;
 
             checkBoxPlayAudioForEffects.Checked = Config.Instance().PlayAudioForEffects;
 
@@ -215,15 +218,18 @@ namespace GTAChaos.Forms
             checkBoxTwitchUsePolls.Checked = Config.Instance().TwitchUsePolls;
             checkBoxTwitchEnableMultipleEffects.Checked = Config.Instance().TwitchEnableMultipleEffects;
 
+            checkBoxTwitchMajorityVotes.Checked = Config.Instance().TwitchMajorityVotes;
+            checkBoxTwitchEnableMultipleEffects.Enabled = Config.Instance().TwitchMajorityVotes;
+
             checkBoxTwitchPollsPostMessages.Checked = Config.Instance().TwitchPollsPostMessages;
             numericUpDownTwitchPollsBitsCost.Value = Config.Instance().TwitchPollsBitsCost;
             numericUpDownTwitchPollsChannelPointsCost.Value = Config.Instance().TwitchPollsChannelPointsCost;
             checkBoxTwitchEnableRapidFire.Checked = Config.Instance().TwitchEnableRapidFire;
-            checkBoxTwitchMajorityVotes.Checked = Config.Instance().TwitchMajorityVotes;
 
             checkBoxExperimental_EnableAllEffects.Checked = Config.Instance().Experimental_EnableAllEffects;
             checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
             textBoxExperimentalEffectName.Text = Config.Instance().Experimental_EffectName;
+            checkBoxExperimentalYouTubeConnection.Checked = Config.Instance().Experimental_YouTubeConnection;
 
             textBoxSeed.Text = Config.Instance().Seed;
 
@@ -363,16 +369,16 @@ namespace GTAChaos.Forms
                 {
                     Shared.Multiplayer?.SendTimeUpdate(remaining, Config.Instance().TwitchVotingTime);
 
-                    twitch?.SendEffectVotingToGame();
+                    stream?.SendEffectVotingToGame();
 
                     elapsedCount = (int)stopwatch.ElapsedMilliseconds;
                 }
 
-                bool didFinish = false;
+                bool didFinish;
 
-                if (Config.Instance().TwitchUsePolls && twitch != null)
+                if (Config.Instance().TwitchUsePolls && stream != null && !Config.Instance().Experimental_YouTubeConnection)
                 {
-                    didFinish = twitch.GetRemaining() == 0;
+                    didFinish = stream.GetRemaining() == 0;
 
                     if (stopwatch.ElapsedMilliseconds >= Config.Instance().TwitchVotingTime)
                     {
@@ -394,7 +400,7 @@ namespace GTAChaos.Forms
                             stopwatch.Restart();
                             Shared.TwitchVotingMode = 0;
 
-                            twitch?.SetVoting(3, timesUntilRapidFire, null);
+                            stream?.SetVoting(3, timesUntilRapidFire, null);
 
                             return;
                         }
@@ -419,29 +425,29 @@ namespace GTAChaos.Forms
 
                     labelTwitchCurrentMode.Text = "Current Mode: Cooldown";
 
-                    if (twitch != null)
+                    if (stream != null)
                     {
-                        List<IVotingElement> elements = twitch.GetVotedEffects();
+                        List<IVotingElement> elements = stream.GetVotedEffects();
 
                         bool zeroVotes = true;
-                        elements.ForEach(e =>
+                        foreach(var e in elements)
                         {
                             if (e.GetVotes() > 0)
                             {
                                 zeroVotes = false;
                             }
-                        });
+                        }
 
-                        twitch.SetVoting(0, timesUntilRapidFire, zeroVotes ? null : elements);
+                        stream.SetVoting(0, timesUntilRapidFire, zeroVotes ? null : elements);
                         if (!zeroVotes)
                         {
-                            elements.ForEach(e =>
+                            foreach(var e in elements)
                             {
                                 float multiplier = e.GetEffect().GetMultiplier();
                                 e.GetEffect().SetMultiplier(multiplier / elements.Count);
                                 CallEffect(e.GetEffect());
                                 e.GetEffect().SetMultiplier(multiplier);
-                            });
+                            }
                         }
                     }
                 }
@@ -483,7 +489,7 @@ namespace GTAChaos.Forms
 
                     labelTwitchCurrentMode.Text = "Current Mode: Cooldown";
 
-                    twitch?.SetVoting(0, timesUntilRapidFire);
+                    stream?.SetVoting(0, timesUntilRapidFire);
                 }
             }
             else if (Shared.TwitchVotingMode == 0)
@@ -518,7 +524,7 @@ namespace GTAChaos.Forms
                         timesUntilRapidFire--;
                     }
 
-                    if (timesUntilRapidFire == 0)
+                    if (timesUntilRapidFire == 0 && Config.Instance().TwitchEnableRapidFire)
                     {
                         progressBarTwitch.Value = progressBarTwitch.Maximum = 1000 * 10;
 
@@ -527,7 +533,7 @@ namespace GTAChaos.Forms
                         Shared.TwitchVotingMode = 2;
                         labelTwitchCurrentMode.Text = "Current Mode: Rapid-Fire";
 
-                        twitch?.SetVoting(2, timesUntilRapidFire);
+                        stream?.SetVoting(2, timesUntilRapidFire);
                     }
                     else
                     {
@@ -536,7 +542,7 @@ namespace GTAChaos.Forms
                         Shared.TwitchVotingMode = 1;
                         labelTwitchCurrentMode.Text = "Current Mode: Voting";
 
-                        twitch?.SetVoting(1, timesUntilRapidFire);
+                        stream?.SetVoting(1, timesUntilRapidFire);
                     }
                     stopwatch.Restart();
                 }
@@ -922,15 +928,16 @@ namespace GTAChaos.Forms
 
         private async void ButtonConnectTwitch_Click(object sender, EventArgs e)
         {
-            if (twitch?.IsConnected() == true || buttonConnectTwitch.Text == "Disconnect")
+            if (stream?.IsConnected() == true || buttonConnectTwitch.Text == "Disconnect")
             {
-                twitch?.Kill();
-                twitch = null;
+                stream?.Kill();
+                stream = null;
 
                 comboBoxVotingTime.Enabled = true;
                 comboBoxVotingCooldown.Enabled = true;
 
                 textBoxTwitchAccessToken.Enabled = true;
+                textBoxTwitchClientID.Enabled = true;
 
                 buttonTwitchToggle.Enabled = false;
 
@@ -948,34 +955,29 @@ namespace GTAChaos.Forms
                 return;
             }
 
-            if (!string.IsNullOrEmpty(Config.Instance().TwitchAccessToken))
+            if (!string.IsNullOrEmpty(Config.Instance().TwitchAccessToken) && !string.IsNullOrEmpty(Config.Instance().TwitchClientID))
             {
                 buttonConnectTwitch.Enabled = false;
                 textBoxTwitchAccessToken.Enabled = false;
+                textBoxTwitchClientID.Enabled = false;
 
-                if (Config.Instance().TwitchUsePolls)
+                if (Config.Instance().Experimental_YouTubeConnection)
                 {
-                    twitch = new TwitchPollConnection();
+                    stream = new YouTubeChatConnection();
                 }
                 else
                 {
-                    twitch = new TwitchChatConnection();
+                    if (Config.Instance().TwitchUsePolls)
+                    {
+                        stream = new TwitchPollConnection();
+                    }
+                    else
+                    {
+                        stream = new TwitchChatConnection();
+                    }
                 }
 
-                bool connected = await twitch.TryConnect();
-                if (!connected)
-                {
-                    MessageBox.Show("There was an error trying to log in to the account. Invalid Access Token?", "Twitch Login Error");
-
-                    buttonConnectTwitch.Enabled = true;
-                    textBoxTwitchAccessToken.Enabled = true;
-
-                    twitch?.Kill();
-                    twitch = null;
-                    return;
-                }
-
-                twitch.OnRapidFireEffect += (_sender, rapidFireArgs) =>
+                stream.OnRapidFireEffect += (_sender, rapidFireArgs) =>
                 {
                     Invoke(new Action(() =>
                     {
@@ -994,19 +996,20 @@ namespace GTAChaos.Forms
                     }));
                 };
 
-                twitch.OnLoginError += (_sender, _e) =>
+                stream.OnLoginError += (_sender, _e) =>
                 {
                     MessageBox.Show("There was an error trying to log in to the account. Invalid Access Token?", "Twitch Login Error");
                     Invoke(new Action(() =>
                     {
                         buttonConnectTwitch.Enabled = true;
                         textBoxTwitchAccessToken.Enabled = true;
+                        textBoxTwitchClientID.Enabled = true;
                     }));
-                    twitch?.Kill();
-                    twitch = null;
+                    stream?.Kill();
+                    stream = null;
                 };
 
-                twitch.OnConnected += (_sender, _e) =>
+                stream.OnConnected += (_sender, _e) =>
                 {
                     Invoke(new Action(() =>
                     {
@@ -1016,21 +1019,23 @@ namespace GTAChaos.Forms
                         buttonConnectTwitch.Text = "Disconnect";
 
                         textBoxTwitchAccessToken.Enabled = false;
+                        textBoxTwitchClientID.Enabled = false;
 
                         checkBoxTwitchUsePolls.Enabled = false;
                     }));
                 };
 
-                twitch.OnDisconnected += (_sender, _e) =>
+                stream.OnDisconnected += (_sender, _e) =>
                 {
                     Invoke(new Action(() =>
                     {
-                        twitch = null;
+                        stream = null;
 
                         comboBoxVotingTime.Enabled = true;
                         comboBoxVotingCooldown.Enabled = true;
 
                         textBoxTwitchAccessToken.Enabled = true;
+                        textBoxTwitchClientID.Enabled = true;
 
                         buttonTwitchToggle.Enabled = false;
 
@@ -1046,14 +1051,34 @@ namespace GTAChaos.Forms
                         SetEnabled(false);
                     }));
                 };
+
+                bool connected = await stream.TryConnect();
+                if (!connected)
+                {
+                    MessageBox.Show("There was an error trying to log in to the account. Invalid Access Token?", "Twitch Login Error");
+
+                    buttonConnectTwitch.Enabled = true;
+                    textBoxTwitchAccessToken.Enabled = true;
+                    textBoxTwitchClientID.Enabled = true;
+
+                    stream?.Kill();
+                    stream = null;
+                    return;
+                }
             }
+        }
+
+        private void UpdateTwitchConnectButtonState()
+        {
+            buttonConnectTwitch.Enabled = !string.IsNullOrEmpty(Config.Instance().TwitchAccessToken)
+                && !string.IsNullOrEmpty(Config.Instance().TwitchClientID);
         }
 
         private void TextBoxOAuth_TextChanged(object sender, EventArgs e)
         {
             Config.Instance().TwitchAccessToken = textBoxTwitchAccessToken.Text;
 
-            buttonConnectTwitch.Enabled = !string.IsNullOrEmpty(textBoxTwitchAccessToken.Text);
+            UpdateTwitchConnectButtonState();
         }
 
         private void SwitchMode(bool isTwitchMode)
@@ -1162,7 +1187,7 @@ namespace GTAChaos.Forms
             Shared.TwitchVotingMode = 0;
             timesUntilRapidFire = new Random().Next(10, 15);
             progressBarTwitch.Value = 0;
-            buttonTwitchToggle.Enabled = twitch?.IsConnected() == true;
+            buttonTwitchToggle.Enabled = stream?.IsConnected() == true;
             buttonTwitchToggle.Text = "Start / Resume";
         }
 
@@ -1614,11 +1639,25 @@ namespace GTAChaos.Forms
         private void CheckBoxTwitchMajorityVotes_CheckedChanged(object sender, EventArgs e)
         {
             Config.Instance().TwitchMajorityVotes = checkBoxTwitchMajorityVotes.Checked;
+
+            checkBoxTwitchEnableMultipleEffects.Enabled = Config.Instance().TwitchMajorityVotes;
         }
 
         private void LinkLabelTwitchGetAccessToken_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://chaos.lord.moe/");
+        }
+
+        private void CheckBoxExperimentalYouTubeConnection_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance().Experimental_YouTubeConnection = checkBoxExperimentalYouTubeConnection.Checked;
+        }
+
+        private void TextBoxTwitchClientID_TextChanged(object sender, EventArgs e)
+        {
+            Config.Instance().TwitchClientID = textBoxTwitchClientID.Text;
+
+            UpdateTwitchConnectButtonState();
         }
     }
 }

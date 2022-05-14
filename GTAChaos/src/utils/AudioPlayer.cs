@@ -61,6 +61,7 @@ namespace GTAChaos.Utils
             WaveOutEvent outputDevice = new WaveOutEvent();
             outputDevice.Init(stream);
 
+            outputDevice.Volume = 0.5f;
             outputDevice.Play();
         }
 

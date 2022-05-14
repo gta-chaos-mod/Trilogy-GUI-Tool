@@ -1,131 +1,272 @@
-// Copyright (c) 2019 Lordmau5
+﻿using Flurl;
+using Flurl.Http;
 using GTAChaos.Effects;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using TwitchLib.Api;
-using TwitchLib.Client;
-using TwitchLib.Client.Events;
-using TwitchLib.Client.Models;
-using TwitchLib.Communication.Clients;
-using TwitchLib.Communication.Models;
 
 namespace GTAChaos.Utils
 {
-    public class TwitchChatConnection : IStreamConnection
+    public class YouTubeChatConnection : IStreamConnection
     {
-        public TwitchClient Client;
-        private WebSocketClient customClient;
-        private readonly TwitchAPI api;
+        class ChatItem
+        {
+            public string Author { get; }
+            public string Message { get; }
 
-        private readonly string AccessToken;
-        private readonly string ClientID;
-        private string Channel;
-        private string Username;
+            public ChatItem(string author, string message)
+            {
+                Author = author;
+                Message = message;
+            }
+        }
 
+        private string liveId;
+        private string isReplay;
+        private string apiKey;
+        private string clientVersion;
+        private string continuation;
+
+        private bool isConnected = false;
+
+        private int VotingMode;
+        private int lastChoice = -1;
         private readonly ChatEffectVoting effectVoting = new ChatEffectVoting();
         private readonly HashSet<string> rapidFireVoters = new HashSet<string>();
-        private int VotingMode;
 
-        private int lastChoice = -1;
+        private readonly System.Timers.Timer fetchMessagesTimer;
 
-        public TwitchChatConnection()
+        public YouTubeChatConnection()
         {
-            AccessToken = Config.Instance().TwitchAccessToken;
-            ClientID = Config.Instance().TwitchClientID;
+            liveId = Config.Instance().TwitchAccessToken;
 
-            if (string.IsNullOrEmpty(AccessToken) || string.IsNullOrEmpty(ClientID)) return;
+            if (string.IsNullOrEmpty(liveId)) return;
 
-            api = new TwitchAPI();
-            api.Settings.ClientId = ClientID;
-            api.Settings.AccessToken = AccessToken;
-        }
-
-        public TwitchClient GetTwitchClient()
-        {
-            return Client;
-        }
-
-        private void InitializeTwitchClient()
-        {
-            ConnectionCredentials credentials = new ConnectionCredentials(Username, AccessToken);
-
-            customClient = new WebSocketClient(
-                new ClientOptions()
-                {
-                    MessagesAllowedInPeriod = 750,
-                    ThrottlingPeriod = TimeSpan.FromSeconds(30)
-                }
-            );
-            Client = new TwitchClient(customClient);
-            Client.Initialize(credentials, Channel);
-
-            Client.OnMessageReceived += Client_OnMessageReceived;
-            Client.OnConnected += Client_OnConnected;
-
-            Client.OnConnectionError += Client_OnConnectionError;
-            Client.OnIncorrectLogin += Client_OnIncorrectLogin;
+            fetchMessagesTimer = new System.Timers.Timer()
+            {
+                AutoReset = true,
+                Interval = 1000
+            };
+            fetchMessagesTimer.Elapsed += FetchMessagesTimer_Elapsed;
         }
 
         public async Task<bool> TryConnect()
         {
             Kill();
 
-            var data = await api.Auth.ValidateAccessTokenAsync();
-            if (data == null) return false;
+            isConnected = await FetchStreamInformation();
 
-            Username = data.Login;
-            Channel = data.Login;
+            if (!isConnected)
+            {
+                OnLoginError?.Invoke(this, new EventArgs());
+            }
+            else
+            {
+                OnConnected?.Invoke(this, new EventArgs());
+            }
 
-            InitializeTwitchClient();
-
-            Client.Connect();
-
-            return true;
+            return isConnected;
         }
 
         public bool IsConnected()
         {
-            return Client?.IsConnected == true;
+            return isConnected;
         }
 
-        private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e)
+        private async void FetchMessagesTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            //Kill();
+            if (!isConnected) return;
 
-            Client?.Reconnect();
-
-            //Client?.Initialize(new ConnectionCredentials(Username, AccessToken), Channel);
-
-            //Client?.Connect();
-        }
-
-        private void Client_OnConnected(object sender, OnConnectedArgs e)
-        {
-            OnConnected?.Invoke(this, e);
-
-            SendMessage("Connected!");
-        }
-
-        private void Client_OnIncorrectLogin(object sender, OnIncorrectLoginArgs e)
-        {
-            OnLoginError?.Invoke(sender, e);
-        }
-
-        public void Kill()
-        {
-            if (Client != null)
+            var messages = await FetchChat();
+            foreach (var msg in messages)
             {
-                OnDisconnected?.Invoke(this, new EventArgs());
-
-                Client.Disconnect();
+                OnChatMessage(msg);
             }
-            Client = null;
+        }
 
-            customClient?.Dispose();
-            customClient = null;
+        private string TryMatch(string data, string regex)
+        {
+            var regexResult = Regex.Match(data, regex);
+            if (regexResult.Success)
+            {
+                return regexResult.Groups[1].Value;
+            }
+
+            return null;
+        }
+
+        private async Task<bool> FetchStreamInformation()
+        {
+            string streamURL = $"https://www.youtube.com/watch?v={liveId}";
+
+            var data = await streamURL.GetStringAsync();
+
+            // Match all regex things
+            isReplay = TryMatch(data, "['\"]isReplay['\"]:\\s*(true)");
+            if (!string.IsNullOrEmpty(isReplay)) return false;
+
+            apiKey = TryMatch(data, "['\"]INNERTUBE_API_KEY['\"]:\\s*['\"](.+?)['\"]");
+            if (string.IsNullOrEmpty(apiKey)) return false;
+
+            clientVersion = TryMatch(data, "['\"]clientVersion['\"]:\\s*['\"]([\\d.]+?)['\"]");
+            if (string.IsNullOrEmpty(clientVersion)) return false;
+
+            continuation = TryMatch(data, "['\"]continuation['\"]:\\s*['\"](.+?)['\"]");
+            if (string.IsNullOrEmpty(continuation)) return false;
+
+            Console.WriteLine(liveId);
+            Console.WriteLine(isReplay);
+            Console.WriteLine(apiKey);
+            Console.WriteLine(clientVersion);
+            Console.WriteLine(continuation);
+
+            return true;
+        }
+
+        private async Task<List<ChatItem>> FetchChat()
+        {
+            if (!isConnected) return null;
+
+            var chatURL = $"https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key={apiKey}";
+            var data = await chatURL.PostJsonAsync(
+                new
+                {
+                    context = new
+                    {
+                        client = new
+                        {
+                            clientVersion,
+                            clientName = "WEB"
+                        }
+                    },
+                    continuation
+                }).ReceiveString();
+
+            var json = JObject.Parse(data);
+
+            var liveChatContinuation = json["continuationContents"]["liveChatContinuation"];
+
+            var continuationData = liveChatContinuation["continuations"][0];
+            if (continuationData["invalidationContinuationData"] != null)
+            {
+                continuation = continuationData["invalidationContinuationData"]["continuation"].ToString();
+            }
+            else if (continuationData["timedContinuationData"] != null)
+            {
+                continuation = continuationData["timedContinuationData"]["continuation"].ToString();
+            }
+
+            var actions = liveChatContinuation["actions"];
+            return ParseChatMessages(actions);
+        }
+
+        private List<ChatItem> ParseChatMessages(JToken actions)
+        {
+            List<ChatItem> messages = new List<ChatItem>();
+
+            if (actions == null) return messages;
+
+            foreach(var action in actions)
+            {
+                var item = action["addChatItemAction"]?["item"];
+                if (item == null) continue;
+
+                JToken renderer = null;
+                if (item["liveChatTextMessageRenderer"] != null)
+                {
+                    renderer = item["liveChatTextMessageRenderer"];
+                }
+                else if (item["liveChatPaidMessageRenderer"] != null)
+                {
+                    renderer = item["liveChatPaidMessageRenderer"];
+                }
+                else if (item["liveChatMembershipItemRenderer"] != null)
+                {
+                    renderer = item["liveChatMembershipItemRenderer"];
+                }
+
+                if (renderer == null) continue;
+
+                // Message Runs
+                JToken messageItem = null;
+                if (renderer["message"] != null)
+                {
+                    messageItem = renderer["message"]?["runs"];
+                }
+                else if (item["headerSubtext"] != null)
+                {
+                    messageItem = renderer["headerSubtext"]?["runs"];
+                }
+
+                if (messageItem == null || messageItem[0] == null) continue;
+
+                // Author name
+                string author = null;
+                if (renderer["authorName"]?["simpleText"] != null)
+                {
+                    author = renderer["authorName"]?["simpleText"].ToString();
+                }
+
+                List<string> messageParts = new List<string>();
+
+                JArray messageTokens = (JArray) messageItem;
+                foreach (var msg in messageTokens)
+                {
+                    if (msg["text"] != null)
+                    {
+                        messageParts.Add(msg["text"].ToString());
+                    }
+                }
+
+                string message = string.Join(" ", messageParts.ToArray());
+                if (string.IsNullOrEmpty(author) || string.IsNullOrEmpty(message)) continue;
+
+                messages.Add(new ChatItem(author, message));
+            }
+
+            return messages;
+        }
+
+        private void OnChatMessage(ChatItem chatItem)
+        {
+            string username = RemoveSpecialCharacters(chatItem.Author);
+            string message = RemoveSpecialCharacters(chatItem.Message, true);
+
+            if (VotingMode == 2)
+            {
+                if (rapidFireVoters.Contains(username))
+                {
+                    return;
+                }
+
+                AbstractEffect effect = EffectDatabase.GetByWord(message, Config.Instance().TwitchAllowOnlyEnabledEffectsRapidFire);
+                if (effect == null || !effect.IsRapidFire())
+                {
+                    return;
+                }
+
+                RapidFireEffect(new RapidFireEventArgs()
+                {
+                    Effect = effect.SetTwitchVoter(username)
+                });
+
+                rapidFireVoters.Add(username);
+
+                return;
+            }
+            else if (VotingMode == 1)
+            {
+                int choice = TryParseUserChoice(message);
+                if (choice >= 0 && choice <= 2)
+                {
+                    effectVoting?.TryAddVote(username, choice);
+                }
+            }
         }
 
         public int GetRemaining()
@@ -133,11 +274,56 @@ namespace GTAChaos.Utils
             return 0;
         }
 
+        public List<IVotingElement> GetVotedEffects()
+        {
+            List<IVotingElement> elements = Config.Instance().TwitchMajorityVotes ? effectVoting.GetMajorityVotes() : effectVoting.GetTrulyRandomVotes();
+            foreach (var e in elements)
+            {
+                e.GetEffect().ResetTwitchVoter();
+            }
+
+            lastChoice = elements.Count > 1 ? -1 : elements.First().GetId();
+
+            return elements;
+        }
+
+        public void Kill()
+        {
+            fetchMessagesTimer?.Stop();
+        }
+
+        public void SendEffectVotingToGame(bool undetermined = true)
+        {
+            if (effectVoting.IsEmpty())
+            {
+                return;
+            }
+
+            effectVoting.GetVotes(out string[] effects, out int[] votes, undetermined);
+
+            if (Shared.Multiplayer != null)
+            {
+                Shared.Multiplayer.SendVotes(effects, votes, lastChoice, !undetermined);
+            }
+            else
+            {
+                WebsocketHandler.INSTANCE.SendVotes(effects, votes, lastChoice);
+            }
+        }
+
+        private void SendMessage(string text)
+        {
+            // Empty method because we are just a chat listener
+        }
+
         public void SetVoting(int votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null)
         {
             VotingMode = votingMode;
+
             if (VotingMode == 1)
             {
+                fetchMessagesTimer.Start();
+
                 effectVoting.Clear();
                 effectVoting.GenerateRandomEffects();
                 lastChoice = -1;
@@ -172,6 +358,8 @@ namespace GTAChaos.Utils
             }
             else
             {
+                fetchMessagesTimer.Stop();
+
                 if (votingElements != null && votingElements.Count > 0)
                 {
                     SendEffectVotingToGame(false);
@@ -205,84 +393,14 @@ namespace GTAChaos.Utils
                     {
                         SendMessage($"Cooldown has started!");
                     }
-
                 }
             }
         }
 
-        public List<IVotingElement> GetVotedEffects()
+        private string RemoveSpecialCharacters(string text, bool noSpaces = true)
         {
-            List<IVotingElement> elements = Config.Instance().TwitchMajorityVotes ? effectVoting.GetMajorityVotes() : effectVoting.GetTrulyRandomVotes();
-            foreach(var e in elements)
-            {
-                e.GetEffect().ResetTwitchVoter();
-            }
-
-            lastChoice = elements.Count > 1 ? -1 : elements.First().GetId();
-
-            return elements;
-        }
-
-        private void SendMessage(string message, bool prefix = true)
-        {
-            if (IsConnected() && Channel != null && message != null)
-            {
-                if (!Client.IsConnected)
-                {
-                    Client.Connect();
-                    return;
-                }
-
-                if (Client.JoinedChannels.Count == 0)
-                {
-                    Client.JoinChannel(Channel);
-                    return;
-                }
-
-                Client.SendMessage(Channel, $"{(prefix ? "[GTA Chaos] " : "")}{message}");
-            }
-        }
-
-        private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
-        {
-            string username = e.ChatMessage.Username;
-            string message = RemoveSpecialCharacters(e.ChatMessage.Message);
-
-            if (VotingMode == 2)
-            {
-                if (rapidFireVoters.Contains(username))
-                {
-                    return;
-                }
-
-                AbstractEffect effect = EffectDatabase.GetByWord(message, Config.Instance().TwitchAllowOnlyEnabledEffectsRapidFire);
-                if (effect == null || !effect.IsRapidFire())
-                {
-                    return;
-                }
-
-                RapidFireEffect(new RapidFireEventArgs()
-                {
-                    Effect = effect.SetTwitchVoter(username)
-                });
-
-                rapidFireVoters.Add(username);
-
-                return;
-            }
-            else if (VotingMode == 1)
-            {
-                int choice = TryParseUserChoice(message);
-                if (choice >= 0 && choice <= 2)
-                {
-                    effectVoting?.TryAddVote(username, choice);
-                }
-            }
-        }
-
-        private string RemoveSpecialCharacters(string text)
-        {
-            return Regex.Replace(text, @"[^A-Za-z0-9]", "");
+            var regex = noSpaces ? @"[^A-Za-z0-9]" : @"[^A-Za-z0-9 ]";
+            return Regex.Replace(text, regex, "");
         }
 
         private int TryParseUserChoice(string text)
@@ -294,25 +412,6 @@ namespace GTAChaos.Utils
             catch
             {
                 return -1;
-            }
-        }
-
-        public void SendEffectVotingToGame(bool undetermined = true)
-        {
-            if (effectVoting.IsEmpty())
-            {
-                return;
-            }
-
-            effectVoting.GetVotes(out string[] effects, out int[] votes, undetermined);
-
-            if (Shared.Multiplayer != null)
-            {
-                Shared.Multiplayer.SendVotes(effects, votes, lastChoice, !undetermined);
-            }
-            else
-            {
-                WebsocketHandler.INSTANCE.SendVotes(effects, votes, lastChoice);
             }
         }
 
@@ -355,6 +454,9 @@ namespace GTAChaos.Utils
 
             public void GetVotes(out string[] effects, out int[] votes, bool undetermined = false)
             {
+                // We aren't posting effects to YouTube chat so we can't hide them ingame
+                undetermined = false;
+
                 ChatVotingElement[] votingElements = GetVotingElements().ToArray();
 
                 effects = new string[]
@@ -425,7 +527,7 @@ namespace GTAChaos.Utils
 
                 // Calculate total votes
                 int totalVotes = 0;
-                foreach(var e in votingElements)
+                foreach (var e in votingElements)
                 {
                     totalVotes += e.Voters.Count;
                 }
@@ -477,7 +579,7 @@ namespace GTAChaos.Utils
 
             public void TryAddVote(string username, int effectChoice)
             {
-                foreach(var e in votingElements)
+                foreach (var e in votingElements)
                 {
                     e.RemoveVoter(username);
                 }

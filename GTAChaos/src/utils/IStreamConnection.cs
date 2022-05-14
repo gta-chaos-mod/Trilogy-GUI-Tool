@@ -3,7 +3,6 @@ using GTAChaos.Effects;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TwitchLib.Client;
 
 namespace GTAChaos.Utils
 {
@@ -12,7 +11,7 @@ namespace GTAChaos.Utils
         public AbstractEffect Effect { get; set; }
     }
 
-    public interface ITwitchConnection
+    public interface IStreamConnection
     {
         event EventHandler<EventArgs> OnConnected;
         event EventHandler<EventArgs> OnDisconnected;

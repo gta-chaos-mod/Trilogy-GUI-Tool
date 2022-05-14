@@ -102,7 +102,6 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Ghost Town", "GhostTown", "ghost_town")); // Reduced traffic
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Beach Party", "LifesABeach", "beach_theme")); // Beach party
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Ninja Theme", "NinjaTown", "ninja_theme")); // Ninja theme
-                Effects.Add(new FunctionEffect(Category.PedsAndCo, "Naughty Theme", "LoveConquersAll", "naughty_theme")); // Naughty theme
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Funhouse Theme", "CrazyTown", "funhouse_theme")); // Funhouse theme
                 Effects.Add(new FunctionEffect(Category.PedsAndCo, "Country Traffic", "HicksVille", "country_traffic")); // Country traffic
 
@@ -123,7 +122,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.Stats, "No Driving Skills", "BackToDrivingSchool", "no_driving_skills")); // No driving skills
                 Effects.Add(new FunctionEffect(Category.Stats, "Never Get Hungry", "IAmNeverHungry", "never_get_hungry")); // Never get hungry
                 Effects.Add(new FunctionEffect(Category.Stats, "Lock Respect At Max", "WorshipMe", "lock_respect_at_max")); // Lock respect at max
-                Effects.Add(new FunctionEffect(Category.Stats, "Lock Sex Appeal At Max", "HelloLadies", "lock_sex_appeal_at_max")); // Lock sex appeal at max
+                Effects.Add(new FunctionEffect(Category.Stats, "Hot CJ In Your Area", "HelloLadies", "lock_sex_appeal_at_max")); // Lock sex appeal at max
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "clear_active_effects").DisableTwitch()); // Clear Active Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsAllowed", "remove_all_weapons")); // Remove all weapons
@@ -227,7 +226,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Tiny Peds", "SmolPeepoPeds", "ped_size_tiny"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Large Peds", "LargPeepoPeds", "ped_size_large"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Long Necks", "ICanSeeMyHouseFromUpHere", "long_necks"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Hold The F Up...", "HoldTheFUp", "hold_the_f_up"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Hold The F*** Up...", "HoldTheFUp", "hold_the_f_up"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Don't Lose Your Head", "DontLoseYourHead", "dont_lose_your_head"));
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Backwards Peds", "BackwardsPeds", "backwards_peds"));
@@ -249,7 +248,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete Vehicle", "GoodbyeSweetRide", "delete_vehicle"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete All Vehicles", "GoodbyeAllSweetRides", "delete_all_vehicles"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Tasks Allowed", "NoTasksAllowed", "no_tasks_allowed", 1000 * 10));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk Off", "LetsGoForAWalk", "walk_off", 1000 * 5));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk Off", "LetsGoForAWalk", "walk_off", 1000 * 10));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pause", "LetsPause", "pause"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Fake Crash", "TooManyModsInstalled", "fake_crash"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk On Water", "JesusInTheHouse", "walk_on_water"));
@@ -276,7 +275,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable Jumping", "DisableJumping", "disable_jumping"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Aiming", "ICanOnlyAim", "forced_aiming"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Shooting", "ICanOnlyShoot", "forced_shooting"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Look Behind", "EyesInTheBack", "forced_look_behind"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Look Behind", "EyesInTheBack", "forced_look_behind", -1, 1.0f));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Walk", "AWalkInThePark", "forced_walk"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Lock Mouse", "WhoUnpluggedMyMouse", "lock_mouse"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Shaky Hands", "IJustCantHoldStill", "shaky_hands"));
@@ -411,7 +410,7 @@ namespace GTAChaos.Effects
 
             Effects.Sort((first, second) => string.Compare(first.GetDisplayName(), second.GetDisplayName(), StringComparison.CurrentCultureIgnoreCase));
 
-            Effects.ForEach(e =>
+            foreach(var e in Effects)
             {
                 string displayName = e.GetDisplayName();
                 if (displayName.Length > 25)
@@ -419,7 +418,7 @@ namespace GTAChaos.Effects
                     Debug.WriteLine($"WARNING: The following effect is {displayName.Length - 25} characters too long: '{displayName}'");
                     Debug.WriteLine($"{displayName.Substring(0, 25)}");
                 }
-            });
+            }
         }
 
         public static List<AbstractEffect> EnabledEffects { get; } = new List<AbstractEffect>();

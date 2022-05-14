@@ -17,13 +17,14 @@ using TwitchLib.Communication.Models;
 
 namespace GTAChaos.Utils
 {
-    public class TwitchPollConnection : ITwitchConnection
+    public class TwitchPollConnection : IStreamConnection
     {
         public TwitchClient Client;
         private WebSocketClient customClient;
         private readonly TwitchAPI api;
 
         private readonly string AccessToken;
+        private readonly string ClientID;
         private string Username;
         private string Channel;
         private string UserID;
@@ -42,14 +43,12 @@ namespace GTAChaos.Utils
         public TwitchPollConnection()
         {
             AccessToken = Config.Instance().TwitchAccessToken;
+            ClientID = Config.Instance().TwitchClientID;
 
-            if (AccessToken == null || AccessToken == "")
-            {
-                return;
-            }
+            if (string.IsNullOrEmpty(AccessToken) || string.IsNullOrEmpty(ClientID)) return;
 
             api = new TwitchAPI();
-            api.Settings.ClientId = "d9rifiqcfbgz93ft16o8bsya9ho2ih";
+            api.Settings.ClientId = ClientID;
             api.Settings.AccessToken = AccessToken;
 
             activePollTimer = new()
@@ -331,7 +330,10 @@ namespace GTAChaos.Utils
         public List<IVotingElement> GetVotedEffects()
         {
             List<IVotingElement> elements = Config.Instance().TwitchMajorityVotes ? effectVoting.GetMajorityVotes() : effectVoting.GetTrulyRandomVotes();
-            elements.ForEach(e => e.GetEffect().ResetTwitchVoter());
+            foreach (var e in elements)
+            {
+                e.GetEffect().ResetTwitchVoter();
+            }
 
             lastChoice = elements.Count > 1 ? -1 : elements.First().GetId();
 
@@ -542,10 +544,14 @@ namespace GTAChaos.Utils
 
                 // Calculate total votes
                 int totalVotes = 0;
-                votingElements.ForEach(e => totalVotes += e.Votes);
+                foreach (var e in votingElements)
+                {
+                    totalVotes += e.Votes;
+                }
 
                 if (totalVotes == 0)
                 {
+                    // TODO: Random effect on 0 votes option
                     return votes;
                 }
 

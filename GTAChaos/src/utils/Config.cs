@@ -26,6 +26,7 @@ namespace GTAChaos.Utils
 
         // Twitch Auth
         public string TwitchAccessToken;
+        public string TwitchClientID;
 
         // Twitch Timer
         public int TwitchVotingTime;
@@ -44,8 +45,8 @@ namespace GTAChaos.Utils
         // Experimental
         public bool Experimental_EnableAllEffects;
         public bool Experimental_RunEffectOnAutoStart;
-
         public string Experimental_EffectName;
+        public bool Experimental_YouTubeConnection;
 
         public static Config Instance()
         {

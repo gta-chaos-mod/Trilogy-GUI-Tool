@@ -70,6 +70,12 @@
     <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
     </Reference>
+    <Reference Include="Flurl, Version=3.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.3.0.5\lib\net472\Flurl.dll</HintPath>
+    </Reference>
+    <Reference Include="Flurl.Http, Version=3.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.Http.3.2.3\lib\net472\Flurl.Http.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -346,7 +352,7 @@
     <Compile Include="src\utils\AudioPlayer.cs" />
     <Compile Include="src\utils\Category.cs" />
     <Compile Include="src\utils\Config.cs" />
-    <Compile Include="src\utils\ITwitchConnection.cs" />
+    <Compile Include="src\utils\IStreamConnection.cs" />
     <Compile Include="src\utils\Location.cs" />
     <Compile Include="src\utils\Multiplayer.cs" />
     <Compile Include="src\utils\RandomHandler.cs" />
@@ -355,6 +361,7 @@
     <Compile Include="src\utils\TwitchPollConnection.cs" />
     <Compile Include="src\utils\VehicleNames.cs" />
     <Compile Include="src\utils\WebsocketHandler.cs" />
+    <Compile Include="src\utils\YouTubeChatConnection.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

@@ -39,28 +39,30 @@ namespace GTAChaos.Forms
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxMainCooldown = new System.Windows.Forms.ComboBox();
             this.listLastEffectsMain = new System.Windows.Forms.ListBox();
-            this.tabTwitch = new System.Windows.Forms.TabPage();
+            this.tabStream = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxStreamClientID = new System.Windows.Forms.TextBox();
             this.labelTwitchAccessToken = new System.Windows.Forms.Label();
             this.linkLabelTwitchGetAccessToken = new System.Windows.Forms.LinkLabel();
-            this.checkBoxTwitchCombineVotingMessages = new System.Windows.Forms.CheckBox();
+            this.checkBoxStreamCombineVotingMessages = new System.Windows.Forms.CheckBox();
             this.checkBoxTwitchUsePolls = new System.Windows.Forms.CheckBox();
-            this.checkBoxTwitchMajorityVotes = new System.Windows.Forms.CheckBox();
-            this.checkBoxTwitchEnableRapidFire = new System.Windows.Forms.CheckBox();
-            this.checkBoxTwitchEnableMultipleEffects = new System.Windows.Forms.CheckBox();
-            this.checkBoxTwitch3TimesCooldown = new System.Windows.Forms.CheckBox();
-            this.buttonResetTwitch = new System.Windows.Forms.Button();
-            this.checkBoxTwitchAllowOnlyEnabledEffects = new System.Windows.Forms.CheckBox();
-            this.checkBoxShowLastEffectsTwitch = new System.Windows.Forms.CheckBox();
-            this.labelTwitchCurrentMode = new System.Windows.Forms.Label();
-            this.buttonTwitchToggle = new System.Windows.Forms.Button();
+            this.checkBoxStreamMajorityVotes = new System.Windows.Forms.CheckBox();
+            this.checkBoxStreamEnableRapidFire = new System.Windows.Forms.CheckBox();
+            this.checkBoxStreamEnableMultipleEffects = new System.Windows.Forms.CheckBox();
+            this.checkBoxStream3TimesCooldown = new System.Windows.Forms.CheckBox();
+            this.buttonResetStream = new System.Windows.Forms.Button();
+            this.checkBoxStreamAllowOnlyEnabledEffects = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowLastEffectsStream = new System.Windows.Forms.CheckBox();
+            this.labelStreamCurrentMode = new System.Windows.Forms.Label();
+            this.buttonStreamToggle = new System.Windows.Forms.Button();
             this.comboBoxVotingCooldown = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxVotingTime = new System.Windows.Forms.ComboBox();
-            this.progressBarTwitch = new System.Windows.Forms.ProgressBar();
-            this.listLastEffectsTwitch = new System.Windows.Forms.ListBox();
-            this.textBoxTwitchAccessToken = new System.Windows.Forms.TextBox();
-            this.buttonConnectTwitch = new System.Windows.Forms.Button();
+            this.progressBarStream = new System.Windows.Forms.ProgressBar();
+            this.listLastEffectsStream = new System.Windows.Forms.ListBox();
+            this.textBoxStreamAccessToken = new System.Windows.Forms.TextBox();
+            this.buttonConnectStream = new System.Windows.Forms.Button();
             this.tabPolls = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownTwitchPollsChannelPointsCost = new System.Windows.Forms.NumericUpDown();
@@ -105,11 +107,9 @@ namespace GTAChaos.Forms
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxTwitchClientID = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
-            this.tabTwitch.SuspendLayout();
+            this.tabStream.SuspendLayout();
             this.tabPolls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTwitchPollsChannelPointsCost)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTwitchPollsBitsCost)).BeginInit();
@@ -142,7 +142,7 @@ namespace GTAChaos.Forms
             // tabs
             // 
             this.tabs.Controls.Add(this.tabMain);
-            this.tabs.Controls.Add(this.tabTwitch);
+            this.tabs.Controls.Add(this.tabStream);
             this.tabs.Controls.Add(this.tabPolls);
             this.tabs.Controls.Add(this.tabEffects);
             this.tabs.Controls.Add(this.tabSettings);
@@ -220,37 +220,55 @@ namespace GTAChaos.Forms
             this.listLastEffectsMain.Size = new System.Drawing.Size(538, 147);
             this.listLastEffectsMain.TabIndex = 4;
             // 
-            // tabTwitch
+            // tabStream
             // 
-            this.tabTwitch.BackColor = System.Drawing.Color.Transparent;
-            this.tabTwitch.Controls.Add(this.label3);
-            this.tabTwitch.Controls.Add(this.textBoxTwitchClientID);
-            this.tabTwitch.Controls.Add(this.labelTwitchAccessToken);
-            this.tabTwitch.Controls.Add(this.linkLabelTwitchGetAccessToken);
-            this.tabTwitch.Controls.Add(this.checkBoxTwitchCombineVotingMessages);
-            this.tabTwitch.Controls.Add(this.checkBoxTwitchUsePolls);
-            this.tabTwitch.Controls.Add(this.checkBoxTwitchMajorityVotes);
-            this.tabTwitch.Controls.Add(this.checkBoxTwitchEnableRapidFire);
-            this.tabTwitch.Controls.Add(this.checkBoxTwitchEnableMultipleEffects);
-            this.tabTwitch.Controls.Add(this.checkBoxTwitch3TimesCooldown);
-            this.tabTwitch.Controls.Add(this.buttonResetTwitch);
-            this.tabTwitch.Controls.Add(this.checkBoxTwitchAllowOnlyEnabledEffects);
-            this.tabTwitch.Controls.Add(this.checkBoxShowLastEffectsTwitch);
-            this.tabTwitch.Controls.Add(this.labelTwitchCurrentMode);
-            this.tabTwitch.Controls.Add(this.buttonTwitchToggle);
-            this.tabTwitch.Controls.Add(this.comboBoxVotingCooldown);
-            this.tabTwitch.Controls.Add(this.label7);
-            this.tabTwitch.Controls.Add(this.label6);
-            this.tabTwitch.Controls.Add(this.comboBoxVotingTime);
-            this.tabTwitch.Controls.Add(this.progressBarTwitch);
-            this.tabTwitch.Controls.Add(this.listLastEffectsTwitch);
-            this.tabTwitch.Controls.Add(this.textBoxTwitchAccessToken);
-            this.tabTwitch.Controls.Add(this.buttonConnectTwitch);
-            this.tabTwitch.Location = new System.Drawing.Point(4, 22);
-            this.tabTwitch.Name = "tabTwitch";
-            this.tabTwitch.Size = new System.Drawing.Size(552, 293);
-            this.tabTwitch.TabIndex = 2;
-            this.tabTwitch.Text = "Twitch";
+            this.tabStream.BackColor = System.Drawing.Color.Transparent;
+            this.tabStream.Controls.Add(this.label3);
+            this.tabStream.Controls.Add(this.textBoxStreamClientID);
+            this.tabStream.Controls.Add(this.labelTwitchAccessToken);
+            this.tabStream.Controls.Add(this.linkLabelTwitchGetAccessToken);
+            this.tabStream.Controls.Add(this.checkBoxStreamCombineVotingMessages);
+            this.tabStream.Controls.Add(this.checkBoxTwitchUsePolls);
+            this.tabStream.Controls.Add(this.checkBoxStreamMajorityVotes);
+            this.tabStream.Controls.Add(this.checkBoxStreamEnableRapidFire);
+            this.tabStream.Controls.Add(this.checkBoxStreamEnableMultipleEffects);
+            this.tabStream.Controls.Add(this.checkBoxStream3TimesCooldown);
+            this.tabStream.Controls.Add(this.buttonResetStream);
+            this.tabStream.Controls.Add(this.checkBoxStreamAllowOnlyEnabledEffects);
+            this.tabStream.Controls.Add(this.checkBoxShowLastEffectsStream);
+            this.tabStream.Controls.Add(this.labelStreamCurrentMode);
+            this.tabStream.Controls.Add(this.buttonStreamToggle);
+            this.tabStream.Controls.Add(this.comboBoxVotingCooldown);
+            this.tabStream.Controls.Add(this.label7);
+            this.tabStream.Controls.Add(this.label6);
+            this.tabStream.Controls.Add(this.comboBoxVotingTime);
+            this.tabStream.Controls.Add(this.progressBarStream);
+            this.tabStream.Controls.Add(this.listLastEffectsStream);
+            this.tabStream.Controls.Add(this.textBoxStreamAccessToken);
+            this.tabStream.Controls.Add(this.buttonConnectStream);
+            this.tabStream.Location = new System.Drawing.Point(4, 22);
+            this.tabStream.Name = "tabStream";
+            this.tabStream.Size = new System.Drawing.Size(552, 293);
+            this.tabStream.TabIndex = 2;
+            this.tabStream.Text = "Stream";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(37, 37);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "Client ID:";
+            // 
+            // textBoxStreamClientID
+            // 
+            this.textBoxStreamClientID.Location = new System.Drawing.Point(93, 33);
+            this.textBoxStreamClientID.Name = "textBoxStreamClientID";
+            this.textBoxStreamClientID.PasswordChar = '*';
+            this.textBoxStreamClientID.Size = new System.Drawing.Size(125, 20);
+            this.textBoxStreamClientID.TabIndex = 32;
+            this.textBoxStreamClientID.TextChanged += new System.EventHandler(this.TextBoxStreamClientID_TextChanged);
             // 
             // labelTwitchAccessToken
             // 
@@ -266,21 +284,21 @@ namespace GTAChaos.Forms
             this.linkLabelTwitchGetAccessToken.AutoSize = true;
             this.linkLabelTwitchGetAccessToken.Location = new System.Drawing.Point(224, 10);
             this.linkLabelTwitchGetAccessToken.Name = "linkLabelTwitchGetAccessToken";
-            this.linkLabelTwitchGetAccessToken.Size = new System.Drawing.Size(96, 13);
+            this.linkLabelTwitchGetAccessToken.Size = new System.Drawing.Size(131, 13);
             this.linkLabelTwitchGetAccessToken.TabIndex = 30;
             this.linkLabelTwitchGetAccessToken.TabStop = true;
-            this.linkLabelTwitchGetAccessToken.Text = "Get Access Token";
+            this.linkLabelTwitchGetAccessToken.Text = "Get Twitch Access Token";
             this.linkLabelTwitchGetAccessToken.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelTwitchGetAccessToken_LinkClicked);
             // 
-            // checkBoxTwitchCombineVotingMessages
+            // checkBoxStreamCombineVotingMessages
             // 
-            this.checkBoxTwitchCombineVotingMessages.AutoSize = true;
-            this.checkBoxTwitchCombineVotingMessages.Location = new System.Drawing.Point(124, 121);
-            this.checkBoxTwitchCombineVotingMessages.Name = "checkBoxTwitchCombineVotingMessages";
-            this.checkBoxTwitchCombineVotingMessages.Size = new System.Drawing.Size(186, 17);
-            this.checkBoxTwitchCombineVotingMessages.TabIndex = 29;
-            this.checkBoxTwitchCombineVotingMessages.Text = "Combine Twitch Voting Messages";
-            this.checkBoxTwitchCombineVotingMessages.UseVisualStyleBackColor = true;
+            this.checkBoxStreamCombineVotingMessages.AutoSize = true;
+            this.checkBoxStreamCombineVotingMessages.Location = new System.Drawing.Point(124, 121);
+            this.checkBoxStreamCombineVotingMessages.Name = "checkBoxStreamCombineVotingMessages";
+            this.checkBoxStreamCombineVotingMessages.Size = new System.Drawing.Size(151, 17);
+            this.checkBoxStreamCombineVotingMessages.TabIndex = 29;
+            this.checkBoxStreamCombineVotingMessages.Text = "Combine Voting Messages";
+            this.checkBoxStreamCombineVotingMessages.UseVisualStyleBackColor = true;
             // 
             // checkBoxTwitchUsePolls
             // 
@@ -296,121 +314,121 @@ namespace GTAChaos.Forms
             this.checkBoxTwitchUsePolls.UseVisualStyleBackColor = true;
             this.checkBoxTwitchUsePolls.CheckedChanged += new System.EventHandler(this.CheckBoxTwitchUsePolls_CheckedChanged);
             // 
-            // checkBoxTwitchMajorityVotes
+            // checkBoxStreamMajorityVotes
             // 
-            this.checkBoxTwitchMajorityVotes.AutoSize = true;
-            this.checkBoxTwitchMajorityVotes.Checked = true;
-            this.checkBoxTwitchMajorityVotes.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTwitchMajorityVotes.Location = new System.Drawing.Point(417, 116);
-            this.checkBoxTwitchMajorityVotes.Name = "checkBoxTwitchMajorityVotes";
-            this.checkBoxTwitchMajorityVotes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBoxTwitchMajorityVotes.Size = new System.Drawing.Size(127, 17);
-            this.checkBoxTwitchMajorityVotes.TabIndex = 27;
-            this.checkBoxTwitchMajorityVotes.Text = "Twitch Majority Votes";
-            this.toolTipHandler.SetToolTip(this.checkBoxTwitchMajorityVotes, "This will force majority voting,\r\nno matter what the checkbox is.\r\nThere is no in" +
+            this.checkBoxStreamMajorityVotes.AutoSize = true;
+            this.checkBoxStreamMajorityVotes.Checked = true;
+            this.checkBoxStreamMajorityVotes.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxStreamMajorityVotes.Location = new System.Drawing.Point(452, 116);
+            this.checkBoxStreamMajorityVotes.Name = "checkBoxStreamMajorityVotes";
+            this.checkBoxStreamMajorityVotes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxStreamMajorityVotes.Size = new System.Drawing.Size(92, 17);
+            this.checkBoxStreamMajorityVotes.TabIndex = 27;
+            this.checkBoxStreamMajorityVotes.Text = "Majority Votes";
+            this.toolTipHandler.SetToolTip(this.checkBoxStreamMajorityVotes, "This will force majority voting,\r\nno matter what the checkbox is.\r\nThere is no in" +
         "formation on\r\nwhich user voted for which vote.");
-            this.checkBoxTwitchMajorityVotes.UseVisualStyleBackColor = true;
-            this.checkBoxTwitchMajorityVotes.CheckedChanged += new System.EventHandler(this.CheckBoxTwitchMajorityVotes_CheckedChanged);
+            this.checkBoxStreamMajorityVotes.UseVisualStyleBackColor = true;
+            this.checkBoxStreamMajorityVotes.CheckedChanged += new System.EventHandler(this.CheckBoxStreamMajorityVotes_CheckedChanged);
             // 
-            // checkBoxTwitchEnableRapidFire
+            // checkBoxStreamEnableRapidFire
             // 
-            this.checkBoxTwitchEnableRapidFire.AutoSize = true;
-            this.checkBoxTwitchEnableRapidFire.Checked = true;
-            this.checkBoxTwitchEnableRapidFire.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTwitchEnableRapidFire.Location = new System.Drawing.Point(434, 185);
-            this.checkBoxTwitchEnableRapidFire.Name = "checkBoxTwitchEnableRapidFire";
-            this.checkBoxTwitchEnableRapidFire.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBoxTwitchEnableRapidFire.Size = new System.Drawing.Size(110, 17);
-            this.checkBoxTwitchEnableRapidFire.TabIndex = 26;
-            this.checkBoxTwitchEnableRapidFire.Text = "Enable Rapid-Fire";
-            this.checkBoxTwitchEnableRapidFire.UseVisualStyleBackColor = true;
-            this.checkBoxTwitchEnableRapidFire.CheckedChanged += new System.EventHandler(this.CheckBoxTwitchEnableRapidFire_CheckedChanged);
+            this.checkBoxStreamEnableRapidFire.AutoSize = true;
+            this.checkBoxStreamEnableRapidFire.Checked = true;
+            this.checkBoxStreamEnableRapidFire.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxStreamEnableRapidFire.Location = new System.Drawing.Point(434, 185);
+            this.checkBoxStreamEnableRapidFire.Name = "checkBoxStreamEnableRapidFire";
+            this.checkBoxStreamEnableRapidFire.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxStreamEnableRapidFire.Size = new System.Drawing.Size(110, 17);
+            this.checkBoxStreamEnableRapidFire.TabIndex = 26;
+            this.checkBoxStreamEnableRapidFire.Text = "Enable Rapid-Fire";
+            this.checkBoxStreamEnableRapidFire.UseVisualStyleBackColor = true;
+            this.checkBoxStreamEnableRapidFire.CheckedChanged += new System.EventHandler(this.CheckBoxStreamEnableRapidFire_CheckedChanged);
             // 
-            // checkBoxTwitchEnableMultipleEffects
+            // checkBoxStreamEnableMultipleEffects
             // 
-            this.checkBoxTwitchEnableMultipleEffects.AutoSize = true;
-            this.checkBoxTwitchEnableMultipleEffects.Location = new System.Drawing.Point(418, 139);
-            this.checkBoxTwitchEnableMultipleEffects.Name = "checkBoxTwitchEnableMultipleEffects";
-            this.checkBoxTwitchEnableMultipleEffects.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBoxTwitchEnableMultipleEffects.Size = new System.Drawing.Size(126, 17);
-            this.checkBoxTwitchEnableMultipleEffects.TabIndex = 25;
-            this.checkBoxTwitchEnableMultipleEffects.Text = "Allow Multiple Effects";
-            this.checkBoxTwitchEnableMultipleEffects.UseVisualStyleBackColor = true;
-            this.checkBoxTwitchEnableMultipleEffects.CheckedChanged += new System.EventHandler(this.CheckBoxTwitchEnableMultipleEffects_CheckedChanged);
+            this.checkBoxStreamEnableMultipleEffects.AutoSize = true;
+            this.checkBoxStreamEnableMultipleEffects.Location = new System.Drawing.Point(418, 139);
+            this.checkBoxStreamEnableMultipleEffects.Name = "checkBoxStreamEnableMultipleEffects";
+            this.checkBoxStreamEnableMultipleEffects.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxStreamEnableMultipleEffects.Size = new System.Drawing.Size(126, 17);
+            this.checkBoxStreamEnableMultipleEffects.TabIndex = 25;
+            this.checkBoxStreamEnableMultipleEffects.Text = "Allow Multiple Effects";
+            this.checkBoxStreamEnableMultipleEffects.UseVisualStyleBackColor = true;
+            this.checkBoxStreamEnableMultipleEffects.CheckedChanged += new System.EventHandler(this.CheckBoxStreamEnableMultipleEffects_CheckedChanged);
             // 
-            // checkBoxTwitch3TimesCooldown
+            // checkBoxStream3TimesCooldown
             // 
-            this.checkBoxTwitch3TimesCooldown.AutoSize = true;
-            this.checkBoxTwitch3TimesCooldown.Checked = true;
-            this.checkBoxTwitch3TimesCooldown.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTwitch3TimesCooldown.Location = new System.Drawing.Point(457, 162);
-            this.checkBoxTwitch3TimesCooldown.Name = "checkBoxTwitch3TimesCooldown";
-            this.checkBoxTwitch3TimesCooldown.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBoxTwitch3TimesCooldown.Size = new System.Drawing.Size(87, 17);
-            this.checkBoxTwitch3TimesCooldown.TabIndex = 24;
-            this.checkBoxTwitch3TimesCooldown.Text = "3x Cooldown";
-            this.toolTipHandler.SetToolTip(this.checkBoxTwitch3TimesCooldown, "When enabled effects will have 3x their cooldown.\r\n(Cooldown in this case is the " +
+            this.checkBoxStream3TimesCooldown.AutoSize = true;
+            this.checkBoxStream3TimesCooldown.Checked = true;
+            this.checkBoxStream3TimesCooldown.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxStream3TimesCooldown.Location = new System.Drawing.Point(457, 162);
+            this.checkBoxStream3TimesCooldown.Name = "checkBoxStream3TimesCooldown";
+            this.checkBoxStream3TimesCooldown.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxStream3TimesCooldown.Size = new System.Drawing.Size(87, 17);
+            this.checkBoxStream3TimesCooldown.TabIndex = 24;
+            this.checkBoxStream3TimesCooldown.Text = "3x Cooldown";
+            this.toolTipHandler.SetToolTip(this.checkBoxStream3TimesCooldown, "When enabled effects will have 3x their cooldown.\r\n(Cooldown in this case is the " +
         "Voting Time + Voting Cooldown)");
-            this.checkBoxTwitch3TimesCooldown.UseVisualStyleBackColor = true;
-            this.checkBoxTwitch3TimesCooldown.CheckedChanged += new System.EventHandler(this.CheckBoxTwitch3TimesCooldown_CheckedChanged);
+            this.checkBoxStream3TimesCooldown.UseVisualStyleBackColor = true;
+            this.checkBoxStream3TimesCooldown.CheckedChanged += new System.EventHandler(this.CheckBoxStream3TimesCooldown_CheckedChanged);
             // 
-            // buttonResetTwitch
+            // buttonResetStream
             // 
-            this.buttonResetTwitch.Enabled = false;
-            this.buttonResetTwitch.Location = new System.Drawing.Point(477, 7);
-            this.buttonResetTwitch.Name = "buttonResetTwitch";
-            this.buttonResetTwitch.Size = new System.Drawing.Size(67, 23);
-            this.buttonResetTwitch.TabIndex = 21;
-            this.buttonResetTwitch.Text = "Reset";
-            this.buttonResetTwitch.UseVisualStyleBackColor = true;
-            this.buttonResetTwitch.Click += new System.EventHandler(this.ButtonResetTwitch_Click);
+            this.buttonResetStream.Enabled = false;
+            this.buttonResetStream.Location = new System.Drawing.Point(477, 7);
+            this.buttonResetStream.Name = "buttonResetStream";
+            this.buttonResetStream.Size = new System.Drawing.Size(67, 23);
+            this.buttonResetStream.TabIndex = 21;
+            this.buttonResetStream.Text = "Reset";
+            this.buttonResetStream.UseVisualStyleBackColor = true;
+            this.buttonResetStream.Click += new System.EventHandler(this.ButtonResetStream_Click);
             // 
-            // checkBoxTwitchAllowOnlyEnabledEffects
+            // checkBoxStreamAllowOnlyEnabledEffects
             // 
-            this.checkBoxTwitchAllowOnlyEnabledEffects.AutoSize = true;
-            this.checkBoxTwitchAllowOnlyEnabledEffects.Location = new System.Drawing.Point(396, 207);
-            this.checkBoxTwitchAllowOnlyEnabledEffects.Name = "checkBoxTwitchAllowOnlyEnabledEffects";
-            this.checkBoxTwitchAllowOnlyEnabledEffects.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBoxTwitchAllowOnlyEnabledEffects.Size = new System.Drawing.Size(148, 17);
-            this.checkBoxTwitchAllowOnlyEnabledEffects.TabIndex = 19;
-            this.checkBoxTwitchAllowOnlyEnabledEffects.Text = "Only Enabled Effects (RF)";
-            this.toolTipHandler.SetToolTip(this.checkBoxTwitchAllowOnlyEnabledEffects, "Only allow effects that are enabled\r\nin the currently active preset during Rapid-" +
+            this.checkBoxStreamAllowOnlyEnabledEffects.AutoSize = true;
+            this.checkBoxStreamAllowOnlyEnabledEffects.Location = new System.Drawing.Point(396, 207);
+            this.checkBoxStreamAllowOnlyEnabledEffects.Name = "checkBoxStreamAllowOnlyEnabledEffects";
+            this.checkBoxStreamAllowOnlyEnabledEffects.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBoxStreamAllowOnlyEnabledEffects.Size = new System.Drawing.Size(148, 17);
+            this.checkBoxStreamAllowOnlyEnabledEffects.TabIndex = 19;
+            this.checkBoxStreamAllowOnlyEnabledEffects.Text = "Only Enabled Effects (RF)";
+            this.toolTipHandler.SetToolTip(this.checkBoxStreamAllowOnlyEnabledEffects, "Only allow effects that are enabled\r\nin the currently active preset during Rapid-" +
         "Fire.");
-            this.checkBoxTwitchAllowOnlyEnabledEffects.UseVisualStyleBackColor = true;
-            this.checkBoxTwitchAllowOnlyEnabledEffects.CheckedChanged += new System.EventHandler(this.CheckBoxTwitchAllowOnlyEnabledEffects_CheckedChanged);
+            this.checkBoxStreamAllowOnlyEnabledEffects.UseVisualStyleBackColor = true;
+            this.checkBoxStreamAllowOnlyEnabledEffects.CheckedChanged += new System.EventHandler(this.CheckBoxStreamAllowOnlyEnabledEffects_CheckedChanged);
             // 
-            // checkBoxShowLastEffectsTwitch
+            // checkBoxShowLastEffectsStream
             // 
-            this.checkBoxShowLastEffectsTwitch.AutoSize = true;
-            this.checkBoxShowLastEffectsTwitch.Checked = true;
-            this.checkBoxShowLastEffectsTwitch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowLastEffectsTwitch.Location = new System.Drawing.Point(8, 121);
-            this.checkBoxShowLastEffectsTwitch.Name = "checkBoxShowLastEffectsTwitch";
-            this.checkBoxShowLastEffectsTwitch.Size = new System.Drawing.Size(112, 17);
-            this.checkBoxShowLastEffectsTwitch.TabIndex = 18;
-            this.checkBoxShowLastEffectsTwitch.Text = "Show Last Effects";
-            this.checkBoxShowLastEffectsTwitch.UseVisualStyleBackColor = true;
-            this.checkBoxShowLastEffectsTwitch.CheckedChanged += new System.EventHandler(this.CheckBoxShowLastEffectsTwitch_CheckedChanged);
+            this.checkBoxShowLastEffectsStream.AutoSize = true;
+            this.checkBoxShowLastEffectsStream.Checked = true;
+            this.checkBoxShowLastEffectsStream.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxShowLastEffectsStream.Location = new System.Drawing.Point(8, 121);
+            this.checkBoxShowLastEffectsStream.Name = "checkBoxShowLastEffectsStream";
+            this.checkBoxShowLastEffectsStream.Size = new System.Drawing.Size(112, 17);
+            this.checkBoxShowLastEffectsStream.TabIndex = 18;
+            this.checkBoxShowLastEffectsStream.Text = "Show Last Effects";
+            this.checkBoxShowLastEffectsStream.UseVisualStyleBackColor = true;
+            this.checkBoxShowLastEffectsStream.CheckedChanged += new System.EventHandler(this.CheckBoxShowLastEffectsStream_CheckedChanged);
             // 
-            // labelTwitchCurrentMode
+            // labelStreamCurrentMode
             // 
-            this.labelTwitchCurrentMode.AutoSize = true;
-            this.labelTwitchCurrentMode.Location = new System.Drawing.Point(8, 71);
-            this.labelTwitchCurrentMode.Name = "labelTwitchCurrentMode";
-            this.labelTwitchCurrentMode.Size = new System.Drawing.Size(124, 13);
-            this.labelTwitchCurrentMode.TabIndex = 17;
-            this.labelTwitchCurrentMode.Text = "Current Mode: Cooldown";
+            this.labelStreamCurrentMode.AutoSize = true;
+            this.labelStreamCurrentMode.Location = new System.Drawing.Point(8, 71);
+            this.labelStreamCurrentMode.Name = "labelStreamCurrentMode";
+            this.labelStreamCurrentMode.Size = new System.Drawing.Size(124, 13);
+            this.labelStreamCurrentMode.TabIndex = 17;
+            this.labelStreamCurrentMode.Text = "Current Mode: Cooldown";
             // 
-            // buttonTwitchToggle
+            // buttonStreamToggle
             // 
-            this.buttonTwitchToggle.Enabled = false;
-            this.buttonTwitchToggle.Location = new System.Drawing.Point(368, 7);
-            this.buttonTwitchToggle.Name = "buttonTwitchToggle";
-            this.buttonTwitchToggle.Size = new System.Drawing.Size(103, 23);
-            this.buttonTwitchToggle.TabIndex = 15;
-            this.buttonTwitchToggle.Text = "Start / Resume";
-            this.buttonTwitchToggle.UseVisualStyleBackColor = true;
-            this.buttonTwitchToggle.Click += new System.EventHandler(this.ButtonTwitchToggle_Click);
+            this.buttonStreamToggle.Enabled = false;
+            this.buttonStreamToggle.Location = new System.Drawing.Point(368, 7);
+            this.buttonStreamToggle.Name = "buttonStreamToggle";
+            this.buttonStreamToggle.Size = new System.Drawing.Size(103, 23);
+            this.buttonStreamToggle.TabIndex = 15;
+            this.buttonStreamToggle.Text = "Start / Resume";
+            this.buttonStreamToggle.UseVisualStyleBackColor = true;
+            this.buttonStreamToggle.Click += new System.EventHandler(this.ButtonStreamToggle_Click);
             // 
             // comboBoxVotingCooldown
             // 
@@ -448,40 +466,40 @@ namespace GTAChaos.Forms
             this.comboBoxVotingTime.TabIndex = 11;
             this.comboBoxVotingTime.SelectedIndexChanged += new System.EventHandler(this.ComboBoxVotingTime_SelectedIndexChanged);
             // 
-            // progressBarTwitch
+            // progressBarStream
             // 
-            this.progressBarTwitch.Location = new System.Drawing.Point(8, 87);
-            this.progressBarTwitch.Name = "progressBarTwitch";
-            this.progressBarTwitch.Size = new System.Drawing.Size(536, 23);
-            this.progressBarTwitch.TabIndex = 10;
+            this.progressBarStream.Location = new System.Drawing.Point(8, 87);
+            this.progressBarStream.Name = "progressBarStream";
+            this.progressBarStream.Size = new System.Drawing.Size(536, 23);
+            this.progressBarStream.TabIndex = 10;
             // 
-            // listLastEffectsTwitch
+            // listLastEffectsStream
             // 
-            this.listLastEffectsTwitch.FormattingEnabled = true;
-            this.listLastEffectsTwitch.Location = new System.Drawing.Point(8, 144);
-            this.listLastEffectsTwitch.Name = "listLastEffectsTwitch";
-            this.listLastEffectsTwitch.Size = new System.Drawing.Size(273, 134);
-            this.listLastEffectsTwitch.TabIndex = 8;
+            this.listLastEffectsStream.FormattingEnabled = true;
+            this.listLastEffectsStream.Location = new System.Drawing.Point(8, 144);
+            this.listLastEffectsStream.Name = "listLastEffectsStream";
+            this.listLastEffectsStream.Size = new System.Drawing.Size(273, 134);
+            this.listLastEffectsStream.TabIndex = 8;
             // 
-            // textBoxTwitchAccessToken
+            // textBoxStreamAccessToken
             // 
-            this.textBoxTwitchAccessToken.Location = new System.Drawing.Point(93, 7);
-            this.textBoxTwitchAccessToken.Name = "textBoxTwitchAccessToken";
-            this.textBoxTwitchAccessToken.PasswordChar = '*';
-            this.textBoxTwitchAccessToken.Size = new System.Drawing.Size(125, 20);
-            this.textBoxTwitchAccessToken.TabIndex = 3;
-            this.textBoxTwitchAccessToken.TextChanged += new System.EventHandler(this.TextBoxOAuth_TextChanged);
+            this.textBoxStreamAccessToken.Location = new System.Drawing.Point(93, 7);
+            this.textBoxStreamAccessToken.Name = "textBoxStreamAccessToken";
+            this.textBoxStreamAccessToken.PasswordChar = '*';
+            this.textBoxStreamAccessToken.Size = new System.Drawing.Size(125, 20);
+            this.textBoxStreamAccessToken.TabIndex = 3;
+            this.textBoxStreamAccessToken.TextChanged += new System.EventHandler(this.TextBoxOAuth_TextChanged);
             // 
-            // buttonConnectTwitch
+            // buttonConnectStream
             // 
-            this.buttonConnectTwitch.Enabled = false;
-            this.buttonConnectTwitch.Location = new System.Drawing.Point(224, 32);
-            this.buttonConnectTwitch.Name = "buttonConnectTwitch";
-            this.buttonConnectTwitch.Size = new System.Drawing.Size(121, 22);
-            this.buttonConnectTwitch.TabIndex = 1;
-            this.buttonConnectTwitch.Text = "Connect to Twitch";
-            this.buttonConnectTwitch.UseVisualStyleBackColor = true;
-            this.buttonConnectTwitch.Click += new System.EventHandler(this.ButtonConnectTwitch_Click);
+            this.buttonConnectStream.Enabled = false;
+            this.buttonConnectStream.Location = new System.Drawing.Point(224, 32);
+            this.buttonConnectStream.Name = "buttonConnectStream";
+            this.buttonConnectStream.Size = new System.Drawing.Size(121, 22);
+            this.buttonConnectStream.TabIndex = 1;
+            this.buttonConnectStream.Text = "Connect to Twitch";
+            this.buttonConnectStream.UseVisualStyleBackColor = true;
+            this.buttonConnectStream.Click += new System.EventHandler(this.ButtonConnectStream_Click);
             // 
             // tabPolls
             // 
@@ -926,27 +944,9 @@ namespace GTAChaos.Forms
             this.buttonSwitchMode.Name = "buttonSwitchMode";
             this.buttonSwitchMode.Size = new System.Drawing.Size(73, 23);
             this.buttonSwitchMode.TabIndex = 7;
-            this.buttonSwitchMode.Text = "Twitch";
+            this.buttonSwitchMode.Text = "Stream";
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 37);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 13);
-            this.label3.TabIndex = 33;
-            this.label3.Text = "Client ID:";
-            // 
-            // textBoxTwitchClientID
-            // 
-            this.textBoxTwitchClientID.Location = new System.Drawing.Point(93, 33);
-            this.textBoxTwitchClientID.Name = "textBoxTwitchClientID";
-            this.textBoxTwitchClientID.PasswordChar = '*';
-            this.textBoxTwitchClientID.Size = new System.Drawing.Size(125, 20);
-            this.textBoxTwitchClientID.TabIndex = 32;
-            this.textBoxTwitchClientID.TextChanged += new System.EventHandler(this.TextBoxTwitchClientID_TextChanged);
             // 
             // Form1
             // 
@@ -967,8 +967,8 @@ namespace GTAChaos.Forms
             this.tabs.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
             this.tabMain.PerformLayout();
-            this.tabTwitch.ResumeLayout(false);
-            this.tabTwitch.PerformLayout();
+            this.tabStream.ResumeLayout(false);
+            this.tabStream.PerformLayout();
             this.tabPolls.ResumeLayout(false);
             this.tabPolls.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTwitchPollsChannelPointsCost)).EndInit();
@@ -1003,34 +1003,34 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.ToolStripMenuItem loadPresetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem savePresetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabTwitch;
-        private System.Windows.Forms.TextBox textBoxTwitchAccessToken;
-        private System.Windows.Forms.Button buttonConnectTwitch;
-        private System.Windows.Forms.ListBox listLastEffectsTwitch;
+        private System.Windows.Forms.TabPage tabStream;
+        private System.Windows.Forms.TextBox textBoxStreamAccessToken;
+        private System.Windows.Forms.Button buttonConnectStream;
+        private System.Windows.Forms.ListBox listLastEffectsStream;
         private System.Windows.Forms.ToolTip toolTipHandler;
         private System.Windows.Forms.ComboBox comboBoxVotingCooldown;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBoxVotingTime;
-        private System.Windows.Forms.ProgressBar progressBarTwitch;
-        private System.Windows.Forms.Button buttonTwitchToggle;
+        private System.Windows.Forms.ProgressBar progressBarStream;
+        private System.Windows.Forms.Button buttonStreamToggle;
         private System.Windows.Forms.Timer timerMain;
         private System.Windows.Forms.Button buttonSwitchMode;
-        private System.Windows.Forms.Label labelTwitchCurrentMode;
+        private System.Windows.Forms.Label labelStreamCurrentMode;
         private System.Windows.Forms.TabPage tabSettings;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxSeed;
         private System.Windows.Forms.Button buttonResetMain;
         private System.Windows.Forms.CheckBox checkBoxShowLastEffectsMain;
-        private System.Windows.Forms.CheckBox checkBoxShowLastEffectsTwitch;
-        private System.Windows.Forms.CheckBox checkBoxTwitchAllowOnlyEnabledEffects;
-        private System.Windows.Forms.Button buttonResetTwitch;
-        private System.Windows.Forms.CheckBox checkBoxTwitch3TimesCooldown;
+        private System.Windows.Forms.CheckBox checkBoxShowLastEffectsStream;
+        private System.Windows.Forms.CheckBox checkBoxStreamAllowOnlyEnabledEffects;
+        private System.Windows.Forms.Button buttonResetStream;
+        private System.Windows.Forms.CheckBox checkBoxStream3TimesCooldown;
         private System.Windows.Forms.Button buttonEffectsToggleAll;
         private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viceCityToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sanAndreasToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkBoxTwitchEnableMultipleEffects;
+        private System.Windows.Forms.CheckBox checkBoxStreamEnableMultipleEffects;
         private System.Windows.Forms.TabPage tabPolls;
         private System.Windows.Forms.Label labelTwitchPollsBitsCost;
         private System.Windows.Forms.NumericUpDown numericUpDownTwitchPollsBitsCost;
@@ -1055,17 +1055,17 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.Button buttonExperimentalRunEffect;
         private System.Windows.Forms.TextBox textBoxExperimentalEffectName;
         private System.Windows.Forms.CheckBox checkBoxAutoStart;
-        private System.Windows.Forms.CheckBox checkBoxTwitchEnableRapidFire;
-        private System.Windows.Forms.CheckBox checkBoxTwitchCombineVotingMessages;
+        private System.Windows.Forms.CheckBox checkBoxStreamEnableRapidFire;
+        private System.Windows.Forms.CheckBox checkBoxStreamCombineVotingMessages;
         private System.Windows.Forms.CheckBox checkBoxTwitchUsePolls;
-        private System.Windows.Forms.CheckBox checkBoxTwitchMajorityVotes;
+        private System.Windows.Forms.CheckBox checkBoxStreamMajorityVotes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownTwitchPollsChannelPointsCost;
         private System.Windows.Forms.LinkLabel linkLabelTwitchGetAccessToken;
         private System.Windows.Forms.Label labelTwitchAccessToken;
         private System.Windows.Forms.CheckBox checkBoxExperimentalYouTubeConnection;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxTwitchClientID;
+        private System.Windows.Forms.TextBox textBoxStreamClientID;
     }
 }
 

@@ -44,7 +44,7 @@ namespace GTAChaos.Utils
 
         public YouTubeChatConnection()
         {
-            liveId = Config.Instance().TwitchAccessToken;
+            liveId = Config.Instance().StreamAccessToken;
 
             if (string.IsNullOrEmpty(liveId)) return;
 
@@ -245,7 +245,7 @@ namespace GTAChaos.Utils
                     return;
                 }
 
-                AbstractEffect effect = EffectDatabase.GetByWord(message, Config.Instance().TwitchAllowOnlyEnabledEffectsRapidFire);
+                AbstractEffect effect = EffectDatabase.GetByWord(message, Config.Instance().StreamAllowOnlyEnabledEffectsRapidFire);
                 if (effect == null || !effect.IsRapidFire())
                 {
                     return;
@@ -253,7 +253,7 @@ namespace GTAChaos.Utils
 
                 RapidFireEffect(new RapidFireEventArgs()
                 {
-                    Effect = effect.SetTwitchVoter(username)
+                    Effect = effect.SetTreamVoter(username)
                 });
 
                 rapidFireVoters.Add(username);
@@ -277,10 +277,10 @@ namespace GTAChaos.Utils
 
         public List<IVotingElement> GetVotedEffects()
         {
-            List<IVotingElement> elements = Config.Instance().TwitchMajorityVotes ? effectVoting.GetMajorityVotes() : effectVoting.GetTrulyRandomVotes();
+            List<IVotingElement> elements = Config.Instance().StreamMajorityVotes ? effectVoting.GetMajorityVotes() : effectVoting.GetTrulyRandomVotes();
             foreach (var e in elements)
             {
-                e.GetEffect().ResetTwitchVoter();
+                e.GetEffect().ResetStreamVoter();
             }
 
             lastChoice = elements.Count > 1 ? -1 : elements.First().GetId();
@@ -329,7 +329,7 @@ namespace GTAChaos.Utils
                 effectVoting.GenerateRandomEffects();
                 lastChoice = -1;
 
-                if (Config.Instance().TwitchCombineChatMessages)
+                if (Config.Instance().StreamCombineChatMessages)
                 {
                     string messageToSend = "Voting has started! Type 1, 2 or 3 (or #1, #2, #3) to vote for one of the effects! ";
 
@@ -367,7 +367,7 @@ namespace GTAChaos.Utils
 
                     string allEffects = string.Join(", ", votingElements.Select(e => e.GetEffect().GetDisplayName()));
 
-                    if (Config.Instance().TwitchEnableRapidFire)
+                    if (Config.Instance().StreamEnableRapidFire)
                     {
                         SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Enabled effects: {allEffects}");
                         if (untilRapidFire == 1)
@@ -382,7 +382,7 @@ namespace GTAChaos.Utils
                 }
                 else
                 {
-                    if (Config.Instance().TwitchEnableRapidFire)
+                    if (Config.Instance().StreamEnableRapidFire)
                     {
                         SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire)");
                         if (untilRapidFire == 1)
@@ -511,7 +511,7 @@ namespace GTAChaos.Utils
                 }).Where(e => e.Voters.Count == maxVotes).ToArray();
 
                 List<IVotingElement> votes = new List<IVotingElement>();
-                if (Config.Instance().TwitchEnableMultipleEffects)
+                if (Config.Instance().StreamEnableMultipleEffects)
                 {
                     votes.AddRange(elements);
                 }

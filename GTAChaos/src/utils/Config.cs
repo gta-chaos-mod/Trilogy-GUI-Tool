@@ -25,22 +25,22 @@ namespace GTAChaos.Utils
         public int TwitchPollsChannelPointsCost = 0;
 
         // Twitch Auth
-        public string TwitchAccessToken;
-        public string TwitchClientID;
+        public string StreamAccessToken;
+        public string StreamClientID;
 
         // Twitch Timer
-        public int TwitchVotingTime;
-        public int TwitchVotingCooldown;
+        public int StreamVotingTime;
+        public int StreamVotingCooldown;
 
         // Twitch Settings
-        public bool TwitchAllowOnlyEnabledEffectsRapidFire;
+        public bool StreamAllowOnlyEnabledEffectsRapidFire;
 
-        public bool TwitchShowLastEffects = true;
-        public bool Twitch3TimesCooldown = true;
-        public bool TwitchCombineChatMessages;
-        public bool TwitchEnableMultipleEffects;
-        public bool TwitchEnableRapidFire = true;
-        public bool TwitchMajorityVotes = true;
+        public bool StreamShowLastEffects = true;
+        public bool Stream3TimesCooldown = true;
+        public bool StreamCombineChatMessages;
+        public bool StreamEnableMultipleEffects;
+        public bool StreamEnableRapidFire = true;
+        public bool StreamMajorityVotes = true;
 
         // Experimental
         public bool Experimental_EnableAllEffects;
@@ -67,10 +67,10 @@ namespace GTAChaos.Utils
 
         public static int GetEffectDuration()
         {
-            if (Shared.IsTwitchMode)
+            if (Shared.IsStreamMode)
             {
-                int cooldown = Instance().TwitchVotingCooldown + Instance().TwitchVotingTime;
-                return Instance().Twitch3TimesCooldown ? cooldown : (int) Math.Round(cooldown / 3.0f);
+                int cooldown = Instance().StreamVotingCooldown + Instance().StreamVotingTime;
+                return Instance().Stream3TimesCooldown ? cooldown : (int) Math.Round(cooldown / 3.0f);
             }
             return Instance().MainCooldown;
         }

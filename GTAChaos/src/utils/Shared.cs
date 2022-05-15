@@ -9,8 +9,8 @@ namespace GTAChaos.Utils
 
         public static bool TimerEnabled;
 
-        public static bool IsTwitchMode;
-        public static int TwitchVotingMode = 0; // 0 = Cooldown, 1 = Voting, 2 = Rapid-Fire
+        public static bool IsStreamMode;
+        public static int StreamVotingMode = 0; // 0 = Cooldown, 1 = Voting, 2 = Rapid-Fire
 
         public static Multiplayer Multiplayer;
     }

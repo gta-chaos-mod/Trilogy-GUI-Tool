@@ -11,9 +11,9 @@ namespace GTAChaos.Effects
         public readonly string Word;
         public readonly int Duration;
         private float Multiplier;
-        private string TwitchVoter = "";
+        private string StreamVoter = "";
         private int rapidFire = 1;
-        private bool twitchEnabled = true;
+        private bool streamEnabled = true;
         private string audioName = "";
         private int audioVariations = 0;
 
@@ -42,18 +42,18 @@ namespace GTAChaos.Effects
 
         public string GetVoter()
         {
-            return TwitchVoter;
+            return StreamVoter;
         }
 
-        public AbstractEffect SetTwitchVoter(string voter)
+        public AbstractEffect SetTreamVoter(string voter)
         {
-            TwitchVoter = voter;
+            StreamVoter = voter;
             return this;
         }
 
-        public AbstractEffect ResetTwitchVoter()
+        public AbstractEffect ResetStreamVoter()
         {
-            TwitchVoter = "";
+            StreamVoter = "";
             return this;
         }
 
@@ -65,7 +65,7 @@ namespace GTAChaos.Effects
 
         public AbstractEffect DisableTwitch()
         {
-            twitchEnabled = false;
+            streamEnabled = false;
             return this;
         }
 
@@ -87,7 +87,7 @@ namespace GTAChaos.Effects
 
         public bool IsTwitchEnabled()
         {
-            return twitchEnabled;
+            return streamEnabled;
         }
 
         public AbstractEffect SetAudioFile(string name)
@@ -146,9 +146,9 @@ namespace GTAChaos.Effects
         public bool GetRapidFire()
         {
             bool rapidFire = false;
-            if (Shared.IsTwitchMode)
+            if (Shared.IsStreamMode)
             {
-                if (Shared.TwitchVotingMode == 2)
+                if (Shared.StreamVotingMode == 2)
                 {
                     rapidFire = this.rapidFire == 1;
                 }

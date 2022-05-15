@@ -140,7 +140,7 @@ namespace GTAChaos.Utils
             SendDataToWebsocket(jsonObject);
         }
 
-        public void SendEffectToGame(string effectID, object effectData = null, int duration = -1, string displayName = "", string twitchVoter = "", bool rapidFire = false)
+        public void SendEffectToGame(string effectID, object effectData = null, int duration = -1, string displayName = "", string streamVoter = "", bool rapidFire = false)
         {
             if (rapidFire)
             {
@@ -159,11 +159,11 @@ namespace GTAChaos.Utils
                 }
             });
 
-            if (!twitchVoter.IsNullOrEmpty())
+            if (!streamVoter.IsNullOrEmpty())
             {
                 jsonObject["data"]["twitchData"] = JObject.FromObject(new
                 {
-                    voter = twitchVoter
+                    voter = streamVoter
                     // TODO: effectPercentage = XYZ (so it can show "Voter (32%)" ingame perhaps - Issue 106 on GitHub)
                 });
             }

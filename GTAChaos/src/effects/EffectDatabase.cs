@@ -302,6 +302,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.Teleportation, "Random Teleport", "LetsGoSightseeing", "random_teleport")); // Random Teleport - Teleports CJ to a random location on the map
                 Effects.Add(new FakeTeleportEffect("Fake Teleport", "HahaGotYourNose", 1000 * 5)); // Fake Teleport
                 Effects.Add(new FunctionEffect(Category.Teleportation, "TP To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Teleport To Marker
+                Effects.Add(new FunctionEffect(Category.Teleportation, "TP To Liberty City", "LetsTalkAboutTheMultiverse", "teleport_to_liberty_city", 1000 * 10)); // Teleport To Liberty City
             }
             else if (game == "vice_city")
             {

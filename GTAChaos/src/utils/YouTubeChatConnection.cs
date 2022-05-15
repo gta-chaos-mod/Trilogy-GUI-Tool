@@ -26,7 +26,8 @@ namespace GTAChaos.Utils
             }
         }
 
-        private string liveId;
+        private readonly string liveId;
+
         private string isReplay;
         private string apiKey;
         private string clientVersion;

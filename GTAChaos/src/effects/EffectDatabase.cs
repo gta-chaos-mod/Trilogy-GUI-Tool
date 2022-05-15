@@ -250,7 +250,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Tasks Allowed", "NoTasksAllowed", "no_tasks_allowed", 1000 * 10));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk Off", "LetsGoForAWalk", "walk_off", 1000 * 10));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pause", "LetsPause", "pause"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Fake Crash", "TooManyModsInstalled", "fake_crash"));
+                Effects.Add(new FakeCrashEffect("Fake Crash", "TooManyModsInstalled"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk On Water", "JesusInTheHouse", "walk_on_water"));
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Bankrupt", "CrashTookAllMyMoney", "bankrupt"));
@@ -300,7 +300,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new TeleportationEffect("TP To The LV Airport", "BringMeToTheLVAirport", Location.LVAirport));
                 Effects.Add(new TeleportationEffect("TP To Big Ear", "BringMeToBigEar", Location.LVSatellite));
                 Effects.Add(new FunctionEffect(Category.Teleportation, "Random Teleport", "LetsGoSightseeing", "random_teleport")); // Random Teleport - Teleports CJ to a random location on the map
-                Effects.Add(new FunctionEffect(Category.Teleportation, "Fake Teleport", "HahaGotYourNose", "fake_teleport", 1000 * 5)); // Fake Teleport
+                Effects.Add(new FakeTeleportEffect("Fake Teleport", "HahaGotYourNose", 1000 * 5)); // Fake Teleport
                 Effects.Add(new FunctionEffect(Category.Teleportation, "TP To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Teleport To Marker
             }
             else if (game == "vice_city")

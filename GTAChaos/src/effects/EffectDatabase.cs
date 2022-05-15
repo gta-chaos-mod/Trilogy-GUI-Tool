@@ -30,7 +30,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Infinite Ammo", "FullClip", "infinite_ammo")); // Infinite ammo
                 Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Invincible (Player)", "NoOneCanHurtMe", "infinite_health_player")); // Infinite Health (Player)
 
-                Effects.Add(new FunctionEffect(Category.WantedLevel, "Wanted Level +2 Stars", "TurnUpTheHeat", "wanted_level_plus_two")); // Wanted level +2 stars
+                Effects.Add(new FunctionEffect(Category.WantedLevel, "+2 Wanted Stars", "TurnUpTheHeat", "wanted_level_plus_two")); // Wanted level +2 stars
                 Effects.Add(new FunctionEffect(Category.WantedLevel, "Clear Wanted Level", "TurnDownTheHeat", "clear_wanted_level")); // Clear wanted level
                 Effects.Add(new FunctionEffect(Category.WantedLevel, "Never Wanted", "IDoAsIPlease", "never_wanted")); // Never wanted
                 Effects.Add(new FunctionEffect(Category.WantedLevel, "Six Wanted Stars", "BringItOn", "wanted_level_six_stars").DisableRapidFire()); // Six wanted stars
@@ -285,6 +285,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Galaxy Note 7", "DangerousPhoneCalls", "galaxy_note_7"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Freeze Radar", "OutdatedMaps", "freeze_radar"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Portrait Mode", "PortraitMode", "portrait_mode"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Nothing", "ThereIsNoEffect", "nothing"));
 
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("TP Home", "BringMeHome", Location.GrooveStreet));

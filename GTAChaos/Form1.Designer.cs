@@ -497,7 +497,7 @@ namespace GTAChaos.Forms
             this.buttonConnectStream.Name = "buttonConnectStream";
             this.buttonConnectStream.Size = new System.Drawing.Size(121, 22);
             this.buttonConnectStream.TabIndex = 1;
-            this.buttonConnectStream.Text = "Connect to Twitch";
+            this.buttonConnectStream.Text = "Connect to Stream";
             this.buttonConnectStream.UseVisualStyleBackColor = true;
             this.buttonConnectStream.Click += new System.EventHandler(this.ButtonConnectStream_Click);
             // 

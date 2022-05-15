@@ -74,7 +74,11 @@ namespace GTAChaos.Utils
             Kill();
 
             var data = await api.Auth.ValidateAccessTokenAsync();
-            if (data == null) return false;
+            if (data == null)
+            {
+                OnLoginError?.Invoke(this, new EventArgs());
+                return false;
+            }
 
             Username = data.Login;
             Channel = data.Login;

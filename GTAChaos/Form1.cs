@@ -933,6 +933,8 @@ namespace GTAChaos.Forms
                 stream?.Kill();
                 stream = null;
 
+                buttonSwitchMode.Enabled = true;
+
                 comboBoxVotingTime.Enabled = true;
                 comboBoxVotingCooldown.Enabled = true;
 
@@ -957,6 +959,8 @@ namespace GTAChaos.Forms
 
             if (!string.IsNullOrEmpty(Config.Instance().StreamAccessToken) && !string.IsNullOrEmpty(Config.Instance().StreamClientID))
             {
+                buttonSwitchMode.Enabled = false;
+
                 buttonConnectStream.Enabled = false;
                 textBoxStreamAccessToken.Enabled = false;
                 textBoxStreamClientID.Enabled = false;
@@ -1001,6 +1005,8 @@ namespace GTAChaos.Forms
                     MessageBox.Show("There was an error trying to log in to the account. Invalid Access Token?", "Stream Login Error");
                     Invoke(new Action(() =>
                     {
+                        buttonSwitchMode.Enabled = true;
+
                         buttonConnectStream.Enabled = true;
                         textBoxStreamAccessToken.Enabled = true;
                         textBoxStreamClientID.Enabled = true;
@@ -1031,6 +1037,8 @@ namespace GTAChaos.Forms
                     {
                         stream = null;
 
+                        buttonSwitchMode.Enabled = true;
+
                         comboBoxVotingTime.Enabled = true;
                         comboBoxVotingCooldown.Enabled = true;
 
@@ -1052,19 +1060,7 @@ namespace GTAChaos.Forms
                     }));
                 };
 
-                bool connected = await stream.TryConnect();
-                if (!connected)
-                {
-                    MessageBox.Show("There was an error trying to log in to the account. Invalid Access Token?", "Stream Login Error");
-
-                    buttonConnectStream.Enabled = true;
-                    textBoxStreamAccessToken.Enabled = true;
-                    textBoxStreamClientID.Enabled = true;
-
-                    stream?.Kill();
-                    stream = null;
-                    return;
-                }
+                await stream.TryConnect();
             }
         }
 

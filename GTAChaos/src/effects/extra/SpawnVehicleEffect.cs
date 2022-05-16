@@ -15,12 +15,12 @@ namespace GTAChaos.Effects
 
             if (this.VehicleID == -1)
             {
-                this.SetDisplayName(DisplayNameType.UI, "Spawn Random Vehicle");
+                this.SetDisplayNames("Spawn Random Vehicle");
             }
             else
             {
                 this.VehicleID = Math.Max(400, Math.Min(vehicleID, 611));
-                this.SetDisplayName(DisplayNameType.UI, $"Spawn {VehicleNames.GetVehicleName(vehicleID)}");
+                this.SetDisplayNames($"Spawn {VehicleNames.GetVehicleName(vehicleID)}");
             }
         }
 
@@ -36,12 +36,10 @@ namespace GTAChaos.Effects
                 vehicleID = RandomHandler.Next(400, 611);
             }
 
-            string spawnString = $"Spawn {VehicleNames.GetVehicleName(vehicleID)}";
-
             WebsocketHandler.INSTANCE.SendEffectToGame("effect_spawn_vehicle", new
             {
                 vehicleID
-            }, this.GetDuration(duration), spawnString, this.GetVoter(), this.GetRapidFire());
+            }, this.GetDuration(duration), this.GetDisplayName(), this.GetVoter(), this.GetRapidFire());
         }
     }
 }

@@ -175,8 +175,10 @@ namespace GTAChaos.Utils
             {
                 this.activePoll = (await this.api.Helix.Polls.CreatePollAsync(createPoll, this.AccessToken)).Data[0];
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex.ToString());
+
                 tries += 1;
                 Debug.WriteLine($"Couldn't start poll. Attempt {tries}/10.");
 
@@ -418,9 +420,7 @@ namespace GTAChaos.Utils
 
         private class PollEffectVoting
         {
-            private readonly List<PollVotingElement> votingElements;
-
-            public PollEffectVoting() => this.votingElements = new List<PollVotingElement>();
+            private readonly List<PollVotingElement> votingElements = new();
 
             public bool IsEmpty() => this.votingElements.Count == 0;
 

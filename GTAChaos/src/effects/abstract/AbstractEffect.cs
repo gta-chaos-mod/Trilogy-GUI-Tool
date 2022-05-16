@@ -38,7 +38,7 @@ namespace GTAChaos.Effects
 
         public abstract string GetId();
 
-        private void SetDisplayNames(string displayName)
+        protected void SetDisplayNames(string displayName)
         {
             foreach (object nameType in Enum.GetValues(typeof(DisplayNameType)))
             {

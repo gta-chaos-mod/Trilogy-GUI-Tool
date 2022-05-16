@@ -1,4 +1,4 @@
-﻿using Flurl.Http;
+using Flurl.Http;
 using GTAChaos.Effects;
 using Newtonsoft.Json.Linq;
 using System;
@@ -434,14 +434,8 @@ namespace GTAChaos.Utils
 
         private class ChatEffectVoting
         {
-            private readonly List<ChatVotingElement> votingElements;
-            private readonly Dictionary<string, ChatVotingElement> voters;
-
-            public ChatEffectVoting()
-            {
-                this.votingElements = new List<ChatVotingElement>();
-                this.voters = new Dictionary<string, ChatVotingElement>();
-            }
+            private readonly List<ChatVotingElement> votingElements = new();
+            private readonly Dictionary<string, ChatVotingElement> voters = new();
 
             public bool IsEmpty() => this.votingElements.Count == 0;
 

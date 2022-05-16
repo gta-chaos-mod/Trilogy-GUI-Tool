@@ -33,7 +33,12 @@ function clientIDChange() {
     localStorage.setItem('clientID', clientIDInput.value);
 }
 
-function copyToClipboard() {
+function copyClientIDToClipboard() {
+    const clientIDInput = document.querySelector('#clientIDInput');
+    navigator.clipboard.writeText(clientIDInput.value || '');
+}
+
+function copyTokenToClipboard() {
     const tokenInput = document.querySelector('#tokenInput');
     navigator.clipboard.writeText(tokenInput.value || '');
 }

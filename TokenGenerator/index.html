@@ -17,15 +17,19 @@
 
         <div class="form-group mb-3">
             <label for="clientIDInput">Client ID</label>
-            <input id="clientIDInput" type="password" class="form-control" aria-label="Client ID"
-                oninput="clientIDChange()">
+            <div id="tokenInputGroup" class="input-group">
+                <input id="clientIDInput" type="password" class="form-control" aria-label="Client ID"
+                    oninput="clientIDChange()">
+                <button id="clientIDCopyToClipboard" class="btn btn-primary" type="button"
+                    onclick="copyClientIDToClipboard()">Copy</button>
+            </div>
         </div>
         <div class="form-group mb-3">
             <label for="tokenInputGroup">Returned Access Token</label>
             <div id="tokenInputGroup" class="input-group">
                 <input id="tokenInput" type="password" readonly="true" class="form-control" aria-label="Token">
                 <button id="tokenCopyToClipboard" class="btn btn-primary" type="button" disabled="true"
-                    onclick="copyToClipboard()">Copy</button>
+                    onclick="copyTokenToClipboard()">Copy</button>
             </div>
         </div>
         <button class="w-100 btn btn-lg btn-primary" id="generateTokenButton" disabled="true"

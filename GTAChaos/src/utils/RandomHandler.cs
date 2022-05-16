@@ -5,43 +5,18 @@ namespace GTAChaos.Utils
 {
     public class RandomHandler
     {
-        private static Random random = new Random();
+        private static Random random = new();
 
-        public static void SetSeed(string seed)
-        {
-            if (string.IsNullOrEmpty(seed))
-            {
-                random = new Random();
-            }
-            else
-            {
-                random = new Random(seed.GetHashCode());
-            }
-        }
+        public static void SetSeed(string seed) => random = string.IsNullOrEmpty(seed) ? new Random() : new Random(seed.GetHashCode());
 
-        public static int Next()
-        {
-            return random.Next();
-        }
+        public static int Next() => random.Next();
 
-        public static int Next(int maxValue)
-        {
-            return random.Next(maxValue);
-        }
+        public static int Next(int maxValue) => random.Next(maxValue);
 
-        public static int Next(int minValue, int maxValue)
-        {
-            return random.Next(minValue, maxValue + 1);
-        }
+        public static int Next(int minValue, int maxValue) => random.Next(minValue, maxValue + 1);
 
-        public static double NextDouble()
-        {
-            return random.NextDouble();
-        }
+        public static double NextDouble() => random.NextDouble();
 
-        public static void NextBytes(byte[] buffer)
-        {
-            random.NextBytes(buffer);
-        }
+        public static void NextBytes(byte[] buffer) => random.NextBytes(buffer);
     }
 }

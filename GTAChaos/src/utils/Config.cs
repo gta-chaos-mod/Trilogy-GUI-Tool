@@ -14,7 +14,7 @@ namespace GTAChaos.Utils
         public bool AutoStart = true;
         public string Seed;
         public bool MainShowLastEffects;
-        public List<string> EnabledEffects = new List<string>();
+        public List<string> EnabledEffects = new();
         public bool PlayAudioForEffects = true;
 
         // Twitch Polls
@@ -57,27 +57,23 @@ namespace GTAChaos.Utils
                 // Set all effects to enabled by default
                 _Instance.EnabledEffects.AddRange(from effect in EffectDatabase.Effects select effect.GetId());
             }
+
             return _Instance;
         }
 
-        public static void SetInstance(Config inst)
-        {
-            _Instance = inst;
-        }
+        public static void SetInstance(Config inst) => _Instance = inst;
 
         public static int GetEffectDuration()
         {
             if (Shared.IsStreamMode)
             {
                 int cooldown = Instance().StreamVotingCooldown + Instance().StreamVotingTime;
-                return Instance().Stream3TimesCooldown ? cooldown : (int) Math.Round(cooldown / 3.0f);
+                return Instance().Stream3TimesCooldown ? cooldown : (int)Math.Round(cooldown / 3.0f);
             }
+
             return Instance().MainCooldown;
         }
 
-        public static string FToString(float value)
-        {
-            return value.ToString(System.Globalization.CultureInfo.InvariantCulture);
-        }
+        public static string FToString(float value) => value.ToString(System.Globalization.CultureInfo.InvariantCulture);
     }
 }

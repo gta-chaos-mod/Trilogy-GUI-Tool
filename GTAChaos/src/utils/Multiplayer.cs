@@ -187,38 +187,38 @@ namespace GTAChaos.Utils
             this.Channel = Channel;
             this.Username = Username;
 
-            socket = new WebSocket(Server);
+            this.socket = new WebSocket(Server);
 
-            socket.OnOpen += (sender, e) =>
+            this.socket.OnOpen += (sender, e) =>
             {
-                MessageConnect connect = new MessageConnect()
+                MessageConnect connect = new()
                 {
                     Channel = this.Channel,
                     Username = this.Username,
                     Version = Shared.Version
                 };
 
-                socket.Send(JsonConvert.SerializeObject(connect));
+                this.socket.Send(JsonConvert.SerializeObject(connect));
             };
 
-            socket.OnClose += (sender, e) =>
+            this.socket.OnClose += (sender, e) =>
             {
-                if (!ManualClose && !string.IsNullOrWhiteSpace(e.Reason))
+                if (!this.ManualClose && !string.IsNullOrWhiteSpace(e.Reason))
                 {
                     OnConnectionFailed?.Invoke(this, new ConnectionFailedEventArgs());
                 }
             };
 
-            socket.OnMessage += (sender, e) =>
+            this.socket.OnMessage += (sender, e) =>
             {
                 MessageType messageType = JsonConvert.DeserializeObject<MessageType>(e.Data);
                 if (messageType.Type == 0) // Connection Successful
                 {
                     MessageConnectionSuccessful connectionSuccessful = JsonConvert.DeserializeObject<MessageConnectionSuccessful>(e.Data);
 
-                    IsHost = connectionSuccessful.IsHost;
+                    this.IsHost = connectionSuccessful.IsHost;
 
-                    ConnectionSuccessfulEventArgs succ = new ConnectionSuccessfulEventArgs()
+                    ConnectionSuccessfulEventArgs succ = new()
                     {
                         IsHost = connectionSuccessful.IsHost,
                         HostUsername = connectionSuccessful.HostUsername
@@ -229,18 +229,18 @@ namespace GTAChaos.Utils
                 else if (messageType.Type == 1) // Username in use
                 {
                     OnUsernameInUse?.Invoke(this, new UsernameInUseEventArgs());
-                    socket.Close();
+                    this.socket.Close();
                 }
                 else if (messageType.Type == 2) // Host left the channel
                 {
                     OnHostLeftChannel?.Invoke(this, new HostLeftChannelEventArgs());
-                    socket.Close();
+                    this.socket.Close();
                 }
                 else if (messageType.Type == 3)
                 {
                     MessageVersionMismatch mismatch = JsonConvert.DeserializeObject<MessageVersionMismatch>(e.Data);
 
-                    var args = new VersionMismatchEventArgs()
+                    VersionMismatchEventArgs args = new()
                     {
                         Version = mismatch.Version
                     };
@@ -252,7 +252,7 @@ namespace GTAChaos.Utils
                 {
                     MessageUserJoined user = JsonConvert.DeserializeObject<MessageUserJoined>(e.Data);
 
-                    var args = new UserJoinedEventArgs()
+                    UserJoinedEventArgs args = new()
                     {
                         Username = user.Username
                     };
@@ -263,7 +263,7 @@ namespace GTAChaos.Utils
                 {
                     MessageUserLeft user = JsonConvert.DeserializeObject<MessageUserLeft>(e.Data);
 
-                    var args = new UserLeftEventArgs()
+                    UserLeftEventArgs args = new()
                     {
                         Username = user.Username
                     };
@@ -274,7 +274,7 @@ namespace GTAChaos.Utils
                 {
                     MessageChatMessage chatMessage = JsonConvert.DeserializeObject<MessageChatMessage>(e.Data);
 
-                    var args = new ChatMessageEventArgs()
+                    ChatMessageEventArgs args = new()
                     {
                         Username = chatMessage.Username,
                         Message = chatMessage.Message
@@ -287,7 +287,7 @@ namespace GTAChaos.Utils
                 {
                     MessageTimeUpdate timeUpdate = JsonConvert.DeserializeObject<MessageTimeUpdate>(e.Data);
 
-                    var args = new TimeUpdateEventArgs()
+                    TimeUpdateEventArgs args = new()
                     {
                         Remaining = timeUpdate.Remaining,
                         Total = timeUpdate.Total
@@ -299,7 +299,7 @@ namespace GTAChaos.Utils
                 {
                     MessageEffect effect = JsonConvert.DeserializeObject<MessageEffect>(e.Data);
 
-                    var args = new EffectEventArgs()
+                    EffectEventArgs args = new()
                     {
                         Word = effect.Word,
                         Duration = effect.Duration,
@@ -313,7 +313,7 @@ namespace GTAChaos.Utils
                 {
                     MessageVotes votes = JsonConvert.DeserializeObject<MessageVotes>(e.Data);
 
-                    var args = new VotesEventArgs()
+                    VotesEventArgs args = new()
                     {
                         Effects = votes.Effects,
                         Votes = votes.Votes,
@@ -325,40 +325,37 @@ namespace GTAChaos.Utils
             };
         }
 
-        public void Connect()
-        {
-            socket?.Connect();
-        }
+        public void Connect() => this.socket?.Connect();
 
         public void Disconnect()
         {
-            ManualClose = true;
-            socket?.Close();
+            this.ManualClose = true;
+            this.socket?.Close();
         }
 
         public void SendChatMessage(string message)
         {
-            var msg = new MessageChatMessage()
+            MessageChatMessage msg = new()
             {
                 Username = Username,
                 Message = message
             };
-            socket?.Send(JsonConvert.SerializeObject(msg));
+            this.socket?.Send(JsonConvert.SerializeObject(msg));
         }
 
         public void SendTimeUpdate(int remaining, int total)
         {
             DateTime now = DateTime.Now;
-            if (lastTimeUpdate < now)
+            if (this.lastTimeUpdate < now)
             {
-                lastTimeUpdate = now.AddMilliseconds(500);
+                this.lastTimeUpdate = now.AddMilliseconds(500);
 
-                var msg = new MessageTimeUpdate()
+                MessageTimeUpdate msg = new()
                 {
                     Remaining = remaining,
                     Total = total
                 };
-                socket?.Send(JsonConvert.SerializeObject(msg));
+                this.socket?.Send(JsonConvert.SerializeObject(msg));
             }
         }
 
@@ -371,29 +368,29 @@ namespace GTAChaos.Utils
                 duration = _duration; // Always Override
             }
 
-            var msg = new MessageEffect()
+            MessageEffect msg = new()
             {
                 Word = effect.Word,
                 Duration = duration,
                 Voter = effect.GetVoter(),
                 Seed = RandomHandler.Next(9999999)
             };
-            socket?.Send(JsonConvert.SerializeObject(msg));
+            this.socket?.Send(JsonConvert.SerializeObject(msg));
         }
 
         public void SendVotes(string[] effects, int[] votes, int lastChoice, bool force = false)
         {
             DateTime now = DateTime.Now;
-            if (lastVotesUpdate < now || force)
+            if (this.lastVotesUpdate < now || force)
             {
-                lastVotesUpdate = now.AddSeconds(1);
-                var msg = new MessageVotes()
+                this.lastVotesUpdate = now.AddSeconds(1);
+                MessageVotes msg = new()
                 {
                     Effects = effects,
                     Votes = votes,
                     LastChoice = lastChoice
                 };
-                socket?.Send(JsonConvert.SerializeObject(msg));
+                this.socket?.Send(JsonConvert.SerializeObject(msg));
             }
         }
     }

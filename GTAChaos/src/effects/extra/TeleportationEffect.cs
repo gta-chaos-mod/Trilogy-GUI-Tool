@@ -10,15 +10,12 @@ namespace GTAChaos.Effects
         public TeleportationEffect(string description, string word, Location _location)
             : base(Category.Teleportation, description, word)
         {
-            location = _location;
+            this.location = _location;
 
-            DisableRapidFire();
+            this.DisableRapidFire();
         }
 
-        public override string GetId()
-        {
-            return $"teleport_{location.Id}";
-        }
+        public override string GetId() => $"teleport_{this.location.Id}";
 
         public override void RunEffect(int seed = -1, int duration = -1)
         {
@@ -26,10 +23,10 @@ namespace GTAChaos.Effects
 
             WebsocketHandler.INSTANCE.SendEffectToGame("effect_teleport", new
             {
-                posX = location.X,
-                posY = location.Y,
-                posZ = location.Z
-            }, GetDuration(duration), GetDisplayName(), GetVoter(), GetRapidFire());
+                posX = this.location.X,
+                posY = this.location.Y,
+                posZ = this.location.Z
+            }, this.GetDuration(duration), this.GetDisplayName(), this.GetVoter(), this.GetRapidFire());
         }
     }
 }

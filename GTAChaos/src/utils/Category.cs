@@ -9,12 +9,12 @@ namespace GTAChaos.Utils
         public readonly string Name;
         public readonly List<AbstractEffect> Effects;
 
-        public static readonly List<Category> Categories = new List<Category>();
+        public static readonly List<Category> Categories = new();
 
         private Category(string name)
         {
-            Name = name;
-            Effects = new List<AbstractEffect>();
+            this.Name = name;
+            this.Effects = new List<AbstractEffect>();
 
             if (!Categories.Contains(this))
             {
@@ -24,31 +24,22 @@ namespace GTAChaos.Utils
             }
         }
 
-        public void AddEffectToCategory(AbstractEffect effect)
-        {
-            Effects.Add(effect);
-        }
+        public void AddEffectToCategory(AbstractEffect effect) => this.Effects.Add(effect);
 
-        public int GetEffectCount()
-        {
-            return Effects.Count;
-        }
+        public int GetEffectCount() => this.Effects.Count;
 
-        public void ClearEffects()
-        {
-            Effects.Clear();
-        }
+        public void ClearEffects() => this.Effects.Clear();
 
-        public static readonly Category WeaponsAndHealth = new Category("Weapons & Health");
-        public static readonly Category WantedLevel = new Category("Wanted Level");
-        public static readonly Category Weather = new Category("Weather");
-        public static readonly Category Spawning = new Category("Spawning");
-        public static readonly Category Time = new Category("Time");
-        public static readonly Category VehiclesTraffic = new Category("Vehicles & Traffic");
-        public static readonly Category PedsAndCo = new Category("Peds & Co.");
-        public static readonly Category PlayerModifications = new Category("Player Modifications");
-        public static readonly Category Stats = new Category("Stats");
-        public static readonly Category CustomEffects = new Category("Custom Effects");
-        public static readonly Category Teleportation = new Category("Teleportation");
+        public static readonly Category WeaponsAndHealth = new("Weapons & Health");
+        public static readonly Category WantedLevel = new("Wanted Level");
+        public static readonly Category Weather = new("Weather");
+        public static readonly Category Spawning = new("Spawning");
+        public static readonly Category Time = new("Time");
+        public static readonly Category VehiclesTraffic = new("Vehicles & Traffic");
+        public static readonly Category PedsAndCo = new("Peds & Co.");
+        public static readonly Category PlayerModifications = new("Player Modifications");
+        public static readonly Category Stats = new("Stats");
+        public static readonly Category CustomEffects = new("Custom Effects");
+        public static readonly Category Teleportation = new("Teleportation");
     }
 }

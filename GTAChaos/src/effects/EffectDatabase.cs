@@ -16,6 +16,7 @@ namespace GTAChaos.Effects
             {
                 cat.ClearEffects();
             }
+
             Effects.Clear();
             EnabledEffects.Clear();
 
@@ -412,7 +413,7 @@ namespace GTAChaos.Effects
 
             Effects.Sort((first, second) => string.Compare(first.GetDisplayName(DisplayNameType.UI), second.GetDisplayName(DisplayNameType.UI), StringComparison.CurrentCultureIgnoreCase));
 
-            foreach(var e in Effects)
+            foreach (AbstractEffect e in Effects)
             {
                 string displayName = e.GetDisplayName(DisplayNameType.STREAM);
                 if (displayName.Length > 25)
@@ -425,35 +426,19 @@ namespace GTAChaos.Effects
 
         public static List<AbstractEffect> EnabledEffects { get; } = new List<AbstractEffect>();
 
-        public static AbstractEffect GetByID(string id, bool onlyEnabled = false)
-        {
-            return (onlyEnabled ? EnabledEffects : Effects).Find(e => e.GetId().Equals(id));
-        }
+        public static AbstractEffect GetByID(string id, bool onlyEnabled = false) => (onlyEnabled ? EnabledEffects : Effects).Find(e => e.GetId().Equals(id));
 
-        public static AbstractEffect GetByWord(string word, bool onlyEnabled = false)
-        {
-            return (onlyEnabled ? EnabledEffects : Effects).Find(e => !string.IsNullOrEmpty(e.Word) && string.Equals(e.Word, word, StringComparison.OrdinalIgnoreCase));
-        }
+        public static AbstractEffect GetByWord(string word, bool onlyEnabled = false) => (onlyEnabled ? EnabledEffects : Effects).Find(e => !string.IsNullOrEmpty(e.Word) && string.Equals(e.Word, word, StringComparison.OrdinalIgnoreCase));
 
-        public static AbstractEffect GetByDescription(string description, bool onlyEnabled = false)
-        {
-            return (onlyEnabled ? EnabledEffects : Effects).Find(e => string.Equals(description, e.GetDisplayName(DisplayNameType.UI), StringComparison.OrdinalIgnoreCase));
-        }
+        public static AbstractEffect GetByDescription(string description, bool onlyEnabled = false) => (onlyEnabled ? EnabledEffects : Effects).Find(e => string.Equals(description, e.GetDisplayName(DisplayNameType.UI), StringComparison.OrdinalIgnoreCase));
 
         public static AbstractEffect GetRandomEffect(bool onlyEnabled = false)
         {
-            List<AbstractEffect> effects = (onlyEnabled ? EnabledEffects : Effects);
-            if (effects.Count == 0)
-            {
-                return null;
-            }
-            return effects[RandomHandler.Next(effects.Count)];
+            List<AbstractEffect> effects = onlyEnabled ? EnabledEffects : Effects;
+            return effects.Count == 0 ? null : effects[RandomHandler.Next(effects.Count)];
         }
 
-        public static AbstractEffect RunEffect(string id, bool onlyEnabled = true)
-        {
-            return RunEffect(GetByID(id, onlyEnabled));
-        }
+        public static AbstractEffect RunEffect(string id, bool onlyEnabled = true) => RunEffect(GetByID(id, onlyEnabled));
 
         public static AbstractEffect RunEffect(AbstractEffect effect, int seed = -1, int duration = -1)
         {
@@ -461,6 +446,7 @@ namespace GTAChaos.Effects
             {
                 effect.RunEffect(seed, duration);
             }
+
             return effect;
         }
 

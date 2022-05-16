@@ -8,24 +8,18 @@ namespace GTAChaos.Effects
         private readonly string EffectID = "effect_fake_teleport";
 
         public FakeTeleportEffect(string description, string word, int duration)
-            : base(Category.Teleportation, description, word, duration)
-        {
-            DisableRapidFire();
-        }
+            : base(Category.Teleportation, description, word, duration) => this.DisableRapidFire();
 
-        public override string GetId()
-        {
-            return EffectID;
-        }
+        public override string GetId() => this.EffectID;
 
         public override void RunEffect(int seed = -1, int duration = -1)
         {
             base.RunEffect(seed, duration);
 
-            WebsocketHandler.INSTANCE.SendEffectToGame(EffectID, new
+            WebsocketHandler.INSTANCE.SendEffectToGame(this.EffectID, new
             {
                 realEffectName = "Fake Teleport"
-            }, GetDuration(duration), "TP To A Tower", GetVoter(), GetRapidFire());
+            }, this.GetDuration(duration), "TP To A Tower", this.GetVoter(), this.GetRapidFire());
         }
     }
 }

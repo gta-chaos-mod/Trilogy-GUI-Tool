@@ -15,7 +15,7 @@ namespace GTAChaos.Effects
     public abstract class AbstractEffect
     {
         public readonly Category Category;
-        private readonly Dictionary<DisplayNameType, string> DisplayNames = new Dictionary<DisplayNameType, string>();
+        private readonly Dictionary<DisplayNameType, string> DisplayNames = new();
         public readonly string Word;
         public readonly int Duration;
         private float Multiplier;
@@ -27,11 +27,11 @@ namespace GTAChaos.Effects
 
         public AbstractEffect(Category category, string displayName, string word, int duration = -1, float multiplier = 3.0f)
         {
-            Category = category;
-            SetDisplayNames(displayName);
-            Word = word;
-            Duration = duration;
-            Multiplier = multiplier;
+            this.Category = category;
+            this.SetDisplayNames(displayName);
+            this.Word = word;
+            this.Duration = duration;
+            this.Multiplier = multiplier;
 
             category.AddEffectToCategory(this);
         }
@@ -40,98 +40,84 @@ namespace GTAChaos.Effects
 
         private void SetDisplayNames(string displayName)
         {
-            foreach (var nameType in Enum.GetValues(typeof(DisplayNameType)))
+            foreach (object nameType in Enum.GetValues(typeof(DisplayNameType)))
             {
-                SetDisplayName((DisplayNameType) nameType, displayName);
+                this.SetDisplayName((DisplayNameType)nameType, displayName);
             }
         }
 
         public AbstractEffect SetDisplayName(DisplayNameType type, string displayName)
         {
-            DisplayNames[type] = displayName;
+            this.DisplayNames[type] = displayName;
             return this;
         }
 
-        public virtual string GetDisplayName(DisplayNameType type = DisplayNameType.GAME)
-        {
+        public virtual string GetDisplayName(DisplayNameType type = DisplayNameType.GAME) =>
             // We technically set all names already but let's safe-guard this anyway
-            return DisplayNames.ContainsKey(type) ? DisplayNames[type] : DisplayNames[DisplayNameType.GAME];
-        }
+            this.DisplayNames.ContainsKey(type) ? this.DisplayNames[type] : this.DisplayNames[DisplayNameType.GAME];
 
-        public string GetVoter()
-        {
-            return StreamVoter;
-        }
+        public string GetVoter() => this.StreamVoter;
 
         public AbstractEffect SetTreamVoter(string voter)
         {
-            StreamVoter = voter;
+            this.StreamVoter = voter;
             return this;
         }
 
         public AbstractEffect ResetStreamVoter()
         {
-            StreamVoter = "";
+            this.StreamVoter = "";
             return this;
         }
 
         public AbstractEffect DisableRapidFire()
         {
-            rapidFire = 0;
+            this.rapidFire = 0;
             return this;
         }
 
         public AbstractEffect DisableTwitch()
         {
-            streamEnabled = false;
+            this.streamEnabled = false;
             return this;
         }
 
         public AbstractEffect SetMultiplier(float multiplier)
         {
-            Multiplier = multiplier;
+            this.Multiplier = multiplier;
             return this;
         }
 
-        public float GetMultiplier()
-        {
-            return Multiplier;
-        }
+        public float GetMultiplier() => this.Multiplier;
 
-        public bool IsRapidFire()
-        {
-            return rapidFire == 1;
-        }
+        public bool IsRapidFire() => this.rapidFire == 1;
 
-        public bool IsTwitchEnabled()
-        {
-            return streamEnabled;
-        }
+        public bool IsTwitchEnabled() => this.streamEnabled;
 
         public AbstractEffect SetAudioFile(string name)
         {
-            audioName = name;
+            this.audioName = name;
             return this;
         }
 
         public AbstractEffect SetAudioVariations(int variations = 0)
         {
-            audioVariations = variations;
+            this.audioVariations = variations;
             return this;
         }
 
         public virtual string GetAudioFile()
         {
-            string file = string.IsNullOrEmpty(audioName) ? GetId() : audioName;
+            string file = string.IsNullOrEmpty(this.audioName) ? this.GetId() : this.audioName;
 
-            if (audioVariations == 0)
+            if (this.audioVariations == 0)
             {
                 return file;
             }
             else
             {
-                Random random = new Random();
-                return $"{file}_{random.Next(audioVariations)}";
+                Random random = new();
+                return $"{file}_{random.Next(this.audioVariations)}";
             }
         }
 
@@ -139,15 +125,15 @@ namespace GTAChaos.Effects
         {
             if (Config.Instance().PlayAudioForEffects)
             {
-                AudioPlayer.INSTANCE.PlayAudio(GetAudioFile());
+                AudioPlayer.INSTANCE.PlayAudio(this.GetAudioFile());
             }
         }
 
         public int GetDuration(int duration = -1)
         {
-            if (Duration != -1)
+            if (this.Duration != -1)
             {
-                duration = Duration;
+                duration = this.Duration;
             }
             else
             {
@@ -155,7 +141,8 @@ namespace GTAChaos.Effects
                 {
                     duration = Config.GetEffectDuration();
                 }
-                duration = (int)Math.Round(duration * Multiplier);
+
+                duration = (int)Math.Round(duration * this.Multiplier);
             }
 
             return duration;

@@ -34,101 +34,92 @@ namespace GTAChaos.Forms
 
         public Form1()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            Text = $"GTA Trilogy Chaos Mod v{Shared.Version}";
-            if (!debug)
+            this.Text = $"GTA Trilogy Chaos Mod v{Shared.Version}";
+            if (!this.debug)
             {
-                gameToolStripMenuItem.Visible = false;
-                tabs.TabPages.Remove(tabExperimental);
-                textBoxExperimentalEffectName.Visible = false;
-                buttonExperimentalRunEffect.Visible = false;
+                this.gameToolStripMenuItem.Visible = false;
+                this.tabs.TabPages.Remove(this.tabExperimental);
+                this.textBoxExperimentalEffectName.Visible = false;
+                this.buttonExperimentalRunEffect.Visible = false;
             }
             else
             {
-                Text += " (DEBUG)";
-                textBoxMultiplayerServer.Text = "ws://localhost:12312";
+                this.Text += " (DEBUG)";
+                this.textBoxMultiplayerServer.Text = "ws://localhost:12312";
             }
 
-            tabs.TabPages.Remove(tabPolls);
+            this.tabs.TabPages.Remove(this.tabPolls);
 
-            stopwatch = new Stopwatch();
+            this.stopwatch = new Stopwatch();
 
             EffectDatabase.PopulateEffects("san_andreas");
-            PopulateEffectTreeList();
+            this.PopulateEffectTreeList();
 
-            PopulateMainCooldowns();
-            PopulatePresets();
+            this.PopulateMainCooldowns();
+            this.PopulatePresets();
 
-            tabs.TabPages.Remove(tabStream);
+            this.tabs.TabPages.Remove(this.tabStream);
 
-            PopulateVotingTimes();
-            PopulateVotingCooldowns();
+            this.PopulateVotingTimes();
+            this.PopulateVotingCooldowns();
 
-            TryLoadConfig();
+            this.TryLoadConfig();
 
-            timesUntilRapidFire = new Random().Next(10, 15);
+            this.timesUntilRapidFire = new Random().Next(10, 15);
 
             WebsocketHandler.INSTANCE.ConnectWebsocket();
-            WebsocketHandler.INSTANCE.OnSocketMessage += OnSocketMessage;
+            WebsocketHandler.INSTANCE.OnSocketMessage += this.OnSocketMessage;
 
-            websocketReconnectionTimer = new System.Timers.Timer()
+            this.websocketReconnectionTimer = new System.Timers.Timer()
             {
                 Interval = 1000,
                 AutoReset = true
             };
-            websocketReconnectionTimer.Elapsed += WebsocketReconnectionTimer_Elapsed;
-            websocketReconnectionTimer.Start();
+            this.websocketReconnectionTimer.Elapsed += this.WebsocketReconnectionTimer_Elapsed;
+            this.websocketReconnectionTimer.Start();
         }
 
-        private void WebsocketReconnectionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
+        private void WebsocketReconnectionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e) =>
             // This is hacky but it works
             WebsocketHandler.INSTANCE.ConnectWebsocket();
-        }
 
         private void OnSocketMessage(object sender, SocketMessageEventArgs e)
         {
             try
             {
-                var json = JObject.Parse(e.Data);
+                JObject json = JObject.Parse(e.Data);
 
-                var type = Convert.ToString(json["type"]);
-                var state = Convert.ToString(json["state"]);
+                string type = Convert.ToString(json["type"]);
+                string state = Convert.ToString(json["state"]);
 
                 if (type == "ChaosMod" && state == "auto_start")
                 {
-                    Invoke(new Action(() =>
-                    {
-                        DoAutostart();
-                    }));
+                    this.Invoke(new Action(() => this.DoAutostart()));
                 }
             }
             catch (Exception) { }
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            SaveConfig();
-        }
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) => this.SaveConfig();
 
         private void TryLoadConfig()
         {
             try
             {
-                JsonSerializer serializer = new JsonSerializer();
+                JsonSerializer serializer = new();
 
-                using (StreamReader streamReader = new StreamReader(configPath))
-                using (JsonReader reader = new JsonTextReader(streamReader))
-                {
-                    Config.SetInstance(serializer.Deserialize<Config>(reader));
-                    RandomHandler.SetSeed(Config.Instance().Seed);
-                }
+                using StreamReader streamReader = new(this.configPath);
+                using JsonReader reader = new JsonTextReader(streamReader);
+
+                Config.SetInstance(serializer.Deserialize<Config>(reader));
+                RandomHandler.SetSeed(Config.Instance().Seed);
             }
             catch (Exception) { }
 
-            LoadPreset(Config.Instance().EnabledEffects);
-            UpdateInterface();
+            this.LoadPreset(Config.Instance().EnabledEffects);
+            this.UpdateInterface();
         }
 
         private void SaveConfig()
@@ -136,18 +127,17 @@ namespace GTAChaos.Forms
             try
             {
                 Config.Instance().EnabledEffects.Clear();
-                foreach (var effect in EffectDatabase.EnabledEffects)
+                foreach (AbstractEffect effect in EffectDatabase.EnabledEffects)
                 {
                     Config.Instance().EnabledEffects.Add(effect.GetId());
                 }
 
-                JsonSerializer serializer = new JsonSerializer();
+                JsonSerializer serializer = new();
 
-                using (StreamWriter sw = new StreamWriter(configPath))
-                using (JsonTextWriter writer = new JsonTextWriter(sw))
-                {
-                    serializer.Serialize(writer, Config.Instance());
-                }
+                using StreamWriter sw = new(this.configPath);
+                using JsonTextWriter writer = new(sw);
+
+                serializer.Serialize(writer, Config.Instance());
             }
             catch (Exception) { }
         }
@@ -155,83 +145,86 @@ namespace GTAChaos.Forms
         private void UpdateInterface()
         {
             bool found = false;
-            foreach (MainCooldownComboBoxItem item in comboBoxMainCooldown.Items)
+            foreach (MainCooldownComboBoxItem item in this.comboBoxMainCooldown.Items)
             {
                 if (item.Time == Config.Instance().MainCooldown)
                 {
-                    comboBoxMainCooldown.SelectedItem = item;
+                    this.comboBoxMainCooldown.SelectedItem = item;
                     found = true;
                     break;
                 }
             }
+
             if (!found)
             {
-                comboBoxMainCooldown.SelectedIndex = 3;
+                this.comboBoxMainCooldown.SelectedIndex = 3;
                 Config.Instance().MainCooldown = 1000 * 60;
             }
 
-            checkBoxAutoStart.Checked = Config.Instance().AutoStart;
+            this.checkBoxAutoStart.Checked = Config.Instance().AutoStart;
 
-            checkBoxStreamAllowOnlyEnabledEffects.Checked = Config.Instance().StreamAllowOnlyEnabledEffectsRapidFire;
+            this.checkBoxStreamAllowOnlyEnabledEffects.Checked = Config.Instance().StreamAllowOnlyEnabledEffectsRapidFire;
 
             found = false;
-            foreach (VotingTimeComboBoxItem item in comboBoxVotingTime.Items)
+            foreach (VotingTimeComboBoxItem item in this.comboBoxVotingTime.Items)
             {
                 if (item.VotingTime == Config.Instance().StreamVotingTime)
                 {
-                    comboBoxVotingTime.SelectedItem = item;
+                    this.comboBoxVotingTime.SelectedItem = item;
                     found = true;
                     break;
                 }
             }
+
             if (!found)
             {
-                comboBoxVotingTime.SelectedIndex = 0;
+                this.comboBoxVotingTime.SelectedIndex = 0;
                 Config.Instance().StreamVotingTime = 1000 * 30;
             }
 
             found = false;
-            foreach (VotingCooldownComboBoxItem item in comboBoxVotingCooldown.Items)
+            foreach (VotingCooldownComboBoxItem item in this.comboBoxVotingCooldown.Items)
             {
                 if (item.VotingCooldown == Config.Instance().StreamVotingCooldown)
                 {
-                    comboBoxVotingCooldown.SelectedItem = item;
+                    this.comboBoxVotingCooldown.SelectedItem = item;
                     found = true;
                     break;
                 }
             }
+
             if (!found)
             {
-                comboBoxVotingCooldown.SelectedIndex = 1;
+                this.comboBoxVotingCooldown.SelectedIndex = 1;
                 Config.Instance().StreamVotingCooldown = 1000 * 60;
             }
 
-            textBoxStreamAccessToken.Text = Config.Instance().StreamAccessToken;
-            textBoxStreamClientID.Text = Config.Instance().StreamClientID;
+            this.textBoxStreamAccessToken.Text = Config.Instance().StreamAccessToken;
+            this.textBoxStreamClientID.Text = Config.Instance().StreamClientID;
 
-            checkBoxPlayAudioForEffects.Checked = Config.Instance().PlayAudioForEffects;
+            this.checkBoxPlayAudioForEffects.Checked = Config.Instance().PlayAudioForEffects;
 
-            checkBoxShowLastEffectsMain.Checked = Config.Instance().MainShowLastEffects;
-            checkBoxShowLastEffectsStream.Checked = Config.Instance().StreamShowLastEffects;
-            checkBoxStream3TimesCooldown.Checked = Config.Instance().Stream3TimesCooldown;
-            checkBoxStreamCombineVotingMessages.Checked = Config.Instance().StreamCombineChatMessages;
-            checkBoxStreamEnableMultipleEffects.Checked = Config.Instance().StreamEnableMultipleEffects;
-            checkBoxStreamEnableRapidFire.Checked = Config.Instance().StreamEnableRapidFire;
+            this.checkBoxShowLastEffectsMain.Checked = Config.Instance().MainShowLastEffects;
+            this.checkBoxShowLastEffectsStream.Checked = Config.Instance().StreamShowLastEffects;
+            this.checkBoxStream3TimesCooldown.Checked = Config.Instance().Stream3TimesCooldown;
+            this.checkBoxStreamCombineVotingMessages.Checked = Config.Instance().StreamCombineChatMessages;
+            this.checkBoxStreamEnableMultipleEffects.Checked = Config.Instance().StreamEnableMultipleEffects;
+            this.checkBoxStreamEnableRapidFire.Checked = Config.Instance().StreamEnableRapidFire;
 
-            checkBoxStreamMajorityVotes.Checked = Config.Instance().StreamMajorityVotes;
-            checkBoxStreamEnableMultipleEffects.Enabled = Config.Instance().StreamMajorityVotes;
+            this.checkBoxStreamMajorityVotes.Checked = Config.Instance().StreamMajorityVotes;
+            this.checkBoxStreamEnableMultipleEffects.Enabled = Config.Instance().StreamMajorityVotes;
 
-            checkBoxTwitchUsePolls.Checked = Config.Instance().TwitchUsePolls;
-            checkBoxTwitchPollsPostMessages.Checked = Config.Instance().TwitchPollsPostMessages;
-            numericUpDownTwitchPollsBitsCost.Value = Config.Instance().TwitchPollsBitsCost;
-            numericUpDownTwitchPollsChannelPointsCost.Value = Config.Instance().TwitchPollsChannelPointsCost;
+            this.checkBoxTwitchUsePolls.Checked = Config.Instance().TwitchUsePolls;
+            this.checkBoxTwitchPollsPostMessages.Checked = Config.Instance().TwitchPollsPostMessages;
+            this.numericUpDownTwitchPollsBitsCost.Value = Config.Instance().TwitchPollsBitsCost;
+            this.numericUpDownTwitchPollsChannelPointsCost.Value = Config.Instance().TwitchPollsChannelPointsCost;
 
-            checkBoxExperimental_EnableAllEffects.Checked = Config.Instance().Experimental_EnableAllEffects;
-            checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
-            textBoxExperimentalEffectName.Text = Config.Instance().Experimental_EffectName;
-            checkBoxExperimentalYouTubeConnection.Checked = Config.Instance().Experimental_YouTubeConnection;
+            this.checkBoxExperimental_EnableAllEffects.Checked = Config.Instance().Experimental_EnableAllEffects;
+            this.checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
+            this.textBoxExperimentalEffectName.Text = Config.Instance().Experimental_EffectName;
+            this.checkBoxExperimentalYouTubeConnection.Checked = Config.Instance().Experimental_YouTubeConnection;
 
-            textBoxSeed.Text = Config.Instance().Seed;
+            this.textBoxSeed.Text = Config.Instance().Seed;
 
             /*
              * Update selections
@@ -250,7 +243,7 @@ namespace GTAChaos.Forms
                 }
             }
 
-            ListBox listBox = Shared.IsStreamMode ? listLastEffectsStream : listLastEffectsMain;
+            ListBox listBox = Shared.IsStreamMode ? this.listLastEffectsStream : this.listLastEffectsMain;
             listBox.Items.Insert(0, description);
             if (listBox.Items.Count > 7)
             {
@@ -284,7 +277,7 @@ namespace GTAChaos.Forms
 
                         if (effect != null)
                         {
-                            AddEffectToListBox(effect);
+                            this.AddEffectToListBox(effect);
                         }
                     }
                 }
@@ -298,7 +291,7 @@ namespace GTAChaos.Forms
                 else
                 {
                     EffectDatabase.RunEffect(effect);
-                    AddEffectToListBox(effect);
+                    this.AddEffectToListBox(effect);
                 }
             }
         }
@@ -307,100 +300,106 @@ namespace GTAChaos.Forms
         {
             if (Shared.IsStreamMode)
             {
-                TickStream();
+                this.TickStream();
             }
             else
             {
-                TickMain();
+                this.TickMain();
             }
         }
 
         private void TickMain()
         {
-            if (!Shared.TimerEnabled) return;
+            if (!Shared.TimerEnabled)
+            {
+                return;
+            }
 
-            int value = Math.Max(1, (int)stopwatch.ElapsedMilliseconds);
+            int value = Math.Max(1, (int)this.stopwatch.ElapsedMilliseconds);
 
             // Hack to fix Windows' broken-ass progress bar handling
-            progressBarMain.Value = Math.Min(value, progressBarMain.Maximum);
-            progressBarMain.Value = Math.Min(value - 1, progressBarMain.Maximum);
+            this.progressBarMain.Value = Math.Min(value, this.progressBarMain.Maximum);
+            this.progressBarMain.Value = Math.Min(value - 1, this.progressBarMain.Maximum);
 
-            int remaining = (int)Math.Max(0, Config.Instance().MainCooldown - stopwatch.ElapsedMilliseconds);
+            int remaining = (int)Math.Max(0, Config.Instance().MainCooldown - this.stopwatch.ElapsedMilliseconds);
 
             WebsocketHandler.INSTANCE.SendTimeToGame(remaining, Config.Instance().MainCooldown);
 
-            if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
+            if (this.stopwatch.ElapsedMilliseconds - this.elapsedCount > 100)
             {
                 Shared.Multiplayer?.SendTimeUpdate(remaining, Config.Instance().MainCooldown);
 
-                elapsedCount = (int)stopwatch.ElapsedMilliseconds;
+                this.elapsedCount = (int)this.stopwatch.ElapsedMilliseconds;
             }
 
-            if (stopwatch.ElapsedMilliseconds >= Config.Instance().MainCooldown)
+            if (this.stopwatch.ElapsedMilliseconds >= Config.Instance().MainCooldown)
             {
-                progressBarMain.Value = 0;
-                CallEffect();
-                elapsedCount = 0;
-                stopwatch.Restart();
+                this.progressBarMain.Value = 0;
+                this.CallEffect();
+                this.elapsedCount = 0;
+                this.stopwatch.Restart();
             }
         }
 
         private void TickStream()
         {
-            if (!Shared.TimerEnabled) return;
+            if (!Shared.TimerEnabled)
+            {
+                return;
+            }
 
             if (Shared.StreamVotingMode == 1)
             {
-                if (progressBarStream.Maximum != Config.Instance().StreamVotingTime)
+                if (this.progressBarStream.Maximum != Config.Instance().StreamVotingTime)
                 {
-                    progressBarStream.Maximum = Config.Instance().StreamVotingTime;
+                    this.progressBarStream.Maximum = Config.Instance().StreamVotingTime;
                 }
 
                 // Hack to fix Windows' broken-ass progress bar handling
-                int value = Math.Max(1, (int)stopwatch.ElapsedMilliseconds);
-                progressBarStream.Value = Math.Max(progressBarStream.Maximum - value, 0);
-                progressBarStream.Value = Math.Max(progressBarStream.Maximum - value - 1, 0);
+                int value = Math.Max(1, (int)this.stopwatch.ElapsedMilliseconds);
+                this.progressBarStream.Value = Math.Max(this.progressBarStream.Maximum - value, 0);
+                this.progressBarStream.Value = Math.Max(this.progressBarStream.Maximum - value - 1, 0);
 
-                int remaining = (int)Math.Max(0, Config.Instance().StreamVotingTime - stopwatch.ElapsedMilliseconds);
+                int remaining = (int)Math.Max(0, Config.Instance().StreamVotingTime - this.stopwatch.ElapsedMilliseconds);
 
                 WebsocketHandler.INSTANCE.SendTimeToGame(remaining, Config.Instance().StreamVotingTime, "Voting");
 
-                if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
+                if (this.stopwatch.ElapsedMilliseconds - this.elapsedCount > 100)
                 {
                     Shared.Multiplayer?.SendTimeUpdate(remaining, Config.Instance().StreamVotingTime);
 
-                    stream?.SendEffectVotingToGame();
+                    this.stream?.SendEffectVotingToGame();
 
-                    elapsedCount = (int)stopwatch.ElapsedMilliseconds;
+                    this.elapsedCount = (int)this.stopwatch.ElapsedMilliseconds;
                 }
 
                 bool didFinish;
 
-                if (Config.Instance().TwitchUsePolls && stream != null && !Config.Instance().Experimental_YouTubeConnection)
+                if (Config.Instance().TwitchUsePolls && this.stream != null && !Config.Instance().Experimental_YouTubeConnection)
                 {
-                    didFinish = stream.GetRemaining() == 0;
+                    didFinish = this.stream.GetRemaining() == 0;
 
-                    if (stopwatch.ElapsedMilliseconds >= Config.Instance().StreamVotingTime)
+                    if (this.stopwatch.ElapsedMilliseconds >= Config.Instance().StreamVotingTime)
                     {
-                        long millisecondsOver = stopwatch.ElapsedMilliseconds - Config.Instance().StreamVotingTime;
+                        long millisecondsOver = this.stopwatch.ElapsedMilliseconds - Config.Instance().StreamVotingTime;
                         int waitLeft = Math.Max(0, 15000 - decimal.ToInt32(millisecondsOver));
-                        labelStreamCurrentMode.Text = $"Current Mode: Waiting For Poll... ({Math.Ceiling((float)waitLeft / 1000)}s left)";
+                        this.labelStreamCurrentMode.Text = $"Current Mode: Waiting For Poll... ({Math.Ceiling((float)waitLeft / 1000)}s left)";
 
                         if (waitLeft == 0)
                         {
-                            labelStreamCurrentMode.Text = "Current Mode: Cooldown (Poll Failed)";
+                            this.labelStreamCurrentMode.Text = "Current Mode: Cooldown (Poll Failed)";
 
                             WebsocketHandler.INSTANCE.SendTimeToGame(0);
                             Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().StreamVotingCooldown);
-                            elapsedCount = 0;
+                            this.elapsedCount = 0;
 
-                            progressBarStream.Value = 0;
-                            progressBarStream.Maximum = Config.Instance().StreamVotingCooldown;
+                            this.progressBarStream.Value = 0;
+                            this.progressBarStream.Maximum = Config.Instance().StreamVotingCooldown;
 
-                            stopwatch.Restart();
+                            this.stopwatch.Restart();
                             Shared.StreamVotingMode = 0;
 
-                            stream?.SetVoting(3, timesUntilRapidFire, null);
+                            this.stream?.SetVoting(3, this.timesUntilRapidFire, null);
 
                             return;
                         }
@@ -408,29 +407,29 @@ namespace GTAChaos.Forms
                 }
                 else
                 {
-                    didFinish = stopwatch.ElapsedMilliseconds >= Config.Instance().StreamVotingTime;
+                    didFinish = this.stopwatch.ElapsedMilliseconds >= Config.Instance().StreamVotingTime;
                 }
 
                 if (didFinish)
                 {
                     WebsocketHandler.INSTANCE.SendTimeToGame(0);
                     Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().StreamVotingCooldown);
-                    elapsedCount = 0;
+                    this.elapsedCount = 0;
 
-                    progressBarStream.Value = 0;
-                    progressBarStream.Maximum = Config.Instance().StreamVotingCooldown;
+                    this.progressBarStream.Value = 0;
+                    this.progressBarStream.Maximum = Config.Instance().StreamVotingCooldown;
 
-                    stopwatch.Restart();
+                    this.stopwatch.Restart();
                     Shared.StreamVotingMode = 0;
 
-                    labelStreamCurrentMode.Text = "Current Mode: Cooldown";
+                    this.labelStreamCurrentMode.Text = "Current Mode: Cooldown";
 
-                    if (stream != null)
+                    if (this.stream != null)
                     {
-                        List<IVotingElement> elements = stream.GetVotedEffects();
+                        List<IVotingElement> elements = this.stream.GetVotedEffects();
 
                         bool zeroVotes = true;
-                        foreach(var e in elements)
+                        foreach (IVotingElement e in elements)
                         {
                             if (e.GetVotes() > 0)
                             {
@@ -440,178 +439,180 @@ namespace GTAChaos.Forms
 
                         if (!zeroVotes)
                         {
-                            foreach(var e in elements)
+                            foreach (IVotingElement e in elements)
                             {
                                 float multiplier = e.GetEffect().GetMultiplier();
                                 e.GetEffect().SetMultiplier(multiplier / elements.Count);
-                                CallEffect(e.GetEffect());
+                                this.CallEffect(e.GetEffect());
                                 e.GetEffect().SetMultiplier(multiplier);
                             }
                         }
-                        stream.SetVoting(0, timesUntilRapidFire, zeroVotes ? null : elements);
+
+                        this.stream.SetVoting(0, this.timesUntilRapidFire, zeroVotes ? null : elements);
                     }
                 }
             }
             else if (Shared.StreamVotingMode == 2)
             {
-                if (progressBarStream.Maximum != 1000 * 10)
+                if (this.progressBarStream.Maximum != 1000 * 10)
                 {
-                    progressBarStream.Maximum = 1000 * 10;
+                    this.progressBarStream.Maximum = 1000 * 10;
                 }
 
                 // Hack to fix Windows' broken-ass progress bar handling
-                int value = Math.Max(1, (int)stopwatch.ElapsedMilliseconds);
-                progressBarStream.Value = Math.Max(progressBarStream.Maximum - value, 0);
-                progressBarStream.Value = Math.Max(progressBarStream.Maximum - value - 1, 0);
+                int value = Math.Max(1, (int)this.stopwatch.ElapsedMilliseconds);
+                this.progressBarStream.Value = Math.Max(this.progressBarStream.Maximum - value, 0);
+                this.progressBarStream.Value = Math.Max(this.progressBarStream.Maximum - value - 1, 0);
 
-                int remaining = (int)Math.Max(0, (1000 * 10) - stopwatch.ElapsedMilliseconds);
+                int remaining = (int)Math.Max(0, (1000 * 10) - this.stopwatch.ElapsedMilliseconds);
 
                 WebsocketHandler.INSTANCE.SendTimeToGame(remaining, 10000, "Rapid-Fire");
 
-                if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
+                if (this.stopwatch.ElapsedMilliseconds - this.elapsedCount > 100)
                 {
                     Shared.Multiplayer?.SendTimeUpdate(remaining, 10000);
 
-                    elapsedCount = (int)stopwatch.ElapsedMilliseconds;
+                    this.elapsedCount = (int)this.stopwatch.ElapsedMilliseconds;
                 }
 
-                if (stopwatch.ElapsedMilliseconds >= 1000 * 10) // Set 10 seconds
+                if (this.stopwatch.ElapsedMilliseconds >= 1000 * 10) // Set 10 seconds
                 {
                     WebsocketHandler.INSTANCE.SendTimeToGame(0);
                     Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().StreamVotingCooldown);
-                    elapsedCount = 0;
+                    this.elapsedCount = 0;
 
-                    progressBarStream.Value = 0;
-                    progressBarStream.Maximum = Config.Instance().StreamVotingCooldown;
+                    this.progressBarStream.Value = 0;
+                    this.progressBarStream.Maximum = Config.Instance().StreamVotingCooldown;
 
-                    stopwatch.Restart();
+                    this.stopwatch.Restart();
                     Shared.StreamVotingMode = 0;
 
-                    labelStreamCurrentMode.Text = "Current Mode: Cooldown";
+                    this.labelStreamCurrentMode.Text = "Current Mode: Cooldown";
 
-                    stream?.SetVoting(0, timesUntilRapidFire);
+                    this.stream?.SetVoting(0, this.timesUntilRapidFire);
                 }
             }
             else if (Shared.StreamVotingMode == 0)
             {
-                if (progressBarStream.Maximum != Config.Instance().StreamVotingCooldown)
+                if (this.progressBarStream.Maximum != Config.Instance().StreamVotingCooldown)
                 {
-                    progressBarStream.Maximum = Config.Instance().StreamVotingCooldown;
+                    this.progressBarStream.Maximum = Config.Instance().StreamVotingCooldown;
                 }
 
                 // Hack to fix Windows' broken-ass progress bar handling
-                int value = Math.Max(1, (int)stopwatch.ElapsedMilliseconds);
-                progressBarStream.Value = Math.Min(value + 1, progressBarStream.Maximum);
-                progressBarStream.Value = Math.Min(value, progressBarStream.Maximum);
+                int value = Math.Max(1, (int)this.stopwatch.ElapsedMilliseconds);
+                this.progressBarStream.Value = Math.Min(value + 1, this.progressBarStream.Maximum);
+                this.progressBarStream.Value = Math.Min(value, this.progressBarStream.Maximum);
 
-                int remaining = (int)Math.Max(0, Config.Instance().StreamVotingCooldown - stopwatch.ElapsedMilliseconds);
+                int remaining = (int)Math.Max(0, Config.Instance().StreamVotingCooldown - this.stopwatch.ElapsedMilliseconds);
 
                 WebsocketHandler.INSTANCE.SendTimeToGame(remaining, Config.Instance().StreamVotingCooldown, "Cooldown");
 
-                if (stopwatch.ElapsedMilliseconds - elapsedCount > 100)
+                if (this.stopwatch.ElapsedMilliseconds - this.elapsedCount > 100)
                 {
                     Shared.Multiplayer?.SendTimeUpdate(remaining, Config.Instance().StreamVotingCooldown);
 
-                    elapsedCount = (int)stopwatch.ElapsedMilliseconds;
+                    this.elapsedCount = (int)this.stopwatch.ElapsedMilliseconds;
                 }
 
-                if (stopwatch.ElapsedMilliseconds >= Config.Instance().StreamVotingCooldown)
+                if (this.stopwatch.ElapsedMilliseconds >= Config.Instance().StreamVotingCooldown)
                 {
-                    elapsedCount = 0;
+                    this.elapsedCount = 0;
 
                     if (Config.Instance().StreamEnableRapidFire)
                     {
-                        timesUntilRapidFire--;
+                        this.timesUntilRapidFire--;
                     }
 
-                    if (timesUntilRapidFire == 0 && Config.Instance().StreamEnableRapidFire)
+                    if (this.timesUntilRapidFire == 0 && Config.Instance().StreamEnableRapidFire)
                     {
-                        progressBarStream.Value = progressBarStream.Maximum = 1000 * 10;
+                        this.progressBarStream.Value = this.progressBarStream.Maximum = 1000 * 10;
 
-                        timesUntilRapidFire = new Random().Next(10, 15);
+                        this.timesUntilRapidFire = new Random().Next(10, 15);
 
                         Shared.StreamVotingMode = 2;
-                        labelStreamCurrentMode.Text = "Current Mode: Rapid-Fire";
+                        this.labelStreamCurrentMode.Text = "Current Mode: Rapid-Fire";
 
-                        stream?.SetVoting(2, timesUntilRapidFire);
+                        this.stream?.SetVoting(2, this.timesUntilRapidFire);
                     }
                     else
                     {
-                        progressBarStream.Value = progressBarStream.Maximum = Config.Instance().StreamVotingTime;
+                        this.progressBarStream.Value = this.progressBarStream.Maximum = Config.Instance().StreamVotingTime;
 
                         Shared.StreamVotingMode = 1;
-                        labelStreamCurrentMode.Text = "Current Mode: Voting";
+                        this.labelStreamCurrentMode.Text = "Current Mode: Voting";
 
-                        stream?.SetVoting(1, timesUntilRapidFire);
+                        this.stream?.SetVoting(1, this.timesUntilRapidFire);
                     }
-                    stopwatch.Restart();
+
+                    this.stopwatch.Restart();
                 }
             }
         }
 
         private void PopulateEffectTreeList()
         {
-            enabledEffectsView.Nodes.Clear();
-            idToEffectNodeMap.Clear();
+            this.enabledEffectsView.Nodes.Clear();
+            this.idToEffectNodeMap.Clear();
 
             // Add Categories
             foreach (Category cat in Category.Categories)
             {
                 if (cat.GetEffectCount() > 0)
                 {
-                    enabledEffectsView.Nodes.Add(new CategoryTreeNode(cat));
+                    this.enabledEffectsView.Nodes.Add(new CategoryTreeNode(cat));
                 }
             }
 
             // Add Effects
             foreach (AbstractEffect effect in EffectDatabase.Effects)
             {
-                if (idToEffectNodeMap.ContainsKey(effect.GetId()))
+                if (this.idToEffectNodeMap.ContainsKey(effect.GetId()))
                 {
                     MessageBox.Show($"Tried adding effect with ID that was already present: '{effect.GetId()}'");
                 }
 
-                TreeNode node = enabledEffectsView.Nodes.Find(effect.Category.Name, false).FirstOrDefault();
+                TreeNode node = this.enabledEffectsView.Nodes.Find(effect.Category.Name, false).FirstOrDefault();
 
                 string Description = effect.GetDisplayName(DisplayNameType.UI);
 
-                EffectTreeNode addedNode = new EffectTreeNode(effect, Description)
+                EffectTreeNode addedNode = new(effect, Description)
                 {
                     Checked = true,
                 };
                 node.Nodes.Add(addedNode);
-                idToEffectNodeMap[effect.GetId()] = addedNode;
+                this.idToEffectNodeMap[effect.GetId()] = addedNode;
             }
         }
 
         private void PopulatePresets()
         {
-            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            foreach (CategoryTreeNode node in this.enabledEffectsView.Nodes)
             {
                 node.Checked = false;
-                CheckAllChildNodes(node, false);
+                this.CheckAllChildNodes(node, false);
                 node.UpdateCategory();
             }
         }
 
         private void PopulateMainCooldowns()
         {
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("10 seconds", 1000 * 10));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("20 seconds", 1000 * 20));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("30 seconds", 1000 * 30));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("1 minute", 1000 * 60));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("2 minutes", 1000 * 60 * 2));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("3 minutes", 1000 * 60 * 3));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("5 minutes", 1000 * 60 * 5));
-            comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("10 minutes", 1000 * 60 * 10));
+            this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("10 seconds", 1000 * 10));
+            this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("20 seconds", 1000 * 20));
+            this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("30 seconds", 1000 * 30));
+            this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("1 minute", 1000 * 60));
+            this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("2 minutes", 1000 * 60 * 2));
+            this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("3 minutes", 1000 * 60 * 3));
+            this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("5 minutes", 1000 * 60 * 5));
+            this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("10 minutes", 1000 * 60 * 10));
 
-            if (debug)
+            if (this.debug)
             {
-                comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 1 second", 1000));
-                comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 10ms", 10));
+                this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 1 second", 1000));
+                this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 10ms", 10));
             }
 
-            comboBoxMainCooldown.SelectedIndex = 3;
+            this.comboBoxMainCooldown.SelectedIndex = 3;
 
             Config.Instance().MainCooldown = 1000 * 60;
         }
@@ -623,36 +624,33 @@ namespace GTAChaos.Forms
 
             public MainCooldownComboBoxItem(string text, int time)
             {
-                Text = text;
-                Time = time;
+                this.Text = text;
+                this.Time = time;
             }
 
-            public override string ToString()
-            {
-                return Text;
-            }
+            public override string ToString() => this.Text;
         }
 
         private void MainCooldownComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MainCooldownComboBoxItem item = (MainCooldownComboBoxItem)comboBoxMainCooldown.SelectedItem;
+            MainCooldownComboBoxItem item = (MainCooldownComboBoxItem)this.comboBoxMainCooldown.SelectedItem;
             Config.Instance().MainCooldown = item.Time;
 
             if (!Shared.TimerEnabled)
             {
-                progressBarMain.Value = 0;
-                progressBarMain.Maximum = Config.Instance().MainCooldown;
-                elapsedCount = 0;
-                stopwatch.Reset();
+                this.progressBarMain.Value = 0;
+                this.progressBarMain.Maximum = Config.Instance().MainCooldown;
+                this.elapsedCount = 0;
+                this.stopwatch.Reset();
             }
         }
 
         private void PopulateVotingTimes()
         {
-            comboBoxVotingTime.Items.Add(new VotingTimeComboBoxItem("30 seconds", 1000 * 30));
-            comboBoxVotingTime.Items.Add(new VotingTimeComboBoxItem("1 minute", 1000 * 60));
+            this.comboBoxVotingTime.Items.Add(new VotingTimeComboBoxItem("30 seconds", 1000 * 30));
+            this.comboBoxVotingTime.Items.Add(new VotingTimeComboBoxItem("1 minute", 1000 * 60));
 
-            comboBoxVotingTime.SelectedIndex = 0;
+            this.comboBoxVotingTime.SelectedIndex = 0;
 
             Config.Instance().StreamVotingTime = 1000 * 30;
         }
@@ -664,37 +662,34 @@ namespace GTAChaos.Forms
 
             public VotingTimeComboBoxItem(string text, int votingTime)
             {
-                Text = text;
-                VotingTime = votingTime;
+                this.Text = text;
+                this.VotingTime = votingTime;
             }
 
-            public override string ToString()
-            {
-                return Text;
-            }
+            public override string ToString() => this.Text;
         }
 
         private void ComboBoxVotingTime_SelectedIndexChanged(object sender, EventArgs e)
         {
-            VotingTimeComboBoxItem item = (VotingTimeComboBoxItem)comboBoxVotingTime.SelectedItem;
+            VotingTimeComboBoxItem item = (VotingTimeComboBoxItem)this.comboBoxVotingTime.SelectedItem;
             Config.Instance().StreamVotingTime = item.VotingTime;
         }
 
         private void PopulateVotingCooldowns()
         {
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("30 seconds", 1000 * 30));
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("1 minute", 1000 * 60));
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("2 minutes", 1000 * 60 * 2));
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("3 minutes", 1000 * 60 * 3));
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("5 minutes", 1000 * 60 * 5));
-            comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("10 minutes", 1000 * 60 * 10));
+            this.comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("30 seconds", 1000 * 30));
+            this.comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("1 minute", 1000 * 60));
+            this.comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("2 minutes", 1000 * 60 * 2));
+            this.comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("3 minutes", 1000 * 60 * 3));
+            this.comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("5 minutes", 1000 * 60 * 5));
+            this.comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("10 minutes", 1000 * 60 * 10));
 
-            if (debug)
+            if (this.debug)
             {
-                comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("5 seconds", 1000 * 5));
+                this.comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("5 seconds", 1000 * 5));
             }
 
-            comboBoxVotingCooldown.SelectedIndex = 1;
+            this.comboBoxVotingCooldown.SelectedIndex = 1;
 
             Config.Instance().StreamVotingCooldown = 1000 * 60;
         }
@@ -706,33 +701,33 @@ namespace GTAChaos.Forms
 
             public VotingCooldownComboBoxItem(string text, int votingCooldown)
             {
-                Text = text;
-                VotingCooldown = votingCooldown;
+                this.Text = text;
+                this.VotingCooldown = votingCooldown;
             }
 
-            public override string ToString()
-            {
-                return Text;
-            }
+            public override string ToString() => this.Text;
         }
 
         private void ComboBoxVotingCooldown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            VotingCooldownComboBoxItem item = (VotingCooldownComboBoxItem)comboBoxVotingCooldown.SelectedItem;
+            VotingCooldownComboBoxItem item = (VotingCooldownComboBoxItem)this.comboBoxVotingCooldown.SelectedItem;
             Config.Instance().StreamVotingCooldown = item.VotingCooldown;
         }
 
         private void DoAutostart()
         {
-            if (!checkBoxAutoStart.Checked) return;
+            if (!this.checkBoxAutoStart.Checked)
+            {
+                return;
+            }
 
-            elapsedCount = 0;
-            stopwatch.Reset();
-            SetEnabled(true);
+            this.elapsedCount = 0;
+            this.stopwatch.Reset();
+            this.SetEnabled(true);
 
             if (Config.Instance().Experimental_RunEffectOnAutoStart && !Shared.IsStreamMode)
             {
-                CallEffect();
+                this.CallEffect();
             }
         }
 
@@ -741,29 +736,26 @@ namespace GTAChaos.Forms
             Shared.TimerEnabled = enabled;
             if (Shared.TimerEnabled)
             {
-                stopwatch.Start();
+                this.stopwatch.Start();
             }
             else
             {
-                stopwatch.Stop();
+                this.stopwatch.Stop();
             }
 
-            buttonMainToggle.Enabled = true;
-            (Shared.IsStreamMode ? buttonStreamToggle : buttonMainToggle).Text = Shared.TimerEnabled ? "Stop / Pause" : "Start / Resume";
-            comboBoxMainCooldown.Enabled =
-                buttonSwitchMode.Enabled =
-                buttonResetMain.Enabled =
-                buttonResetStream.Enabled = !Shared.TimerEnabled;
+            this.buttonMainToggle.Enabled = true;
+            (Shared.IsStreamMode ? this.buttonStreamToggle : this.buttonMainToggle).Text = Shared.TimerEnabled ? "Stop / Pause" : "Start / Resume";
+            this.comboBoxMainCooldown.Enabled =
+                this.buttonSwitchMode.Enabled =
+                this.buttonResetMain.Enabled =
+                this.buttonResetStream.Enabled = !Shared.TimerEnabled;
 
-            comboBoxVotingTime.Enabled =
-                comboBoxVotingCooldown.Enabled =
-                textBoxSeed.Enabled = !Shared.TimerEnabled;
+            this.comboBoxVotingTime.Enabled =
+                this.comboBoxVotingCooldown.Enabled =
+                this.textBoxSeed.Enabled = !Shared.TimerEnabled;
         }
 
-        private void ButtonMainToggle_Click(object sender, EventArgs e)
-        {
-            SetEnabled(!Shared.TimerEnabled);
-        }
+        private void ButtonMainToggle_Click(object sender, EventArgs e) => this.SetEnabled(!Shared.TimerEnabled);
 
         private void CheckAllChildNodes(TreeNode treeNode, bool nodeChecked)
         {
@@ -778,7 +770,7 @@ namespace GTAChaos.Forms
                 if (node.Nodes.Count > 0)
                 {
                     // If the current node has child nodes, call the CheckAllChildsNodes method recursively.
-                    CheckAllChildNodes(node, nodeChecked);
+                    this.CheckAllChildNodes(node, nodeChecked);
                 }
             }
         }
@@ -794,10 +786,10 @@ namespace GTAChaos.Forms
 
                 if (e.Node.Nodes.Count > 0)
                 {
-                    CheckAllChildNodes(e.Node, e.Node.Checked);
+                    this.CheckAllChildNodes(e.Node, e.Node.Checked);
                 }
 
-                foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+                foreach (CategoryTreeNode node in this.enabledEffectsView.Nodes)
                 {
                     node.UpdateCategory();
                 }
@@ -806,18 +798,18 @@ namespace GTAChaos.Forms
 
         private void LoadPreset(List<string> enabledEffects)
         {
-            PopulatePresets();
+            this.PopulatePresets();
 
             foreach (string effect in enabledEffects)
             {
-                if (idToEffectNodeMap.TryGetValue(effect, out EffectTreeNode node))
+                if (this.idToEffectNodeMap.TryGetValue(effect, out EffectTreeNode node))
                 {
                     node.Checked = true;
                     EffectDatabase.SetEffectEnabled(node.Effect, true);
                 }
             }
 
-            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            foreach (CategoryTreeNode node in this.enabledEffectsView.Nodes)
             {
                 node.UpdateCategory();
             }
@@ -829,15 +821,15 @@ namespace GTAChaos.Forms
 
             public CategoryTreeNode(Category _category)
             {
-                category = _category;
-                Name = Text = category.Name;
+                this.category = _category;
+                this.Name = this.Text = this.category.Name;
             }
 
             public void UpdateCategory()
             {
                 bool newChecked = true;
                 int enabled = 0;
-                foreach (TreeNode node in Nodes)
+                foreach (TreeNode node in this.Nodes)
                 {
                     if (node.Checked)
                     {
@@ -848,8 +840,9 @@ namespace GTAChaos.Forms
                         newChecked = false;
                     }
                 }
-                Checked = newChecked;
-                Text = Name + $" ({enabled}/{Nodes.Count})";
+
+                this.Checked = newChecked;
+                this.Text = this.Name + $" ({enabled}/{this.Nodes.Count})";
             }
         }
 
@@ -859,20 +852,17 @@ namespace GTAChaos.Forms
 
             public EffectTreeNode(AbstractEffect effect, string description)
             {
-                Effect = effect;
+                this.Effect = effect;
 
-                Name = Text = description;
+                this.Name = this.Text = description;
             }
         }
 
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e) => this.Close();
 
         private void LoadPresetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog
+            OpenFileDialog dialog = new()
             {
                 Filter = "Preset File|*.cfg",
                 Title = "Load Preset"
@@ -883,12 +873,14 @@ namespace GTAChaos.Forms
             {
                 string content = System.IO.File.ReadAllText(dialog.FileName);
                 string[] enabledEffects = content.Split(',');
-                List<string> enabledEffectList = new List<string>();
+
+                List<string> enabledEffectList = new();
                 foreach (string effect in enabledEffects)
                 {
                     enabledEffectList.Add(effect);
                 }
-                LoadPreset(enabledEffectList);
+
+                this.LoadPreset(enabledEffectList);
             }
 
             dialog.Dispose();
@@ -896,17 +888,18 @@ namespace GTAChaos.Forms
 
         private void SavePresetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<string> enabledEffects = new List<string>();
-            foreach (EffectTreeNode node in idToEffectNodeMap.Values)
+            List<string> enabledEffects = new();
+            foreach (EffectTreeNode node in this.idToEffectNodeMap.Values)
             {
                 if (node.Checked)
                 {
                     enabledEffects.Add(node.Effect.GetId());
                 }
             }
+
             string joined = string.Join(",", enabledEffects);
 
-            SaveFileDialog dialog = new SaveFileDialog
+            SaveFileDialog dialog = new()
             {
                 Filter = "Preset File|*.cfg",
                 Title = "Save Preset"
@@ -923,274 +916,246 @@ namespace GTAChaos.Forms
 
         private async void ButtonConnectStream_Click(object sender, EventArgs e)
         {
-            if (stream?.IsConnected() == true || buttonConnectStream.Text == "Disconnect")
+            if (this.stream?.IsConnected() == true || this.buttonConnectStream.Text == "Disconnect")
             {
-                stream?.Kill();
-                stream = null;
+                this.stream?.Kill();
+                this.stream = null;
 
-                buttonSwitchMode.Enabled = true;
+                this.buttonSwitchMode.Enabled = true;
 
-                comboBoxVotingTime.Enabled = true;
-                comboBoxVotingCooldown.Enabled = true;
+                this.comboBoxVotingTime.Enabled = true;
+                this.comboBoxVotingCooldown.Enabled = true;
 
-                textBoxStreamAccessToken.Enabled = true;
-                textBoxStreamClientID.Enabled = true;
+                this.textBoxStreamAccessToken.Enabled = true;
+                this.textBoxStreamClientID.Enabled = true;
 
-                buttonStreamToggle.Enabled = false;
+                this.buttonStreamToggle.Enabled = false;
 
-                checkBoxTwitchUsePolls.Enabled = true;
+                this.checkBoxTwitchUsePolls.Enabled = true;
 
-                buttonConnectStream.Text = "Connect to Stream";
+                this.buttonConnectStream.Text = "Connect to Stream";
 
-                if (!tabs.TabPages.Contains(tabEffects))
+                if (!this.tabs.TabPages.Contains(this.tabEffects))
                 {
-                    tabs.TabPages.Insert(tabs.TabPages.IndexOf(tabStream), tabEffects);
+                    this.tabs.TabPages.Insert(this.tabs.TabPages.IndexOf(this.tabStream), this.tabEffects);
                 }
 
-                SetEnabled(false);
+                this.SetEnabled(false);
 
                 return;
             }
 
             if (!string.IsNullOrEmpty(Config.Instance().StreamAccessToken) && !string.IsNullOrEmpty(Config.Instance().StreamClientID))
             {
-                buttonSwitchMode.Enabled = false;
+                this.buttonSwitchMode.Enabled = false;
 
-                buttonConnectStream.Enabled = false;
-                textBoxStreamAccessToken.Enabled = false;
-                textBoxStreamClientID.Enabled = false;
+                this.buttonConnectStream.Enabled = false;
+                this.textBoxStreamAccessToken.Enabled = false;
+                this.textBoxStreamClientID.Enabled = false;
 
-                if (Config.Instance().Experimental_YouTubeConnection)
-                {
-                    stream = new YouTubeChatConnection();
-                }
-                else
-                {
-                    if (Config.Instance().TwitchUsePolls)
-                    {
-                        stream = new TwitchPollConnection();
-                    }
-                    else
-                    {
-                        stream = new TwitchChatConnection();
-                    }
-                }
+                this.stream = Config.Instance().Experimental_YouTubeConnection
+                    ? new YouTubeChatConnection()
+                    : Config.Instance().TwitchUsePolls ? new TwitchPollConnection() : new TwitchChatConnection();
 
-                stream.OnRapidFireEffect += (_sender, rapidFireArgs) =>
+                this.stream.OnRapidFireEffect += (_sender, rapidFireArgs) => this.Invoke(new Action(() =>
                 {
-                    Invoke(new Action(() =>
+                    if (Shared.StreamVotingMode == 2)
                     {
-                        if (Shared.StreamVotingMode == 2)
+                        if (Shared.Multiplayer != null)
                         {
-                            if (Shared.Multiplayer != null)
-                            {
-                                Shared.Multiplayer.SendEffect(rapidFireArgs.Effect, 1000 * 15);
-                            }
-                            else
-                            {
-                                rapidFireArgs.Effect.RunEffect(-1, 1000 * 15);
-                                AddEffectToListBox(rapidFireArgs.Effect);
-                            }
+                            Shared.Multiplayer.SendEffect(rapidFireArgs.Effect, 1000 * 15);
                         }
-                    }));
-                };
+                        else
+                        {
+                            rapidFireArgs.Effect.RunEffect(-1, 1000 * 15);
+                            this.AddEffectToListBox(rapidFireArgs.Effect);
+                        }
+                    }
+                }));
 
-                stream.OnLoginError += (_sender, _e) =>
+                this.stream.OnLoginError += (_sender, _e) =>
                 {
                     MessageBox.Show("There was an error trying to log in to the account. Invalid Access Token?", "Stream Login Error");
-                    Invoke(new Action(() =>
+                    this.Invoke(new Action(() =>
                     {
-                        buttonSwitchMode.Enabled = true;
+                        this.buttonSwitchMode.Enabled = true;
 
-                        buttonConnectStream.Enabled = true;
-                        textBoxStreamAccessToken.Enabled = true;
-                        textBoxStreamClientID.Enabled = true;
+                        this.buttonConnectStream.Enabled = true;
+                        this.textBoxStreamAccessToken.Enabled = true;
+                        this.textBoxStreamClientID.Enabled = true;
                     }));
-                    stream?.Kill();
-                    stream = null;
+                    this.stream?.Kill();
+                    this.stream = null;
                 };
 
-                stream.OnConnected += (_sender, _e) =>
+                this.stream.OnConnected += (_sender, _e) => this.Invoke(new Action(() =>
                 {
-                    Invoke(new Action(() =>
-                    {
-                        buttonConnectStream.Enabled = true;
-                        buttonStreamToggle.Enabled = true;
+                    this.buttonConnectStream.Enabled = true;
+                    this.buttonStreamToggle.Enabled = true;
 
-                        buttonConnectStream.Text = "Disconnect";
+                    this.buttonConnectStream.Text = "Disconnect";
 
-                        textBoxStreamAccessToken.Enabled = false;
-                        textBoxStreamClientID.Enabled = false;
+                    this.textBoxStreamAccessToken.Enabled = false;
+                    this.textBoxStreamClientID.Enabled = false;
 
-                        checkBoxTwitchUsePolls.Enabled = false;
-                    }));
-                };
+                    this.checkBoxTwitchUsePolls.Enabled = false;
+                }));
 
-                stream.OnDisconnected += (_sender, _e) =>
+                this.stream.OnDisconnected += (_sender, _e) => this.Invoke(new Action(() =>
                 {
-                    Invoke(new Action(() =>
+                    this.stream = null;
+
+                    this.buttonSwitchMode.Enabled = true;
+
+                    this.comboBoxVotingTime.Enabled = true;
+                    this.comboBoxVotingCooldown.Enabled = true;
+
+                    this.textBoxStreamAccessToken.Enabled = true;
+                    this.textBoxStreamClientID.Enabled = true;
+
+                    this.buttonStreamToggle.Enabled = false;
+
+                    this.checkBoxTwitchUsePolls.Enabled = true;
+
+                    this.buttonConnectStream.Text = "Connect to Stream";
+
+                    if (!this.tabs.TabPages.Contains(this.tabEffects))
                     {
-                        stream = null;
+                        this.tabs.TabPages.Insert(this.tabs.TabPages.IndexOf(this.tabStream), this.tabEffects);
+                    }
 
-                        buttonSwitchMode.Enabled = true;
+                    this.SetEnabled(false);
+                }));
 
-                        comboBoxVotingTime.Enabled = true;
-                        comboBoxVotingCooldown.Enabled = true;
-
-                        textBoxStreamAccessToken.Enabled = true;
-                        textBoxStreamClientID.Enabled = true;
-
-                        buttonStreamToggle.Enabled = false;
-
-                        checkBoxTwitchUsePolls.Enabled = true;
-
-                        buttonConnectStream.Text = "Connect to Stream";
-
-                        if (!tabs.TabPages.Contains(tabEffects))
-                        {
-                            tabs.TabPages.Insert(tabs.TabPages.IndexOf(tabStream), tabEffects);
-                        }
-
-                        SetEnabled(false);
-                    }));
-                };
-
-                await stream.TryConnect();
+                await this.stream.TryConnect();
             }
         }
 
         private void UpdateStreamConnectButtonState()
         {
-            buttonConnectStream.Enabled = !string.IsNullOrEmpty(Config.Instance().StreamAccessToken)
+            this.buttonConnectStream.Enabled = !string.IsNullOrEmpty(Config.Instance().StreamAccessToken)
                 && !string.IsNullOrEmpty(Config.Instance().StreamClientID);
         }
 
         private void TextBoxOAuth_TextChanged(object sender, EventArgs e)
         {
-            Config.Instance().StreamAccessToken = textBoxStreamAccessToken.Text;
+            Config.Instance().StreamAccessToken = this.textBoxStreamAccessToken.Text;
 
-            UpdateStreamConnectButtonState();
+            this.UpdateStreamConnectButtonState();
         }
 
         private void SwitchMode(bool isStreamMode)
         {
             if (!isStreamMode)
             {
-                buttonSwitchMode.Text = "Stream";
+                this.buttonSwitchMode.Text = "Stream";
 
-                if (!tabs.TabPages.Contains(tabMain))
+                if (!this.tabs.TabPages.Contains(this.tabMain))
                 {
-                    tabs.TabPages.Insert(0, tabMain);
+                    this.tabs.TabPages.Insert(0, this.tabMain);
                 }
-                tabs.SelectedIndex = 0;
-                tabs.TabPages.Remove(tabStream);
 
-                tabs.TabPages.Remove(tabPolls);
+                this.tabs.SelectedIndex = 0;
+                this.tabs.TabPages.Remove(this.tabStream);
 
-                listLastEffectsMain.Items.Clear();
-                progressBarMain.Value = 0;
+                this.tabs.TabPages.Remove(this.tabPolls);
 
-                elapsedCount = 0;
+                this.listLastEffectsMain.Items.Clear();
+                this.progressBarMain.Value = 0;
 
-                stopwatch.Reset();
-                SetEnabled(false);
+                this.elapsedCount = 0;
+
+                this.stopwatch.Reset();
+                this.SetEnabled(false);
             }
             else
             {
-                buttonSwitchMode.Text = "Main";
+                this.buttonSwitchMode.Text = "Main";
 
-                if (!tabs.TabPages.Contains(tabStream))
+                if (!this.tabs.TabPages.Contains(this.tabStream))
                 {
-                    tabs.TabPages.Insert(0, tabStream);
-                }
-                tabs.SelectedIndex = 0;
-                tabs.TabPages.Remove(tabMain);
-
-                if (Config.Instance().TwitchUsePolls && !tabs.TabPages.Contains(tabPolls))
-                {
-                    tabs.TabPages.Insert(2, tabPolls);
+                    this.tabs.TabPages.Insert(0, this.tabStream);
                 }
 
-                listLastEffectsStream.Items.Clear();
-                progressBarStream.Value = 0;
+                this.tabs.SelectedIndex = 0;
+                this.tabs.TabPages.Remove(this.tabMain);
 
-                elapsedCount = 0;
+                if (Config.Instance().TwitchUsePolls && !this.tabs.TabPages.Contains(this.tabPolls))
+                {
+                    this.tabs.TabPages.Insert(2, this.tabPolls);
+                }
 
-                stopwatch.Reset();
-                SetEnabled(false);
+                this.listLastEffectsStream.Items.Clear();
+                this.progressBarStream.Value = 0;
+
+                this.elapsedCount = 0;
+
+                this.stopwatch.Reset();
+                this.SetEnabled(false);
             }
         }
 
         private void ButtonSwitchMode_Click(object sender, EventArgs e)
         {
             Shared.IsStreamMode = !Shared.IsStreamMode;
-            SwitchMode(Shared.IsStreamMode);
+            this.SwitchMode(Shared.IsStreamMode);
         }
 
-        private void ButtonStreamToggle_Click(object sender, EventArgs e)
-        {
-            SetEnabled(!Shared.TimerEnabled);
-        }
+        private void ButtonStreamToggle_Click(object sender, EventArgs e) => this.SetEnabled(!Shared.TimerEnabled);
 
         private void TextBoxSeed_TextChanged(object sender, EventArgs e)
         {
-            Config.Instance().Seed = textBoxSeed.Text;
+            Config.Instance().Seed = this.textBoxSeed.Text;
             RandomHandler.SetSeed(Config.Instance().Seed);
         }
 
         private void ButtonResetMain_Click(object sender, EventArgs e)
         {
-            SetEnabled(false);
+            this.SetEnabled(false);
             RandomHandler.SetSeed(Config.Instance().Seed);
-            stopwatch.Reset();
-            elapsedCount = 0;
-            progressBarMain.Value = 0;
-            buttonMainToggle.Enabled = true;
-            buttonMainToggle.Text = "Start / Resume";
+            this.stopwatch.Reset();
+            this.elapsedCount = 0;
+            this.progressBarMain.Value = 0;
+            this.buttonMainToggle.Enabled = true;
+            this.buttonMainToggle.Text = "Start / Resume";
         }
 
         private void CheckBoxShowLastEffectsMain_CheckedChanged(object sender, EventArgs e)
         {
             Config.Instance().MainShowLastEffects
-                = listLastEffectsMain.Visible
-                = checkBoxShowLastEffectsMain.Checked;
+                = this.listLastEffectsMain.Visible
+                = this.checkBoxShowLastEffectsMain.Checked;
         }
 
         private void CheckBoxShowLastEffectsStream_CheckedChanged(object sender, EventArgs e)
         {
             Config.Instance().StreamShowLastEffects
-                = listLastEffectsStream.Visible
-                = checkBoxShowLastEffectsStream.Checked;
+                = this.listLastEffectsStream.Visible
+                = this.checkBoxShowLastEffectsStream.Checked;
         }
 
-        private void CheckBoxStreamAllowOnlyEnabledEffects_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().StreamAllowOnlyEnabledEffectsRapidFire = checkBoxStreamAllowOnlyEnabledEffects.Checked;
-        }
+        private void CheckBoxStreamAllowOnlyEnabledEffects_CheckedChanged(object sender, EventArgs e) => Config.Instance().StreamAllowOnlyEnabledEffectsRapidFire = this.checkBoxStreamAllowOnlyEnabledEffects.Checked;
 
         private void ButtonResetStream_Click(object sender, EventArgs e)
         {
-            SetEnabled(false);
+            this.SetEnabled(false);
             RandomHandler.SetSeed(Config.Instance().Seed);
-            stopwatch.Reset();
-            elapsedCount = 0;
-            labelStreamCurrentMode.Text = "Current Mode: Cooldown";
+            this.stopwatch.Reset();
+            this.elapsedCount = 0;
+            this.labelStreamCurrentMode.Text = "Current Mode: Cooldown";
             Shared.StreamVotingMode = 0;
-            timesUntilRapidFire = new Random().Next(10, 15);
-            progressBarStream.Value = 0;
-            buttonStreamToggle.Enabled = stream?.IsConnected() == true;
-            buttonStreamToggle.Text = "Start / Resume";
+            this.timesUntilRapidFire = new Random().Next(10, 15);
+            this.progressBarStream.Value = 0;
+            this.buttonStreamToggle.Enabled = this.stream?.IsConnected() == true;
+            this.buttonStreamToggle.Text = "Start / Resume";
         }
 
-        private void CheckBoxStream3TimesCooldown_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().Stream3TimesCooldown = checkBoxStream3TimesCooldown.Checked;
-        }
+        private void CheckBoxStream3TimesCooldown_CheckedChanged(object sender, EventArgs e) => Config.Instance().Stream3TimesCooldown = this.checkBoxStream3TimesCooldown.Checked;
 
         private void ButtonEffectsToggleAll_Click(object sender, EventArgs e)
         {
             bool oneEnabled = false;
-            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            foreach (CategoryTreeNode node in this.enabledEffectsView.Nodes)
             {
                 if (node.Checked)
                 {
@@ -1208,10 +1173,10 @@ namespace GTAChaos.Forms
                 }
             }
 
-            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            foreach (CategoryTreeNode node in this.enabledEffectsView.Nodes)
             {
                 node.Checked = !oneEnabled;
-                CheckAllChildNodes(node, !oneEnabled);
+                this.CheckAllChildNodes(node, !oneEnabled);
                 node.UpdateCategory();
             }
         }
@@ -1221,16 +1186,16 @@ namespace GTAChaos.Forms
             Shared.SelectedGame = "vice_city";
             Config.Instance().EnabledEffects.Clear();
             EffectDatabase.PopulateEffects("vice_city");
-            PopulateEffectTreeList();
+            this.PopulateEffectTreeList();
 
-            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            foreach (CategoryTreeNode node in this.enabledEffectsView.Nodes)
             {
                 node.Checked = false;
-                CheckAllChildNodes(node, false);
+                this.CheckAllChildNodes(node, false);
                 node.UpdateCategory();
             }
 
-            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            foreach (CategoryTreeNode node in this.enabledEffectsView.Nodes)
             {
                 node.UpdateCategory();
             }
@@ -1241,269 +1206,223 @@ namespace GTAChaos.Forms
             Shared.SelectedGame = "san_andreas";
             Config.Instance().EnabledEffects.Clear();
             EffectDatabase.PopulateEffects("san_andreas");
-            PopulateEffectTreeList();
+            this.PopulateEffectTreeList();
 
-            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            foreach (CategoryTreeNode node in this.enabledEffectsView.Nodes)
             {
                 node.Checked = false;
-                CheckAllChildNodes(node, false);
+                this.CheckAllChildNodes(node, false);
                 node.UpdateCategory();
             }
 
-            foreach (CategoryTreeNode node in enabledEffectsView.Nodes)
+            foreach (CategoryTreeNode node in this.enabledEffectsView.Nodes)
             {
                 node.UpdateCategory();
             }
         }
 
-        private void CheckBoxStreamCombineVotingMessages_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().StreamCombineChatMessages = checkBoxStreamCombineVotingMessages.Checked;
-        }
+        private void CheckBoxStreamCombineVotingMessages_CheckedChanged(object sender, EventArgs e) => Config.Instance().StreamCombineChatMessages = this.checkBoxStreamCombineVotingMessages.Checked;
 
         private void UpdatePollTabVisibility()
         {
             if (Config.Instance().TwitchUsePolls)
             {
-                if (!tabs.TabPages.Contains(tabPolls) && Shared.IsStreamMode)
+                if (!this.tabs.TabPages.Contains(this.tabPolls) && Shared.IsStreamMode)
                 {
-                    tabs.TabPages.Insert(2, tabPolls);
+                    this.tabs.TabPages.Insert(2, this.tabPolls);
                 }
             }
             else
             {
-                tabs.TabPages.Remove(tabPolls);
+                this.tabs.TabPages.Remove(this.tabPolls);
             }
         }
 
         private void CheckBoxTwitchUsePolls_CheckedChanged(object sender, EventArgs e)
         {
-            Config.Instance().TwitchUsePolls = checkBoxTwitchUsePolls.Checked;
-            UpdatePollTabVisibility();
+            Config.Instance().TwitchUsePolls = this.checkBoxTwitchUsePolls.Checked;
+            this.UpdatePollTabVisibility();
         }
 
-        private void CheckBoxStreamEnableMultipleEffects_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().StreamEnableMultipleEffects = checkBoxStreamEnableMultipleEffects.Checked;
-        }
+        private void CheckBoxStreamEnableMultipleEffects_CheckedChanged(object sender, EventArgs e) => Config.Instance().StreamEnableMultipleEffects = this.checkBoxStreamEnableMultipleEffects.Checked;
 
-        private void NumericUpDownTwitchPollsBitsCost_ValueChanged(object sender, EventArgs e)
-        {
-            Config.Instance().TwitchPollsBitsCost = decimal.ToInt32(numericUpDownTwitchPollsBitsCost.Value);
-        }
+        private void NumericUpDownTwitchPollsBitsCost_ValueChanged(object sender, EventArgs e) => Config.Instance().TwitchPollsBitsCost = decimal.ToInt32(this.numericUpDownTwitchPollsBitsCost.Value);
 
-        private void NumericUpDownTwitchPollsChannelPointsCost_ValueChanged(object sender, EventArgs e)
-        {
-            Config.Instance().TwitchPollsChannelPointsCost = decimal.ToInt32(numericUpDownTwitchPollsChannelPointsCost.Value);
-        }
+        private void NumericUpDownTwitchPollsChannelPointsCost_ValueChanged(object sender, EventArgs e) => Config.Instance().TwitchPollsChannelPointsCost = decimal.ToInt32(this.numericUpDownTwitchPollsChannelPointsCost.Value);
 
-        private void CheckBoxTwitchPollsPostMessages_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().TwitchPollsPostMessages = checkBoxTwitchPollsPostMessages.Checked;
-        }
+        private void CheckBoxTwitchPollsPostMessages_CheckedChanged(object sender, EventArgs e) => Config.Instance().TwitchPollsPostMessages = this.checkBoxTwitchPollsPostMessages.Checked;
 
         private void EnabledEffectsView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (e.Node is EffectTreeNode && debug)
+            if (e.Node is EffectTreeNode node && this.debug)
             {
-                EffectTreeNode node = (EffectTreeNode)e.Node;
                 node.Effect.RunEffect();
             }
         }
 
-        private void CheckBoxPlayAudioForEffects_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().PlayAudioForEffects = checkBoxPlayAudioForEffects.Checked;
-        }
+        private void CheckBoxPlayAudioForEffects_CheckedChanged(object sender, EventArgs e) => Config.Instance().PlayAudioForEffects = this.checkBoxPlayAudioForEffects.Checked;
 
-        private string FilterMultiplayerCharacters(string text)
-        {
-            return Regex.Replace(text, "[^A-Za-z0-9]", "");
-        }
+        private string FilterMultiplayerCharacters(string text) => Regex.Replace(text, "[^A-Za-z0-9]", "");
 
         private void UpdateButtonState()
         {
-            buttonMultiplayerConnect.Enabled
-                = !string.IsNullOrEmpty(textBoxMultiplayerServer.Text)
-                && !string.IsNullOrEmpty(textBoxMultiplayerChannel.Text)
-                && !string.IsNullOrEmpty(textBoxMultiplayerUsername.Text);
+            this.buttonMultiplayerConnect.Enabled
+                = !string.IsNullOrEmpty(this.textBoxMultiplayerServer.Text)
+                && !string.IsNullOrEmpty(this.textBoxMultiplayerChannel.Text)
+                && !string.IsNullOrEmpty(this.textBoxMultiplayerUsername.Text);
         }
 
-        private void TextBoxMultiplayerServer_TextChanged(object sender, EventArgs e)
-        {
-            UpdateButtonState();
-        }
+        private void TextBoxMultiplayerServer_TextChanged(object sender, EventArgs e) => this.UpdateButtonState();
 
         private void TextBoxMultiplayerChannel_TextChanged(object sender, EventArgs e)
         {
-            textBoxMultiplayerChannel.Text = FilterMultiplayerCharacters(textBoxMultiplayerChannel.Text);
-            UpdateButtonState();
+            this.textBoxMultiplayerChannel.Text = this.FilterMultiplayerCharacters(this.textBoxMultiplayerChannel.Text);
+            this.UpdateButtonState();
         }
 
         private void TextBoxMultiplayerUsername_TextChanged(object sender, EventArgs e)
         {
-            textBoxMultiplayerUsername.Text = FilterMultiplayerCharacters(textBoxMultiplayerUsername.Text);
-            UpdateButtonState();
+            this.textBoxMultiplayerUsername.Text = this.FilterMultiplayerCharacters(this.textBoxMultiplayerUsername.Text);
+            this.UpdateButtonState();
         }
 
         private void UpdateMultiplayerConnectionState(int state)
         {
-            Invoke(new Action(() =>
+            this.Invoke(new Action(() =>
             {
                 if (state == 0) // Not connected
                 {
-                    textBoxMultiplayerServer.Enabled
-                        = textBoxMultiplayerChannel.Enabled
-                        = textBoxMultiplayerUsername.Enabled
-                        = buttonMultiplayerConnect.Enabled
+                    this.textBoxMultiplayerServer.Enabled
+                        = this.textBoxMultiplayerChannel.Enabled
+                        = this.textBoxMultiplayerUsername.Enabled
+                        = this.buttonMultiplayerConnect.Enabled
                         = true;
 
-                    buttonMultiplayerConnect.Text = "Connect";
+                    this.buttonMultiplayerConnect.Text = "Connect";
 
-                    buttonSwitchMode.Enabled = true;
-                    buttonMainToggle.Enabled = true;
-                    buttonResetMain.Enabled = true;
-                    comboBoxMainCooldown.Enabled = true;
-                    enabledEffectsView.Enabled = true;
-                    textBoxSeed.Enabled = true;
+                    this.buttonSwitchMode.Enabled = true;
+                    this.buttonMainToggle.Enabled = true;
+                    this.buttonResetMain.Enabled = true;
+                    this.comboBoxMainCooldown.Enabled = true;
+                    this.enabledEffectsView.Enabled = true;
+                    this.textBoxSeed.Enabled = true;
                 }
                 else if (state == 1) // Connecting...
                 {
-                    textBoxMultiplayerServer.Enabled
-                        = textBoxMultiplayerChannel.Enabled
-                        = textBoxMultiplayerUsername.Enabled
-                        = buttonMultiplayerConnect.Enabled
+                    this.textBoxMultiplayerServer.Enabled
+                        = this.textBoxMultiplayerChannel.Enabled
+                        = this.textBoxMultiplayerUsername.Enabled
+                        = this.buttonMultiplayerConnect.Enabled
                         = false;
 
-                    buttonMultiplayerConnect.Text = "Connecting...";
+                    this.buttonMultiplayerConnect.Text = "Connecting...";
                 }
                 else if (state == 2) // Connected
                 {
-                    textBoxMultiplayerServer.Enabled
-                        = textBoxMultiplayerChannel.Enabled
-                        = textBoxMultiplayerUsername.Enabled
+                    this.textBoxMultiplayerServer.Enabled
+                        = this.textBoxMultiplayerChannel.Enabled
+                        = this.textBoxMultiplayerUsername.Enabled
                         = false;
 
-                    buttonMultiplayerConnect.Enabled = true;
-                    buttonMultiplayerConnect.Text = "Disconnect";
+                    this.buttonMultiplayerConnect.Enabled = true;
+                    this.buttonMultiplayerConnect.Text = "Disconnect";
                 }
             }));
         }
 
-        private void ShowMessageBox(string text, string caption)
-        {
-            Invoke(new Action(() =>
-            {
-                MessageBox.Show(this, text, caption);
-            }));
-        }
+        private void ShowMessageBox(string text, string caption) => this.Invoke(new Action(() => MessageBox.Show(this, text, caption)));
 
         private void AddToMultiplayerChatHistory(string message)
         {
-            Invoke(new Action(() =>
+            this.Invoke(new Action(() =>
             {
-                listBoxMultiplayerChat.Items.Add(message);
-                listBoxMultiplayerChat.TopIndex = listBoxMultiplayerChat.Items.Count - 1;
+                this.listBoxMultiplayerChat.Items.Add(message);
+                this.listBoxMultiplayerChat.TopIndex = this.listBoxMultiplayerChat.Items.Count - 1;
             }));
         }
 
-        private void ClearMultiplayerChatHistory()
-        {
-            Invoke(new Action(() =>
-            {
-                listBoxMultiplayerChat.Items.Clear();
-            }));
-        }
+        private void ClearMultiplayerChatHistory() => this.Invoke(new Action(() => this.listBoxMultiplayerChat.Items.Clear()));
 
         private void ButtonMultiplayerConnect_Click(object sender, EventArgs e)
         {
             Shared.Multiplayer?.Disconnect();
 
-            if (buttonMultiplayerConnect.Text == "Disconnect")
+            if (this.buttonMultiplayerConnect.Text == "Disconnect")
             {
-                UpdateMultiplayerConnectionState(0);
+                this.UpdateMultiplayerConnectionState(0);
                 return;
             }
 
-            ClearMultiplayerChatHistory();
+            this.ClearMultiplayerChatHistory();
 
             Shared.Multiplayer = new Multiplayer(
-                textBoxMultiplayerServer.Text,
-                textBoxMultiplayerChannel.Text,
-                textBoxMultiplayerUsername.Text
+                this.textBoxMultiplayerServer.Text,
+                this.textBoxMultiplayerChannel.Text,
+                this.textBoxMultiplayerUsername.Text
             );
 
-            UpdateMultiplayerConnectionState(1);
+            this.UpdateMultiplayerConnectionState(1);
 
             Shared.Multiplayer.OnConnectionFailed += (_sender, args) =>
             {
-                ShowMessageBox("Connection failed - is the server running?", "Error");
-                UpdateMultiplayerConnectionState(0);
+                this.ShowMessageBox("Connection failed - is the server running?", "Error");
+                this.UpdateMultiplayerConnectionState(0);
             };
 
             Shared.Multiplayer.OnUsernameInUse += (_sender, args) =>
             {
-                ShowMessageBox("Username already in use!", "Error");
-                UpdateMultiplayerConnectionState(0);
+                this.ShowMessageBox("Username already in use!", "Error");
+                this.UpdateMultiplayerConnectionState(0);
             };
 
             Shared.Multiplayer.OnConnectionSuccessful += (_sender, args) =>
             {
-                ShowMessageBox("Successfully connected!", "Connected");
-                AddToMultiplayerChatHistory($"Successfully connected to channel: {textBoxMultiplayerChannel.Text}");
-                UpdateMultiplayerConnectionState(2);
+                this.ShowMessageBox("Successfully connected!", "Connected");
+                this.AddToMultiplayerChatHistory($"Successfully connected to channel: {this.textBoxMultiplayerChannel.Text}");
+                this.UpdateMultiplayerConnectionState(2);
 
-                Invoke(new Action(() =>
+                this.Invoke(new Action(() =>
                 {
                     if (!args.IsHost)
                     {
-                        SwitchMode(false);
+                        this.SwitchMode(false);
 
-                        buttonSwitchMode.Enabled = false;
-                        buttonMainToggle.Enabled = false;
-                        buttonResetMain.Enabled = false;
-                        comboBoxMainCooldown.Enabled = false;
-                        enabledEffectsView.Enabled = false;
-                        buttonResetMain.Enabled = false;
-                        textBoxSeed.Enabled = false;
+                        this.buttonSwitchMode.Enabled = false;
+                        this.buttonMainToggle.Enabled = false;
+                        this.buttonResetMain.Enabled = false;
+                        this.comboBoxMainCooldown.Enabled = false;
+                        this.enabledEffectsView.Enabled = false;
+                        this.buttonResetMain.Enabled = false;
+                        this.textBoxSeed.Enabled = false;
                     }
 
-                    labelMultiplayerHost.Text = $"Host: {args.HostUsername}";
+                    this.labelMultiplayerHost.Text = $"Host: {args.HostUsername}";
                     if (args.IsHost)
                     {
-                        labelMultiplayerHost.Text += " (You!)";
+                        this.labelMultiplayerHost.Text += " (You!)";
                     }
                 }));
             };
 
             Shared.Multiplayer.OnHostLeftChannel += (_sender, args) =>
             {
-                ShowMessageBox("Host has left the channel; Disconnected.", "Host Left");
-                AddToMultiplayerChatHistory("Host has left the channel; Disconnected.");
-                UpdateMultiplayerConnectionState(0);
+                this.ShowMessageBox("Host has left the channel; Disconnected.", "Host Left");
+                this.AddToMultiplayerChatHistory("Host has left the channel; Disconnected.");
+                this.UpdateMultiplayerConnectionState(0);
             };
 
             Shared.Multiplayer.OnVersionMismatch += (_sender, args) =>
             {
-                ShowMessageBox($"Channel is v{args.Version} but you have v{Shared.Version}; Disconnected.", "Version Mismatch");
-                AddToMultiplayerChatHistory($"Channel is v{args.Version} but you have v{Shared.Version}; Disconnected.");
-                UpdateMultiplayerConnectionState(0);
+                this.ShowMessageBox($"Channel is v{args.Version} but you have v{Shared.Version}; Disconnected.", "Version Mismatch");
+                this.AddToMultiplayerChatHistory($"Channel is v{args.Version} but you have v{Shared.Version}; Disconnected.");
+                this.UpdateMultiplayerConnectionState(0);
             };
 
-            Shared.Multiplayer.OnUserJoined += (_sender, args) =>
-            {
-                AddToMultiplayerChatHistory($"{args.Username} joined!");
-            };
+            Shared.Multiplayer.OnUserJoined += (_sender, args) => this.AddToMultiplayerChatHistory($"{args.Username} joined!");
 
-            Shared.Multiplayer.OnUserLeft += (_sender, args) =>
-            {
-                AddToMultiplayerChatHistory($"{args.Username} left!");
-            };
+            Shared.Multiplayer.OnUserLeft += (_sender, args) => this.AddToMultiplayerChatHistory($"{args.Username} left!");
 
-            Shared.Multiplayer.OnChatMessage += (_sender, args) =>
-            {
-                AddToMultiplayerChatHistory($"{args.Username}: {args.Message}");
-            };
+            Shared.Multiplayer.OnChatMessage += (_sender, args) => this.AddToMultiplayerChatHistory($"{args.Username}: {args.Message}");
 
             Shared.Multiplayer.OnTimeUpdate += (_sender, args) =>
             {
@@ -1515,7 +1434,7 @@ namespace GTAChaos.Forms
 
             Shared.Multiplayer.OnEffect += (_sender, args) =>
             {
-                var effect = EffectDatabase.GetByWord(args.Word);
+                AbstractEffect effect = EffectDatabase.GetByWord(args.Word);
                 if (effect != null)
                 {
                     if (string.IsNullOrEmpty(args.Voter) || args.Voter == "N/A")
@@ -1526,9 +1445,10 @@ namespace GTAChaos.Forms
                     {
                         effect.SetTreamVoter(args.Voter);
                     }
+
                     EffectDatabase.RunEffect(effect, args.Seed, args.Duration);
 
-                    AddEffectToListBox(effect);
+                    this.AddEffectToListBox(effect);
                 }
             };
 
@@ -1543,62 +1463,61 @@ namespace GTAChaos.Forms
             Shared.Multiplayer.Connect();
         }
 
-        private void TextBoxMultiplayerChat_TextChanged(object sender, EventArgs e)
-        {
-            buttonMultiplayerSend.Enabled = Shared.Multiplayer != null && !string.IsNullOrEmpty(textBoxMultiplayerChat.Text);
-        }
+        private void TextBoxMultiplayerChat_TextChanged(object sender, EventArgs e) => this.buttonMultiplayerSend.Enabled = Shared.Multiplayer != null && !string.IsNullOrEmpty(this.textBoxMultiplayerChat.Text);
 
         private void ButtonMultiplayerSend_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBoxMultiplayerChat.Text))
+            if (!string.IsNullOrEmpty(this.textBoxMultiplayerChat.Text))
             {
-                Shared.Multiplayer?.SendChatMessage(textBoxMultiplayerChat.Text);
-                textBoxMultiplayerChat.Text = "";
+                Shared.Multiplayer?.SendChatMessage(this.textBoxMultiplayerChat.Text);
+                this.textBoxMultiplayerChat.Text = "";
             }
         }
 
         private void TextBoxMultiplayerChat_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(textBoxMultiplayerChat.Text))
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(this.textBoxMultiplayerChat.Text))
             {
-                Shared.Multiplayer?.SendChatMessage(textBoxMultiplayerChat.Text);
-                textBoxMultiplayerChat.Text = "";
+                Shared.Multiplayer?.SendChatMessage(this.textBoxMultiplayerChat.Text);
+                this.textBoxMultiplayerChat.Text = "";
             }
         }
 
-        private void CheckBoxExperimental_EnableAllEffects_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().Experimental_EnableAllEffects = checkBoxExperimental_EnableAllEffects.Checked;
-        }
+        private void CheckBoxExperimental_EnableAllEffects_CheckedChanged(object sender, EventArgs e) => Config.Instance().Experimental_EnableAllEffects = this.checkBoxExperimental_EnableAllEffects.Checked;
 
-        private void CheckBoxExperimental_EnableEffectOnAutoStart_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().Experimental_RunEffectOnAutoStart = checkBoxExperimental_RunEffectOnAutoStart.Checked;
-        }
+        private void CheckBoxExperimental_EnableEffectOnAutoStart_CheckedChanged(object sender, EventArgs e) => Config.Instance().Experimental_RunEffectOnAutoStart = this.checkBoxExperimental_RunEffectOnAutoStart.Checked;
 
         private void ExperimentalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!tabs.TabPages.Contains(tabExperimental))
+            if (!this.tabs.TabPages.Contains(this.tabExperimental))
             {
-                tabs.TabPages.Add(tabExperimental);
+                this.tabs.TabPages.Add(this.tabExperimental);
             }
-            experimentalToolStripMenuItem.Visible = false;
+
+            this.experimentalToolStripMenuItem.Visible = false;
         }
 
         private void ButtonExperimentalRunEffect_Click(object sender, EventArgs e)
         {
-            string textInput = textBoxExperimentalEffectName.Text;
+            string textInput = this.textBoxExperimentalEffectName.Text;
             if (string.IsNullOrEmpty(textInput))
             {
                 return;
             }
 
             // Try and get an effect by it's ID
-            var effect = EffectDatabase.GetByID(textInput);
+            AbstractEffect effect = EffectDatabase.GetByID(textInput);
             // Try and get an effect by it's ID with "effect_" at the start
-            if (effect == null) effect = EffectDatabase.GetByID($"effect_{textInput}");
+            if (effect == null)
+            {
+                effect = EffectDatabase.GetByID($"effect_{textInput}");
+            }
             // Try and get an effect by it's "cheat" word
-            if (effect == null) effect = EffectDatabase.GetByWord(textInput);
+            if (effect == null)
+            {
+                effect = EffectDatabase.GetByWord(textInput);
+            }
+
             if (effect != null)
             {
                 effect.RunEffect();
@@ -1606,49 +1525,34 @@ namespace GTAChaos.Forms
             }
 
             int duration = Config.GetEffectDuration();
-            WebsocketHandler.INSTANCE.SendEffectToGame(textBoxExperimentalEffectName.Text, new
+            WebsocketHandler.INSTANCE.SendEffectToGame(this.textBoxExperimentalEffectName.Text, new
             {
                 seed = RandomHandler.Next(9999999)
             }, duration);
         }
 
-        private void TextBoxExperimentalEffectName_TextChanged(object sender, EventArgs e)
-        {
-            Config.Instance().Experimental_EffectName = textBoxExperimentalEffectName.Text;
-        }
+        private void TextBoxExperimentalEffectName_TextChanged(object sender, EventArgs e) => Config.Instance().Experimental_EffectName = this.textBoxExperimentalEffectName.Text;
 
-        private void CheckBoxAutoStart_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().AutoStart = checkBoxAutoStart.Checked;
-        }
+        private void CheckBoxAutoStart_CheckedChanged(object sender, EventArgs e) => Config.Instance().AutoStart = this.checkBoxAutoStart.Checked;
 
-        private void CheckBoxStreamEnableRapidFire_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().StreamEnableRapidFire = checkBoxStreamEnableRapidFire.Checked;
-        }
+        private void CheckBoxStreamEnableRapidFire_CheckedChanged(object sender, EventArgs e) => Config.Instance().StreamEnableRapidFire = this.checkBoxStreamEnableRapidFire.Checked;
 
         private void CheckBoxStreamMajorityVotes_CheckedChanged(object sender, EventArgs e)
         {
-            Config.Instance().StreamMajorityVotes = checkBoxStreamMajorityVotes.Checked;
+            Config.Instance().StreamMajorityVotes = this.checkBoxStreamMajorityVotes.Checked;
 
-            checkBoxStreamEnableMultipleEffects.Enabled = Config.Instance().StreamMajorityVotes;
+            this.checkBoxStreamEnableMultipleEffects.Enabled = Config.Instance().StreamMajorityVotes;
         }
 
-        private void LinkLabelTwitchGetAccessToken_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://chaos.lord.moe/");
-        }
+        private void LinkLabelTwitchGetAccessToken_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => System.Diagnostics.Process.Start("https://chaos.lord.moe/");
 
-        private void CheckBoxExperimentalYouTubeConnection_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().Experimental_YouTubeConnection = checkBoxExperimentalYouTubeConnection.Checked;
-        }
+        private void CheckBoxExperimentalYouTubeConnection_CheckedChanged(object sender, EventArgs e) => Config.Instance().Experimental_YouTubeConnection = this.checkBoxExperimentalYouTubeConnection.Checked;
 
         private void TextBoxStreamClientID_TextChanged(object sender, EventArgs e)
         {
-            Config.Instance().StreamClientID = textBoxStreamClientID.Text;
+            Config.Instance().StreamClientID = this.textBoxStreamClientID.Text;
 
-            UpdateStreamConnectButtonState();
+            this.UpdateStreamConnectButtonState();
         }
     }
 }

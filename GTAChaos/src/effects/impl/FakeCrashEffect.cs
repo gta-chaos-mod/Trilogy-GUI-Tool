@@ -8,24 +8,18 @@ namespace GTAChaos.Effects
         private readonly string EffectID = "effect_fake_crash";
 
         public FakeCrashEffect(string description, string word)
-            : base(Category.CustomEffects, description, word)
-        {
-            DisableRapidFire();
-        }
+            : base(Category.CustomEffects, description, word) => this.DisableRapidFire();
 
-        public override string GetId()
-        {
-            return EffectID;
-        }
+        public override string GetId() => this.EffectID;
 
         public override void RunEffect(int seed = -1, int duration = -1)
         {
             base.RunEffect(seed, duration);
 
-            WebsocketHandler.INSTANCE.SendEffectToGame(EffectID, new
+            WebsocketHandler.INSTANCE.SendEffectToGame(this.EffectID, new
             {
                 realEffectName = "Fake Crash"
-            }, GetDuration(duration), GetDisplayName(), GetVoter(), GetRapidFire());
+            }, this.GetDuration(duration), this.GetDisplayName(), this.GetVoter(), this.GetRapidFire());
         }
     }
 }

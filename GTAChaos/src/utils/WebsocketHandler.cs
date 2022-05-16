@@ -16,64 +16,67 @@ namespace GTAChaos.Utils
 
     public class WebsocketHandler
     {
-        public static WebsocketHandler INSTANCE = new WebsocketHandler();
+        public static WebsocketHandler INSTANCE = new();
 
         public event EventHandler<SocketMessageEventArgs> OnSocketMessage;
 
         private WebSocket socket;
         private bool socketIsConnecting = false;
         private bool socketConnected = false;
-        private readonly List<string> socketBuffer = new List<string>();
+        private readonly List<string> socketBuffer = new();
 
         public void ConnectWebsocket()
         {
             try
             {
-                if (!socketConnected && !socketIsConnecting)
+                if (!this.socketConnected && !this.socketIsConnecting)
                 {
-                    socket = new WebSocket("ws://localhost:9001");
-                    socket.OnOpen += Socket_OnOpen;
-                    socket.OnClose += Socket_OnClose;
-                    socket.OnError += Socket_OnError;
-                    socket.OnMessage += Socket_OnMessage;
+                    this.socket = new WebSocket("ws://localhost:9001");
+                    this.socket.OnOpen += this.Socket_OnOpen;
+                    this.socket.OnClose += this.Socket_OnClose;
+                    this.socket.OnError += this.Socket_OnError;
+                    this.socket.OnMessage += this.Socket_OnMessage;
 
-                    socketIsConnecting = true;
+                    this.socketIsConnecting = true;
 
-                    socket.Connect();
+                    this.socket.Connect();
                 }
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
 
-                socketConnected = false;
-                socketIsConnecting = false;
+                this.socketConnected = false;
+                this.socketIsConnecting = false;
             }
         }
 
         private void Socket_OnMessage(object sender, MessageEventArgs e)
         {
-            if (!e.IsText) return;
+            if (!e.IsText)
+            {
+                return;
+            }
 
             OnSocketMessage?.Invoke(this, new SocketMessageEventArgs { Data = e.Data });
         }
 
         private void Socket_OnOpen(object sender, EventArgs e)
         {
-            socketConnected = true;
-            socketIsConnecting = false;
+            this.socketConnected = true;
+            this.socketIsConnecting = false;
         }
 
         private void Socket_OnError(object sender, WebSocketSharp.ErrorEventArgs e)
         {
-            socketConnected = false;
-            socketIsConnecting = false;
+            this.socketConnected = false;
+            this.socketIsConnecting = false;
         }
 
         private void Socket_OnClose(object sender, CloseEventArgs e)
         {
-            socketConnected = false;
-            socketIsConnecting = false;
+            this.socketConnected = false;
+            this.socketIsConnecting = false;
         }
 
         public void SendDataToWebsocket(JObject jsonObject)
@@ -82,27 +85,27 @@ namespace GTAChaos.Utils
             {
                 string json = JsonConvert.SerializeObject(jsonObject);
 
-                ConnectWebsocket();
+                this.ConnectWebsocket();
 
-                if (socketConnected)
+                if (this.socketConnected)
                 {
-                    if (socketBuffer.Count > 0)
+                    if (this.socketBuffer.Count > 0)
                     {
-                        foreach (string buffer in socketBuffer)
+                        foreach (string buffer in this.socketBuffer)
                         {
-                            socket?.Send(buffer);
+                            this.socket?.Send(buffer);
                         }
 
-                        socketBuffer.Clear();
+                        this.socketBuffer.Clear();
                     }
 
-                    socket?.Send(json);
+                    this.socket?.Send(json);
                 }
                 else
                 {
                     if (jsonObject["type"].ToObject<string>() != "time")
                     {
-                        socketBuffer.Add(json);
+                        this.socketBuffer.Add(json);
                     }
                 }
             });
@@ -110,7 +113,7 @@ namespace GTAChaos.Utils
 
         public void SendTimeToGame(int remaining, int cooldown = 0, string mode = "")
         {
-            var jsonObject = JObject.FromObject(new
+            JObject jsonObject = JObject.FromObject(new
             {
                 type = "time",
                 data = new
@@ -121,12 +124,12 @@ namespace GTAChaos.Utils
                 }
             });
 
-            SendDataToWebsocket(jsonObject);
+            this.SendDataToWebsocket(jsonObject);
         }
 
         public void SendVotes(string[] effects, int[] votes, int pickedChoice = -1)
         {
-            var jsonObject = JObject.FromObject(new
+            JObject jsonObject = JObject.FromObject(new
             {
                 type = "votes",
                 data = new
@@ -137,7 +140,7 @@ namespace GTAChaos.Utils
                 }
             });
 
-            SendDataToWebsocket(jsonObject);
+            this.SendDataToWebsocket(jsonObject);
         }
 
         public void SendEffectToGame(string effectID, object effectData = null, int duration = -1, string displayName = "", string streamVoter = "", bool rapidFire = false)
@@ -180,7 +183,7 @@ namespace GTAChaos.Utils
             }
             */
 
-            SendDataToWebsocket(jsonObject);
+            this.SendDataToWebsocket(jsonObject);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace GTAChaos.Utils
 {
     public class AudioPlayer
     {
-        public static readonly AudioPlayer INSTANCE = new AudioPlayer();
+        public static readonly AudioPlayer INSTANCE = new();
 
         private readonly string[] supportedFormats =
         {
@@ -34,13 +34,16 @@ namespace GTAChaos.Utils
             // Iterate over supported formats
             if (stream == null)
             {
-                foreach (string format in supportedFormats)
+                foreach (string format in this.supportedFormats)
                 {
                     try
                     {
                         stream = new MediaFoundationReader($"{fullPath}.{format}");
 
-                        if (stream != null) break;
+                        if (stream != null)
+                        {
+                            break;
+                        }
                     }
                     catch { }
                 }
@@ -56,18 +59,18 @@ namespace GTAChaos.Utils
                 catch { }
             }
 
-            if (stream == null) return;
+            if (stream == null)
+            {
+                return;
+            }
 
-            WaveOutEvent outputDevice = new WaveOutEvent();
+            WaveOutEvent outputDevice = new();
             outputDevice.Init(stream);
 
             outputDevice.Volume = 0.5f;
             outputDevice.Play();
         }
 
-        public void PlayAudio(string res)
-        {
-            PlayEmbeddedResource("audio", res);
-        }
+        public void PlayAudio(string res) => this.PlayEmbeddedResource("audio", res);
     }
 }

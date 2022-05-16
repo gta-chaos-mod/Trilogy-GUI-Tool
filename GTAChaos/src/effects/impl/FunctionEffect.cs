@@ -8,21 +8,15 @@ namespace GTAChaos.Effects
         private readonly string EffectID;
 
         public FunctionEffect(Category category, string displayName, string word, string effectID, int duration = -1, float multiplier = 3.0f)
-            : base(category, displayName, word, duration, multiplier)
-        {
-            EffectID = $"effect_{effectID}";
-        }
+            : base(category, displayName, word, duration, multiplier) => this.EffectID = $"effect_{effectID}";
 
-        public override string GetId()
-        {
-            return EffectID;
-        }
+        public override string GetId() => this.EffectID;
 
         public override string GetAudioFile()
         {
             string file = base.GetAudioFile();
 
-            return string.IsNullOrWhiteSpace(file) ? EffectID : file;
+            return string.IsNullOrWhiteSpace(file) ? this.EffectID : file;
         }
 
         public override void RunEffect(int seed = -1, int duration = -1)
@@ -31,10 +25,10 @@ namespace GTAChaos.Effects
 
             seed = seed == -1 ? RandomHandler.Next(9999999) : seed;
 
-            WebsocketHandler.INSTANCE.SendEffectToGame(EffectID, new
+            WebsocketHandler.INSTANCE.SendEffectToGame(this.EffectID, new
             {
                 seed
-            }, GetDuration(duration), GetDisplayName(), GetVoter(), GetRapidFire());
+            }, this.GetDuration(duration), this.GetDisplayName(), this.GetVoter(), this.GetRapidFire());
         }
     }
 }

@@ -11,29 +11,26 @@ namespace GTAChaos.Effects
         public SpawnVehicleEffect(string word, int vehicleID)
             : base(Category.Spawning, "Spawn Vehicle", word)
         {
-            VehicleID = vehicleID;
+            this.VehicleID = vehicleID;
 
-            if (VehicleID == -1)
+            if (this.VehicleID == -1)
             {
-                SetDisplayName(DisplayNameType.UI, "Spawn Random Vehicle");
+                this.SetDisplayName(DisplayNameType.UI, "Spawn Random Vehicle");
             }
             else
             {
-                VehicleID = Math.Max(400, Math.Min(vehicleID, 611));
-                SetDisplayName(DisplayNameType.UI, $"Spawn {VehicleNames.GetVehicleName(vehicleID)}");
+                this.VehicleID = Math.Max(400, Math.Min(vehicleID, 611));
+                this.SetDisplayName(DisplayNameType.UI, $"Spawn {VehicleNames.GetVehicleName(vehicleID)}");
             }
         }
 
-        public override string GetId()
-        {
-            return $"spawn_vehicle_{VehicleID}";
-        }
+        public override string GetId() => $"spawn_vehicle_{this.VehicleID}";
 
         public override void RunEffect(int seed = -1, int duration = -1)
         {
             base.RunEffect(seed, duration);
 
-            int vehicleID = VehicleID;
+            int vehicleID = this.VehicleID;
             if (vehicleID == -1)
             {
                 vehicleID = RandomHandler.Next(400, 611);
@@ -44,7 +41,7 @@ namespace GTAChaos.Effects
             WebsocketHandler.INSTANCE.SendEffectToGame("effect_spawn_vehicle", new
             {
                 vehicleID
-            }, GetDuration(duration), spawnString, GetVoter(), GetRapidFire());
+            }, this.GetDuration(duration), spawnString, this.GetVoter(), this.GetRapidFire());
         }
     }
 }

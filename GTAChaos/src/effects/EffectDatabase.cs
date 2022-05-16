@@ -172,7 +172,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Tunnel Vision", "TunnelVision", "tunnel_vision", -1, 1.0f).DisableRapidFire()); // Tunnel Vision
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "High Pitched Audio", "CJAndTheChipmunks", "high_pitched_audio")); // High Pitched Audio
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pitch Shifter", "VocalRange", "pitch_shifter")); // Pitch Shifter
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IWontTakeAFreePass", "fake_pass_current_mission").DisableRapidFire()); // Fake Pass Current Mission
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Pass Current Mission", "IWontTakeAFreePass", "fake_pass_current_mission").SetDisplayName(DisplayNameType.UI, "Fake Pass Current Mission").DisableRapidFire()); // Fake Pass Current Mission
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "DVD Screensaver", "ItsGonnaHitTheCorner", "dvd_screensaver", -1, 1.0f).DisableRapidFire()); // DVD Screensaver
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Honk Boost", "GottaHonkFast", "honk_boost")); // Honk Boost
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Oh Hey, Tanks!", "OhHeyTanks", "oh_hey_tanks")); // Spawns tanks around the player
@@ -250,7 +250,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Tasks Allowed", "NoTasksAllowed", "no_tasks_allowed", 1000 * 10));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk Off", "LetsGoForAWalk", "walk_off", 1000 * 10));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pause", "LetsPause", "pause"));
-                Effects.Add(new FakeCrashEffect("Fake Crash", "TooManyModsInstalled"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Game Crash", "TooManyModsInstalled", "fake_crash").SetDisplayName(DisplayNameType.UI, "Fake Crash"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk On Water", "JesusInTheHouse", "walk_on_water"));
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Bankrupt", "CrashTookAllMyMoney", "bankrupt"));
@@ -288,22 +288,22 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Nothing", "ThereIsNoEffect", "nothing"));
 
                 // All teleports are disabled during Rapid-Fire mode
-                Effects.Add(new TeleportationEffect("TP Home", "BringMeHome", Location.GrooveStreet));
-                Effects.Add(new TeleportationEffect("TP To A Tower", "BringMeToATower", Location.LSTower));
-                Effects.Add(new TeleportationEffect("TP To A Pier", "BringMeToAPier", Location.LSPier));
-                Effects.Add(new TeleportationEffect("TP To The LS Airport", "BringMeToTheLSAirport", Location.LSAirport));
-                Effects.Add(new TeleportationEffect("TP To The Docks", "BringMeToTheDocks", Location.LSDocks));
-                Effects.Add(new TeleportationEffect("TP To A Mountain", "BringMeToAMountain", Location.MountChiliad));
-                Effects.Add(new TeleportationEffect("TP To The SF Airport", "BringMeToTheSFAirport", Location.SFAirport));
-                Effects.Add(new TeleportationEffect("TP To A Bridge", "BringMeToABridge", Location.SFBridge));
-                Effects.Add(new TeleportationEffect("TP To A Secret Place", "BringMeToASecretPlace", Location.Area52));
-                Effects.Add(new TeleportationEffect("TP To A Quarry", "BringMeToAQuarry", Location.LVQuarry));
-                Effects.Add(new TeleportationEffect("TP To The LV Airport", "BringMeToTheLVAirport", Location.LVAirport));
-                Effects.Add(new TeleportationEffect("TP To Big Ear", "BringMeToBigEar", Location.LVSatellite));
+                Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet).SetDisplayName(DisplayNameType.STREAM, "TP Home"));
+                Effects.Add(new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower).SetDisplayName(DisplayNameType.STREAM, "TP To A Tower"));
+                Effects.Add(new TeleportationEffect("Teleport To A Pier", "BringMeToAPier", Location.LSPier).SetDisplayName(DisplayNameType.STREAM, "TP To A Pier"));
+                Effects.Add(new TeleportationEffect("Teleport To The LSAirport", "BringMeToTheLSAirport", Location.LSAirport).SetDisplayName(DisplayNameType.STREAM, "TP To The LS Airport"));
+                Effects.Add(new TeleportationEffect("Teleport To The Docks", "BringMeToTheDocks", Location.LSDocks).SetDisplayName(DisplayNameType.STREAM, "TP To The Docks"));
+                Effects.Add(new TeleportationEffect("Teleport To A Mountain", "BringMeToAMountain", Location.MountChiliad).SetDisplayName(DisplayNameType.STREAM, "TP To A Mountain"));
+                Effects.Add(new TeleportationEffect("Teleport To The SFAirport", "BringMeToTheSFAirport", Location.SFAirport).SetDisplayName(DisplayNameType.STREAM, "TP To The SF Airport"));
+                Effects.Add(new TeleportationEffect("Teleport To A Bridge", "BringMeToABridge", Location.SFBridge).SetDisplayName(DisplayNameType.STREAM, "TP To A Bridge"));
+                Effects.Add(new TeleportationEffect("Teleport To A SecretPlace", "BringMeToASecretPlace", Location.Area52).SetDisplayName(DisplayNameType.STREAM, "TP To A Secret Place"));
+                Effects.Add(new TeleportationEffect("Teleport To A Quarry", "BringMeToAQuarry", Location.LVQuarry).SetDisplayName(DisplayNameType.STREAM, "TP To A Quarry"));
+                Effects.Add(new TeleportationEffect("Teleport To The LVAirport", "BringMeToTheLVAirport", Location.LVAirport).SetDisplayName(DisplayNameType.STREAM, "TP To The LV Airport"));
+                Effects.Add(new TeleportationEffect("Teleport To Big Ear", "BringMeToBigEar", Location.LVSatellite).SetDisplayName(DisplayNameType.STREAM, "TP To Big Ear"));
                 Effects.Add(new FunctionEffect(Category.Teleportation, "Random Teleport", "LetsGoSightseeing", "random_teleport")); // Random Teleport - Teleports CJ to a random location on the map
                 Effects.Add(new FakeTeleportEffect("Fake Teleport", "HahaGotYourNose", 1000 * 5)); // Fake Teleport
-                Effects.Add(new FunctionEffect(Category.Teleportation, "TP To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Teleport To Marker
-                Effects.Add(new FunctionEffect(Category.Teleportation, "TP To Liberty City", "LetsTalkAboutTheMultiverse", "teleport_to_liberty_city", 1000 * 10)); // Teleport To Liberty City
+                Effects.Add(new FunctionEffect(Category.Teleportation, "Teleport To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Teleport To Marker
+                Effects.Add(new FunctionEffect(Category.Teleportation, "Teleport To Liberty City", "LetsTalkAboutTheMultiverse", "teleport_to_liberty_city", 1000 * 10)); // Teleport To Liberty City
             }
             else if (game == "vice_city")
             {
@@ -410,14 +410,14 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Zero Suspension Damping", "ZeroSuspensionDamping", "zero_suspension_damping"));
             }
 
-            Effects.Sort((first, second) => string.Compare(first.GetDisplayName(), second.GetDisplayName(), StringComparison.CurrentCultureIgnoreCase));
+            Effects.Sort((first, second) => string.Compare(first.GetDisplayName(DisplayNameType.UI), second.GetDisplayName(DisplayNameType.UI), StringComparison.CurrentCultureIgnoreCase));
 
             foreach(var e in Effects)
             {
-                string displayName = e.GetDisplayName();
+                string displayName = e.GetDisplayName(DisplayNameType.STREAM);
                 if (displayName.Length > 25)
                 {
-                    Debug.WriteLine($"WARNING: The following effect is {displayName.Length - 25} characters too long: '{displayName}'");
+                    Debug.WriteLine($"WARNING: The following effect is {displayName.Length - 25} characters too long for Twitch: '{displayName}'");
                     Debug.WriteLine($"{displayName.Substring(0, 25)}");
                 }
             }
@@ -437,7 +437,7 @@ namespace GTAChaos.Effects
 
         public static AbstractEffect GetByDescription(string description, bool onlyEnabled = false)
         {
-            return (onlyEnabled ? EnabledEffects : Effects).Find(e => string.Equals(description, e.GetDisplayName(), StringComparison.OrdinalIgnoreCase));
+            return (onlyEnabled ? EnabledEffects : Effects).Find(e => string.Equals(description, e.GetDisplayName(DisplayNameType.UI), StringComparison.OrdinalIgnoreCase));
         }
 
         public static AbstractEffect GetRandomEffect(bool onlyEnabled = false)

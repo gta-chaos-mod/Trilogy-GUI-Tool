@@ -243,7 +243,7 @@ namespace GTAChaos.Forms
             string description = "Invalid";
             if (effect != null)
             {
-                description = effect.GetDisplayName();
+                description = effect.GetDisplayName(DisplayNameType.UI);
                 if (!string.IsNullOrEmpty(effect.Word))
                 {
                     description += $" ({effect.Word})";
@@ -438,7 +438,6 @@ namespace GTAChaos.Forms
                             }
                         }
 
-                        stream.SetVoting(0, timesUntilRapidFire, zeroVotes ? null : elements);
                         if (!zeroVotes)
                         {
                             foreach(var e in elements)
@@ -449,6 +448,7 @@ namespace GTAChaos.Forms
                                 e.GetEffect().SetMultiplier(multiplier);
                             }
                         }
+                        stream.SetVoting(0, timesUntilRapidFire, zeroVotes ? null : elements);
                     }
                 }
             }
@@ -573,12 +573,7 @@ namespace GTAChaos.Forms
 
                 TreeNode node = enabledEffectsView.Nodes.Find(effect.Category.Name, false).FirstOrDefault();
 
-                string Description = effect.GetDisplayName();
-
-                if (effect.Word.Equals("IWontTakeAFreePass"))
-                {
-                    Description += " (Fake)";
-                }
+                string Description = effect.GetDisplayName(DisplayNameType.UI);
 
                 EffectTreeNode addedNode = new EffectTreeNode(effect, Description)
                 {

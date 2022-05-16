@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2019 Lordmau5
 using GTAChaos.Utils;
+using System;
 
 namespace GTAChaos.Effects
 {
@@ -11,17 +12,21 @@ namespace GTAChaos.Effects
             : base(Category.Spawning, "Spawn Vehicle", word)
         {
             VehicleID = vehicleID;
+
+            if (VehicleID == -1)
+            {
+                SetDisplayName(DisplayNameType.UI, "Spawn Random Vehicle");
+            }
+            else
+            {
+                VehicleID = Math.Max(400, Math.Min(vehicleID, 611));
+                SetDisplayName(DisplayNameType.UI, $"Spawn {VehicleNames.GetVehicleName(vehicleID)}");
+            }
         }
 
         public override string GetId()
         {
             return $"spawn_vehicle_{VehicleID}";
-        }
-
-        public override string GetDisplayName(string displayName = "")
-        {
-            string randomVehicle = "Random Vehicle";
-            return $"Spawn {((VehicleID == -1) ? randomVehicle : VehicleNames.GetVehicleName(VehicleID))}";
         }
 
         public override void RunEffect(int seed = -1, int duration = -1)

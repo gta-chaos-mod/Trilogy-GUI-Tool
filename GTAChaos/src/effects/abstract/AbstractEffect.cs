@@ -1,13 +1,21 @@
 ﻿// Copyright (c) 2019 Lordmau5
 using GTAChaos.Utils;
 using System;
+using System.Collections.Generic;
 
 namespace GTAChaos.Effects
 {
+    public enum DisplayNameType
+    {
+        GAME,
+        UI,
+        STREAM
+    }
+
     public abstract class AbstractEffect
     {
         public readonly Category Category;
-        private readonly string DisplayName;
+        private readonly Dictionary<DisplayNameType, string> DisplayNames = new Dictionary<DisplayNameType, string>();
         public readonly string Word;
         public readonly int Duration;
         private float Multiplier;
@@ -20,7 +28,7 @@ namespace GTAChaos.Effects
         public AbstractEffect(Category category, string displayName, string word, int duration = -1, float multiplier = 3.0f)
         {
             Category = category;
-            DisplayName = displayName;
+            SetDisplayNames(displayName);
             Word = word;
             Duration = duration;
             Multiplier = multiplier;
@@ -30,14 +38,24 @@ namespace GTAChaos.Effects
 
         public abstract string GetId();
 
-        public virtual string GetDisplayName(string displayName = "")
+        private void SetDisplayNames(string displayName)
         {
-            if (string.IsNullOrEmpty(displayName))
+            foreach (var nameType in Enum.GetValues(typeof(DisplayNameType)))
             {
-                displayName = DisplayName;
+                SetDisplayName((DisplayNameType) nameType, displayName);
             }
+        }
 
-            return displayName;
+        public AbstractEffect SetDisplayName(DisplayNameType type, string displayName)
+        {
+            DisplayNames[type] = displayName;
+            return this;
+        }
+
+        public virtual string GetDisplayName(DisplayNameType type = DisplayNameType.GAME)
+        {
+            // We technically set all names already but let's safe-guard this anyway
+            return DisplayNames.ContainsKey(type) ? DisplayNames[type] : DisplayNames[DisplayNameType.GAME];
         }
 
         public string GetVoter()

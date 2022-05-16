@@ -152,7 +152,7 @@ namespace GTAChaos.Utils
 
                     foreach (ChatVotingElement element in effectVoting.GetVotingElements())
                     {
-                        string description = element.Effect.GetDisplayName();
+                        string description = element.Effect.GetDisplayName(DisplayNameType.STREAM);
                         messageToSend += $"#{element.Id + 1}: {description}. ";
                     }
 
@@ -164,7 +164,7 @@ namespace GTAChaos.Utils
 
                     foreach (ChatVotingElement element in effectVoting.GetVotingElements())
                     {
-                        string description = element.Effect.GetDisplayName();
+                        string description = element.Effect.GetDisplayName(DisplayNameType.STREAM);
                         SendMessage($"#{element.Id + 1}: {description}");
                     }
                 }
@@ -180,7 +180,7 @@ namespace GTAChaos.Utils
                 {
                     SendEffectVotingToGame(false);
 
-                    string allEffects = string.Join(", ", votingElements.Select(e => e.GetEffect().GetDisplayName()));
+                    string allEffects = string.Join(", ", votingElements.Select(e => e.GetEffect().GetDisplayName(DisplayNameType.STREAM)));
 
                     if (Config.Instance().StreamEnableRapidFire)
                     {
@@ -349,7 +349,7 @@ namespace GTAChaos.Utils
 
             public bool ContainsEffect(AbstractEffect effect)
             {
-                return votingElements.Any(e => e.Effect.GetDisplayName().Equals(effect.GetDisplayName()));
+                return votingElements.Any(e => e.Effect.GetDisplayName(DisplayNameType.STREAM).Equals(effect.GetDisplayName(DisplayNameType.STREAM)));
             }
 
             public void AddEffect(AbstractEffect effect)
@@ -363,9 +363,9 @@ namespace GTAChaos.Utils
 
                 effects = new string[]
                 {
-                    undetermined ? "???" : votingElements[0].Effect.GetDisplayName(),
-                    undetermined ? "???" : votingElements[1].Effect.GetDisplayName(),
-                    undetermined ? "???" : votingElements[2].Effect.GetDisplayName()
+                    undetermined ? "???" : votingElements[0].Effect.GetDisplayName(DisplayNameType.STREAM),
+                    undetermined ? "???" : votingElements[1].Effect.GetDisplayName(DisplayNameType.STREAM),
+                    undetermined ? "???" : votingElements[2].Effect.GetDisplayName(DisplayNameType.STREAM)
                 };
 
                 votes = new int[]

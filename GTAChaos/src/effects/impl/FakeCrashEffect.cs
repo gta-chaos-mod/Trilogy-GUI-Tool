@@ -25,7 +25,7 @@ namespace GTAChaos.Effects
             WebsocketHandler.INSTANCE.SendEffectToGame(EffectID, new
             {
                 realEffectName = "Fake Crash"
-            }, GetDuration(duration), "Game Crash", GetVoter(), GetRapidFire());
+            }, GetDuration(duration), GetDisplayName(), GetVoter(), GetRapidFire());
         }
     }
 }

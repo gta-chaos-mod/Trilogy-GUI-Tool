@@ -277,8 +277,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Aiming", "ICanOnlyAim", "forced_aiming"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Shooting", "ICanOnlyShoot", "forced_shooting"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Look Behind", "EyesInTheBack", "forced_look_behind", -1, 1.0f));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Forced Walk", "AWalkInThePark", "forced_walk"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Lock Mouse", "WhoUnpluggedMyMouse", "lock_mouse"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Lock Mouse", "WhoUnpluggedMyMouse", "lock_mouse", -1, 1.5f));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Shaky Hands", "IJustCantHoldStill", "shaky_hands"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Weapon Recoil", "ThoseAreSomeStrongWeapons", "weapon_recoil"));
 
@@ -287,6 +286,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Freeze Radar", "OutdatedMaps", "freeze_radar"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Portrait Mode", "PortraitMode", "portrait_mode"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Nothing", "ThereIsNoEffect", "nothing"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "SUPER HOT", "SUPERHOTSUPERHOT", "superhot"));
 
                 // All teleports are disabled during Rapid-Fire mode
                 Effects.Add(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet).SetDisplayName(DisplayNameType.STREAM, "TP Home"));

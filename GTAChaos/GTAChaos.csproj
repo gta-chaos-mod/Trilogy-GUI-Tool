@@ -401,7 +401,6 @@
     <EmbeddedResource Include="assets\audio\effect_honk_vehicle_2.ogg" />
     <EmbeddedResource Include="assets\audio\effect_honk_vehicle_3.ogg" />
     <EmbeddedResource Include="assets\audio\effect_honk_vehicle_4.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_inverted_gravity.ogg" />
     <EmbeddedResource Include="assets\audio\effect_lets_take_a_break.ogg" />
     <EmbeddedResource Include="assets\audio\effect_long_necks.ogg" />
     <EmbeddedResource Include="assets\audio\effect_oh_hey_tanks.ogg" />

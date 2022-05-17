@@ -55,7 +55,7 @@ namespace GTAChaos.Utils
                 _Instance = new Config();
 
                 // Set all effects to enabled by default
-                _Instance.EnabledEffects.AddRange(from effect in EffectDatabase.Effects select effect.GetId());
+                _Instance.EnabledEffects.AddRange(from effect in EffectDatabase.Effects.Get() select effect.item.GetID());
             }
 
             return _Instance;

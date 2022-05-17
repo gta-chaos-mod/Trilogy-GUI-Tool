@@ -15,7 +15,7 @@ namespace GTAChaos.Effects
             this.DisableRapidFire();
         }
 
-        public override string GetId() => $"teleport_{this.location.Id}";
+        public override string GetID() => $"teleport_{this.location.Id}";
 
         public override void RunEffect(int seed = -1, int duration = -1)
         {

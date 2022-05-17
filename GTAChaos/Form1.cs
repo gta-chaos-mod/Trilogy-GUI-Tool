@@ -127,9 +127,9 @@ namespace GTAChaos.Forms
             try
             {
                 Config.Instance().EnabledEffects.Clear();
-                foreach (AbstractEffect effect in EffectDatabase.EnabledEffects)
+                foreach (WeightedRandomBag<AbstractEffect>.Entry entry in EffectDatabase.EnabledEffects.Get())
                 {
-                    Config.Instance().EnabledEffects.Add(effect.GetId());
+                    Config.Instance().EnabledEffects.Add(entry.item.GetID());
                 }
 
                 JsonSerializer serializer = new();
@@ -257,10 +257,10 @@ namespace GTAChaos.Forms
             {
                 if (Config.Instance().Experimental_EnableAllEffects)
                 {
-                    foreach (AbstractEffect e in EffectDatabase.EnabledEffects)
+                    foreach (WeightedRandomBag<AbstractEffect>.Entry entry in EffectDatabase.EnabledEffects.Get())
                     {
-                        EffectDatabase.RunEffect(e);
-                        e?.ResetStreamVoter();
+                        EffectDatabase.RunEffect(entry.item);
+                        entry.item?.ResetStreamVoter();
                     }
                 }
                 else
@@ -565,11 +565,13 @@ namespace GTAChaos.Forms
             }
 
             // Add Effects
-            foreach (AbstractEffect effect in EffectDatabase.Effects)
+            foreach (WeightedRandomBag<AbstractEffect>.Entry entry in EffectDatabase.Effects.Get())
             {
-                if (this.idToEffectNodeMap.ContainsKey(effect.GetId()))
+                AbstractEffect effect = entry.item;
+
+                if (this.idToEffectNodeMap.ContainsKey(effect.GetID()))
                 {
-                    MessageBox.Show($"Tried adding effect with ID that was already present: '{effect.GetId()}'");
+                    MessageBox.Show($"Tried adding effect with ID that was already present: '{effect.GetID()}'");
                 }
 
                 TreeNode node = this.enabledEffectsView.Nodes.Find(effect.Category.Name, false).FirstOrDefault();
@@ -581,7 +583,7 @@ namespace GTAChaos.Forms
                     Checked = true,
                 };
                 node.Nodes.Add(addedNode);
-                this.idToEffectNodeMap[effect.GetId()] = addedNode;
+                this.idToEffectNodeMap[effect.GetID()] = addedNode;
             }
         }
 
@@ -609,6 +611,7 @@ namespace GTAChaos.Forms
             if (this.debug)
             {
                 this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 1 second", 1000));
+                this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 500ms", 500));
                 this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 10ms", 10));
             }
 
@@ -893,7 +896,7 @@ namespace GTAChaos.Forms
             {
                 if (node.Checked)
                 {
-                    enabledEffects.Add(node.Effect.GetId());
+                    enabledEffects.Add(node.Effect.GetID());
                 }
             }
 

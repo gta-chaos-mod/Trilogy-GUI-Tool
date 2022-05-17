@@ -10,7 +10,7 @@ namespace GTAChaos.Effects
         public FunctionEffect(Category category, string displayName, string word, string effectID, int duration = -1, float multiplier = 3.0f)
             : base(category, displayName, word, duration, multiplier) => this.EffectID = $"effect_{effectID}";
 
-        public override string GetId() => this.EffectID;
+        public override string GetID() => this.EffectID;
 
         public override string GetAudioFile()
         {

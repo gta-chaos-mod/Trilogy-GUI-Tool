@@ -36,7 +36,9 @@ namespace GTAChaos.Effects
             category.AddEffectToCategory(this);
         }
 
-        public abstract string GetId();
+        public bool IsID(string id) => this.GetID().Equals(id) || this.GetID().Equals($"effect_{id}");
+
+        public abstract string GetID();
 
         protected void SetDisplayNames(string displayName)
         {
@@ -108,7 +110,7 @@ namespace GTAChaos.Effects
 
         public virtual string GetAudioFile()
         {
-            string file = string.IsNullOrEmpty(this.audioName) ? this.GetId() : this.audioName;
+            string file = string.IsNullOrEmpty(this.audioName) ? this.GetID() : this.audioName;
 
             if (this.audioVariations == 0)
             {

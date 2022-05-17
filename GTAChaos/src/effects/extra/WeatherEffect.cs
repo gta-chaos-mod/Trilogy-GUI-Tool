@@ -10,7 +10,7 @@ namespace GTAChaos.Effects
         public WeatherEffect(string description, string word, int _weatherID, int duration = -1)
             : base(Category.Weather, description, word, duration) => this.weatherID = _weatherID;
 
-        public override string GetId() => $"weather_{this.weatherID}";
+        public override string GetID() => $"weather_{this.weatherID}";
 
         public override void RunEffect(int seed = -1, int duration = -1)
         {

@@ -10,7 +10,7 @@ namespace GTAChaos.Effects
         public FakeCrashEffect(string description, string word)
             : base(Category.CustomEffects, description, word) => this.DisableRapidFire();
 
-        public override string GetId() => this.EffectID;
+        public override string GetID() => this.EffectID;
 
         public override void RunEffect(int seed = -1, int duration = -1)
         {

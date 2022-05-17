@@ -24,7 +24,7 @@ namespace GTAChaos.Effects
             }
         }
 
-        public override string GetId() => $"spawn_vehicle_{this.VehicleID}";
+        public override string GetID() => $"spawn_vehicle_{this.VehicleID}";
 
         public override void RunEffect(int seed = -1, int duration = -1)
         {

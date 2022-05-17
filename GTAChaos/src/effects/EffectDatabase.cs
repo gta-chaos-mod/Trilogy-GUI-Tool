@@ -125,7 +125,7 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.Stats, "Lock Respect At Max", "WorshipMe", "lock_respect_at_max")); // Lock respect at max
                 Effects.Add(new FunctionEffect(Category.Stats, "Hot CJ In Your Area", "HelloLadies", "lock_sex_appeal_at_max")); // Lock sex appeal at max
 
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "clear_active_effects").DisableTwitch()); // Clear Active Effects
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "clear_active_effects")); // Clear Active Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsAllowed", "remove_all_weapons")); // Remove all weapons
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Get Busted", "GoToJail", "get_busted").DisableRapidFire()); // Get's you busted on the spot
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Get Wasted", "Hospitality", "get_wasted").DisableRapidFire()); // Get's you wasted on the spot
@@ -195,12 +195,12 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Mirrored World", "LetsTalkAboutParallelUniverses", "mirrored_world")); // Mirrored World
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pedal To The Metal", "PedalToTheMetal", "pedal_to_the_metal")); // Pedal To The Metal
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Unflippable Vehicles", "ThereGoesMyBurrito", "unflippable_vehicles")); // Vehicles are unflippable
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Freefall!", "WhereWeDroppingBoys", "freefall")); // Freefall! - Gives CJ a parachute and teleports him very high
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Freefall!", "WhereWeDroppingBoys", "freefall").DisableRapidFire()); // Freefall! - Gives CJ a parachute and teleports him very high
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Carmageddon", "Carmageddon", "carmageddon")); // Carmageddon - Makes vehicles rain from the sky!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "The Flash", "FastestManAlive", "the_flash")); // The Flash - Let's you run and swim at incredibly high speeds while not taking fall damage or drowing!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Roll Credits", "WaitItsOver", "roll_credits")); // Roll Credits - Rolls the credits but only visually!
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Instantly Hungry", "IllHave2Number9s", "instantly_hungry")); // Instantly Hungry - Makes CJ instantly hungry
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Vehicle Bumper Camera", "FrontRowSeat", "vehicle_bumper_camera")); // Vehicle Bumper Camera - Forces the vehicle's bumper camera
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Vehicle Bumper Camera", "FrontRowSeat", "vehicle_bumper_camera", -1, 1.0f)); // Vehicle Bumper Camera - Forces the vehicle's bumper camera
 
                 // New Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Tiny Cars", "TinyPeepoHappy", "vehicle_size_tiny"));
@@ -241,17 +241,17 @@ namespace GTAChaos.Effects
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Give NPCs An RPG", "RocketParty", "give_npcs_an_rpg"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "TP All NPCs To Player", "WhoAreYouPeople", "teleport_all_npcs_to_player"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Launch All NPCs", "UpUpAndAway", "launch_all_npcs"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Explode All NPCs", "BoomGoesTheDynamite", "explode_all_npcs"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Explode All NPCs", "BoomGoesTheDynamite", "explode_all_npcs").DisableRapidFire());
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Disarm All NPCs", "LeaveTheGunsToMe", "disarm_all_npcs"));
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Reset Camera", "NaturalView", "reset_camera"));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Freeze Vehicle", "StuckInTime", "freeze_vehicle", 1000 * 5));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete Vehicle", "GoodbyeSweetRide", "delete_vehicle"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete All Vehicles", "GoodbyeAllSweetRides", "delete_all_vehicles"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete Vehicle", "GoodbyeSweetRide", "delete_vehicle").DisableRapidFire());
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Delete All Vehicles", "GoodbyeAllSweetRides", "delete_all_vehicles").DisableRapidFire());
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "No Tasks Allowed", "NoTasksAllowed", "no_tasks_allowed", 1000 * 10));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk Off", "LetsGoForAWalk", "walk_off", 1000 * 30));
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Pause", "LetsPause", "pause"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Game Crash", "TooManyModsInstalled", "fake_crash").SetDisplayName(DisplayNameType.UI, "Fake Crash"));
+                Effects.Add(new FunctionEffect(Category.CustomEffects, "Game Crash", "TooManyModsInstalled", "fake_crash").SetDisplayName(DisplayNameType.UI, "Fake Crash").DisableRapidFire());
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Walk On Water", "JesusInTheHouse", "walk_on_water"));
 
                 Effects.Add(new FunctionEffect(Category.CustomEffects, "Bankrupt", "CrashTookAllMyMoney", "bankrupt"));
@@ -301,114 +301,14 @@ namespace GTAChaos.Effects
                 Effects.Add(new TeleportationEffect("Teleport To A Quarry", "BringMeToAQuarry", Location.LVQuarry).SetDisplayName(DisplayNameType.STREAM, "TP To A Quarry"));
                 Effects.Add(new TeleportationEffect("Teleport To The LV Airport", "BringMeToTheLVAirport", Location.LVAirport).SetDisplayName(DisplayNameType.STREAM, "TP To The LV Airport"));
                 Effects.Add(new TeleportationEffect("Teleport To Big Ear", "BringMeToBigEar", Location.LVSatellite).SetDisplayName(DisplayNameType.STREAM, "TP To Big Ear"));
-                Effects.Add(new FunctionEffect(Category.Teleportation, "Random Teleport", "LetsGoSightseeing", "random_teleport")); // Random Teleport - Teleports CJ to a random location on the map
+                Effects.Add(new FunctionEffect(Category.Teleportation, "Random Teleport", "LetsGoSightseeing", "random_teleport").DisableRapidFire()); // Random Teleport - Teleports CJ to a random location on the map
                 Effects.Add(new FakeTeleportEffect("Fake Teleport", "HahaGotYourNose", 1000 * 5)); // Fake Teleport
                 Effects.Add(new FunctionEffect(Category.Teleportation, "Teleport To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Teleport To Marker
-                Effects.Add(new FunctionEffect(Category.Teleportation, "Teleport To Liberty City", "LetsTalkAboutTheMultiverse", "teleport_to_liberty_city", 1000 * 10)); // Teleport To Liberty City
+                Effects.Add(new FunctionEffect(Category.Teleportation, "Teleport To Liberty City", "LetsTalkAboutTheMultiverse", "teleport_to_liberty_city", 1000 * 10).DisableRapidFire()); // Teleport To Liberty City
             }
             else if (game == "vice_city")
             {
-                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 1", "ThugsTools", "weapon_set_1"));
-                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 2", "ProfessionalTools", "weapon_set_2"));
-                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 3", "NutterTools", "weapon_set_3"));
-                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Full Health", "Aspirine", "full_health"));
-                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Full Armor", "PreciousProtection", "full_armor"));
-                Effects.Add(new FunctionEffect(Category.WeaponsAndHealth, "Suicide", "ICantTakeItAnymore", "suicide"));
-
-                Effects.Add(new FunctionEffect(Category.WantedLevel, "Clear Wanted Level", "LeaveMeAlone", "clear_wanted_level"));
-                Effects.Add(new FunctionEffect(Category.WantedLevel, "Increase Wanted Level", "YouWontTakeMeAlive", "increase_wanted_level"));
-
-                Effects.Add(new WeatherEffect("Cloudy Weather", "APleasantDay", 0));
-                Effects.Add(new WeatherEffect("Very Cloudy Weather", "ABitDrieg", 1));
-                Effects.Add(new WeatherEffect("Rainy Weather", "CatsAndDogs", 2));
-                Effects.Add(new WeatherEffect("Foggy Weather", "CantSeeAThing", 3));
-                Effects.Add(new WeatherEffect("Sunny Weather", "ALovelyDay", 4));
-
-                Effects.Add(new SpawnVehicleEffect("RubbishCar", 138)); // Trashmaster
-                Effects.Add(new SpawnVehicleEffect("Panzer", 162)); // Tank
-                Effects.Add(new SpawnVehicleEffect("TheLastRide", 172)); // Hearse
-                Effects.Add(new SpawnVehicleEffect("BetterThanWalking", 187)); // Caddie
-                Effects.Add(new SpawnVehicleEffect("RockAndRollCar", 201)); // Limo
-                Effects.Add(new SpawnVehicleEffect("GetThereFast", 206)); // Sabre Turbo
-                Effects.Add(new SpawnVehicleEffect("GetThereVeryFastIndeed", 232)); // Hotring Racer
-                Effects.Add(new SpawnVehicleEffect("GetThereAmazinglyFast", 233)); // Alt. Hotring Racer
-                Effects.Add(new SpawnVehicleEffect("TravelInStyle", 234)); // Bloodring Banger
-                Effects.Add(new SpawnVehicleEffect("GetThereQuickly", 235)); // Alt. Bloodring Banger
-
-                Effects.Add(new FunctionEffect(Category.Time, "0.25x Game Speed", "MatrixMode", "quarter_game_speed"));
-                Effects.Add(new FunctionEffect(Category.Time, "0.5x Game Speed", "Booooooring", "half_game_speed"));
-                Effects.Add(new FunctionEffect(Category.Time, "2x Game Speed", "OnSpeed", "double_game_speed"));
-                Effects.Add(new FunctionEffect(Category.Time, "4x Game Speed", "YoureTooSlow", "quadruple_game_speed"));
-                Effects.Add(new FunctionEffect(Category.Time, "Quick Clock", "LifeIsPassingMeBy", "quick_clock"));
-
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Aggressive Drivers", "MiamiTraffic", "aggressive_drivers"));
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "All Green Lights", "GreenLight", "all_green_lights"));
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Big Wheels", "LoadsOfLittleThings", "big_wheels"));
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Black Cars", "IWantItPaintedBlack", "black_cars"));
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Cars On Water", "Seaways", "cars_on_water"));
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Explode All Vehicles", "BigBang", "explode_all_vehicles"));
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Flying Boats", "Airship", "flying_boats"));
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Flying Cars", "ComeFlyWithMe", "flying_cars"));
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Insane Handling", "GripIsEverything", "insane_handling"));
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Pink Cars", "AHairDressersCars", "pink_cars"));
-                Effects.Add(new FunctionEffect(Category.VehiclesTraffic, "Wheels Only", "WheelsAreAllINeed", "wheels_only"));
-
-                Effects.Add(new FunctionEffect(Category.PedsAndCo, "Armed Female Pedestrians", "ChicksWithGuns", "armed_female_peds"));
-                Effects.Add(new FunctionEffect(Category.PedsAndCo, "Armed Pedestrians", "OurGodGivenRightToBearArms", "armed_peds"));
-                //Effects.Add(new FunctionEffect(Category.PedsAndCo, "Hostile Peds", "NobodyLikesMe", "hostile_peds"));
-                Effects.Add(new FunctionEffect(Category.PedsAndCo, "Ladies' Man", "FannyMagnet", "ladies_man"));
-                Effects.Add(new FunctionEffect(Category.PedsAndCo, "Peds Get In Your Car", "HopInGirl", "peds_get_in_your_car"));
-                //Effects.Add(new FunctionEffect(Category.PedsAndCo, "Riot Mode", "FightFightFight", "riot"));
-
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Candy Suxxx Skin", "IWantBigTits", "candy_suxxx_skin"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Dick Skin", "WeLoveOurDick", "dick_skin"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Fat Skin", "DeepFriedMarsBars", "fat_skin"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Hilary Skin", "ILookLikeHilary", "hilary_skin"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Jezz Skin", "RockAndRollMan", "jezz_skin"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Ken Skin", "MySonIsALawyer", "ken_skin"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Lance Skin", "LookLikeLance", "lance_skin"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Mercedes Skin", "FoxyLittleThing", "mercedes_skin"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Phil Skin", "OneArmedBandit", "phil_skin"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Random Outfit", "StillLikeDressingUp", "random_outfit"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Ricardo Skin", "CheatsHaveBeenCracked", "ricardo_skin"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Skinny Skin", "Programmer", "skinny_skin"));
-                Effects.Add(new FunctionEffect(Category.PlayerModifications, "Sonny Skin", "IDontHaveTheMoneySonny", "sonny_skin"));
-
-                // Custom Effects
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable HUD", "DisableHUD", "disable_hud"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable Radar Blips", "DisableRadarBlips", "disable_radar_blips"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "DVD Screensaver", "DVDScreensaver", "dvd_screensaver"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Tunnel Vision", "TunnelVision", "tunnel_vision"));
-
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Disable All Weapon Damage", "DisableAllWeaponDamage", "disable_all_weapon_damage"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Everybody Bleed Now", "EverybodyBleedNow", "everybody_bleed_now"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Invincible (Everyone)", "InfiniteHealthEveryone", "infinite_health_everyone"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Long Live The Rich", "LongLiveTheRich", "long_live_the_rich"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "One Hit K.O.", "OneHitKO", "one_hit_ko"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "RemoveAllWeapons", "remove_all_weapons"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Set All Peds On Fire", "SetAllPedsOnFire", "set_all_peds_on_fire"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Where Is Everybody", "WhereIsEverybody", "where_is_everybody"));
-
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Experience The Lag", "ExperienceTheLag", "experience_the_lag", -1, 1.0f));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "15 FPS", "15FPS", "fps_15"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "60 FPS", "60FPS", "fps_60"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Timelapse", "Timelapse", "timelapse"));
-
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Reload Autosave", "ReloadAutosave", "reload_autosave"));
-
-                //Effects.Add(new FunctionEffect(Category.CustomEffects, "Ghost Rider", "GhostRider", "ghost_rider"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "High Suspension Damping", "HighSuspensionDamping", "high_suspension_damping"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Ghost Cars", "InvisibleVehicles", "invisible_vehicles"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Lightspeed Braking", "LightspeedBraking", "lightspeed_braking"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Little Suspension Damping", "LittleSuspensionDamping", "little_suspension_damping"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Pop Tires Of All Vehicles", "PopTiresOfAllVehicles", "pop_tires_of_all_vehicles"));
-                //Effects.Add(new FunctionEffect(Category.CustomEffects, "Rainbow Cars", "RainbowCars", "rainbow_cars"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Send Vehicles To Space", "SendVehiclesToSpace", "send_vehicles_to_space"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Set Current Vehicle On Fire", "SetCurrentVehicleOnFire", "set_current_vehicle_on_fire"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "To Drive Or Not To Drive", "ToDriveOrNotToDrive", "to_drive_or_not_to_drive"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "To The Left, To The Right", "ToTheLeftToTheRight", "to_the_left_to_the_right"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Turn Vehicles Around", "TurnVehiclesAround", "turn_vehicles_around"));
-                Effects.Add(new FunctionEffect(Category.CustomEffects, "Zero Suspension Damping", "ZeroSuspensionDamping", "zero_suspension_damping"));
+                // Removed for now
             }
 
             Effects.Sort((first, second) => string.Compare(first.GetDisplayName(DisplayNameType.UI), second.GetDisplayName(DisplayNameType.UI), StringComparison.CurrentCultureIgnoreCase));

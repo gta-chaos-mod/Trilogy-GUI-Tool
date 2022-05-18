@@ -36,7 +36,7 @@ namespace GTAChaos.Utils
         public static readonly Category Spawning = new("Spawning");
         public static readonly Category Time = new("Time");
         public static readonly Category VehiclesTraffic = new("Vehicles & Traffic");
-        public static readonly Category PedsAndCo = new("Peds & Co.");
+        public static readonly Category NPCs = new("NPCs");
         public static readonly Category PlayerModifications = new("Player Modifications");
         public static readonly Category Stats = new("Stats");
         public static readonly Category CustomEffects = new("Custom Effects");

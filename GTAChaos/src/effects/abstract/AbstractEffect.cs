@@ -125,7 +125,7 @@ namespace GTAChaos.Effects
 
         public virtual void RunEffect(int seed = -1, int _duration = -1)
         {
-            if (Config.Instance().PlayAudioForEffects)
+            if (Config.Instance().PlayAudioForEffects && Shared.StreamVotingMode != Shared.VOTING_MODE.RAPID_FIRE)
             {
                 AudioPlayer.INSTANCE.PlayAudio(this.GetAudioFile());
             }
@@ -155,7 +155,7 @@ namespace GTAChaos.Effects
             bool rapidFire = false;
             if (Shared.IsStreamMode)
             {
-                if (Shared.StreamVotingMode == 2)
+                if (Shared.StreamVotingMode == Shared.VOTING_MODE.RAPID_FIRE)
                 {
                     rapidFire = this.rapidFire == 1;
                 }

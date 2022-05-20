@@ -31,7 +31,7 @@ namespace GTAChaos.Utils
 
         private readonly PollEffectVoting effectVoting = new();
         private readonly HashSet<string> rapidFireVoters = new();
-        private int VotingMode;
+        private Shared.VOTING_MODE VotingMode;
 
         private int lastChoice = -1;
 
@@ -195,10 +195,10 @@ namespace GTAChaos.Utils
             return true;
         }
 
-        public async void SetVoting(int votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null)
+        public async void SetVoting(Shared.VOTING_MODE votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null)
         {
             this.VotingMode = votingMode;
-            if (this.VotingMode == 1)
+            if (this.VotingMode == Shared.VOTING_MODE.VOTING)
             {
                 this.effectVoting.Clear();
                 this.effectVoting.GenerateRandomEffects();
@@ -254,12 +254,12 @@ namespace GTAChaos.Utils
 
                 //SocketBroadcast(JsonConvert.SerializeObject(createPoll));
             }
-            else if (this.VotingMode == 2)
+            else if (this.VotingMode == Shared.VOTING_MODE.RAPID_FIRE)
             {
                 this.rapidFireVoters.Clear();
                 this.SendMessage("ATTENTION, ALL GAMERS! RAPID-FIRE HAS BEGUN! VALID EFFECTS WILL BE ENABLED FOR 15 SECONDS!");
             }
-            else if (this.VotingMode == 3) // Poll Failed
+            else if (this.VotingMode == Shared.VOTING_MODE.ERROR) // Poll Failed
             {
                 this.SendEffectVotingToGame(false);
 
@@ -373,7 +373,7 @@ namespace GTAChaos.Utils
             string message = this.RemoveSpecialCharacters(e.ChatMessage.Message);
 
             // Rapid Fire
-            if (this.VotingMode == 2)
+            if (this.VotingMode == Shared.VOTING_MODE.RAPID_FIRE)
             {
                 if (this.rapidFireVoters.Contains(username))
                 {

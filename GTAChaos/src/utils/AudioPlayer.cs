@@ -1,6 +1,8 @@
 ﻿// Copyright (c) 2019 Lordmau5
 using NAudio.Vorbis;
 using NAudio.Wave;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -8,69 +10,124 @@ namespace GTAChaos.Utils
 {
     public class AudioPlayer
     {
-        public static readonly AudioPlayer INSTANCE = new();
-
-        private readonly string[] supportedFormats =
+        private class Audio
         {
-            "mp3", "wav", "aac", "m4a"
-        };
-
-        private void PlayEmbeddedResource(string type, string path)
-        {
-            Assembly a = Assembly.GetExecutingAssembly();
-            Stream s = a.GetManifestResourceStream($"GTAChaos.assets.{type}.{path}.ogg");
-
-            string fullPath = $"{type}/{path}";
-
-            WaveStream stream = null;
-
-            // ogg / Vorbis
-            try
+            private readonly string[] supportedFormats =
             {
-                stream = new VorbisWaveReader($"{fullPath}.ogg");
+                "mp3", "wav", "aac", "m4a"
+            };
+
+            public event EventHandler<EventArgs> OnFinished;
+
+            private string Path { get; }
+
+            private DateTime Expiry { get; }
+
+            public Audio(string path)
+            {
+                this.Path = path;
+                this.Expiry = DateTime.Now.AddSeconds(30);
             }
-            catch { }
 
-            // Iterate over supported formats
-            if (stream == null)
+            public void Play()
             {
-                foreach (string format in this.supportedFormats)
+                if (DateTime.Now > this.Expiry)
+                {
+                    OnFinished?.Invoke(this, EventArgs.Empty);
+                    return;
+                }
+
+                Assembly a = Assembly.GetExecutingAssembly();
+                Stream s = a.GetManifestResourceStream($"GTAChaos.assets.audio.{this.Path}.ogg");
+
+                WaveStream stream = null;
+
+                // ogg / Vorbis
+                try
+                {
+                    stream = new VorbisWaveReader($"{this.Path}.ogg");
+                }
+                catch { }
+
+                // Iterate over supported formats
+                if (stream == null)
+                {
+                    foreach (string format in this.supportedFormats)
+                    {
+                        try
+                        {
+                            stream = new MediaFoundationReader($"{this.Path}.{format}");
+
+                            if (stream != null)
+                            {
+                                break;
+                            }
+                        }
+                        catch { }
+                    }
+                }
+
+                // Try embedded resources
+                if (stream == null)
                 {
                     try
                     {
-                        stream = new MediaFoundationReader($"{fullPath}.{format}");
-
-                        if (stream != null)
-                        {
-                            break;
-                        }
+                        stream = new VorbisWaveReader(s);
                     }
                     catch { }
                 }
-            }
 
-            // Try embedded resources
-            if (stream == null)
-            {
-                try
+                if (stream == null)
                 {
-                    stream = new VorbisWaveReader(s);
+                    return;
                 }
-                catch { }
-            }
 
-            if (stream == null)
+                WaveOutEvent outputDevice = new();
+                outputDevice.Init(stream);
+                outputDevice.PlaybackStopped += (object sender, StoppedEventArgs e) => OnFinished?.Invoke(this, e);
+
+                outputDevice.Volume = 1.0f;
+                outputDevice.Play();
+            }
+        }
+
+        public static readonly AudioPlayer INSTANCE = new();
+
+        private readonly List<Audio> queue = new();
+
+        private void PlayNext()
+        {
+            if (this.queue.Count == 0)
             {
                 return;
             }
 
-            WaveOutEvent outputDevice = new();
-            outputDevice.Init(stream);
+            Audio audio = this.queue[0];
+            audio.OnFinished += (object sender, EventArgs e) =>
+            {
+                this.queue.Remove(audio);
+                this.PlayNext();
+            };
 
-            outputDevice.Volume = 1.0f;
-            outputDevice.Play();
+            audio.Play();
         }
 
-        public void PlayAudio(string res) => this.PlayEmbeddedResource("audio", res);
+        public void PlayAudio(string path)
+        {
+            Audio audio = new(path);
+
+            if (Config.Instance().PlayAudioSequentially)
+            {
+                this.queue.Add(new Audio(path));
+                if (this.queue.Count == 1)
+                {
+                    this.PlayNext();
+                }
+            }
+            else
+            {
+                audio.Play();
+            }
+        }
     }
 }

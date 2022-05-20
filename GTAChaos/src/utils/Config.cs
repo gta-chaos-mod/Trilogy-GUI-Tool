@@ -16,6 +16,7 @@ namespace GTAChaos.Utils
         public bool MainShowLastEffects;
         public List<string> EnabledEffects = new();
         public bool PlayAudioForEffects = true;
+        public bool PlayAudioSequentially = true;
 
         // Twitch Polls
         public bool TwitchUsePolls;

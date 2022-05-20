@@ -203,6 +203,8 @@ namespace GTAChaos.Forms
             this.textBoxStreamClientID.Text = Config.Instance().StreamClientID;
 
             this.checkBoxPlayAudioForEffects.Checked = Config.Instance().PlayAudioForEffects;
+            this.checkBoxSettingsPlayAudioSequentially.Enabled = Config.Instance().PlayAudioForEffects;
+            this.checkBoxSettingsPlayAudioSequentially.Checked = Config.Instance().PlayAudioSequentially;
 
             this.checkBoxShowLastEffectsMain.Checked = Config.Instance().MainShowLastEffects;
             this.checkBoxShowLastEffectsStream.Checked = Config.Instance().StreamShowLastEffects;
@@ -348,7 +350,7 @@ namespace GTAChaos.Forms
                 return;
             }
 
-            if (Shared.StreamVotingMode == 1)
+            if (Shared.StreamVotingMode == Shared.VOTING_MODE.VOTING)
             {
                 if (this.progressBarStream.Maximum != Config.Instance().StreamVotingTime)
                 {
@@ -397,9 +399,9 @@ namespace GTAChaos.Forms
                             this.progressBarStream.Maximum = Config.Instance().StreamVotingCooldown;
 
                             this.stopwatch.Restart();
-                            Shared.StreamVotingMode = 0;
+                            Shared.StreamVotingMode = Shared.VOTING_MODE.COOLDOWN;
 
-                            this.stream?.SetVoting(3, this.timesUntilRapidFire, null);
+                            this.stream?.SetVoting(Shared.VOTING_MODE.ERROR, this.timesUntilRapidFire, null);
 
                             return;
                         }
@@ -420,7 +422,7 @@ namespace GTAChaos.Forms
                     this.progressBarStream.Maximum = Config.Instance().StreamVotingCooldown;
 
                     this.stopwatch.Restart();
-                    Shared.StreamVotingMode = 0;
+                    Shared.StreamVotingMode = Shared.VOTING_MODE.COOLDOWN;
 
                     this.labelStreamCurrentMode.Text = "Current Mode: Cooldown";
 
@@ -452,7 +454,7 @@ namespace GTAChaos.Forms
                     }
                 }
             }
-            else if (Shared.StreamVotingMode == 2)
+            else if (Shared.StreamVotingMode == Shared.VOTING_MODE.RAPID_FIRE)
             {
                 if (this.progressBarStream.Maximum != 1000 * 10)
                 {
@@ -485,14 +487,14 @@ namespace GTAChaos.Forms
                     this.progressBarStream.Maximum = Config.Instance().StreamVotingCooldown;
 
                     this.stopwatch.Restart();
-                    Shared.StreamVotingMode = 0;
+                    Shared.StreamVotingMode = Shared.VOTING_MODE.COOLDOWN;
 
                     this.labelStreamCurrentMode.Text = "Current Mode: Cooldown";
 
                     this.stream?.SetVoting(0, this.timesUntilRapidFire);
                 }
             }
-            else if (Shared.StreamVotingMode == 0)
+            else if (Shared.StreamVotingMode == Shared.VOTING_MODE.COOLDOWN)
             {
                 if (this.progressBarStream.Maximum != Config.Instance().StreamVotingCooldown)
                 {
@@ -530,19 +532,19 @@ namespace GTAChaos.Forms
 
                         this.timesUntilRapidFire = new Random().Next(10, 15);
 
-                        Shared.StreamVotingMode = 2;
+                        Shared.StreamVotingMode = Shared.VOTING_MODE.RAPID_FIRE;
                         this.labelStreamCurrentMode.Text = "Current Mode: Rapid-Fire";
 
-                        this.stream?.SetVoting(2, this.timesUntilRapidFire);
+                        this.stream?.SetVoting(Shared.VOTING_MODE.RAPID_FIRE, this.timesUntilRapidFire);
                     }
                     else
                     {
                         this.progressBarStream.Value = this.progressBarStream.Maximum = Config.Instance().StreamVotingTime;
 
-                        Shared.StreamVotingMode = 1;
+                        Shared.StreamVotingMode = Shared.VOTING_MODE.VOTING;
                         this.labelStreamCurrentMode.Text = "Current Mode: Voting";
 
-                        this.stream?.SetVoting(1, this.timesUntilRapidFire);
+                        this.stream?.SetVoting(Shared.VOTING_MODE.VOTING, this.timesUntilRapidFire);
                     }
 
                     this.stopwatch.Restart();
@@ -962,7 +964,7 @@ namespace GTAChaos.Forms
 
                 this.stream.OnRapidFireEffect += (_sender, rapidFireArgs) => this.Invoke(new Action(() =>
                 {
-                    if (Shared.StreamVotingMode == 2)
+                    if (Shared.StreamVotingMode == Shared.VOTING_MODE.RAPID_FIRE)
                     {
                         if (Shared.Multiplayer != null)
                         {
@@ -1146,7 +1148,7 @@ namespace GTAChaos.Forms
             this.stopwatch.Reset();
             this.elapsedCount = 0;
             this.labelStreamCurrentMode.Text = "Current Mode: Cooldown";
-            Shared.StreamVotingMode = 0;
+            Shared.StreamVotingMode = Shared.VOTING_MODE.COOLDOWN;
             this.timesUntilRapidFire = new Random().Next(10, 15);
             this.progressBarStream.Value = 0;
             this.buttonStreamToggle.Enabled = this.stream?.IsConnected() == true;
@@ -1263,7 +1265,11 @@ namespace GTAChaos.Forms
             }
         }
 
-        private void CheckBoxPlayAudioForEffects_CheckedChanged(object sender, EventArgs e) => Config.Instance().PlayAudioForEffects = this.checkBoxPlayAudioForEffects.Checked;
+        private void CheckBoxPlayAudioForEffects_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.Instance().PlayAudioForEffects = this.checkBoxPlayAudioForEffects.Checked;
+            this.checkBoxSettingsPlayAudioSequentially.Enabled = Config.Instance().PlayAudioForEffects;
+        }
 
         private string FilterMultiplayerCharacters(string text) => Regex.Replace(text, "[^A-Za-z0-9]", "");
 
@@ -1557,5 +1563,7 @@ namespace GTAChaos.Forms
 
             this.UpdateStreamConnectButtonState();
         }
+
+        private void CheckBoxSettingsPlayAudioSequentially_CheckedChanged(object sender, EventArgs e) => Config.Instance().PlayAudioSequentially = this.checkBoxSettingsPlayAudioSequentially.Checked;
     }
 }

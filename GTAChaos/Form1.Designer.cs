@@ -107,6 +107,7 @@ namespace GTAChaos.Forms
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
+            this.checkBoxSettingsPlayAudioSequentially = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabStream.SuspendLayout();
@@ -607,6 +608,7 @@ namespace GTAChaos.Forms
             // tabSettings
             // 
             this.tabSettings.BackColor = System.Drawing.Color.Transparent;
+            this.tabSettings.Controls.Add(this.checkBoxSettingsPlayAudioSequentially);
             this.tabSettings.Controls.Add(this.checkBoxPlayAudioForEffects);
             this.tabSettings.Controls.Add(this.label8);
             this.tabSettings.Controls.Add(this.textBoxSeed);
@@ -948,6 +950,21 @@ namespace GTAChaos.Forms
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
+            // checkBoxSettingsPlayAudioSequentially
+            // 
+            this.checkBoxSettingsPlayAudioSequentially.AutoSize = true;
+            this.checkBoxSettingsPlayAudioSequentially.Checked = true;
+            this.checkBoxSettingsPlayAudioSequentially.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSettingsPlayAudioSequentially.Location = new System.Drawing.Point(9, 55);
+            this.checkBoxSettingsPlayAudioSequentially.Name = "checkBoxSettingsPlayAudioSequentially";
+            this.checkBoxSettingsPlayAudioSequentially.Size = new System.Drawing.Size(136, 17);
+            this.checkBoxSettingsPlayAudioSequentially.TabIndex = 9;
+            this.checkBoxSettingsPlayAudioSequentially.Text = "Play Audio Sequentially";
+            this.toolTipHandler.SetToolTip(this.checkBoxSettingsPlayAudioSequentially, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
+        " play.");
+            this.checkBoxSettingsPlayAudioSequentially.UseVisualStyleBackColor = true;
+            this.checkBoxSettingsPlayAudioSequentially.CheckedChanged += new System.EventHandler(this.CheckBoxSettingsPlayAudioSequentially_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1066,6 +1083,7 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.CheckBox checkBoxExperimentalYouTubeConnection;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxStreamClientID;
+        private System.Windows.Forms.CheckBox checkBoxSettingsPlayAudioSequentially;
     }
 }
 

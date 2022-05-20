@@ -28,7 +28,7 @@ namespace GTAChaos.Utils
 
         void SendEffectVotingToGame(bool undetermined = true);
 
-        void SetVoting(int votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null);
+        void SetVoting(Shared.VOTING_MODE votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null);
 
         List<IVotingElement> GetVotedEffects();
     }

@@ -112,21 +112,21 @@ namespace GTAChaos.Utils
             audio.Play();
         }
 
-        public void PlayAudio(string path)
+        public void PlayAudio(string path, bool playNow = false)
         {
             Audio audio = new(path);
 
-            if (Config.Instance().PlayAudioSequentially)
+            if (!Config.Instance().PlayAudioSequentially || playNow)
+            {
+                audio.Play();
+            }
+            else
             {
                 this.queue.Add(new Audio(path));
                 if (this.queue.Count == 1)
                 {
                     this.PlayNext();
                 }
-            }
-            else
-            {
-                audio.Play();
             }
         }
     }

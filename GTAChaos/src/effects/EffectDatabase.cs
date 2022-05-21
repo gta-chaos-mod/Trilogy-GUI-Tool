@@ -141,10 +141,12 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.Stats, "Hot CJ In Your Area", "HelloLadies", "lock_sex_appeal_at_max")); // Lock sex appeal at max
                 AddEffect(new FunctionEffect(Category.Stats, "Lock Respect At Max", "WorshipMe", "lock_respect_at_max")); // Lock respect at max
                 AddEffect(new FunctionEffect(Category.Stats, "Max Driving Skills", "NaturalTalent", "max_driving_skills")); // Max driving skills
+                AddEffect(new FunctionEffect(Category.Stats, "Max Lung Capacity", "FilledLungs", "max_lung_capacity")); // Max lung capacity
                 AddEffect(new FunctionEffect(Category.Stats, "Max Muscle", "BuffMeUp", "max_muscle")); // Max muscle
                 AddEffect(new FunctionEffect(Category.Stats, "Max Stamina", "ICanGoAllNight", "max_stamina")); // Max stamina
                 AddEffect(new FunctionEffect(Category.Stats, "Never Get Hungry", "IAmNeverHungry", "never_get_hungry")); // Never get hungry
                 AddEffect(new FunctionEffect(Category.Stats, "No Driving Skills", "BackToDrivingSchool", "no_driving_skills")); // No driving skills
+                AddEffect(new FunctionEffect(Category.Stats, "No Lung Capacity", "EmptyLungs", "no_lung_capacity")); // No lung capacity
                 AddEffect(new FunctionEffect(Category.Stats, "No Stamina", "ImAllOutOfBreath", "no_stamina")); // No stamina
                 AddEffect(new FunctionEffect(Category.Stats, "Skinny Player", "LeanAndMean", "skinny_player")); // Skinny player
                 // ------------- //
@@ -242,6 +244,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "reload_autosave").DisableRapidFire()); // Reload Autosave
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Roll Credits", "WaitItsOver", "roll_credits")); // Roll Credits - Rolls the credits but only visually!
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Screen Flip", "MuscleMemoryMangler", "screen_flip"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Spawn Ramp", "FreeStuntJump", "spawn_ramp", 1000 * 5));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Thermal Vision", "ThermalVision", "thermal_vision", -1, 1.0f)); // Thermal Vision
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Underwater View", "HelloHowAreYouIAmUnderTheWater", "underwater_view"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Upside-Down Screen", "WhatsUpIsDown", "upside_down_screen", -1, 1.0f)); // Upside-Down Screen
@@ -293,7 +296,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Long Live The Rich!", "LongLiveTheRich", "long_live_the_rich"));  // Money = Health, shoot people to gain money, take damage to lose it
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Long Necks", "ICanSeeMyHouseFromUpHere", "long_necks"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "One Bullet Magazines", "OneInTheChamber", "one_bullet_magazines"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "One Hit K.O.", "ILikeToLiveDangerously", "one_hit_ko").DisableRapidFire()); // One Hit K.O.
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Ped One Hit K.O.", "ILikeToLiveDangerously", "one_hit_ko").DisableRapidFire()); // One Hit K.O.
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Peds Explode If Run Over", "ExplosivePeds", "peds_explode_when_run_over")); // Peds Explode If Run Over
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsAllowed", "remove_all_weapons")); // Remove all weapons
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Set Everyone On Fire", "HotPotato", "set_everyone_on_fire").DisableRapidFire()); // Set everyone on fire
@@ -346,6 +349,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Tasks Allowed", "NoTasksAllowed", "no_tasks_allowed", 1000 * 10));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pacifist", "TillDeathDoUsPart", "pacifist"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pedal To The Metal", "PedalToTheMetal", "pedal_to_the_metal")); // Pedal To The Metal
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Portal Guns", "CaveJohnsonWouldBeProud", "portal_guns"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Quake FOV", "QuakeFOV", "quake_fov")); // Quake FOV
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Random Outfit", "ASetOfNewClothes", "random_outfit"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Reset Camera", "NaturalView", "reset_camera"));
@@ -407,6 +411,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Turn Vehicles Around", "TurnAround", "turn_vehicles_around")); // Turn vehicles around
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Unflippable Vehicles", "ThereGoesMyBurrito", "unflippable_vehicles")); // Vehicles are unflippable
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Vehicle Boost", "FullForceForward", "vehicle_boost"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Vehicle One Hit K.O.", "NoDings", "vehicle_one_hit_ko"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Wide Cars", "WidePeepoHappy", "vehicle_size_wide"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Your Car Floats When Hit", "ImTheBubbleCar", "your_car_floats_away_when_hit")); // Your Car Floats Away When Hit
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Zero Suspension Damping", "LowrideAllNight", "zero_suspension_damping"));  // Cars have almost zero suspension damping

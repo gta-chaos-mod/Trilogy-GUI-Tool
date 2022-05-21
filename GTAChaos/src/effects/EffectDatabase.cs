@@ -232,6 +232,7 @@ namespace GTAChaos.Effects
                 //---------------- Custom Effects ---------------- //
                 // --- Generic --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "clear_active_effects"), 3.0); // Clear Active Effects
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Delayed Screen", "WhatsWrongWithThisMonitor", "delayed_screen", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Game Crash", "TooManyModsInstalled", "fake_crash").SetDisplayName(DisplayNameType.UI, "Fake Crash").DisableRapidFire());
                 //AddEffect(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen", -1, 1.0f)); // Greyscale Screen
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Mirrored Screen", "WhatsLeftIsRight", "mirrored_screen", -1, 1.0f)); // Mirrored Screen

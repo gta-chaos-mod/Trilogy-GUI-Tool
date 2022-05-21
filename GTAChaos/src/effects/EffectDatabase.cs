@@ -371,6 +371,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Warp In Random Vehicle", "ItsYourUber", "warp_player_into_random_vehicle"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Weapon Recoil", "ThoseAreSomeStrongWeapons", "weapon_recoil"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Weapon Roulette", "WeaponRoulette", "weapon_roulette")); // Weapon Roulette
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Zooming FOV", "ZoomingFOV", "zooming_fov"));
                 // -------------- //
 
                 // --- Time --- //

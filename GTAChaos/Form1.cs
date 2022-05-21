@@ -950,6 +950,7 @@ namespace GTAChaos.Forms
                 return;
             }
 
+            // TODO: When in YouTube mode, allow connecting without Client ID.
             if (!string.IsNullOrEmpty(Config.Instance().StreamAccessToken) && !string.IsNullOrEmpty(Config.Instance().StreamClientID))
             {
                 this.buttonSwitchMode.Enabled = false;

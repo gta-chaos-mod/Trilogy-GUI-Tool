@@ -60,7 +60,7 @@ namespace GTAChaos.Effects
 
         public string GetVoter() => this.StreamVoter;
 
-        public AbstractEffect SetTreamVoter(string voter)
+        public AbstractEffect SetStreamVoter(string voter)
         {
             this.StreamVoter = voter;
             return this;

@@ -1453,7 +1453,7 @@ namespace GTAChaos.Forms
                     }
                     else
                     {
-                        effect.SetTreamVoter(args.Voter);
+                        effect.SetStreamVoter(args.Voter);
                     }
 
                     EffectDatabase.RunEffect(effect, args.Seed, args.Duration);

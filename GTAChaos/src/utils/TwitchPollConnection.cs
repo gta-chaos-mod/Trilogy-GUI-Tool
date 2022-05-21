@@ -339,7 +339,7 @@ namespace GTAChaos.Utils
             List<IVotingElement> elements = Config.Instance().StreamMajorityVotes ? this.effectVoting.GetMajorityVotes() : this.effectVoting.GetTrulyRandomVotes();
             foreach (IVotingElement e in elements)
             {
-                e.GetEffect().ResetStreamVoter();
+                e.GetEffect().SetStreamVoter($"{e.GetPercentage()}%");
             }
 
             this.lastChoice = elements.Count > 1 ? -1 : elements.First().GetId();
@@ -388,7 +388,7 @@ namespace GTAChaos.Utils
 
                 this.RapidFireEffect(new RapidFireEventArgs()
                 {
-                    Effect = effect.SetTreamVoter(username)
+                    Effect = effect.SetStreamVoter(username)
                 });
 
                 this.rapidFireVoters.Add(username);
@@ -427,6 +427,17 @@ namespace GTAChaos.Utils
             public void Clear() => this.votingElements.Clear();
 
             public List<PollVotingElement> GetVotingElements() => this.votingElements;
+
+            public int GetTotalVotes()
+            {
+                int votes = 0;
+                foreach (PollVotingElement element in this.votingElements)
+                {
+                    votes += element.Votes;
+                }
+
+                return votes;
+            }
 
             public TwitchLib.Api.Helix.Models.Polls.CreatePoll.Choice[] GetPollChoices()
             {
@@ -478,6 +489,11 @@ namespace GTAChaos.Utils
                 if (this.votingElements.Count > elementId)
                 {
                     this.votingElements[elementId].Votes = votes;
+                }
+
+                foreach (PollVotingElement element in this.votingElements)
+                {
+                    element.Percentage = (int)Math.Round((double)element.Votes / this.GetTotalVotes() * 100);
                 }
             }
 
@@ -597,6 +613,8 @@ namespace GTAChaos.Utils
 
             public int Votes { get; set; }
 
+            public int Percentage { get; set; }
+
             public PollVotingElement(int id, AbstractEffect effect)
             {
                 this.Id = id;
@@ -608,6 +626,8 @@ namespace GTAChaos.Utils
             public AbstractEffect GetEffect() => this.Effect;
 
             public int GetVotes() => this.Votes;
+
+            public int GetPercentage() => this.Percentage;
         }
 
         // Events

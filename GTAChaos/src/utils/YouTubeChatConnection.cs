@@ -279,7 +279,7 @@ namespace GTAChaos.Utils
 
                 this.RapidFireEffect(new RapidFireEventArgs()
                 {
-                    Effect = effect.SetTreamVoter(username)
+                    Effect = effect.SetStreamVoter(username)
                 });
 
                 this.rapidFireVoters.Add(username);
@@ -303,7 +303,7 @@ namespace GTAChaos.Utils
             List<IVotingElement> elements = Config.Instance().StreamMajorityVotes ? this.effectVoting.GetMajorityVotes() : this.effectVoting.GetTrulyRandomVotes();
             foreach (IVotingElement e in elements)
             {
-                e.GetEffect().ResetStreamVoter();
+                e.GetEffect().SetStreamVoter($"{e.GetPercentage()}%");
             }
 
             this.lastChoice = elements.Count > 1 ? -1 : elements.First().GetId();
@@ -447,6 +447,17 @@ namespace GTAChaos.Utils
 
             public List<ChatVotingElement> GetVotingElements() => this.votingElements;
 
+            public int GetTotalVotes()
+            {
+                int votes = 0;
+                foreach (ChatVotingElement element in this.votingElements)
+                {
+                    votes += element.Voters.Count;
+                }
+
+                return votes;
+            }
+
             public bool ContainsEffect(AbstractEffect effect) => this.votingElements.Any(e => e.Effect.GetDisplayName(DisplayNameType.STREAM).Equals(effect.GetDisplayName(DisplayNameType.STREAM)));
 
             public void AddEffect(AbstractEffect effect) => this.votingElements.Add(new ChatVotingElement(this.votingElements.Count, effect));
@@ -588,6 +599,11 @@ namespace GTAChaos.Utils
 
                 this.votingElements[effectChoice].AddVoter(username);
                 this.voters[username] = this.votingElements[effectChoice];
+
+                foreach (ChatVotingElement element in this.votingElements)
+                {
+                    element.Percentage = (int)Math.Round((double)element.Voters.Count / this.GetTotalVotes() * 100);
+                }
             }
         }
 
@@ -598,6 +614,8 @@ namespace GTAChaos.Utils
             public AbstractEffect Effect { get; set; }
 
             public HashSet<string> Voters { get; set; }
+
+            public int Percentage { get; set; }
 
             public ChatVotingElement(int id, AbstractEffect effect)
             {
@@ -611,6 +629,8 @@ namespace GTAChaos.Utils
             public AbstractEffect GetEffect() => this.Effect;
 
             public int GetVotes() => this.Voters.Count;
+
+            public int GetPercentage() => this.Percentage;
 
             public bool ContainsVoter(string username) => this.Voters.Contains(username);
 

@@ -33,6 +33,7 @@ namespace GTAChaos.Utils
         List<IVotingElement> GetVotedEffects();
     }
 
+    // TODO: Turn into abstract class
     public interface IVotingElement
     {
         int GetId();
@@ -40,5 +41,7 @@ namespace GTAChaos.Utils
         AbstractEffect GetEffect();
 
         int GetVotes();
+
+        int GetPercentage();
     }
 }

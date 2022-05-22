@@ -44,7 +44,6 @@ namespace GTAChaos.Utils
         public bool StreamMajorityVotes = true;
 
         // Experimental
-        public bool Experimental_EnableAllEffects;
         public bool Experimental_RunEffectOnAutoStart;
         public string Experimental_EffectName;
         public bool Experimental_YouTubeConnection;

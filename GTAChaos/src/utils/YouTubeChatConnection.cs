@@ -471,9 +471,9 @@ namespace GTAChaos.Utils
 
                 effects = new string[]
                 {
-                    undetermined ? "???" : votingElements[0].Effect.GetDisplayName(DisplayNameType.STREAM),
-                    undetermined ? "???" : votingElements[1].Effect.GetDisplayName(DisplayNameType.STREAM),
-                    undetermined ? "???" : votingElements[2].Effect.GetDisplayName(DisplayNameType.STREAM)
+                    undetermined ? "???" : votingElements[0].Effect.GetDisplayName(),
+                    undetermined ? "???" : votingElements[1].Effect.GetDisplayName(),
+                    undetermined ? "???" : votingElements[2].Effect.GetDisplayName()
                 };
 
                 votes = new int[]

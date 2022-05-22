@@ -221,7 +221,6 @@ namespace GTAChaos.Forms
             this.numericUpDownTwitchPollsBitsCost.Value = Config.Instance().TwitchPollsBitsCost;
             this.numericUpDownTwitchPollsChannelPointsCost.Value = Config.Instance().TwitchPollsChannelPointsCost;
 
-            this.checkBoxExperimental_EnableAllEffects.Checked = Config.Instance().Experimental_EnableAllEffects;
             this.checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
             this.textBoxExperimentalEffectName.Text = Config.Instance().Experimental_EffectName;
             this.checkBoxExperimentalYouTubeConnection.Checked = Config.Instance().Experimental_YouTubeConnection;
@@ -257,30 +256,19 @@ namespace GTAChaos.Forms
         {
             if (effect == null)
             {
-                if (Config.Instance().Experimental_EnableAllEffects)
+                effect = EffectDatabase.GetRandomEffect(true);
+                if (Shared.Multiplayer != null)
                 {
-                    foreach (WeightedRandomBag<AbstractEffect>.Entry entry in EffectDatabase.EnabledEffects.Get())
-                    {
-                        EffectDatabase.RunEffect(entry.item);
-                        entry.item?.ResetStreamVoter();
-                    }
+                    Shared.Multiplayer.SendEffect(effect);
                 }
                 else
                 {
-                    effect = EffectDatabase.GetRandomEffect(true);
-                    if (Shared.Multiplayer != null)
-                    {
-                        Shared.Multiplayer.SendEffect(effect);
-                    }
-                    else
-                    {
-                        effect = EffectDatabase.RunEffect(effect);
-                        effect?.ResetStreamVoter();
+                    effect = EffectDatabase.RunEffect(effect);
+                    effect?.ResetStreamVoter();
 
-                        if (effect != null)
-                        {
-                            this.AddEffectToListBox(effect);
-                        }
+                    if (effect != null)
+                    {
+                        this.AddEffectToListBox(effect);
                     }
                 }
             }
@@ -1492,8 +1480,6 @@ namespace GTAChaos.Forms
                 this.textBoxMultiplayerChat.Text = "";
             }
         }
-
-        private void CheckBoxExperimental_EnableAllEffects_CheckedChanged(object sender, EventArgs e) => Config.Instance().Experimental_EnableAllEffects = this.checkBoxExperimental_EnableAllEffects.Checked;
 
         private void CheckBoxExperimental_EnableEffectOnAutoStart_CheckedChanged(object sender, EventArgs e) => Config.Instance().Experimental_RunEffectOnAutoStart = this.checkBoxExperimental_RunEffectOnAutoStart.Checked;
 

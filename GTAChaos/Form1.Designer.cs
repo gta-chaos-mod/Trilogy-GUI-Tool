@@ -73,6 +73,7 @@ namespace GTAChaos.Forms
             this.buttonEffectsToggleAll = new System.Windows.Forms.Button();
             this.enabledEffectsView = new System.Windows.Forms.TreeView();
             this.tabSettings = new System.Windows.Forms.TabPage();
+            this.checkBoxSettingsPlayAudioSequentially = new System.Windows.Forms.CheckBox();
             this.checkBoxPlayAudioForEffects = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxSeed = new System.Windows.Forms.TextBox();
@@ -93,7 +94,6 @@ namespace GTAChaos.Forms
             this.buttonExperimentalRunEffect = new System.Windows.Forms.Button();
             this.textBoxExperimentalEffectName = new System.Windows.Forms.TextBox();
             this.checkBoxExperimental_RunEffectOnAutoStart = new System.Windows.Forms.CheckBox();
-            this.checkBoxExperimental_EnableAllEffects = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoStart = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,7 +107,6 @@ namespace GTAChaos.Forms
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
-            this.checkBoxSettingsPlayAudioSequentially = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabStream.SuspendLayout();
@@ -619,6 +618,21 @@ namespace GTAChaos.Forms
             this.tabSettings.TabIndex = 3;
             this.tabSettings.Text = "Settings";
             // 
+            // checkBoxSettingsPlayAudioSequentially
+            // 
+            this.checkBoxSettingsPlayAudioSequentially.AutoSize = true;
+            this.checkBoxSettingsPlayAudioSequentially.Checked = true;
+            this.checkBoxSettingsPlayAudioSequentially.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSettingsPlayAudioSequentially.Location = new System.Drawing.Point(9, 55);
+            this.checkBoxSettingsPlayAudioSequentially.Name = "checkBoxSettingsPlayAudioSequentially";
+            this.checkBoxSettingsPlayAudioSequentially.Size = new System.Drawing.Size(136, 17);
+            this.checkBoxSettingsPlayAudioSequentially.TabIndex = 9;
+            this.checkBoxSettingsPlayAudioSequentially.Text = "Play Audio Sequentially";
+            this.toolTipHandler.SetToolTip(this.checkBoxSettingsPlayAudioSequentially, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
+        " play.");
+            this.checkBoxSettingsPlayAudioSequentially.UseVisualStyleBackColor = true;
+            this.checkBoxSettingsPlayAudioSequentially.CheckedChanged += new System.EventHandler(this.CheckBoxSettingsPlayAudioSequentially_CheckedChanged);
+            // 
             // checkBoxPlayAudioForEffects
             // 
             this.checkBoxPlayAudioForEffects.AutoSize = true;
@@ -784,7 +798,6 @@ namespace GTAChaos.Forms
             this.tabExperimental.Controls.Add(this.buttonExperimentalRunEffect);
             this.tabExperimental.Controls.Add(this.textBoxExperimentalEffectName);
             this.tabExperimental.Controls.Add(this.checkBoxExperimental_RunEffectOnAutoStart);
-            this.tabExperimental.Controls.Add(this.checkBoxExperimental_EnableAllEffects);
             this.tabExperimental.Location = new System.Drawing.Point(4, 22);
             this.tabExperimental.Name = "tabExperimental";
             this.tabExperimental.Padding = new System.Windows.Forms.Padding(3);
@@ -795,7 +808,7 @@ namespace GTAChaos.Forms
             // checkBoxExperimentalYouTubeConnection
             // 
             this.checkBoxExperimentalYouTubeConnection.AutoSize = true;
-            this.checkBoxExperimentalYouTubeConnection.Location = new System.Drawing.Point(6, 52);
+            this.checkBoxExperimentalYouTubeConnection.Location = new System.Drawing.Point(6, 29);
             this.checkBoxExperimentalYouTubeConnection.Name = "checkBoxExperimentalYouTubeConnection";
             this.checkBoxExperimentalYouTubeConnection.Size = new System.Drawing.Size(127, 17);
             this.checkBoxExperimentalYouTubeConnection.TabIndex = 16;
@@ -826,7 +839,7 @@ namespace GTAChaos.Forms
             // checkBoxExperimental_RunEffectOnAutoStart
             // 
             this.checkBoxExperimental_RunEffectOnAutoStart.AutoSize = true;
-            this.checkBoxExperimental_RunEffectOnAutoStart.Location = new System.Drawing.Point(6, 29);
+            this.checkBoxExperimental_RunEffectOnAutoStart.Location = new System.Drawing.Point(6, 6);
             this.checkBoxExperimental_RunEffectOnAutoStart.Name = "checkBoxExperimental_RunEffectOnAutoStart";
             this.checkBoxExperimental_RunEffectOnAutoStart.Size = new System.Drawing.Size(157, 17);
             this.checkBoxExperimental_RunEffectOnAutoStart.TabIndex = 12;
@@ -835,19 +848,6 @@ namespace GTAChaos.Forms
         "tarting the\r\ntimer.\r\nDoesn\'t work for Twitch mode.");
             this.checkBoxExperimental_RunEffectOnAutoStart.UseVisualStyleBackColor = true;
             this.checkBoxExperimental_RunEffectOnAutoStart.Click += new System.EventHandler(this.CheckBoxExperimental_EnableEffectOnAutoStart_CheckedChanged);
-            // 
-            // checkBoxExperimental_EnableAllEffects
-            // 
-            this.checkBoxExperimental_EnableAllEffects.AutoSize = true;
-            this.checkBoxExperimental_EnableAllEffects.Location = new System.Drawing.Point(6, 6);
-            this.checkBoxExperimental_EnableAllEffects.Name = "checkBoxExperimental_EnableAllEffects";
-            this.checkBoxExperimental_EnableAllEffects.Size = new System.Drawing.Size(182, 17);
-            this.checkBoxExperimental_EnableAllEffects.TabIndex = 11;
-            this.checkBoxExperimental_EnableAllEffects.Text = "Enable Selected Effects At Once";
-            this.toolTipHandler.SetToolTip(this.checkBoxExperimental_EnableAllEffects, "When the cooldown runs out it\r\nwill enable all effects that were\r\nselected.\r\nUsef" +
-        "ul for \"constant effect\" runs.");
-            this.checkBoxExperimental_EnableAllEffects.UseVisualStyleBackColor = true;
-            this.checkBoxExperimental_EnableAllEffects.Click += new System.EventHandler(this.CheckBoxExperimental_EnableAllEffects_CheckedChanged);
             // 
             // checkBoxAutoStart
             // 
@@ -949,21 +949,6 @@ namespace GTAChaos.Forms
             this.buttonSwitchMode.Text = "Stream";
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
-            // 
-            // checkBoxSettingsPlayAudioSequentially
-            // 
-            this.checkBoxSettingsPlayAudioSequentially.AutoSize = true;
-            this.checkBoxSettingsPlayAudioSequentially.Checked = true;
-            this.checkBoxSettingsPlayAudioSequentially.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSettingsPlayAudioSequentially.Location = new System.Drawing.Point(9, 55);
-            this.checkBoxSettingsPlayAudioSequentially.Name = "checkBoxSettingsPlayAudioSequentially";
-            this.checkBoxSettingsPlayAudioSequentially.Size = new System.Drawing.Size(136, 17);
-            this.checkBoxSettingsPlayAudioSequentially.TabIndex = 9;
-            this.checkBoxSettingsPlayAudioSequentially.Text = "Play Audio Sequentially";
-            this.toolTipHandler.SetToolTip(this.checkBoxSettingsPlayAudioSequentially, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
-        " play.");
-            this.checkBoxSettingsPlayAudioSequentially.UseVisualStyleBackColor = true;
-            this.checkBoxSettingsPlayAudioSequentially.CheckedChanged += new System.EventHandler(this.CheckBoxSettingsPlayAudioSequentially_CheckedChanged);
             // 
             // Form1
             // 
@@ -1068,7 +1053,6 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.TabPage tabExperimental;
         private System.Windows.Forms.ToolStripMenuItem experimentalToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkBoxExperimental_RunEffectOnAutoStart;
-        private System.Windows.Forms.CheckBox checkBoxExperimental_EnableAllEffects;
         private System.Windows.Forms.Button buttonExperimentalRunEffect;
         private System.Windows.Forms.TextBox textBoxExperimentalEffectName;
         private System.Windows.Forms.CheckBox checkBoxAutoStart;

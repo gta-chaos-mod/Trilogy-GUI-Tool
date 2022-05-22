@@ -78,7 +78,7 @@ namespace GTAChaos.Effects
             return this;
         }
 
-        public AbstractEffect DisableTwitch()
+        public AbstractEffect DisableStream()
         {
             this.streamEnabled = false;
             return this;

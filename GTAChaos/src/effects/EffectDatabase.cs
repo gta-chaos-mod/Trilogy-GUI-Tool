@@ -231,7 +231,14 @@ namespace GTAChaos.Effects
 
                 //---------------- Custom Effects ---------------- //
                 // --- Generic --- //
+                AddEffect(new FunctionEffect(Category.CustomEffects, "0.5x Timer Speed", "LetsDragThisOutABit", "half_timer_speed", -1, 1.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "2x Timer Speed", "LetsDoThisABitFaster", "double_timer_speed", -1, 1.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "5x Timer Speed", "LetsDoThisSuperFast", "quintuple_timer_speed", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "clear_active_effects"), 3.0); // Clear Active Effects
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Hide Chaos UI", "AsIfNothingEverHappened", "hide_chaos_ui", -1, 1.0f));
+                AddEffect(new RapidFireEffect("Rapid-Fire", "SystemOverload"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Reset Effect Timers", "HistoryRepeatsItself", "reset_effect_timers"));
+
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delayed Screen", "WhatsWrongWithThisMonitor", "delayed_screen", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Game Crash", "TooManyModsInstalled", "fake_crash").SetDisplayName(DisplayNameType.UI, "Fake Crash").DisableRapidFire());
                 //AddEffect(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen", -1, 1.0f)); // Greyscale Screen

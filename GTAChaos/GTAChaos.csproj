@@ -339,6 +339,7 @@
     <Compile Include="src\effects\EffectDatabase.cs" />
     <Compile Include="src\effects\extra\SpawnVehicleEffect.cs" />
     <Compile Include="src\effects\impl\FakeCrashEffect.cs" />
+    <Compile Include="src\effects\impl\RapidFireEffect.cs" />
     <Compile Include="src\effects\impl\FakeTeleportEffect.cs" />
     <Compile Include="src\effects\extra\TeleportationEffect.cs" />
     <Compile Include="src\effects\extra\WeatherEffect.cs" />

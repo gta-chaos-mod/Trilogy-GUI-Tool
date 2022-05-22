@@ -317,6 +317,19 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "TP All NPCs To Player", "WhoAreYouPeople", "teleport_all_npcs_to_player"));
                 // ------------ //
 
+                // --- Traffic --- //
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Traffic Is Bobcat", "BobcatAllAround", "vehicle_spawns_bobcat"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Traffic Is Caddy", "CaddyAllAround", "vehicle_spawns_caddy"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Traffic Is Combine", "CombineAllAround", "vehicle_spawns_combine"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Traffic Is Infernus", "InfernusAllAround", "vehicle_spawns_infernus"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Traffic Is Kart", "KartAllAround", "vehicle_spawns_kart"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Traffic Is Monster", "MonsterAllAround", "vehicle_spawns_monster"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Traffic Is Mr. Whoopee", "MrWhoopeeAllAround", "vehicle_spawns_whoopee"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Traffic Is Mower", "MowerAllAround", "vehicle_spawns_mower"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Traffic Is Rhino", "RhinoAllAround", "vehicle_spawns_rhino"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Traffic Is Vortex", "VortexAllAround", "vehicle_spawns_vortex"));
+                // --------------- //
+
                 // --- Player --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects, "1% Suicide", "TheChanceOfSuddenDeath", "one_percent_suicide"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "-Health, -Armor, -$250k", "INeedSomeHindrance", "anti_health_armor_money"));

@@ -309,6 +309,7 @@ namespace GTAChaos.Effects
                 // ----------- //
 
                 // --- NPCs --- //
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Cops Everywhere", "TooMuchLawAndOrder", "cops_everywhere"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Disarm All NPCs", "LeaveTheGunsToMe", "disarm_all_npcs"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Explode All NPCs", "BoomGoesTheDynamite", "explode_all_npcs").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Give NPCs An RPG", "RocketParty", "give_npcs_an_rpg"));

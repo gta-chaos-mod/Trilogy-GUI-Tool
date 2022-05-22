@@ -242,6 +242,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Visible Water", "OceanManGoneAgain", "no_visible_water"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Water Physics", "FastTrackToAtlantis", "no_water_physics"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pause", "LetsPause", "pause"));
+                //AddEffect(new FunctionEffect(Category.CustomEffects, "Rainbow Weapons", "ColorfulFirepower", "rainbow_weapons"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "reload_autosave").DisableRapidFire()); // Reload Autosave
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Roll Credits", "WaitItsOver", "roll_credits")); // Roll Credits - Rolls the credits but only visually!
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Screen Flip", "MuscleMemoryMangler", "screen_flip"));
@@ -300,6 +301,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "One Bullet Magazines", "OneInTheChamber", "one_bullet_magazines"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Ped One Hit K.O.", "ILikeToLiveDangerously", "one_hit_ko").DisableRapidFire()); // One Hit K.O.
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Peds Explode If Run Over", "ExplosivePeds", "peds_explode_when_run_over")); // Peds Explode If Run Over
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rainbow Peds", "TastyUnicornPoop", "rainbow_peds"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsAllowed", "remove_all_weapons")); // Remove all weapons
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Set Everyone On Fire", "HotPotato", "set_everyone_on_fire").DisableRapidFire()); // Set everyone on fire
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Speeeeeen!", "Speeeeeen", "rotating_peds"));

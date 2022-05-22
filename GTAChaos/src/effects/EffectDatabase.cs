@@ -314,7 +314,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Explode All NPCs", "BoomGoesTheDynamite", "explode_all_npcs").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Give NPCs An RPG", "RocketParty", "give_npcs_an_rpg"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Launch All NPCs", "UpUpAndAway", "launch_all_npcs"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "TP All NPCs To Player", "WhoAreYouPeople", "teleport_all_npcs_to_player"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Teleport All NPCs To Player", "WhoAreYouPeople", "teleport_all_npcs_to_player").SetDisplayName(DisplayNameType.STREAM, "TP All NPCs To Player"));
                 // ------------ //
 
                 // --- Traffic --- //

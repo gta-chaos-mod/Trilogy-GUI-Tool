@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace GTAChaos.Utils
 {
@@ -35,7 +36,7 @@ namespace GTAChaos.Utils
             {
                 if (this.IsExpired())
                 {
-                    OnFinished?.Invoke(this, EventArgs.Empty);
+                    this.Finish();
                     return;
                 }
 
@@ -81,16 +82,19 @@ namespace GTAChaos.Utils
 
                 if (stream == null)
                 {
+                    this.Finish();
                     return;
                 }
 
                 WaveOutEvent outputDevice = new();
                 outputDevice.Init(stream);
-                outputDevice.PlaybackStopped += (object sender, StoppedEventArgs e) => OnFinished?.Invoke(this, e);
+                outputDevice.PlaybackStopped += (object sender, StoppedEventArgs e) => this.Finish();
 
                 outputDevice.Volume = 1.0f;
                 outputDevice.Play();
             }
+
+            private void Finish() => OnFinished?.Invoke(this, new EventArgs());
         }
 
         public static readonly AudioPlayer INSTANCE = new();
@@ -113,7 +117,7 @@ namespace GTAChaos.Utils
                 this.PlayNext();
             };
 
-            audio.Play();
+            Task.Run(() => audio.Play());
         }
 
         public void PlayAudio(string path, bool playNow = false)
@@ -122,7 +126,7 @@ namespace GTAChaos.Utils
 
             if (!Config.Instance().PlayAudioSequentially || playNow)
             {
-                audio.Play();
+                Task.Run(() => audio.Play());
             }
             else
             {

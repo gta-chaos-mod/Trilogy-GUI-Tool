@@ -29,9 +29,11 @@ namespace GTAChaos.Utils
                 this.Expiry = DateTime.Now.AddSeconds(30);
             }
 
+            public bool IsExpired() => this.Expiry < DateTime.Now;
+
             public void Play()
             {
-                if (DateTime.Now > this.Expiry)
+                if (this.IsExpired())
                 {
                     OnFinished?.Invoke(this, EventArgs.Empty);
                     return;
@@ -97,6 +99,8 @@ namespace GTAChaos.Utils
 
         private void PlayNext()
         {
+            this.queue.RemoveAll(a => a.IsExpired());
+
             if (this.queue.Count == 0)
             {
                 return;

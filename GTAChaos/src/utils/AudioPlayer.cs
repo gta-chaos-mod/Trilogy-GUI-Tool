@@ -103,6 +103,11 @@ namespace GTAChaos.Utils
 
         private void PlayNext()
         {
+            if (!Config.Instance().PlayAudioForEffects)
+            {
+                this.queue.Clear();
+            }
+
             this.queue.RemoveAll(a => a.IsExpired());
 
             if (this.queue.Count == 0)

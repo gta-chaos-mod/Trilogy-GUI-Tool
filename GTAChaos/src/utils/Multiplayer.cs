@@ -361,12 +361,7 @@ namespace GTAChaos.Utils
 
         public void SendEffect(AbstractEffect effect, int _duration = -1)
         {
-            int duration = effect.Duration > 0 ? effect.Duration : Config.GetEffectDuration();
-
-            if (_duration != -1)
-            {
-                duration = _duration; // Always Override
-            }
+            int duration = effect.GetDuration(_duration);
 
             MessageEffect msg = new()
             {

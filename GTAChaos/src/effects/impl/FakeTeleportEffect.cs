@@ -7,8 +7,8 @@ namespace GTAChaos.Effects
     {
         private readonly string EffectID = "effect_fake_teleport";
 
-        public FakeTeleportEffect(string description, string word, int duration)
-            : base(Category.Teleportation, description, word, duration) => this.DisableRapidFire();
+        public FakeTeleportEffect(string description, string word)
+            : base(Category.Teleportation, description, word) => this.DisableRapidFire();
 
         public override string GetID() => this.EffectID;
 

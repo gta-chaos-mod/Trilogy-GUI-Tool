@@ -135,7 +135,7 @@ namespace GTAChaos.Effects
         {
             if (this.Duration != -1)
             {
-                duration = this.Duration;
+                duration = Math.Min(Config.GetEffectDuration(), this.Duration);
             }
             else
             {

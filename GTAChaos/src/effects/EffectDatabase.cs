@@ -231,9 +231,9 @@ namespace GTAChaos.Effects
 
                 //---------------- Custom Effects ---------------- //
                 // --- Generic --- //
-                AddEffect(new FunctionEffect(Category.CustomEffects, "0.5x Timer Speed", "LetsDragThisOutABit", "half_timer_speed", -1, 1.0f));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "2x Timer Speed", "LetsDoThisABitFaster", "double_timer_speed", -1, 1.0f));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "5x Timer Speed", "LetsDoThisSuperFast", "quintuple_timer_speed", -1, 1.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "0.5x Effect Speed", "LetsDragThisOutABit", "half_timer_speed", -1, 1.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "2x Effect Speed", "LetsDoThisABitFaster", "double_timer_speed", -1, 1.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "5x Effect Speed", "LetsDoThisSuperFast", "quintuple_timer_speed", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "clear_active_effects"), 3.0); // Clear Active Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Hide Chaos UI", "AsIfNothingEverHappened", "hide_chaos_ui", -1, 1.0f));
                 AddEffect(new RapidFireEffect("Rapid-Fire", "SystemOverload"));
@@ -296,7 +296,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Peds", "BackwardsPeds", "backwards_peds"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Big Heads", "BigHeadsMode", "big_heads"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Disable All Weapon Damage", "TruePacifist", "disable_all_weapon_damage")); // Disable all Weapon Damage
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Don't Lose Your Head", "DontLoseYourHead", "dont_lose_your_head"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Don't Lose Your Head", "DontLoseYourHead", "dont_lose_your_head", -1, 0.5f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Everybody Bleed Now!", "EverybodyBleedNow", "everybody_bleed_now", -1, 1.5f)); // Everybody bleed now!
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Everyone Leaves All Cars", "ImTiredOfDriving", "everyone_leaves_all_vehicles"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Hold The F Up...", "HoldTheFUp", "hold_the_f_up").SetDisplayName(DisplayNameType.STREAM, "Hold The F*** Up..."));
@@ -450,7 +450,7 @@ namespace GTAChaos.Effects
                 // -------------- //
 
                 // --- Teleport --- //
-                AddEffect(new FakeTeleportEffect("Fake Teleport", "HahaGotYourNose", 1000 * 5)); // Fake Teleport
+                AddEffect(new FakeTeleportEffect("Fake Teleport", "HahaGotYourNose")); // Fake Teleport
                 AddEffect(new FunctionEffect(Category.Teleportation, "Random Teleport", "LetsGoSightseeing", "random_teleport").DisableRapidFire()); // Random Teleport - Teleports CJ to a random location on the map
                 AddEffect(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet).SetDisplayName(DisplayNameType.STREAM, "TP Home"));
                 AddEffect(new TeleportationEffect("Teleport To A Bridge", "BringMeToABridge", Location.SFBridge).SetDisplayName(DisplayNameType.STREAM, "TP To A Bridge"));
@@ -461,7 +461,7 @@ namespace GTAChaos.Effects
                 AddEffect(new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower).SetDisplayName(DisplayNameType.STREAM, "TP To A Tower"));
                 AddEffect(new TeleportationEffect("Teleport To Big Ear", "BringMeToBigEar", Location.LVSatellite).SetDisplayName(DisplayNameType.STREAM, "TP To Big Ear"));
                 AddEffect(new FunctionEffect(Category.Teleportation, "Teleport To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Teleport To Marker
-                AddEffect(new FunctionEffect(Category.Teleportation, "Teleport To Liberty City", "LetsTalkAboutTheMultiverse", "teleport_to_liberty_city", 1000 * 10).DisableRapidFire()); // Teleport To Liberty City
+                AddEffect(new FunctionEffect(Category.Teleportation, "Teleport To Liberty City", "LetsTalkAboutTheMultiverse", "teleport_to_liberty_city").DisableRapidFire()); // Teleport To Liberty City
                 AddEffect(new TeleportationEffect("Teleport To The Docks", "BringMeToTheDocks", Location.LSDocks).SetDisplayName(DisplayNameType.STREAM, "TP To The Docks"));
                 AddEffect(new TeleportationEffect("Teleport To The LS Airport", "BringMeToTheLSAirport", Location.LSAirport).SetDisplayName(DisplayNameType.STREAM, "TP To The LS Airport"));
                 AddEffect(new TeleportationEffect("Teleport To The LV Airport", "BringMeToTheLVAirport", Location.LVAirport).SetDisplayName(DisplayNameType.STREAM, "TP To The LV Airport"));

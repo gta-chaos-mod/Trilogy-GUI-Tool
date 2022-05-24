@@ -123,7 +123,6 @@ namespace GTAChaos.Effects
             }
         }
 
-        // TODO: Somehow not playing audio for effects in voting?
         public virtual void RunEffect(int seed = -1, int _duration = -1)
         {
             if (Config.Instance().PlayAudioForEffects && Shared.StreamVotingMode != Shared.VOTING_MODE.RAPID_FIRE)

@@ -48,7 +48,7 @@ namespace GTAChaos.Utils
                 // ogg / Vorbis
                 try
                 {
-                    stream = new VorbisWaveReader($"{this.Path}.ogg");
+                    stream = new VorbisWaveReader($"audio/{this.Path}.ogg");
                 }
                 catch { }
 
@@ -59,7 +59,7 @@ namespace GTAChaos.Utils
                     {
                         try
                         {
-                            stream = new MediaFoundationReader($"{this.Path}.{format}");
+                            stream = new MediaFoundationReader($"audio/{this.Path}.{format}");
 
                             if (stream != null)
                             {

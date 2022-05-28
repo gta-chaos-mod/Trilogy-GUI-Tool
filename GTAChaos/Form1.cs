@@ -117,6 +117,8 @@ namespace GTAChaos.Forms
 
                 Config.SetInstance(serializer.Deserialize<Config>(reader));
                 RandomHandler.SetSeed(Config.Instance().Seed);
+
+                AudioPlayer.INSTANCE.SetAudioVolume(Config.Instance().AudioVolume);
             }
             catch (Exception) { }
 
@@ -128,6 +130,8 @@ namespace GTAChaos.Forms
         {
             try
             {
+                Config.Instance().AudioVolume = AudioPlayer.INSTANCE.GetAudioVolume();
+
                 Config.Instance().EnabledEffects.Clear();
                 foreach (WeightedRandomBag<AbstractEffect>.Entry entry in EffectDatabase.EnabledEffects.Get())
                 {

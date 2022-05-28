@@ -86,11 +86,11 @@ namespace GTAChaos.Utils
                     return;
                 }
 
-                WaveOutEvent outputDevice = new();
+                WaveOutEvent outputDevice = INSTANCE.GetWaveOutEvent();
                 outputDevice.Init(stream);
                 outputDevice.PlaybackStopped += (object sender, StoppedEventArgs e) => this.Finish();
 
-                outputDevice.Volume = 1.0f;
+                //outputDevice.Volume = Config.Instance().AudioVolume;
                 outputDevice.Play();
             }
 
@@ -142,5 +142,16 @@ namespace GTAChaos.Utils
                 }
             }
         }
+
+        private WaveOutEvent GetWaveOutEvent() => new();
+
+        public void SetAudioVolume(float volume)
+        {
+            volume = Math.Max(0, Math.Min(volume, 1));
+
+            this.GetWaveOutEvent().Volume = volume;
+        }
+
+        public float GetAudioVolume() => this.GetWaveOutEvent().Volume;
     }
 }

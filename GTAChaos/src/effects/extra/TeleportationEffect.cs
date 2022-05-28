@@ -26,7 +26,7 @@ namespace GTAChaos.Effects
                 posX = this.location.X,
                 posY = this.location.Y,
                 posZ = this.location.Z
-            }, this.GetDuration(duration), this.GetDisplayName(), this.GetVoter(), this.GetRapidFire());
+            }, this.GetDuration(duration), this.GetDisplayName(), this.GetSubtext(), this.GetRapidFire());
         }
     }
 }

@@ -28,7 +28,7 @@ namespace GTAChaos.Effects
             WebsocketHandler.INSTANCE.SendEffectToGame(this.EffectID, new
             {
                 seed
-            }, this.GetDuration(duration), this.GetDisplayName(), this.GetVoter(), this.GetRapidFire());
+            }, this.GetDuration(duration), this.GetDisplayName(), this.GetSubtext(), this.GetRapidFire());
         }
     }
 }

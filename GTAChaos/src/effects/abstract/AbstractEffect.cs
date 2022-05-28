@@ -19,7 +19,7 @@ namespace GTAChaos.Effects
         public readonly string Word;
         public readonly int Duration;
         private float Multiplier;
-        private string StreamVoter = "";
+        private string Subtext = "";
         private int rapidFire = 1;
         private bool streamEnabled = true;
         private string audioName = "";
@@ -58,17 +58,17 @@ namespace GTAChaos.Effects
             // We technically set all names already but let's safe-guard this anyway
             this.DisplayNames.ContainsKey(type) ? this.DisplayNames[type] : this.DisplayNames[DisplayNameType.GAME];
 
-        public string GetVoter() => this.StreamVoter;
+        public string GetSubtext() => this.Subtext;
 
-        public AbstractEffect SetStreamVoter(string voter)
+        public AbstractEffect SetSubtext(string subtext)
         {
-            this.StreamVoter = voter;
+            this.Subtext = subtext;
             return this;
         }
 
-        public AbstractEffect ResetStreamVoter()
+        public AbstractEffect ResetSubtext()
         {
-            this.StreamVoter = "";
+            this.Subtext = "";
             return this;
         }
 

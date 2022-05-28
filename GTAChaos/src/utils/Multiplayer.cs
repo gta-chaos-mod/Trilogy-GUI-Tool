@@ -49,7 +49,7 @@ namespace GTAChaos.Utils
     {
         public string Word;
         public int Duration;
-        public string Voter;
+        public string Subtext;
         public int Seed;
     }
 
@@ -133,7 +133,7 @@ namespace GTAChaos.Utils
         public int Type = 21;
         public string Word;
         public int Duration;
-        public string Voter;
+        public string Subtext;
         public int Seed;
     }
 
@@ -303,7 +303,7 @@ namespace GTAChaos.Utils
                     {
                         Word = effect.Word,
                         Duration = effect.Duration,
-                        Voter = effect.Voter,
+                        Subtext = effect.Subtext,
                         Seed = effect.Seed
                     };
 
@@ -367,7 +367,7 @@ namespace GTAChaos.Utils
             {
                 Word = effect.Word,
                 Duration = duration,
-                Voter = effect.GetVoter(),
+                Subtext = effect.GetSubtext(),
                 Seed = RandomHandler.Next(9999999)
             };
             this.socket?.Send(JsonConvert.SerializeObject(msg));

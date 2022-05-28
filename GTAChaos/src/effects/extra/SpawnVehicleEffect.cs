@@ -39,7 +39,7 @@ namespace GTAChaos.Effects
             WebsocketHandler.INSTANCE.SendEffectToGame("effect_spawn_vehicle", new
             {
                 vehicleID
-            }, this.GetDuration(duration), this.GetDisplayName(), this.GetVoter(), this.GetRapidFire());
+            }, this.GetDuration(duration), this.GetDisplayName(), this.GetSubtext(), this.GetRapidFire());
         }
     }
 }

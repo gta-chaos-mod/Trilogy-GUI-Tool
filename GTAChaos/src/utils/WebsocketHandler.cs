@@ -143,7 +143,7 @@ namespace GTAChaos.Utils
             this.SendDataToWebsocket(jsonObject);
         }
 
-        public void SendEffectToGame(string effectID, object effectData = null, int duration = -1, string displayName = "", string streamVoter = "", bool rapidFire = false)
+        public void SendEffectToGame(string effectID, object effectData = null, int duration = -1, string displayName = "", string subtext = "", bool rapidFire = false)
         {
             if (rapidFire)
             {
@@ -158,18 +158,10 @@ namespace GTAChaos.Utils
                     effectID,
                     effectData = effectData ?? (new { }),
                     duration,
-                    displayName = displayName.IsNullOrEmpty() ? effectID : displayName
+                    displayName = displayName.IsNullOrEmpty() ? effectID : displayName,
+                    subtext
                 }
             });
-
-            if (!streamVoter.IsNullOrEmpty())
-            {
-                jsonObject["data"]["twitchData"] = JObject.FromObject(new
-                {
-                    voter = streamVoter
-                    // TODO: effectPercentage = XYZ (so it can show "Voter (32%)" ingame perhaps - Issue 106 on GitHub)
-                });
-            }
 
             // TODO: Implement JSON data in Crowd Control like this
             /*

@@ -264,7 +264,7 @@ namespace GTAChaos.Forms
                 else
                 {
                     effect = EffectDatabase.RunEffect(effect);
-                    effect?.ResetStreamVoter();
+                    effect?.ResetSubtext();
 
                     if (effect != null)
                     {
@@ -1435,13 +1435,13 @@ namespace GTAChaos.Forms
                 AbstractEffect effect = EffectDatabase.GetByWord(args.Word);
                 if (effect != null)
                 {
-                    if (string.IsNullOrEmpty(args.Voter) || args.Voter == "N/A")
+                    if (string.IsNullOrEmpty(args.Subtext) || args.Subtext == "N/A")
                     {
-                        effect.ResetStreamVoter();
+                        effect.ResetSubtext();
                     }
                     else
                     {
-                        effect.SetStreamVoter(args.Voter);
+                        effect.SetSubtext(args.Subtext);
                     }
 
                     EffectDatabase.RunEffect(effect, args.Seed, args.Duration);

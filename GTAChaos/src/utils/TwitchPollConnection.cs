@@ -339,7 +339,7 @@ namespace GTAChaos.Utils
             List<IVotingElement> elements = Config.Instance().StreamMajorityVotes ? this.effectVoting.GetMajorityVotes() : this.effectVoting.GetTrulyRandomVotes();
             foreach (IVotingElement e in elements)
             {
-                e.GetEffect().SetStreamVoter($"{e.GetPercentage()}%");
+                e.GetEffect().SetSubtext($"{e.GetPercentage()}%");
             }
 
             this.lastChoice = elements.Count > 1 ? -1 : elements.First().GetId();
@@ -388,7 +388,7 @@ namespace GTAChaos.Utils
 
                 this.RapidFireEffect(new RapidFireEventArgs()
                 {
-                    Effect = effect.SetStreamVoter(username)
+                    Effect = effect.SetSubtext(username)
                 });
 
                 this.rapidFireVoters.Add(username);

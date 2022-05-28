@@ -19,7 +19,7 @@ namespace GTAChaos.Effects
             WebsocketHandler.INSTANCE.SendEffectToGame("effect_weather", new
             {
                 this.weatherID
-            }, this.GetDuration(duration), this.GetDisplayName(), this.GetVoter(), this.GetRapidFire());
+            }, this.GetDuration(duration), this.GetDisplayName(), this.GetSubtext(), this.GetRapidFire());
         }
     }
 }

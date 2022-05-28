@@ -19,7 +19,7 @@ namespace GTAChaos.Effects
             WebsocketHandler.INSTANCE.SendEffectToGame(this.EffectID, new
             {
                 realEffectName = "Fake Teleport"
-            }, this.GetDuration(duration), "TP To A Tower", this.GetVoter(), this.GetRapidFire());
+            }, this.GetDuration(duration), "TP To A Tower", this.GetSubtext(), this.GetRapidFire());
         }
     }
 }

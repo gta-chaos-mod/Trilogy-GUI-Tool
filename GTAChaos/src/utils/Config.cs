@@ -47,6 +47,7 @@ namespace GTAChaos.Utils
         public bool Experimental_RunEffectOnAutoStart;
         public string Experimental_EffectName;
         public bool Experimental_YouTubeConnection;
+        public int Experimental_EffectsCooldownNotActivating = 10; // TODO: Different name, show in UI
 
         public static Config Instance()
         {

@@ -69,6 +69,8 @@ namespace GTAChaos.Forms
 
             this.timesUntilRapidFire = new Random().Next(10, 15);
 
+            this.numericUpDownExperimentalEffectCooldown.Maximum = EffectDatabase.Effects.Count;
+
             WebsocketHandler.INSTANCE.ConnectWebsocket();
             WebsocketHandler.INSTANCE.OnSocketMessage += this.OnSocketMessage;
 
@@ -224,6 +226,7 @@ namespace GTAChaos.Forms
             this.checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
             this.textBoxExperimentalEffectName.Text = Config.Instance().Experimental_EffectName;
             this.checkBoxExperimentalYouTubeConnection.Checked = Config.Instance().Experimental_YouTubeConnection;
+            this.numericUpDownExperimentalEffectCooldown.Value = Math.Min(Config.Instance().Experimental_EffectsCooldownNotActivating, this.numericUpDownExperimentalEffectCooldown.Maximum);
 
             this.textBoxSeed.Text = Config.Instance().Seed;
 
@@ -717,6 +720,7 @@ namespace GTAChaos.Forms
             this.elapsedCount = 0;
             this.stopwatch.Reset();
             this.SetEnabled(true);
+            EffectDatabase.ResetEffectCooldowns();
 
             if (Config.Instance().Experimental_RunEffectOnAutoStart && !Shared.IsStreamMode)
             {
@@ -1087,6 +1091,8 @@ namespace GTAChaos.Forms
                 this.stopwatch.Reset();
                 this.SetEnabled(false);
             }
+
+            EffectDatabase.ResetEffectCooldowns();
         }
 
         private void ButtonSwitchMode_Click(object sender, EventArgs e)
@@ -1112,6 +1118,8 @@ namespace GTAChaos.Forms
             this.progressBarMain.Value = 0;
             this.buttonMainToggle.Enabled = true;
             this.buttonMainToggle.Text = "Start / Resume";
+
+            EffectDatabase.ResetEffectCooldowns();
         }
 
         private void CheckBoxShowLastEffectsMain_CheckedChanged(object sender, EventArgs e)
@@ -1142,6 +1150,8 @@ namespace GTAChaos.Forms
             this.progressBarStream.Value = 0;
             this.buttonStreamToggle.Enabled = this.stream?.IsConnected() == true;
             this.buttonStreamToggle.Text = "Start / Resume";
+
+            EffectDatabase.ResetEffectCooldowns();
         }
 
         private void CheckBoxStream3TimesCooldown_CheckedChanged(object sender, EventArgs e) => Config.Instance().Stream3TimesCooldown = this.checkBoxStream3TimesCooldown.Checked;
@@ -1552,5 +1562,7 @@ namespace GTAChaos.Forms
         }
 
         private void CheckBoxSettingsPlayAudioSequentially_CheckedChanged(object sender, EventArgs e) => Config.Instance().PlayAudioSequentially = this.checkBoxSettingsPlayAudioSequentially.Checked;
+
+        private void NumericUpDownExperimentalEffectCooldown_ValueChanged(object sender, EventArgs e) => Config.Instance().Experimental_EffectsCooldownNotActivating = (int)this.numericUpDownExperimentalEffectCooldown.Value;
     }
 }

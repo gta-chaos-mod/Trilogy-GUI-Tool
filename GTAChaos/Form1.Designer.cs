@@ -90,6 +90,8 @@ namespace GTAChaos.Forms
             this.textBoxMultiplayerServer = new System.Windows.Forms.TextBox();
             this.buttonMultiplayerConnect = new System.Windows.Forms.Button();
             this.tabExperimental = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDownExperimentalEffectCooldown = new System.Windows.Forms.NumericUpDown();
             this.checkBoxExperimentalYouTubeConnection = new System.Windows.Forms.CheckBox();
             this.buttonExperimentalRunEffect = new System.Windows.Forms.Button();
             this.textBoxExperimentalEffectName = new System.Windows.Forms.TextBox();
@@ -117,6 +119,7 @@ namespace GTAChaos.Forms
             this.tabSettings.SuspendLayout();
             this.tabMultiplayer.SuspendLayout();
             this.tabExperimental.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExperimentalEffectCooldown)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -794,6 +797,8 @@ namespace GTAChaos.Forms
             // tabExperimental
             // 
             this.tabExperimental.BackColor = System.Drawing.Color.Transparent;
+            this.tabExperimental.Controls.Add(this.label4);
+            this.tabExperimental.Controls.Add(this.numericUpDownExperimentalEffectCooldown);
             this.tabExperimental.Controls.Add(this.checkBoxExperimentalYouTubeConnection);
             this.tabExperimental.Controls.Add(this.buttonExperimentalRunEffect);
             this.tabExperimental.Controls.Add(this.textBoxExperimentalEffectName);
@@ -804,6 +809,33 @@ namespace GTAChaos.Forms
             this.tabExperimental.Size = new System.Drawing.Size(552, 293);
             this.tabExperimental.TabIndex = 7;
             this.tabExperimental.Text = "Experimental";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 54);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(88, 13);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "Effect Cooldown:";
+            // 
+            // numericUpDownExperimentalEffectCooldown
+            // 
+            this.numericUpDownExperimentalEffectCooldown.Location = new System.Drawing.Point(101, 52);
+            this.numericUpDownExperimentalEffectCooldown.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numericUpDownExperimentalEffectCooldown.Name = "numericUpDownExperimentalEffectCooldown";
+            this.numericUpDownExperimentalEffectCooldown.Size = new System.Drawing.Size(65, 20);
+            this.numericUpDownExperimentalEffectCooldown.TabIndex = 17;
+            this.numericUpDownExperimentalEffectCooldown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownExperimentalEffectCooldown.ValueChanged += new System.EventHandler(this.NumericUpDownExperimentalEffectCooldown_ValueChanged);
             // 
             // checkBoxExperimentalYouTubeConnection
             // 
@@ -982,6 +1014,7 @@ namespace GTAChaos.Forms
             this.tabMultiplayer.PerformLayout();
             this.tabExperimental.ResumeLayout(false);
             this.tabExperimental.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExperimentalEffectCooldown)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1068,6 +1101,8 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxStreamClientID;
         private System.Windows.Forms.CheckBox checkBoxSettingsPlayAudioSequentially;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericUpDownExperimentalEffectCooldown;
     }
 }
 

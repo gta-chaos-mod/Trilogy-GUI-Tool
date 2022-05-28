@@ -3,6 +3,7 @@ using GTAChaos.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace GTAChaos.Effects
 {
@@ -77,6 +78,8 @@ namespace GTAChaos.Effects
     public static class EffectDatabase
     {
         public static WeightedRandomBag<AbstractEffect> Effects { get; } = new();
+
+        public static Dictionary<AbstractEffect, int> EffectCooldowns = new();
 
         private static void AddEffect(AbstractEffect effect, double weight = 1.0)
         {
@@ -248,7 +251,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Nothing", "ThereIsNoEffect", "nothing"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Visible Water", "OceanManGoneAgain", "no_visible_water"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Water Physics", "FastTrackToAtlantis", "no_water_physics"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Pause", "LetsPause", "pause"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Pausing", "LetsPause", "pausing"));
                 //AddEffect(new FunctionEffect(Category.CustomEffects, "Rainbow Weapons", "ColorfulFirepower", "rainbow_weapons"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Reload Autosave", "HereWeGoAgain", "reload_autosave").DisableRapidFire()); // Reload Autosave
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Roll Credits", "WaitItsOver", "roll_credits")); // Roll Credits - Rolls the credits but only visually!
@@ -494,19 +497,50 @@ namespace GTAChaos.Effects
 
         public static AbstractEffect GetByDescription(string description, bool onlyEnabled = false) => (onlyEnabled ? EnabledEffects : Effects).Find(e => string.Equals(description, e.item.GetDisplayName(DisplayNameType.UI), StringComparison.OrdinalIgnoreCase)).item;
 
-        public static AbstractEffect GetRandomEffect(bool onlyEnabled = false)
+        public static AbstractEffect GetRandomEffect(bool onlyEnabled = false, int attempts = 0)
         {
             WeightedRandomBag<AbstractEffect> effects = onlyEnabled ? EnabledEffects : Effects;
-            return effects.Count == 0 ? null : effects.GetRandom(RandomHandler.Random);
+
+            if (effects.Count > 0)
+            {
+                AbstractEffect effect = effects.GetRandom(RandomHandler.Random);
+                if (!onlyEnabled || attempts++ > 10)
+                {
+                    return effect;
+                }
+
+                return EffectCooldowns.ContainsKey(effect) ? GetRandomEffect(onlyEnabled, attempts) : effect;
+            }
+
+            return null;
         }
+
+        public static void CooldownEffects()
+        {
+            foreach (KeyValuePair<AbstractEffect, int> item in EffectCooldowns.ToList())
+            {
+                EffectCooldowns[item.Key]--;
+            }
+
+            IEnumerable<KeyValuePair<AbstractEffect, int>> toRemove = EffectCooldowns.Where(e => e.Value <= 0).ToList();
+            foreach (KeyValuePair<AbstractEffect, int> item in toRemove)
+            {
+                EffectCooldowns.Remove(item.Key);
+            }
+        }
+
+        public static void ResetEffectCooldowns() => EffectCooldowns.Clear();
 
         public static AbstractEffect RunEffect(string id, bool onlyEnabled = true) => RunEffect(GetByID(id, onlyEnabled));
 
         public static AbstractEffect RunEffect(AbstractEffect effect, int seed = -1, int duration = -1)
         {
+            CooldownEffects();
+
             if (effect is not null)
             {
                 effect.RunEffect(seed, duration);
+                EffectCooldowns[effect] = Config.Instance().Experimental_EffectsCooldownNotActivating;
             }
 
             return effect;

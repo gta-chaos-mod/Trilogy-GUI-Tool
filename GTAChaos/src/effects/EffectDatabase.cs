@@ -46,7 +46,7 @@ namespace GTAChaos.Effects
                 randomNumber -= entry.weight;
             }
 
-            return default; //should only happen when there are no entries
+            return this.Count > 0 ? this.entries[0].item : default;
         }
 
         private void CalculateAccumulatedWeight()
@@ -505,10 +505,17 @@ namespace GTAChaos.Effects
 
             if (effects.Count > 0)
             {
+                attempts++;
+
                 AbstractEffect effect = effects.GetRandom(RandomHandler.Random);
-                if (!onlyEnabled || attempts++ > 10)
+                if (!onlyEnabled || attempts > 10)
                 {
                     return effect;
+                }
+
+                if (effect is null)
+                {
+                    return GetRandomEffect(onlyEnabled, attempts);
                 }
 
                 return EffectCooldowns.ContainsKey(effect) ? GetRandomEffect(onlyEnabled, attempts) : effect;

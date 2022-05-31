@@ -413,6 +413,7 @@
     <EmbeddedResource Include="assets\audio\effect_underwater_view.ogg" />
     <EmbeddedResource Include="assets\audio\effect_upside_down_screen.ogg" />
     <EmbeddedResource Include="assets\audio\effect_rotating_peds.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_superhot.ogg" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="icon.ico" />
   </ItemGroup>

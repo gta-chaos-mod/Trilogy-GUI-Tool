@@ -4,6 +4,7 @@ using System;
 
 namespace GTAChaos.Effects
 {
+    // TODO: Random Vehicle not having the name of the vehicle ingame
     internal class SpawnVehicleEffect : AbstractEffect
     {
         private readonly int VehicleID;
@@ -30,16 +31,19 @@ namespace GTAChaos.Effects
         {
             base.RunEffect(seed, duration);
 
+            string gameDisplayName = this.GetDisplayName();
+
             int vehicleID = this.VehicleID;
             if (vehicleID == -1)
             {
                 vehicleID = RandomHandler.Next(400, 611);
+                gameDisplayName = $"Spawn {VehicleNames.GetVehicleName(vehicleID)}";
             }
 
             WebsocketHandler.INSTANCE.SendEffectToGame("effect_spawn_vehicle", new
             {
                 vehicleID
-            }, this.GetDuration(duration), this.GetDisplayName(), this.GetSubtext(), this.GetRapidFire());
+            }, this.GetDuration(duration), gameDisplayName, this.GetSubtext(), this.GetRapidFire());
         }
     }
 }

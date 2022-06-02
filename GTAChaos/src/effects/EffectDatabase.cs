@@ -234,9 +234,9 @@ namespace GTAChaos.Effects
 
                 //---------------- Custom Effects ---------------- //
                 // --- Generic --- //
-                AddEffect(new FunctionEffect(Category.CustomEffects, "0.5x Effect Speed", "LetsDragThisOutABit", "half_timer_speed", -1, 1.0f));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "2x Effect Speed", "LetsDoThisABitFaster", "double_timer_speed", -1, 1.0f));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "5x Effect Speed", "LetsDoThisSuperFast", "quintuple_timer_speed", -1, 1.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "0.5x Effect Speed", "LetsDragThisOutABit", "half_timer_speed", -1, 2.5f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "2x Effect Speed", "LetsDoThisABitFaster", "double_timer_speed", -1, 10.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "5x Effect Speed", "LetsDoThisSuperFast", "quintuple_timer_speed", -1, 25.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "clear_active_effects"), 3.0); // Clear Active Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Hide Chaos UI", "AsIfNothingEverHappened", "hide_chaos_ui"));
                 AddEffect(new RapidFireEffect("Rapid-Fire", "SystemOverload"));

@@ -168,7 +168,6 @@ namespace GTAChaos.Effects
                 AddEffect(new WeatherEffect("Sandstorm", "SandInMyEars", 19)); // Sandstorm
                 AddEffect(new WeatherEffect("Sunny Weather", "PleasantlyWarm", 1)); // Sunny weather
                 AddEffect(new WeatherEffect("Very Sunny Weather", "TooDamnHot", 0)); // Very sunny weather
-                AddEffect(new WeatherEffect("Weather?!", "WhatsThisWeatherAbout", 131, 1000 * 10)); // Weird weather
                 // --------------- //
 
                 // --- Spawning --- //
@@ -384,7 +383,6 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Random Outfit", "ASetOfNewClothes", "random_outfit"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Reset Camera", "NaturalView", "reset_camera"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Ring Ring !!", "RingRing", "ring_ring", 1000 * 30)); // Ring Ring !!
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Rubberbanding", "ImGettingAllDizzy", "rubberbanding", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Shaky Hands", "IJustCantHoldStill", "shaky_hands"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Steer Bias (Left)", "LeftSideBias", "steer_bias_left"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Steer Bias (Right)", "RightSideBias", "steer_bias_right"));

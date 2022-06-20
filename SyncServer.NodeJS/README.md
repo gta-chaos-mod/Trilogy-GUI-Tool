@@ -1,4 +1,4 @@
-# Chaos Mod Multiplayer Server
+# Chaos Mod Sync Server
 This is a tool that allows for syncing Chaos Mod effects and settings across multiple clients for race purposes.
 
 # What is synced between clients
@@ -26,8 +26,9 @@ This can be changed in the `index.js` file.
 If you're running this locally, you might also need to forward the port you'll be using.
 
 # How to connect
-In the Chaos Mod UI you have to enter the URL for the websocket in the Multiplayer tab:
-![https://i.imgur.com/4xuVCgL.png](https://i.imgur.com/4xuVCgL.png)
+In the Chaos Mod UI you have to enter the URL for the websocket in the Sync tab:
+
+![https://i.imgur.com/ahplwUs.png](https://i.imgur.com/ahplwUs.png)
 
 | Field    | Description                                                                                          |
 |----------|------------------------------------------------------------------------------------------------------|
@@ -38,5 +39,5 @@ In the Chaos Mod UI you have to enter the URL for the websocket in the Multiplay
 
 # Notes
 * The channels are created when they are joined. The first client to connect to a channel is automatically set as host.
-* During Chat Voting, the votes are pulled only from the Twitch channel set by host.
+* During Chat Voting, the votes are pulled only from the Twitch channel set by the host.
 * Although the timer is synced across clients, the New Game start is not, so that has to be done at players' discretion.

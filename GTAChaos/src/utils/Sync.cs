@@ -147,7 +147,7 @@ namespace GTAChaos.Utils
 
 #pragma warning restore 0649
 
-    public class Multiplayer
+    public class Sync
     {
         public event EventHandler<ConnectionFailedEventArgs> OnConnectionFailed;
 
@@ -182,7 +182,7 @@ namespace GTAChaos.Utils
         private DateTime lastTimeUpdate;
         private DateTime lastVotesUpdate;
 
-        public Multiplayer(string Server, string Channel, string Username)
+        public Sync(string Server, string Channel, string Username)
         {
             this.Channel = Channel;
             this.Username = Username;

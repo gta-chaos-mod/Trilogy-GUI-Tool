@@ -292,9 +292,9 @@ namespace GTAChaos.Utils
 
             this.effectVoting.GetVotes(out string[] effects, out int[] votes, undetermined);
 
-            if (Shared.Multiplayer != null)
+            if (Shared.Sync != null)
             {
-                Shared.Multiplayer.SendVotes(effects, votes, this.lastChoice, !undetermined);
+                Shared.Sync.SendVotes(effects, votes, this.lastChoice, !undetermined);
             }
             else
             {

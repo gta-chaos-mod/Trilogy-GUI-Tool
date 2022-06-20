@@ -47,7 +47,7 @@ namespace GTAChaos.Forms
             else
             {
                 this.Text += " (DEBUG)";
-                this.textBoxMultiplayerServer.Text = "ws://localhost:12312";
+                this.textBoxSyncServer.Text = "ws://localhost:12312";
             }
 
             this.tabs.TabPages.Remove(this.tabPolls);
@@ -264,9 +264,9 @@ namespace GTAChaos.Forms
             if (effect == null)
             {
                 effect = EffectDatabase.GetRandomEffect(true);
-                if (Shared.Multiplayer != null)
+                if (Shared.Sync != null)
                 {
-                    Shared.Multiplayer.SendEffect(effect);
+                    Shared.Sync.SendEffect(effect);
                 }
                 else
                 {
@@ -281,9 +281,9 @@ namespace GTAChaos.Forms
             }
             else
             {
-                if (Shared.Multiplayer != null)
+                if (Shared.Sync != null)
                 {
-                    Shared.Multiplayer.SendEffect(effect);
+                    Shared.Sync.SendEffect(effect);
                 }
                 else
                 {
@@ -324,7 +324,7 @@ namespace GTAChaos.Forms
 
             if (this.stopwatch.ElapsedMilliseconds - this.elapsedCount > 100)
             {
-                Shared.Multiplayer?.SendTimeUpdate(remaining, Config.Instance().MainCooldown);
+                Shared.Sync?.SendTimeUpdate(remaining, Config.Instance().MainCooldown);
 
                 this.elapsedCount = (int)this.stopwatch.ElapsedMilliseconds;
             }
@@ -363,7 +363,7 @@ namespace GTAChaos.Forms
 
                 if (this.stopwatch.ElapsedMilliseconds - this.elapsedCount > 100)
                 {
-                    Shared.Multiplayer?.SendTimeUpdate(remaining, Config.Instance().StreamVotingTime);
+                    Shared.Sync?.SendTimeUpdate(remaining, Config.Instance().StreamVotingTime);
 
                     this.stream?.SendEffectVotingToGame();
 
@@ -387,7 +387,7 @@ namespace GTAChaos.Forms
                             this.labelStreamCurrentMode.Text = "Current Mode: Cooldown (Poll Failed)";
 
                             WebsocketHandler.INSTANCE.SendTimeToGame(0);
-                            Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().StreamVotingCooldown);
+                            Shared.Sync?.SendTimeUpdate(0, Config.Instance().StreamVotingCooldown);
                             this.elapsedCount = 0;
 
                             this.progressBarStream.Value = 0;
@@ -410,7 +410,7 @@ namespace GTAChaos.Forms
                 if (didFinish)
                 {
                     WebsocketHandler.INSTANCE.SendTimeToGame(0);
-                    Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().StreamVotingCooldown);
+                    Shared.Sync?.SendTimeUpdate(0, Config.Instance().StreamVotingCooldown);
                     this.elapsedCount = 0;
 
                     this.progressBarStream.Value = 0;
@@ -467,7 +467,7 @@ namespace GTAChaos.Forms
 
                 if (this.stopwatch.ElapsedMilliseconds - this.elapsedCount > 100)
                 {
-                    Shared.Multiplayer?.SendTimeUpdate(remaining, 10000);
+                    Shared.Sync?.SendTimeUpdate(remaining, 10000);
 
                     this.elapsedCount = (int)this.stopwatch.ElapsedMilliseconds;
                 }
@@ -475,7 +475,7 @@ namespace GTAChaos.Forms
                 if (this.stopwatch.ElapsedMilliseconds >= 1000 * 10) // Set 10 seconds
                 {
                     WebsocketHandler.INSTANCE.SendTimeToGame(0);
-                    Shared.Multiplayer?.SendTimeUpdate(0, Config.Instance().StreamVotingCooldown);
+                    Shared.Sync?.SendTimeUpdate(0, Config.Instance().StreamVotingCooldown);
                     this.elapsedCount = 0;
 
                     this.progressBarStream.Value = 0;
@@ -507,7 +507,7 @@ namespace GTAChaos.Forms
 
                 if (this.stopwatch.ElapsedMilliseconds - this.elapsedCount > 100)
                 {
-                    Shared.Multiplayer?.SendTimeUpdate(remaining, Config.Instance().StreamVotingCooldown);
+                    Shared.Sync?.SendTimeUpdate(remaining, Config.Instance().StreamVotingCooldown);
 
                     this.elapsedCount = (int)this.stopwatch.ElapsedMilliseconds;
                 }
@@ -963,9 +963,9 @@ namespace GTAChaos.Forms
                 {
                     if (Shared.StreamVotingMode == Shared.VOTING_MODE.RAPID_FIRE)
                     {
-                        if (Shared.Multiplayer != null)
+                        if (Shared.Sync != null)
                         {
-                            Shared.Multiplayer.SendEffect(rapidFireArgs.Effect, 1000 * 15);
+                            Shared.Sync.SendEffect(rapidFireArgs.Effect, 1000 * 15);
                         }
                         else
                         {
@@ -1274,43 +1274,43 @@ namespace GTAChaos.Forms
             this.checkBoxSettingsPlayAudioSequentially.Enabled = Config.Instance().PlayAudioForEffects;
         }
 
-        private string FilterMultiplayerCharacters(string text) => Regex.Replace(text, "[^A-Za-z0-9]", "");
+        private string FilterSyncCharacters(string text) => Regex.Replace(text, "[^A-Za-z0-9]", "");
 
         private void UpdateButtonState()
         {
-            this.buttonMultiplayerConnect.Enabled
-                = !string.IsNullOrEmpty(this.textBoxMultiplayerServer.Text)
-                && !string.IsNullOrEmpty(this.textBoxMultiplayerChannel.Text)
-                && !string.IsNullOrEmpty(this.textBoxMultiplayerUsername.Text);
+            this.buttonSyncConnect.Enabled
+                = !string.IsNullOrEmpty(this.textBoxSyncServer.Text)
+                && !string.IsNullOrEmpty(this.textBoxSyncChannel.Text)
+                && !string.IsNullOrEmpty(this.textBoxSyncUsername.Text);
         }
 
-        private void TextBoxMultiplayerServer_TextChanged(object sender, EventArgs e) => this.UpdateButtonState();
+        private void TextBoxSyncServer_TextChanged(object sender, EventArgs e) => this.UpdateButtonState();
 
-        private void TextBoxMultiplayerChannel_TextChanged(object sender, EventArgs e)
+        private void TextBoxSyncChannel_TextChanged(object sender, EventArgs e)
         {
-            this.textBoxMultiplayerChannel.Text = this.FilterMultiplayerCharacters(this.textBoxMultiplayerChannel.Text);
+            this.textBoxSyncChannel.Text = this.FilterSyncCharacters(this.textBoxSyncChannel.Text);
             this.UpdateButtonState();
         }
 
-        private void TextBoxMultiplayerUsername_TextChanged(object sender, EventArgs e)
+        private void TextBoxSyncUsername_TextChanged(object sender, EventArgs e)
         {
-            this.textBoxMultiplayerUsername.Text = this.FilterMultiplayerCharacters(this.textBoxMultiplayerUsername.Text);
+            this.textBoxSyncUsername.Text = this.FilterSyncCharacters(this.textBoxSyncUsername.Text);
             this.UpdateButtonState();
         }
 
-        private void UpdateMultiplayerConnectionState(int state)
+        private void UpdateSyncConnectionState(int state)
         {
             this.Invoke(new Action(() =>
             {
                 if (state == 0) // Not connected
                 {
-                    this.textBoxMultiplayerServer.Enabled
-                        = this.textBoxMultiplayerChannel.Enabled
-                        = this.textBoxMultiplayerUsername.Enabled
-                        = this.buttonMultiplayerConnect.Enabled
+                    this.textBoxSyncServer.Enabled
+                        = this.textBoxSyncChannel.Enabled
+                        = this.textBoxSyncUsername.Enabled
+                        = this.buttonSyncConnect.Enabled
                         = true;
 
-                    this.buttonMultiplayerConnect.Text = "Connect";
+                    this.buttonSyncConnect.Text = "Connect";
 
                     this.buttonSwitchMode.Enabled = true;
                     this.buttonMainToggle.Enabled = true;
@@ -1321,77 +1321,77 @@ namespace GTAChaos.Forms
                 }
                 else if (state == 1) // Connecting...
                 {
-                    this.textBoxMultiplayerServer.Enabled
-                        = this.textBoxMultiplayerChannel.Enabled
-                        = this.textBoxMultiplayerUsername.Enabled
-                        = this.buttonMultiplayerConnect.Enabled
+                    this.textBoxSyncServer.Enabled
+                        = this.textBoxSyncChannel.Enabled
+                        = this.textBoxSyncUsername.Enabled
+                        = this.buttonSyncConnect.Enabled
                         = false;
 
-                    this.buttonMultiplayerConnect.Text = "Connecting...";
+                    this.buttonSyncConnect.Text = "Connecting...";
                 }
                 else if (state == 2) // Connected
                 {
-                    this.textBoxMultiplayerServer.Enabled
-                        = this.textBoxMultiplayerChannel.Enabled
-                        = this.textBoxMultiplayerUsername.Enabled
+                    this.textBoxSyncServer.Enabled
+                        = this.textBoxSyncChannel.Enabled
+                        = this.textBoxSyncUsername.Enabled
                         = false;
 
-                    this.buttonMultiplayerConnect.Enabled = true;
-                    this.buttonMultiplayerConnect.Text = "Disconnect";
+                    this.buttonSyncConnect.Enabled = true;
+                    this.buttonSyncConnect.Text = "Disconnect";
                 }
             }));
         }
 
         private void ShowMessageBox(string text, string caption) => this.Invoke(new Action(() => MessageBox.Show(this, text, caption)));
 
-        private void AddToMultiplayerChatHistory(string message)
+        private void AddToSyncChatHistory(string message)
         {
             this.Invoke(new Action(() =>
             {
-                this.listBoxMultiplayerChat.Items.Add(message);
-                this.listBoxMultiplayerChat.TopIndex = this.listBoxMultiplayerChat.Items.Count - 1;
+                this.listBoxSyncChat.Items.Add(message);
+                this.listBoxSyncChat.TopIndex = this.listBoxSyncChat.Items.Count - 1;
             }));
         }
 
-        private void ClearMultiplayerChatHistory() => this.Invoke(new Action(() => this.listBoxMultiplayerChat.Items.Clear()));
+        private void ClearSyncChatHistory() => this.Invoke(new Action(() => this.listBoxSyncChat.Items.Clear()));
 
-        private void ButtonMultiplayerConnect_Click(object sender, EventArgs e)
+        private void ButtonSyncConnect_Click(object sender, EventArgs e)
         {
-            Shared.Multiplayer?.Disconnect();
+            Shared.Sync?.Disconnect();
 
-            if (this.buttonMultiplayerConnect.Text == "Disconnect")
+            if (this.buttonSyncConnect.Text == "Disconnect")
             {
-                this.UpdateMultiplayerConnectionState(0);
+                this.UpdateSyncConnectionState(0);
                 return;
             }
 
-            this.ClearMultiplayerChatHistory();
+            this.ClearSyncChatHistory();
 
-            Shared.Multiplayer = new Multiplayer(
-                this.textBoxMultiplayerServer.Text,
-                this.textBoxMultiplayerChannel.Text,
-                this.textBoxMultiplayerUsername.Text
+            Shared.Sync = new Sync(
+                this.textBoxSyncServer.Text,
+                this.textBoxSyncChannel.Text,
+                this.textBoxSyncUsername.Text
             );
 
-            this.UpdateMultiplayerConnectionState(1);
+            this.UpdateSyncConnectionState(1);
 
-            Shared.Multiplayer.OnConnectionFailed += (_sender, args) =>
+            Shared.Sync.OnConnectionFailed += (_sender, args) =>
             {
                 this.ShowMessageBox("Connection failed - is the server running?", "Error");
-                this.UpdateMultiplayerConnectionState(0);
+                this.UpdateSyncConnectionState(0);
             };
 
-            Shared.Multiplayer.OnUsernameInUse += (_sender, args) =>
+            Shared.Sync.OnUsernameInUse += (_sender, args) =>
             {
                 this.ShowMessageBox("Username already in use!", "Error");
-                this.UpdateMultiplayerConnectionState(0);
+                this.UpdateSyncConnectionState(0);
             };
 
-            Shared.Multiplayer.OnConnectionSuccessful += (_sender, args) =>
+            Shared.Sync.OnConnectionSuccessful += (_sender, args) =>
             {
                 this.ShowMessageBox("Successfully connected!", "Connected");
-                this.AddToMultiplayerChatHistory($"Successfully connected to channel: {this.textBoxMultiplayerChannel.Text}");
-                this.UpdateMultiplayerConnectionState(2);
+                this.AddToSyncChatHistory($"Successfully connected to channel: {this.textBoxSyncChannel.Text}");
+                this.UpdateSyncConnectionState(2);
 
                 this.Invoke(new Action(() =>
                 {
@@ -1408,43 +1408,43 @@ namespace GTAChaos.Forms
                         this.textBoxSeed.Enabled = false;
                     }
 
-                    this.labelMultiplayerHost.Text = $"Host: {args.HostUsername}";
+                    this.labelSyncHost.Text = $"Host: {args.HostUsername}";
                     if (args.IsHost)
                     {
-                        this.labelMultiplayerHost.Text += " (You!)";
+                        this.labelSyncHost.Text += " (You!)";
                     }
                 }));
             };
 
-            Shared.Multiplayer.OnHostLeftChannel += (_sender, args) =>
+            Shared.Sync.OnHostLeftChannel += (_sender, args) =>
             {
                 this.ShowMessageBox("Host has left the channel; Disconnected.", "Host Left");
-                this.AddToMultiplayerChatHistory("Host has left the channel; Disconnected.");
-                this.UpdateMultiplayerConnectionState(0);
+                this.AddToSyncChatHistory("Host has left the channel; Disconnected.");
+                this.UpdateSyncConnectionState(0);
             };
 
-            Shared.Multiplayer.OnVersionMismatch += (_sender, args) =>
+            Shared.Sync.OnVersionMismatch += (_sender, args) =>
             {
                 this.ShowMessageBox($"Channel is v{args.Version} but you have v{Shared.Version}; Disconnected.", "Version Mismatch");
-                this.AddToMultiplayerChatHistory($"Channel is v{args.Version} but you have v{Shared.Version}; Disconnected.");
-                this.UpdateMultiplayerConnectionState(0);
+                this.AddToSyncChatHistory($"Channel is v{args.Version} but you have v{Shared.Version}; Disconnected.");
+                this.UpdateSyncConnectionState(0);
             };
 
-            Shared.Multiplayer.OnUserJoined += (_sender, args) => this.AddToMultiplayerChatHistory($"{args.Username} joined!");
+            Shared.Sync.OnUserJoined += (_sender, args) => this.AddToSyncChatHistory($"{args.Username} joined!");
 
-            Shared.Multiplayer.OnUserLeft += (_sender, args) => this.AddToMultiplayerChatHistory($"{args.Username} left!");
+            Shared.Sync.OnUserLeft += (_sender, args) => this.AddToSyncChatHistory($"{args.Username} left!");
 
-            Shared.Multiplayer.OnChatMessage += (_sender, args) => this.AddToMultiplayerChatHistory($"{args.Username}: {args.Message}");
+            Shared.Sync.OnChatMessage += (_sender, args) => this.AddToSyncChatHistory($"{args.Username}: {args.Message}");
 
-            Shared.Multiplayer.OnTimeUpdate += (_sender, args) =>
+            Shared.Sync.OnTimeUpdate += (_sender, args) =>
             {
-                if (!Shared.Multiplayer.IsHost)
+                if (!Shared.Sync.IsHost)
                 {
                     WebsocketHandler.INSTANCE.SendTimeToGame(args.Remaining, args.Total);
                 }
             };
 
-            Shared.Multiplayer.OnEffect += (_sender, args) =>
+            Shared.Sync.OnEffect += (_sender, args) =>
             {
                 AbstractEffect effect = EffectDatabase.GetByWord(args.Word);
                 if (effect != null)
@@ -1464,7 +1464,7 @@ namespace GTAChaos.Forms
                 }
             };
 
-            Shared.Multiplayer.OnVotes += (_sender, args) =>
+            Shared.Sync.OnVotes += (_sender, args) =>
             {
                 string[] effects = args.Effects;
                 int[] votes = args.Votes;
@@ -1472,26 +1472,26 @@ namespace GTAChaos.Forms
                 WebsocketHandler.INSTANCE.SendVotes(effects, votes, args.LastChoice);
             };
 
-            Shared.Multiplayer.Connect();
+            Shared.Sync.Connect();
         }
 
-        private void TextBoxMultiplayerChat_TextChanged(object sender, EventArgs e) => this.buttonMultiplayerSend.Enabled = Shared.Multiplayer != null && !string.IsNullOrEmpty(this.textBoxMultiplayerChat.Text);
+        private void TextBoxSyncChat_TextChanged(object sender, EventArgs e) => this.buttonSyncSend.Enabled = Shared.Sync != null && !string.IsNullOrEmpty(this.textBoxSyncChat.Text);
 
-        private void ButtonMultiplayerSend_Click(object sender, EventArgs e)
+        private void ButtonSyncSend_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(this.textBoxMultiplayerChat.Text))
+            if (!string.IsNullOrEmpty(this.textBoxSyncChat.Text))
             {
-                Shared.Multiplayer?.SendChatMessage(this.textBoxMultiplayerChat.Text);
-                this.textBoxMultiplayerChat.Text = "";
+                Shared.Sync?.SendChatMessage(this.textBoxSyncChat.Text);
+                this.textBoxSyncChat.Text = "";
             }
         }
 
-        private void TextBoxMultiplayerChat_KeyDown(object sender, KeyEventArgs e)
+        private void TextBoxSyncChat_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(this.textBoxMultiplayerChat.Text))
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(this.textBoxSyncChat.Text))
             {
-                Shared.Multiplayer?.SendChatMessage(this.textBoxMultiplayerChat.Text);
-                this.textBoxMultiplayerChat.Text = "";
+                Shared.Sync?.SendChatMessage(this.textBoxSyncChat.Text);
+                this.textBoxSyncChat.Text = "";
             }
         }
 

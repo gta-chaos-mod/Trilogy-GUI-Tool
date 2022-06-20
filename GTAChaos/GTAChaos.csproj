@@ -357,7 +357,7 @@
     <Compile Include="src\utils\Config.cs" />
     <Compile Include="src\utils\IStreamConnection.cs" />
     <Compile Include="src\utils\Location.cs" />
-    <Compile Include="src\utils\Multiplayer.cs" />
+    <Compile Include="src\utils\Sync.cs" />
     <Compile Include="src\utils\RandomHandler.cs" />
     <Compile Include="src\utils\Shared.cs" />
     <Compile Include="src\utils\TwitchChatConnection.cs" />

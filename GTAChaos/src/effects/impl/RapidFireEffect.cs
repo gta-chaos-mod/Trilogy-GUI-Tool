@@ -13,9 +13,9 @@ namespace GTAChaos.Effects
 
         private void RunRapidFireEffect(AbstractEffect effect)
         {
-            if (Shared.Multiplayer != null)
+            if (Shared.Sync != null)
             {
-                Shared.Multiplayer.SendEffect(effect, 1000 * 15);
+                Shared.Sync.SendEffect(effect, 1000 * 15);
             }
             else
             {

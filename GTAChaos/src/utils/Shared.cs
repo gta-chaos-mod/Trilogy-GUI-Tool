@@ -20,6 +20,6 @@ namespace GTAChaos.Utils
         public static bool IsStreamMode;
         public static VOTING_MODE StreamVotingMode = VOTING_MODE.COOLDOWN; // 0 = Cooldown, 1 = Voting, 2 = Rapid-Fire
 
-        public static Multiplayer Multiplayer;
+        public static Sync Sync;
     }
 }

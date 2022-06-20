@@ -77,18 +77,18 @@ namespace GTAChaos.Forms
             this.checkBoxPlayAudioForEffects = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxSeed = new System.Windows.Forms.TextBox();
-            this.tabMultiplayer = new System.Windows.Forms.TabPage();
-            this.buttonMultiplayerSend = new System.Windows.Forms.Button();
-            this.textBoxMultiplayerChat = new System.Windows.Forms.TextBox();
-            this.listBoxMultiplayerChat = new System.Windows.Forms.ListBox();
-            this.labelMultiplayerHost = new System.Windows.Forms.Label();
-            this.textBoxMultiplayerUsername = new System.Windows.Forms.TextBox();
-            this.labelMultiplayerUsername = new System.Windows.Forms.Label();
-            this.labelMultiplayerChannel = new System.Windows.Forms.Label();
-            this.textBoxMultiplayerChannel = new System.Windows.Forms.TextBox();
-            this.labelMultiplayerServer = new System.Windows.Forms.Label();
-            this.textBoxMultiplayerServer = new System.Windows.Forms.TextBox();
-            this.buttonMultiplayerConnect = new System.Windows.Forms.Button();
+            this.tabSync = new System.Windows.Forms.TabPage();
+            this.buttonSyncSend = new System.Windows.Forms.Button();
+            this.textBoxSyncChat = new System.Windows.Forms.TextBox();
+            this.listBoxSyncChat = new System.Windows.Forms.ListBox();
+            this.labelSyncHost = new System.Windows.Forms.Label();
+            this.textBoxSyncUsername = new System.Windows.Forms.TextBox();
+            this.labelSyncUsername = new System.Windows.Forms.Label();
+            this.labelSyncChannel = new System.Windows.Forms.Label();
+            this.textBoxSyncChannel = new System.Windows.Forms.TextBox();
+            this.labelSyncServer = new System.Windows.Forms.Label();
+            this.textBoxSyncServer = new System.Windows.Forms.TextBox();
+            this.buttonSyncConnect = new System.Windows.Forms.Button();
             this.tabExperimental = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownExperimentalEffectCooldown = new System.Windows.Forms.NumericUpDown();
@@ -117,7 +117,7 @@ namespace GTAChaos.Forms
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTwitchPollsBitsCost)).BeginInit();
             this.tabEffects.SuspendLayout();
             this.tabSettings.SuspendLayout();
-            this.tabMultiplayer.SuspendLayout();
+            this.tabSync.SuspendLayout();
             this.tabExperimental.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExperimentalEffectCooldown)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -149,7 +149,7 @@ namespace GTAChaos.Forms
             this.tabs.Controls.Add(this.tabPolls);
             this.tabs.Controls.Add(this.tabEffects);
             this.tabs.Controls.Add(this.tabSettings);
-            this.tabs.Controls.Add(this.tabMultiplayer);
+            this.tabs.Controls.Add(this.tabSync);
             this.tabs.Controls.Add(this.tabExperimental);
             this.tabs.Location = new System.Drawing.Point(0, 41);
             this.tabs.Name = "tabs";
@@ -669,130 +669,130 @@ namespace GTAChaos.Forms
             this.textBoxSeed.TabIndex = 1;
             this.textBoxSeed.TextChanged += new System.EventHandler(this.TextBoxSeed_TextChanged);
             // 
-            // tabMultiplayer
+            // tabSync
             // 
-            this.tabMultiplayer.BackColor = System.Drawing.Color.Transparent;
-            this.tabMultiplayer.Controls.Add(this.buttonMultiplayerSend);
-            this.tabMultiplayer.Controls.Add(this.textBoxMultiplayerChat);
-            this.tabMultiplayer.Controls.Add(this.listBoxMultiplayerChat);
-            this.tabMultiplayer.Controls.Add(this.labelMultiplayerHost);
-            this.tabMultiplayer.Controls.Add(this.textBoxMultiplayerUsername);
-            this.tabMultiplayer.Controls.Add(this.labelMultiplayerUsername);
-            this.tabMultiplayer.Controls.Add(this.labelMultiplayerChannel);
-            this.tabMultiplayer.Controls.Add(this.textBoxMultiplayerChannel);
-            this.tabMultiplayer.Controls.Add(this.labelMultiplayerServer);
-            this.tabMultiplayer.Controls.Add(this.textBoxMultiplayerServer);
-            this.tabMultiplayer.Controls.Add(this.buttonMultiplayerConnect);
-            this.tabMultiplayer.Location = new System.Drawing.Point(4, 22);
-            this.tabMultiplayer.Name = "tabMultiplayer";
-            this.tabMultiplayer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMultiplayer.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabMultiplayer.Size = new System.Drawing.Size(552, 293);
-            this.tabMultiplayer.TabIndex = 6;
-            this.tabMultiplayer.Text = "Multiplayer";
+            this.tabSync.BackColor = System.Drawing.Color.Transparent;
+            this.tabSync.Controls.Add(this.buttonSyncSend);
+            this.tabSync.Controls.Add(this.textBoxSyncChat);
+            this.tabSync.Controls.Add(this.listBoxSyncChat);
+            this.tabSync.Controls.Add(this.labelSyncHost);
+            this.tabSync.Controls.Add(this.textBoxSyncUsername);
+            this.tabSync.Controls.Add(this.labelSyncUsername);
+            this.tabSync.Controls.Add(this.labelSyncChannel);
+            this.tabSync.Controls.Add(this.textBoxSyncChannel);
+            this.tabSync.Controls.Add(this.labelSyncServer);
+            this.tabSync.Controls.Add(this.textBoxSyncServer);
+            this.tabSync.Controls.Add(this.buttonSyncConnect);
+            this.tabSync.Location = new System.Drawing.Point(4, 22);
+            this.tabSync.Name = "tabSync";
+            this.tabSync.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSync.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tabSync.Size = new System.Drawing.Size(552, 293);
+            this.tabSync.TabIndex = 6;
+            this.tabSync.Text = "Sync";
             // 
-            // buttonMultiplayerSend
+            // buttonSyncSend
             // 
-            this.buttonMultiplayerSend.Enabled = false;
-            this.buttonMultiplayerSend.Location = new System.Drawing.Point(457, 260);
-            this.buttonMultiplayerSend.Name = "buttonMultiplayerSend";
-            this.buttonMultiplayerSend.Size = new System.Drawing.Size(87, 22);
-            this.buttonMultiplayerSend.TabIndex = 10;
-            this.buttonMultiplayerSend.Text = "Send";
-            this.buttonMultiplayerSend.UseVisualStyleBackColor = true;
-            this.buttonMultiplayerSend.Click += new System.EventHandler(this.ButtonMultiplayerSend_Click);
+            this.buttonSyncSend.Enabled = false;
+            this.buttonSyncSend.Location = new System.Drawing.Point(457, 260);
+            this.buttonSyncSend.Name = "buttonSyncSend";
+            this.buttonSyncSend.Size = new System.Drawing.Size(87, 22);
+            this.buttonSyncSend.TabIndex = 10;
+            this.buttonSyncSend.Text = "Send";
+            this.buttonSyncSend.UseVisualStyleBackColor = true;
+            this.buttonSyncSend.Click += new System.EventHandler(this.ButtonSyncSend_Click);
             // 
-            // textBoxMultiplayerChat
+            // textBoxSyncChat
             // 
-            this.textBoxMultiplayerChat.Location = new System.Drawing.Point(6, 261);
-            this.textBoxMultiplayerChat.MaxLength = 128;
-            this.textBoxMultiplayerChat.Name = "textBoxMultiplayerChat";
-            this.textBoxMultiplayerChat.Size = new System.Drawing.Size(445, 20);
-            this.textBoxMultiplayerChat.TabIndex = 9;
-            this.textBoxMultiplayerChat.TextChanged += new System.EventHandler(this.TextBoxMultiplayerChat_TextChanged);
-            this.textBoxMultiplayerChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxMultiplayerChat_KeyDown);
+            this.textBoxSyncChat.Location = new System.Drawing.Point(6, 261);
+            this.textBoxSyncChat.MaxLength = 128;
+            this.textBoxSyncChat.Name = "textBoxSyncChat";
+            this.textBoxSyncChat.Size = new System.Drawing.Size(445, 20);
+            this.textBoxSyncChat.TabIndex = 9;
+            this.textBoxSyncChat.TextChanged += new System.EventHandler(this.TextBoxSyncChat_TextChanged);
+            this.textBoxSyncChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxSyncChat_KeyDown);
             // 
-            // listBoxMultiplayerChat
+            // listBoxSyncChat
             // 
-            this.listBoxMultiplayerChat.FormattingEnabled = true;
-            this.listBoxMultiplayerChat.Location = new System.Drawing.Point(6, 95);
-            this.listBoxMultiplayerChat.Name = "listBoxMultiplayerChat";
-            this.listBoxMultiplayerChat.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBoxMultiplayerChat.Size = new System.Drawing.Size(538, 160);
-            this.listBoxMultiplayerChat.TabIndex = 8;
+            this.listBoxSyncChat.FormattingEnabled = true;
+            this.listBoxSyncChat.Location = new System.Drawing.Point(6, 95);
+            this.listBoxSyncChat.Name = "listBoxSyncChat";
+            this.listBoxSyncChat.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBoxSyncChat.Size = new System.Drawing.Size(538, 160);
+            this.listBoxSyncChat.TabIndex = 8;
             // 
-            // labelMultiplayerHost
+            // labelSyncHost
             // 
-            this.labelMultiplayerHost.AutoSize = true;
-            this.labelMultiplayerHost.Location = new System.Drawing.Point(404, 9);
-            this.labelMultiplayerHost.Name = "labelMultiplayerHost";
-            this.labelMultiplayerHost.Size = new System.Drawing.Size(87, 13);
-            this.labelMultiplayerHost.TabIndex = 7;
-            this.labelMultiplayerHost.Text = "Not connected...";
+            this.labelSyncHost.AutoSize = true;
+            this.labelSyncHost.Location = new System.Drawing.Point(404, 9);
+            this.labelSyncHost.Name = "labelSyncHost";
+            this.labelSyncHost.Size = new System.Drawing.Size(87, 13);
+            this.labelSyncHost.TabIndex = 7;
+            this.labelSyncHost.Text = "Not connected...";
             // 
-            // textBoxMultiplayerUsername
+            // textBoxSyncUsername
             // 
-            this.textBoxMultiplayerUsername.Location = new System.Drawing.Point(70, 32);
-            this.textBoxMultiplayerUsername.MaxLength = 16;
-            this.textBoxMultiplayerUsername.Name = "textBoxMultiplayerUsername";
-            this.textBoxMultiplayerUsername.Size = new System.Drawing.Size(328, 20);
-            this.textBoxMultiplayerUsername.TabIndex = 2;
-            this.textBoxMultiplayerUsername.TextChanged += new System.EventHandler(this.TextBoxMultiplayerUsername_TextChanged);
+            this.textBoxSyncUsername.Location = new System.Drawing.Point(70, 32);
+            this.textBoxSyncUsername.MaxLength = 16;
+            this.textBoxSyncUsername.Name = "textBoxSyncUsername";
+            this.textBoxSyncUsername.Size = new System.Drawing.Size(328, 20);
+            this.textBoxSyncUsername.TabIndex = 2;
+            this.textBoxSyncUsername.TextChanged += new System.EventHandler(this.TextBoxSyncUsername_TextChanged);
             // 
-            // labelMultiplayerUsername
+            // labelSyncUsername
             // 
-            this.labelMultiplayerUsername.AutoSize = true;
-            this.labelMultiplayerUsername.Location = new System.Drawing.Point(8, 35);
-            this.labelMultiplayerUsername.Name = "labelMultiplayerUsername";
-            this.labelMultiplayerUsername.Size = new System.Drawing.Size(58, 13);
-            this.labelMultiplayerUsername.TabIndex = 5;
-            this.labelMultiplayerUsername.Text = "Username:";
+            this.labelSyncUsername.AutoSize = true;
+            this.labelSyncUsername.Location = new System.Drawing.Point(8, 35);
+            this.labelSyncUsername.Name = "labelSyncUsername";
+            this.labelSyncUsername.Size = new System.Drawing.Size(58, 13);
+            this.labelSyncUsername.TabIndex = 5;
+            this.labelSyncUsername.Text = "Username:";
             // 
-            // labelMultiplayerChannel
+            // labelSyncChannel
             // 
-            this.labelMultiplayerChannel.AutoSize = true;
-            this.labelMultiplayerChannel.Location = new System.Drawing.Point(17, 61);
-            this.labelMultiplayerChannel.Name = "labelMultiplayerChannel";
-            this.labelMultiplayerChannel.Size = new System.Drawing.Size(49, 13);
-            this.labelMultiplayerChannel.TabIndex = 4;
-            this.labelMultiplayerChannel.Text = "Channel:";
+            this.labelSyncChannel.AutoSize = true;
+            this.labelSyncChannel.Location = new System.Drawing.Point(17, 61);
+            this.labelSyncChannel.Name = "labelSyncChannel";
+            this.labelSyncChannel.Size = new System.Drawing.Size(49, 13);
+            this.labelSyncChannel.TabIndex = 4;
+            this.labelSyncChannel.Text = "Channel:";
             // 
-            // textBoxMultiplayerChannel
+            // textBoxSyncChannel
             // 
-            this.textBoxMultiplayerChannel.Location = new System.Drawing.Point(70, 58);
-            this.textBoxMultiplayerChannel.MaxLength = 16;
-            this.textBoxMultiplayerChannel.Name = "textBoxMultiplayerChannel";
-            this.textBoxMultiplayerChannel.Size = new System.Drawing.Size(328, 20);
-            this.textBoxMultiplayerChannel.TabIndex = 3;
-            this.textBoxMultiplayerChannel.TextChanged += new System.EventHandler(this.TextBoxMultiplayerChannel_TextChanged);
+            this.textBoxSyncChannel.Location = new System.Drawing.Point(70, 58);
+            this.textBoxSyncChannel.MaxLength = 16;
+            this.textBoxSyncChannel.Name = "textBoxSyncChannel";
+            this.textBoxSyncChannel.Size = new System.Drawing.Size(328, 20);
+            this.textBoxSyncChannel.TabIndex = 3;
+            this.textBoxSyncChannel.TextChanged += new System.EventHandler(this.TextBoxSyncChannel_TextChanged);
             // 
-            // labelMultiplayerServer
+            // labelSyncServer
             // 
-            this.labelMultiplayerServer.AutoSize = true;
-            this.labelMultiplayerServer.Location = new System.Drawing.Point(25, 9);
-            this.labelMultiplayerServer.Name = "labelMultiplayerServer";
-            this.labelMultiplayerServer.Size = new System.Drawing.Size(41, 13);
-            this.labelMultiplayerServer.TabIndex = 2;
-            this.labelMultiplayerServer.Text = "Server:";
+            this.labelSyncServer.AutoSize = true;
+            this.labelSyncServer.Location = new System.Drawing.Point(25, 9);
+            this.labelSyncServer.Name = "labelSyncServer";
+            this.labelSyncServer.Size = new System.Drawing.Size(41, 13);
+            this.labelSyncServer.TabIndex = 2;
+            this.labelSyncServer.Text = "Server:";
             // 
-            // textBoxMultiplayerServer
+            // textBoxSyncServer
             // 
-            this.textBoxMultiplayerServer.Location = new System.Drawing.Point(70, 6);
-            this.textBoxMultiplayerServer.Name = "textBoxMultiplayerServer";
-            this.textBoxMultiplayerServer.Size = new System.Drawing.Size(328, 20);
-            this.textBoxMultiplayerServer.TabIndex = 1;
-            this.textBoxMultiplayerServer.TextChanged += new System.EventHandler(this.TextBoxMultiplayerServer_TextChanged);
+            this.textBoxSyncServer.Location = new System.Drawing.Point(70, 6);
+            this.textBoxSyncServer.Name = "textBoxSyncServer";
+            this.textBoxSyncServer.Size = new System.Drawing.Size(328, 20);
+            this.textBoxSyncServer.TabIndex = 1;
+            this.textBoxSyncServer.TextChanged += new System.EventHandler(this.TextBoxSyncServer_TextChanged);
             // 
-            // buttonMultiplayerConnect
+            // buttonSyncConnect
             // 
-            this.buttonMultiplayerConnect.Enabled = false;
-            this.buttonMultiplayerConnect.Location = new System.Drawing.Point(404, 31);
-            this.buttonMultiplayerConnect.Name = "buttonMultiplayerConnect";
-            this.buttonMultiplayerConnect.Size = new System.Drawing.Size(140, 22);
-            this.buttonMultiplayerConnect.TabIndex = 4;
-            this.buttonMultiplayerConnect.Text = "Connect";
-            this.buttonMultiplayerConnect.UseVisualStyleBackColor = true;
-            this.buttonMultiplayerConnect.Click += new System.EventHandler(this.ButtonMultiplayerConnect_Click);
+            this.buttonSyncConnect.Enabled = false;
+            this.buttonSyncConnect.Location = new System.Drawing.Point(404, 31);
+            this.buttonSyncConnect.Name = "buttonSyncConnect";
+            this.buttonSyncConnect.Size = new System.Drawing.Size(140, 22);
+            this.buttonSyncConnect.TabIndex = 4;
+            this.buttonSyncConnect.Text = "Connect";
+            this.buttonSyncConnect.UseVisualStyleBackColor = true;
+            this.buttonSyncConnect.Click += new System.EventHandler(this.ButtonSyncConnect_Click);
             // 
             // tabExperimental
             // 
@@ -1010,8 +1010,8 @@ namespace GTAChaos.Forms
             this.tabEffects.ResumeLayout(false);
             this.tabSettings.ResumeLayout(false);
             this.tabSettings.PerformLayout();
-            this.tabMultiplayer.ResumeLayout(false);
-            this.tabMultiplayer.PerformLayout();
+            this.tabSync.ResumeLayout(false);
+            this.tabSync.PerformLayout();
             this.tabExperimental.ResumeLayout(false);
             this.tabExperimental.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExperimentalEffectCooldown)).EndInit();
@@ -1071,18 +1071,18 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.NumericUpDown numericUpDownTwitchPollsBitsCost;
         private System.Windows.Forms.CheckBox checkBoxTwitchPollsPostMessages;
         private System.Windows.Forms.CheckBox checkBoxPlayAudioForEffects;
-        private System.Windows.Forms.TabPage tabMultiplayer;
-        private System.Windows.Forms.TextBox textBoxMultiplayerUsername;
-        private System.Windows.Forms.Label labelMultiplayerUsername;
-        private System.Windows.Forms.Label labelMultiplayerChannel;
-        private System.Windows.Forms.TextBox textBoxMultiplayerChannel;
-        private System.Windows.Forms.Label labelMultiplayerServer;
-        private System.Windows.Forms.TextBox textBoxMultiplayerServer;
-        private System.Windows.Forms.Button buttonMultiplayerConnect;
-        private System.Windows.Forms.Label labelMultiplayerHost;
-        private System.Windows.Forms.Button buttonMultiplayerSend;
-        private System.Windows.Forms.TextBox textBoxMultiplayerChat;
-        private System.Windows.Forms.ListBox listBoxMultiplayerChat;
+        private System.Windows.Forms.TabPage tabSync;
+        private System.Windows.Forms.TextBox textBoxSyncUsername;
+        private System.Windows.Forms.Label labelSyncUsername;
+        private System.Windows.Forms.Label labelSyncChannel;
+        private System.Windows.Forms.TextBox textBoxSyncChannel;
+        private System.Windows.Forms.Label labelSyncServer;
+        private System.Windows.Forms.TextBox textBoxSyncServer;
+        private System.Windows.Forms.Button buttonSyncConnect;
+        private System.Windows.Forms.Label labelSyncHost;
+        private System.Windows.Forms.Button buttonSyncSend;
+        private System.Windows.Forms.TextBox textBoxSyncChat;
+        private System.Windows.Forms.ListBox listBoxSyncChat;
         private System.Windows.Forms.TabPage tabExperimental;
         private System.Windows.Forms.ToolStripMenuItem experimentalToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkBoxExperimental_RunEffectOnAutoStart;

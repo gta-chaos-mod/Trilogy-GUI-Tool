@@ -7,15 +7,18 @@ namespace GTAChaos.Effects
     {
         private readonly Location location;
 
-        public TeleportationEffect(string description, string word, Location _location)
-            : base(Category.Teleportation, description, word)
+        public TeleportationEffect(Location location)
+            : base(Category.Teleportation, location.DisplayName, location.Cheat)
         {
-            this.location = _location;
+            this.location = location;
+
+            this.SetDisplayNames(location.GetDisplayName());
+            this.SetDisplayName(DisplayNameType.STREAM, location.GetDisplayName(DisplayNameType.STREAM));
 
             this.DisableRapidFire();
         }
 
-        public override string GetID() => $"teleport_{this.location.Id}";
+        public override string GetID() => $"teleport_{this.location.GetID()}";
 
         public override void RunEffect(int seed = -1, int duration = -1)
         {

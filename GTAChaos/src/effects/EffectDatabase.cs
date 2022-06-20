@@ -454,20 +454,21 @@ namespace GTAChaos.Effects
                 // --- Teleport --- //
                 AddEffect(new FakeTeleportEffect("Fake Teleport", "HahaGotYourNose")); // Fake Teleport
                 AddEffect(new FunctionEffect(Category.Teleportation, "Random Teleport", "LetsGoSightseeing", "random_teleport").DisableRapidFire()); // Random Teleport - Teleports CJ to a random location on the map
-                AddEffect(new TeleportationEffect("Teleport Home", "BringMeHome", Location.GrooveStreet).SetDisplayName(DisplayNameType.STREAM, "TP Home"));
-                AddEffect(new TeleportationEffect("Teleport To A Bridge", "BringMeToABridge", Location.SFBridge).SetDisplayName(DisplayNameType.STREAM, "TP To A Bridge"));
-                AddEffect(new TeleportationEffect("Teleport To A Mountain", "BringMeToAMountain", Location.MountChiliad).SetDisplayName(DisplayNameType.STREAM, "TP To A Mountain"));
-                AddEffect(new TeleportationEffect("Teleport To A Pier", "BringMeToAPier", Location.LSPier).SetDisplayName(DisplayNameType.STREAM, "TP To A Pier"));
-                AddEffect(new TeleportationEffect("Teleport To A Quarry", "BringMeToAQuarry", Location.LVQuarry).SetDisplayName(DisplayNameType.STREAM, "TP To A Quarry"));
-                AddEffect(new TeleportationEffect("Teleport To A Secret Place", "BringMeToASecretPlace", Location.Area52).SetDisplayName(DisplayNameType.STREAM, "TP To A Secret Place"));
-                AddEffect(new TeleportationEffect("Teleport To A Tower", "BringMeToATower", Location.LSTower).SetDisplayName(DisplayNameType.STREAM, "TP To A Tower"));
-                AddEffect(new TeleportationEffect("Teleport To Big Ear", "BringMeToBigEar", Location.LVSatellite).SetDisplayName(DisplayNameType.STREAM, "TP To Big Ear"));
                 AddEffect(new FunctionEffect(Category.Teleportation, "Teleport To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Teleport To Marker
                 AddEffect(new FunctionEffect(Category.Teleportation, "Teleport To Liberty City", "LetsTalkAboutTheMultiverse", "teleport_to_liberty_city").DisableRapidFire()); // Teleport To Liberty City
-                AddEffect(new TeleportationEffect("Teleport To The Docks", "BringMeToTheDocks", Location.LSDocks).SetDisplayName(DisplayNameType.STREAM, "TP To The Docks"));
-                AddEffect(new TeleportationEffect("Teleport To The LS Airport", "BringMeToTheLSAirport", Location.LSAirport).SetDisplayName(DisplayNameType.STREAM, "TP To The LS Airport"));
-                AddEffect(new TeleportationEffect("Teleport To The LV Airport", "BringMeToTheLVAirport", Location.LVAirport).SetDisplayName(DisplayNameType.STREAM, "TP To The LV Airport"));
-                AddEffect(new TeleportationEffect("Teleport To The SF Airport", "BringMeToTheSFAirport", Location.SFAirport).SetDisplayName(DisplayNameType.STREAM, "TP To The SF Airport"));
+
+                AddEffect(new TeleportationEffect(Location.GrooveStreet));
+                AddEffect(new TeleportationEffect(Location.SFBridge));
+                AddEffect(new TeleportationEffect(Location.MountChiliad));
+                AddEffect(new TeleportationEffect(Location.LSPier));
+                AddEffect(new TeleportationEffect(Location.LVQuarry));
+                AddEffect(new TeleportationEffect(Location.Area52));
+                AddEffect(new TeleportationEffect(Location.LSTower));
+                AddEffect(new TeleportationEffect(Location.LVSatellite));
+                AddEffect(new TeleportationEffect(Location.LSDocks));
+                AddEffect(new TeleportationEffect(Location.LSAirport));
+                AddEffect(new TeleportationEffect(Location.LVAirport));
+                AddEffect(new TeleportationEffect(Location.SFAirport));
                 // ---------------- //
             }
             else if (game == "vice_city")

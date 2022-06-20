@@ -16,10 +16,15 @@ namespace GTAChaos.Effects
         {
             base.RunEffect(seed, duration);
 
+            Location location = Location.Locations[RandomHandler.Next(Location.Locations.Count)];
+
             WebsocketHandler.INSTANCE.SendEffectToGame(this.EffectID, new
             {
-                realEffectName = "Fake Teleport"
-            }, this.GetDuration(duration), "TP To A Tower", this.GetSubtext(), this.GetRapidFire());
+                realEffectName = "Fake Teleport",
+                posX = location.X,
+                posY = location.Y,
+                posZ = location.Z
+            }, this.GetDuration(duration), location.GetDisplayName(), this.GetSubtext(), this.GetRapidFire());
         }
     }
 }

@@ -79,13 +79,9 @@ namespace GTAChaos.Forms
                 Interval = 1000,
                 AutoReset = true
             };
-            this.websocketReconnectionTimer.Elapsed += this.WebsocketReconnectionTimer_Elapsed;
+            this.websocketReconnectionTimer.Elapsed += (sender, e) => WebsocketHandler.INSTANCE.ConnectWebsocket();
             this.websocketReconnectionTimer.Start();
         }
-
-        private void WebsocketReconnectionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e) =>
-            // This is hacky but it works
-            WebsocketHandler.INSTANCE.ConnectWebsocket();
 
         private void OnSocketMessage(object sender, SocketMessageEventArgs e)
         {

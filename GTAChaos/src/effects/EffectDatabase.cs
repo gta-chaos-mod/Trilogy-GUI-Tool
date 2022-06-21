@@ -496,10 +496,8 @@ namespace GTAChaos.Effects
 
             if (effects.Count > 0)
             {
-                attempts++;
-
                 AbstractEffect effect = effects.GetRandom(RandomHandler.Random);
-                if (!onlyEnabled || attempts > 10)
+                if (!onlyEnabled || attempts++ > 10)
                 {
                     return effect;
                 }

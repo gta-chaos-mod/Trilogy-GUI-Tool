@@ -6,12 +6,15 @@ namespace GTAChaos.Effects
 {
     public class RapidFireEffect : FunctionEffect
     {
-        public RapidFireEffect(string description, string word, int duration = -1, float multiplier = 3)
-            : base(Category.CustomEffects, description, word, "effect_rapid_fire", duration, multiplier)
+        protected int effects = 5;
+        protected int delay = 1000 * 2;
+
+        public RapidFireEffect(string description, string word, string id, int duration = -1, float multiplier = 3)
+            : base(Category.CustomEffects, description, word, id, duration, multiplier)
         {
         }
 
-        private void RunRapidFireEffect(AbstractEffect effect)
+        protected void RunRapidFireEffect(AbstractEffect effect)
         {
             if (Shared.Sync != null)
             {
@@ -23,7 +26,7 @@ namespace GTAChaos.Effects
             }
         }
 
-        private AbstractEffect GetRandomEffect(int attempts = 0)
+        protected AbstractEffect GetRandomEffect(int attempts = 0)
         {
             if (attempts > 10)
             {
@@ -31,7 +34,7 @@ namespace GTAChaos.Effects
             }
 
             AbstractEffect effect = EffectDatabase.GetRandomEffect(attempts < 5);
-            return effect.IsID(this.GetID()) ? this.GetRandomEffect(attempts + 1) : effect;
+            return effect is null || effect is RapidFireEffect || effect.IsID("reset_effect_timers") ? this.GetRandomEffect(attempts + 1) : effect;
         }
 
         public override void RunEffect(int seed = -1, int duration = -1)
@@ -40,7 +43,7 @@ namespace GTAChaos.Effects
 
             Task.Run(async () =>
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < this.effects; i++)
                 {
                     AbstractEffect effect = this.GetRandomEffect();
                     if (effect is null)
@@ -49,7 +52,7 @@ namespace GTAChaos.Effects
                     }
 
                     this.RunRapidFireEffect(effect);
-                    await Task.Delay(1000 * 2);
+                    await Task.Delay(this.delay);
                 }
             });
         }

@@ -19,6 +19,8 @@ namespace GTAChaos.Utils
             this.X = x;
             this.Y = y;
             this.Z = z;
+
+            Locations.Add(this);
         }
 
         public string GetID() => this.DisplayName.ToLower().Replace(" ", "_");
@@ -32,6 +34,8 @@ namespace GTAChaos.Utils
             };
         }
 
+        public static readonly List<Location> Locations = new();
+
         public static readonly Location GrooveStreet = new("Grove Street", "BringMeHome", 2493, -1670, 15);
         public static readonly Location LSTower = new("A Tower", "BringMeToATower", 1544, -1353, 332);
         public static readonly Location LSPier = new("A Pier", "BringMeToAPier", 836, -2061, 15);
@@ -44,21 +48,5 @@ namespace GTAChaos.Utils
         public static readonly Location LVQuarry = new("A Quarry", "BringMeToAQuarry", 614, 856, -40);
         public static readonly Location LVAirport = new("The LV Airport", "BringMeToTheLVAirport", 1612, 1166, 17);
         public static readonly Location LVSatellite = new("Big Ear", "BringMeToBigEar", -310, 1524, 78);
-
-        public static readonly List<Location> Locations = new()
-        {
-            GrooveStreet,
-            LSTower,
-            LSPier,
-            LSAirport,
-            LSDocks,
-            MountChiliad,
-            SFAirport,
-            SFBridge,
-            Area52,
-            LVQuarry,
-            LVAirport,
-            LVSatellite
-        };
     }
 }

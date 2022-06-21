@@ -458,18 +458,10 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.Teleportation, "Teleport To Marker", "IKnowJustTheRightPlace", "teleport_to_marker", 1000 * 30)); // Teleport To Marker
                 AddEffect(new FunctionEffect(Category.Teleportation, "Teleport To Liberty City", "LetsTalkAboutTheMultiverse", "teleport_to_liberty_city").DisableRapidFire()); // Teleport To Liberty City
 
-                AddEffect(new TeleportationEffect(Location.GrooveStreet));
-                AddEffect(new TeleportationEffect(Location.SFBridge));
-                AddEffect(new TeleportationEffect(Location.MountChiliad));
-                AddEffect(new TeleportationEffect(Location.LSPier));
-                AddEffect(new TeleportationEffect(Location.LVQuarry));
-                AddEffect(new TeleportationEffect(Location.Area52));
-                AddEffect(new TeleportationEffect(Location.LSTower));
-                AddEffect(new TeleportationEffect(Location.LVSatellite));
-                AddEffect(new TeleportationEffect(Location.LSDocks));
-                AddEffect(new TeleportationEffect(Location.LSAirport));
-                AddEffect(new TeleportationEffect(Location.LVAirport));
-                AddEffect(new TeleportationEffect(Location.SFAirport));
+                foreach (Location location in Location.Locations)
+                {
+                    AddEffect(new TeleportationEffect(location));
+                }
                 // ---------------- //
             }
             else if (game == "vice_city")

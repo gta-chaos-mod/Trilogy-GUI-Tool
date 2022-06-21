@@ -4,7 +4,6 @@ using System;
 
 namespace GTAChaos.Effects
 {
-    // TODO: Random Vehicle not having the name of the vehicle ingame
     internal class SpawnVehicleEffect : AbstractEffect
     {
         private readonly int VehicleID;

@@ -49,6 +49,40 @@ namespace GTAChaos.Effects
             return this.Count > 0 ? this.entries[0].item : default;
         }
 
+        public T GetRandom(Random rand, Func<Entry, bool> predicate)
+        {
+            rand ??= this.rand;
+
+            IEnumerable<Entry> list = this.entries.Where(predicate);
+            Debug.WriteLine($"{this.Count} : {list.Count()}");
+
+            if (list.Count() == 0)
+            {
+                return this.Count > 0 ? this.entries[0].item : default;
+            }
+
+            // Calculate accumulated weight based on predicate
+            double accumulatedWeight = 0.0f;
+            foreach (Entry entry in list)
+            {
+                accumulatedWeight += entry.weight;
+            }
+
+            double randomNumber = rand.NextDouble() * accumulatedWeight;
+
+            foreach (Entry entry in this.entries)
+            {
+                if (entry.weight >= randomNumber)
+                {
+                    return entry.item;
+                }
+
+                randomNumber -= entry.weight;
+            }
+
+            return this.Count > 0 ? this.entries[0].item : default;
+        }
+
         private void CalculateAccumulatedWeight()
         {
             this.AccumulatedWeight = 0;
@@ -497,18 +531,13 @@ namespace GTAChaos.Effects
 
             if (effects.Count > 0)
             {
-                AbstractEffect effect = effects.GetRandom(RandomHandler.Random);
+                AbstractEffect effect = effects.GetRandom(RandomHandler.Random, entry => !EffectCooldowns.ContainsKey(entry.item));
                 if (!onlyEnabled || attempts++ > 10)
                 {
                     return effect;
                 }
 
-                if (effect is null)
-                {
-                    return GetRandomEffect(onlyEnabled, attempts);
-                }
-
-                return EffectCooldowns.ContainsKey(effect) ? GetRandomEffect(onlyEnabled, attempts) : effect;
+                return effect is null ? GetRandomEffect(onlyEnabled, attempts) : effect;
             }
 
             return null;

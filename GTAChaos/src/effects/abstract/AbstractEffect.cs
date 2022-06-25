@@ -133,6 +133,11 @@ namespace GTAChaos.Effects
 
         public int GetDuration(int duration = -1)
         {
+            if (duration != -1)
+            {
+                return duration;
+            }
+
             if (this.Duration != -1)
             {
                 duration = Math.Min(Config.GetEffectDuration(), this.Duration);

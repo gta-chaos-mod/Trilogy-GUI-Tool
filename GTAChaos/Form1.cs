@@ -94,7 +94,10 @@ namespace GTAChaos.Forms
 
                 if (type == "ChaosMod" && state == "auto_start")
                 {
-                    this.Invoke(new Action(() => this.DoAutostart()));
+                    if (Shared.Sync == null || Shared.Sync.IsHost)
+                    {
+                        this.Invoke(new Action(() => this.DoAutostart()));
+                    }
                 }
             }
             catch (Exception) { }
@@ -260,7 +263,7 @@ namespace GTAChaos.Forms
             if (effect == null)
             {
                 effect = EffectDatabase.GetRandomEffect(true);
-                if (Shared.Sync != null)
+                if (Shared.Sync != null && effect is not RapidFireEffect)
                 {
                     Shared.Sync.SendEffect(effect);
                 }
@@ -277,7 +280,7 @@ namespace GTAChaos.Forms
             }
             else
             {
-                if (Shared.Sync != null)
+                if (Shared.Sync != null && effect is not RapidFireEffect)
                 {
                     Shared.Sync.SendEffect(effect);
                 }
@@ -1314,6 +1317,12 @@ namespace GTAChaos.Forms
                     this.comboBoxMainCooldown.Enabled = true;
                     this.enabledEffectsView.Enabled = true;
                     this.textBoxSeed.Enabled = true;
+                    this.checkBoxAutoStart.Enabled = true;
+                    this.buttonEffectsToggleAll.Enabled = true;
+                    this.numericUpDownExperimentalEffectCooldown.Enabled = true;
+                    this.buttonExperimentalRunEffect.Enabled = true;
+
+                    Shared.Sync = null;
                 }
                 else if (state == 1) // Connecting...
                 {
@@ -1402,6 +1411,10 @@ namespace GTAChaos.Forms
                         this.enabledEffectsView.Enabled = false;
                         this.buttonResetMain.Enabled = false;
                         this.textBoxSeed.Enabled = false;
+                        this.checkBoxAutoStart.Enabled = false;
+                        this.buttonEffectsToggleAll.Enabled = false;
+                        this.numericUpDownExperimentalEffectCooldown.Enabled = false;
+                        this.buttonExperimentalRunEffect.Enabled = false;
                     }
 
                     this.labelSyncHost.Text = $"Host: {args.HostUsername}";
@@ -1526,15 +1539,8 @@ namespace GTAChaos.Forms
 
             if (effect != null)
             {
-                effect.RunEffect();
-                return;
+                this.CallEffect(effect);
             }
-
-            int duration = Config.GetEffectDuration();
-            WebsocketHandler.INSTANCE.SendEffectToGame(this.textBoxExperimentalEffectName.Text, new
-            {
-                seed = RandomHandler.Next(9999999)
-            }, duration);
         }
 
         private void TextBoxExperimentalEffectName_TextChanged(object sender, EventArgs e) => Config.Instance().Experimental_EffectName = this.textBoxExperimentalEffectName.Text;

@@ -187,6 +187,11 @@ namespace GTAChaos.Utils
             this.Channel = Channel;
             this.Username = Username;
 
+            if (!Server.StartsWith("ws://") && !Server.StartsWith("wss://"))
+            {
+                Server = $"ws://{Server}";
+            }
+
             this.socket = new WebSocket(Server);
 
             this.socket.OnOpen += (sender, e) =>

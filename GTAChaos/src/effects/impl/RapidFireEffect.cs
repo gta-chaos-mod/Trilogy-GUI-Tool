@@ -16,13 +16,13 @@ namespace GTAChaos.Effects
 
         protected void RunRapidFireEffect(AbstractEffect effect)
         {
-            if (Shared.Sync != null)
+            if (Shared.Sync != null && effect is not RapidFireEffect)
             {
                 Shared.Sync.SendEffect(effect, 1000 * 15);
             }
             else
             {
-                effect.RunEffect(-1, 1000 * 15);
+                EffectDatabase.RunEffect(effect, -1, 1000 * 15);
             }
         }
 

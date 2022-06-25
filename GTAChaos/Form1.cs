@@ -1540,7 +1540,14 @@ namespace GTAChaos.Forms
             if (effect != null)
             {
                 this.CallEffect(effect);
+                return;
             }
+
+            int duration = Config.GetEffectDuration();
+            WebsocketHandler.INSTANCE.SendEffectToGame(this.textBoxExperimentalEffectName.Text, new
+            {
+                seed = RandomHandler.Next(9999999)
+            }, duration);
         }
 
         private void TextBoxExperimentalEffectName_TextChanged(object sender, EventArgs e) => Config.Instance().Experimental_EffectName = this.textBoxExperimentalEffectName.Text;

@@ -349,6 +349,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Rainbow Peds", "TastyUnicornPoop", "rainbow_peds"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsAllowed", "remove_all_weapons")); // Remove all weapons
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Set Everyone On Fire", "HotPotato", "set_everyone_on_fire").DisableRapidFire()); // Set everyone on fire
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Spawn Dumptrucks", "DamnBoiHeThicc", "big_butts"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Speeeeeen!", "Speeeeeen", "rotating_peds"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Tiny Peds", "SmolPeepoPeds", "ped_size_tiny"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Upside-Down Peds", "InALandDownUnder", "upside_down_peds"));

@@ -69,7 +69,7 @@ namespace GTAChaos.Forms
 
             this.timesUntilRapidFire = new Random().Next(10, 15);
 
-            this.numericUpDownExperimentalEffectCooldown.Maximum = EffectDatabase.Effects.Count;
+            this.numericUpDownEffectCooldown.Maximum = EffectDatabase.Effects.Count;
 
             WebsocketHandler.INSTANCE.ConnectWebsocket();
             WebsocketHandler.INSTANCE.OnSocketMessage += this.OnSocketMessage;
@@ -229,7 +229,7 @@ namespace GTAChaos.Forms
             this.checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
             this.textBoxExperimentalEffectName.Text = Config.Instance().Experimental_EffectName;
             this.checkBoxExperimentalYouTubeConnection.Checked = Config.Instance().Experimental_YouTubeConnection;
-            this.numericUpDownExperimentalEffectCooldown.Value = Math.Min(Config.Instance().Experimental_EffectsCooldownNotActivating, this.numericUpDownExperimentalEffectCooldown.Maximum);
+            this.numericUpDownEffectCooldown.Value = Math.Min(Config.Instance().EffectsCooldownNotActivating, this.numericUpDownEffectCooldown.Maximum);
 
             this.textBoxSeed.Text = Config.Instance().Seed;
 
@@ -1263,7 +1263,7 @@ namespace GTAChaos.Forms
         {
             if (e.Node is EffectTreeNode node && this.debug)
             {
-                node.Effect.RunEffect();
+                this.CallEffect(node.Effect);
             }
         }
 
@@ -1319,7 +1319,7 @@ namespace GTAChaos.Forms
                     this.textBoxSeed.Enabled = true;
                     this.checkBoxAutoStart.Enabled = true;
                     this.buttonEffectsToggleAll.Enabled = true;
-                    this.numericUpDownExperimentalEffectCooldown.Enabled = true;
+                    this.numericUpDownEffectCooldown.Enabled = true;
                     this.buttonExperimentalRunEffect.Enabled = true;
 
                     Shared.Sync = null;
@@ -1413,7 +1413,7 @@ namespace GTAChaos.Forms
                         this.textBoxSeed.Enabled = false;
                         this.checkBoxAutoStart.Enabled = false;
                         this.buttonEffectsToggleAll.Enabled = false;
-                        this.numericUpDownExperimentalEffectCooldown.Enabled = false;
+                        this.numericUpDownEffectCooldown.Enabled = false;
                         this.buttonExperimentalRunEffect.Enabled = false;
                     }
 
@@ -1576,6 +1576,6 @@ namespace GTAChaos.Forms
 
         private void CheckBoxSettingsPlayAudioSequentially_CheckedChanged(object sender, EventArgs e) => Config.Instance().PlayAudioSequentially = this.checkBoxSettingsPlayAudioSequentially.Checked;
 
-        private void NumericUpDownExperimentalEffectCooldown_ValueChanged(object sender, EventArgs e) => Config.Instance().Experimental_EffectsCooldownNotActivating = (int)this.numericUpDownExperimentalEffectCooldown.Value;
+        private void NumericUpDownEffectCooldown_ValueChanged(object sender, EventArgs e) => Config.Instance().EffectsCooldownNotActivating = (int)this.numericUpDownEffectCooldown.Value;
     }
 }

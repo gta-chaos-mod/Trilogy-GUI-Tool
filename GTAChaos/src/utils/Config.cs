@@ -18,6 +18,7 @@ namespace GTAChaos.Utils
         public bool PlayAudioForEffects = true;
         public bool PlayAudioSequentially = true;
         public float AudioVolume = 1.0f;
+        public int EffectsCooldownNotActivating = 100;
 
         // Twitch Polls
         public bool TwitchUsePolls;
@@ -48,7 +49,6 @@ namespace GTAChaos.Utils
         public bool Experimental_RunEffectOnAutoStart;
         public string Experimental_EffectName;
         public bool Experimental_YouTubeConnection;
-        public int Experimental_EffectsCooldownNotActivating = 100; // TODO: Different name, show in UI
 
         public static Config Instance()
         {
@@ -76,7 +76,7 @@ namespace GTAChaos.Utils
             return Instance().MainCooldown;
         }
 
-        public static int GetEffectCooldowns() => Math.Min(Instance().Experimental_EffectsCooldownNotActivating, EffectDatabase.GetEnabledEffectsCount());
+        public static int GetEffectCooldowns() => Math.Min(Instance().EffectsCooldownNotActivating, EffectDatabase.GetEnabledEffectsCount());
 
         public static string FToString(float value) => value.ToString(System.Globalization.CultureInfo.InvariantCulture);
     }

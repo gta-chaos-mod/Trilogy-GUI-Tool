@@ -90,8 +90,6 @@ namespace GTAChaos.Forms
             this.textBoxSyncServer = new System.Windows.Forms.TextBox();
             this.buttonSyncConnect = new System.Windows.Forms.Button();
             this.tabExperimental = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDownExperimentalEffectCooldown = new System.Windows.Forms.NumericUpDown();
             this.checkBoxExperimentalYouTubeConnection = new System.Windows.Forms.CheckBox();
             this.buttonExperimentalRunEffect = new System.Windows.Forms.Button();
             this.textBoxExperimentalEffectName = new System.Windows.Forms.TextBox();
@@ -109,6 +107,8 @@ namespace GTAChaos.Forms
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDownEffectCooldown = new System.Windows.Forms.NumericUpDown();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabStream.SuspendLayout();
@@ -119,8 +119,8 @@ namespace GTAChaos.Forms
             this.tabSettings.SuspendLayout();
             this.tabSync.SuspendLayout();
             this.tabExperimental.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExperimentalEffectCooldown)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEffectCooldown)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonMainToggle
@@ -578,6 +578,8 @@ namespace GTAChaos.Forms
             // tabEffects
             // 
             this.tabEffects.BackColor = System.Drawing.Color.Transparent;
+            this.tabEffects.Controls.Add(this.label4);
+            this.tabEffects.Controls.Add(this.numericUpDownEffectCooldown);
             this.tabEffects.Controls.Add(this.buttonEffectsToggleAll);
             this.tabEffects.Controls.Add(this.enabledEffectsView);
             this.tabEffects.Location = new System.Drawing.Point(4, 22);
@@ -591,7 +593,7 @@ namespace GTAChaos.Forms
             // 
             this.buttonEffectsToggleAll.Location = new System.Drawing.Point(6, 259);
             this.buttonEffectsToggleAll.Name = "buttonEffectsToggleAll";
-            this.buttonEffectsToggleAll.Size = new System.Drawing.Size(538, 23);
+            this.buttonEffectsToggleAll.Size = new System.Drawing.Size(277, 23);
             this.buttonEffectsToggleAll.TabIndex = 7;
             this.buttonEffectsToggleAll.Text = "Toggle All";
             this.buttonEffectsToggleAll.UseVisualStyleBackColor = true;
@@ -797,8 +799,6 @@ namespace GTAChaos.Forms
             // tabExperimental
             // 
             this.tabExperimental.BackColor = System.Drawing.Color.Transparent;
-            this.tabExperimental.Controls.Add(this.label4);
-            this.tabExperimental.Controls.Add(this.numericUpDownExperimentalEffectCooldown);
             this.tabExperimental.Controls.Add(this.checkBoxExperimentalYouTubeConnection);
             this.tabExperimental.Controls.Add(this.buttonExperimentalRunEffect);
             this.tabExperimental.Controls.Add(this.textBoxExperimentalEffectName);
@@ -809,33 +809,6 @@ namespace GTAChaos.Forms
             this.tabExperimental.Size = new System.Drawing.Size(552, 293);
             this.tabExperimental.TabIndex = 7;
             this.tabExperimental.Text = "Experimental";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 54);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(88, 13);
-            this.label4.TabIndex = 18;
-            this.label4.Text = "Effect Cooldown:";
-            // 
-            // numericUpDownExperimentalEffectCooldown
-            // 
-            this.numericUpDownExperimentalEffectCooldown.Location = new System.Drawing.Point(101, 52);
-            this.numericUpDownExperimentalEffectCooldown.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.numericUpDownExperimentalEffectCooldown.Name = "numericUpDownExperimentalEffectCooldown";
-            this.numericUpDownExperimentalEffectCooldown.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDownExperimentalEffectCooldown.TabIndex = 17;
-            this.numericUpDownExperimentalEffectCooldown.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownExperimentalEffectCooldown.ValueChanged += new System.EventHandler(this.NumericUpDownExperimentalEffectCooldown_ValueChanged);
             // 
             // checkBoxExperimentalYouTubeConnection
             // 
@@ -982,6 +955,32 @@ namespace GTAChaos.Forms
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(385, 264);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(88, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Effect Cooldown:";
+            // 
+            // numericUpDownEffectCooldown
+            // 
+            this.numericUpDownEffectCooldown.Location = new System.Drawing.Point(479, 262);
+            this.numericUpDownEffectCooldown.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numericUpDownEffectCooldown.Name = "numericUpDownEffectCooldown";
+            this.numericUpDownEffectCooldown.Size = new System.Drawing.Size(65, 20);
+            this.numericUpDownEffectCooldown.TabIndex = 19;
+            this.numericUpDownEffectCooldown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1008,15 +1007,16 @@ namespace GTAChaos.Forms
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTwitchPollsChannelPointsCost)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTwitchPollsBitsCost)).EndInit();
             this.tabEffects.ResumeLayout(false);
+            this.tabEffects.PerformLayout();
             this.tabSettings.ResumeLayout(false);
             this.tabSettings.PerformLayout();
             this.tabSync.ResumeLayout(false);
             this.tabSync.PerformLayout();
             this.tabExperimental.ResumeLayout(false);
             this.tabExperimental.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExperimentalEffectCooldown)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEffectCooldown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1102,7 +1102,7 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.TextBox textBoxStreamClientID;
         private System.Windows.Forms.CheckBox checkBoxSettingsPlayAudioSequentially;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDownExperimentalEffectCooldown;
+        private System.Windows.Forms.NumericUpDown numericUpDownEffectCooldown;
     }
 }
 

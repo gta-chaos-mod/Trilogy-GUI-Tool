@@ -381,9 +381,9 @@ namespace GTAChaos.Effects
 
                 // --- Player --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects, "-Health, -Armor, -$250k", "INeedSomeHindrance", "anti_health_armor_money"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "-Millionaire", "CrashTookAllMyMoney", "anti_millionaire"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Add Random Blips", "PointsOfUninterest", "add_random_blips"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Arcade Racer Camera", "SegaRallyChampionship", "arcade_racer_camera", -1, 1.0f));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Bankrupt", "CrashTookAllMyMoney", "bankrupt"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Cinematic Vehicle Camera", "MachinimaMode", "cinematic_vehicle_camera", -1, 1.0f)); // Cinematic Vehicle Camera
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Disable Aiming", "IForgotHowToAim", "disable_aiming"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Disable Jumping", "ImNotAKangaroo", "disable_jumping"));

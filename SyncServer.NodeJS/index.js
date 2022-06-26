@@ -32,7 +32,7 @@ wss.on('connection', ws => {
 			ws._username = data.Username;
 			Users.set(data.Username, ws);
 
-			if (Channels.has(data.Channel)) {
+			if (Channels.has(data.Channel) && !!Channels.get(data.Channel)) {
 				const c = Channels.get(data.Channel);
 				if (!c) return;
 
@@ -93,7 +93,7 @@ wss.on('connection', ws => {
 		else if (data.Type == 22) { // Votes
 			const c = Channels.get(ws._channel);
 			if (!c) return;
-			
+
 			if (c.getHost() != ws._username) return;
 
 			for (const u of c.getUsers()) {

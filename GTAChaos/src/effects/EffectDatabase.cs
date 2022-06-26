@@ -70,7 +70,7 @@ namespace GTAChaos.Effects
 
             double randomNumber = rand.NextDouble() * accumulatedWeight;
 
-            foreach (Entry entry in this.entries)
+            foreach (Entry entry in list)
             {
                 if (entry.weight >= randomNumber)
                 {

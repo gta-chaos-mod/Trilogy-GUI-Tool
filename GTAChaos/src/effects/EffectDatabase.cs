@@ -524,6 +524,8 @@ namespace GTAChaos.Effects
 
         public static WeightedRandomBag<AbstractEffect> EnabledEffects { get; } = new();
 
+        public static int GetEnabledEffectsCount() => EnabledEffects.Count;
+
         public static AbstractEffect GetByID(string id, bool onlyEnabled = false) => (onlyEnabled ? EnabledEffects : Effects).Find(e => e.item.GetID().Equals(id)).item;
 
         public static AbstractEffect GetByWord(string word, bool onlyEnabled = false) => (onlyEnabled ? EnabledEffects : Effects).Find(e => !string.IsNullOrEmpty(e.item.Word) && string.Equals(e.item.Word, word, StringComparison.OrdinalIgnoreCase)).item;
@@ -568,12 +570,18 @@ namespace GTAChaos.Effects
 
         public static AbstractEffect RunEffect(AbstractEffect effect, int seed = -1, int duration = -1)
         {
+            IEnumerable<WeightedRandomBag<AbstractEffect>.Entry> nonCooldownEffects = Effects.Get().Where(entry => !EffectCooldowns.ContainsKey(entry.item));
+            if (nonCooldownEffects.Count() <= 0)
+            {
+                ResetEffectCooldowns();
+            }
+
             CooldownEffects();
 
             if (effect is not null)
             {
                 effect.RunEffect(seed, duration);
-                EffectCooldowns[effect] = Config.Instance().Experimental_EffectsCooldownNotActivating;
+                EffectCooldowns[effect] = Config.GetEffectCooldowns();
             }
 
             return effect;

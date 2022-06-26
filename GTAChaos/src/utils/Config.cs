@@ -76,6 +76,8 @@ namespace GTAChaos.Utils
             return Instance().MainCooldown;
         }
 
+        public static int GetEffectCooldowns() => Math.Min(Instance().Experimental_EffectsCooldownNotActivating, EffectDatabase.GetEnabledEffectsCount());
+
         public static string FToString(float value) => value.ToString(System.Globalization.CultureInfo.InvariantCulture);
     }
 }

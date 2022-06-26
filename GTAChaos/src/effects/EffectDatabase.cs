@@ -411,6 +411,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "lets_take_a_break", 1000 * 10).DisableRapidFire()); // Let's take a break
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Lock Mouse", "WhoUnpluggedMyMouse", "lock_mouse", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Lock Player In Vehicle", "ThereIsNoEscape", "lock_player_inside_vehicle")); // Lock player inside vehicle
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Low FOV", "LowFOV", "low_fov"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Millionaire", "IJustWonTheLottery", "millionaire"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Need To Hurry", "NoNeedToHurry", "no_need_to_hurry", -1, 1.5f)); // No Need To Hurry
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Shooting Allowed", "GunsAreDangerous", "no_shooting_allowed"));
@@ -426,6 +427,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Steer Bias (Left)", "LeftSideBias", "steer_bias_left"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Steer Bias (Right)", "RightSideBias", "steer_bias_right"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Suicide (1% Chance)", "TheChanceOfSuddenDeath", "one_percent_suicide"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Super Low FOV", "SuperLowFOV", "super_low_fov"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Switch To Unarmed", "PleaseUseYourFists", "switch_to_unarmed"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "The Firing Circus", "TheFiringCircus", "the_firing_circus", 1000 * 5));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "The Flash", "FastestManAlive", "the_flash")); // The Flash - Let's you run and swim at incredibly high speeds while not taking fall damage or drowing!

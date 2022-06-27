@@ -217,6 +217,7 @@ namespace GTAChaos.Forms
             this.checkBoxStreamCombineVotingMessages.Checked = Config.Instance().StreamCombineChatMessages;
             this.checkBoxStreamEnableMultipleEffects.Checked = Config.Instance().StreamEnableMultipleEffects;
             this.checkBoxStreamEnableRapidFire.Checked = Config.Instance().StreamEnableRapidFire;
+            this.checkBoxStreamHideVotingEffectsIngame.Checked = Config.Instance().StreamHideVotingEffectsIngame;
 
             this.checkBoxStreamMajorityVotes.Checked = Config.Instance().StreamMajorityVotes;
             this.checkBoxStreamEnableMultipleEffects.Enabled = Config.Instance().StreamMajorityVotes;
@@ -364,7 +365,7 @@ namespace GTAChaos.Forms
                 {
                     Shared.Sync?.SendTimeUpdate(remaining, Config.Instance().StreamVotingTime);
 
-                    this.stream?.SendEffectVotingToGame();
+                    this.stream?.SendEffectVotingToGame(Config.Instance().StreamHideVotingEffectsIngame);
 
                     this.elapsedCount = (int)this.stopwatch.ElapsedMilliseconds;
                 }
@@ -1577,5 +1578,7 @@ namespace GTAChaos.Forms
         private void CheckBoxSettingsPlayAudioSequentially_CheckedChanged(object sender, EventArgs e) => Config.Instance().PlayAudioSequentially = this.checkBoxSettingsPlayAudioSequentially.Checked;
 
         private void NumericUpDownEffectCooldown_ValueChanged(object sender, EventArgs e) => Config.Instance().EffectsCooldownNotActivating = (int)this.numericUpDownEffectCooldown.Value;
+
+        private void checkBoxStreamHideVotingEffectsIngame_CheckedChanged(object sender, EventArgs e) => Config.Instance().StreamHideVotingEffectsIngame = this.checkBoxStreamHideVotingEffectsIngame.Checked;
     }
 }

@@ -44,6 +44,7 @@ namespace GTAChaos.Utils
         public bool StreamEnableMultipleEffects;
         public bool StreamEnableRapidFire = true;
         public bool StreamMajorityVotes = true;
+        public bool StreamHideVotingEffectsIngame = true;
 
         // Experimental
         public bool Experimental_RunEffectOnAutoStart;

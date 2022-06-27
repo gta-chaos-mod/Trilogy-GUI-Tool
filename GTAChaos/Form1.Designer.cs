@@ -70,9 +70,12 @@ namespace GTAChaos.Forms
             this.labelTwitchPollsBitsCost = new System.Windows.Forms.Label();
             this.numericUpDownTwitchPollsBitsCost = new System.Windows.Forms.NumericUpDown();
             this.tabEffects = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDownEffectCooldown = new System.Windows.Forms.NumericUpDown();
             this.buttonEffectsToggleAll = new System.Windows.Forms.Button();
             this.enabledEffectsView = new System.Windows.Forms.TreeView();
             this.tabSettings = new System.Windows.Forms.TabPage();
+            this.checkBoxStreamHideVotingEffectsIngame = new System.Windows.Forms.CheckBox();
             this.checkBoxSettingsPlayAudioSequentially = new System.Windows.Forms.CheckBox();
             this.checkBoxPlayAudioForEffects = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -107,8 +110,6 @@ namespace GTAChaos.Forms
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDownEffectCooldown = new System.Windows.Forms.NumericUpDown();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabStream.SuspendLayout();
@@ -116,11 +117,11 @@ namespace GTAChaos.Forms
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTwitchPollsChannelPointsCost)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTwitchPollsBitsCost)).BeginInit();
             this.tabEffects.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEffectCooldown)).BeginInit();
             this.tabSettings.SuspendLayout();
             this.tabSync.SuspendLayout();
             this.tabExperimental.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEffectCooldown)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonMainToggle
@@ -589,6 +590,33 @@ namespace GTAChaos.Forms
             this.tabEffects.TabIndex = 1;
             this.tabEffects.Text = "Effects";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(385, 264);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(88, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Effect Cooldown:";
+            // 
+            // numericUpDownEffectCooldown
+            // 
+            this.numericUpDownEffectCooldown.Location = new System.Drawing.Point(479, 262);
+            this.numericUpDownEffectCooldown.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numericUpDownEffectCooldown.Name = "numericUpDownEffectCooldown";
+            this.numericUpDownEffectCooldown.Size = new System.Drawing.Size(65, 20);
+            this.numericUpDownEffectCooldown.TabIndex = 19;
+            this.numericUpDownEffectCooldown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownEffectCooldown.ValueChanged += new System.EventHandler(this.NumericUpDownEffectCooldown_ValueChanged);
+            // 
             // buttonEffectsToggleAll
             // 
             this.buttonEffectsToggleAll.Location = new System.Drawing.Point(6, 259);
@@ -612,6 +640,7 @@ namespace GTAChaos.Forms
             // tabSettings
             // 
             this.tabSettings.BackColor = System.Drawing.Color.Transparent;
+            this.tabSettings.Controls.Add(this.checkBoxStreamHideVotingEffectsIngame);
             this.tabSettings.Controls.Add(this.checkBoxSettingsPlayAudioSequentially);
             this.tabSettings.Controls.Add(this.checkBoxPlayAudioForEffects);
             this.tabSettings.Controls.Add(this.label8);
@@ -622,6 +651,21 @@ namespace GTAChaos.Forms
             this.tabSettings.Size = new System.Drawing.Size(552, 293);
             this.tabSettings.TabIndex = 3;
             this.tabSettings.Text = "Settings";
+            // 
+            // checkBoxStreamHideVotingEffectsIngame
+            // 
+            this.checkBoxStreamHideVotingEffectsIngame.AutoSize = true;
+            this.checkBoxStreamHideVotingEffectsIngame.Checked = true;
+            this.checkBoxStreamHideVotingEffectsIngame.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxStreamHideVotingEffectsIngame.Location = new System.Drawing.Point(9, 268);
+            this.checkBoxStreamHideVotingEffectsIngame.Name = "checkBoxStreamHideVotingEffectsIngame";
+            this.checkBoxStreamHideVotingEffectsIngame.Size = new System.Drawing.Size(155, 17);
+            this.checkBoxStreamHideVotingEffectsIngame.TabIndex = 10;
+            this.checkBoxStreamHideVotingEffectsIngame.Text = "Hide Voting Effects Ingame";
+            this.toolTipHandler.SetToolTip(this.checkBoxStreamHideVotingEffectsIngame, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
+        " play.");
+            this.checkBoxStreamHideVotingEffectsIngame.UseVisualStyleBackColor = true;
+            this.checkBoxStreamHideVotingEffectsIngame.CheckedChanged += new System.EventHandler(this.checkBoxStreamHideVotingEffectsIngame_CheckedChanged);
             // 
             // checkBoxSettingsPlayAudioSequentially
             // 
@@ -955,32 +999,6 @@ namespace GTAChaos.Forms
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(385, 264);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(88, 13);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Effect Cooldown:";
-            // 
-            // numericUpDownEffectCooldown
-            // 
-            this.numericUpDownEffectCooldown.Location = new System.Drawing.Point(479, 262);
-            this.numericUpDownEffectCooldown.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            this.numericUpDownEffectCooldown.Name = "numericUpDownEffectCooldown";
-            this.numericUpDownEffectCooldown.Size = new System.Drawing.Size(65, 20);
-            this.numericUpDownEffectCooldown.TabIndex = 19;
-            this.numericUpDownEffectCooldown.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1008,6 +1026,7 @@ namespace GTAChaos.Forms
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTwitchPollsBitsCost)).EndInit();
             this.tabEffects.ResumeLayout(false);
             this.tabEffects.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEffectCooldown)).EndInit();
             this.tabSettings.ResumeLayout(false);
             this.tabSettings.PerformLayout();
             this.tabSync.ResumeLayout(false);
@@ -1016,7 +1035,6 @@ namespace GTAChaos.Forms
             this.tabExperimental.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEffectCooldown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1103,6 +1121,7 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.CheckBox checkBoxSettingsPlayAudioSequentially;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numericUpDownEffectCooldown;
+        private System.Windows.Forms.CheckBox checkBoxStreamHideVotingEffectsIngame;
     }
 }
 

@@ -2,6 +2,7 @@
 using GTAChaos.Utils;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GTAChaos.Effects
 {
@@ -123,11 +124,11 @@ namespace GTAChaos.Effects
             }
         }
 
-        public virtual void RunEffect(int seed = -1, int _duration = -1)
+        public virtual async Task RunEffect(int seed = -1, int _duration = -1)
         {
             if (Config.Instance().PlayAudioForEffects && Shared.StreamVotingMode != Shared.VOTING_MODE.RAPID_FIRE)
             {
-                AudioPlayer.INSTANCE.PlayAudio(this.GetAudioFile());
+                await AudioPlayer.INSTANCE.PlayAudio(this.GetAudioFile());
             }
         }
 

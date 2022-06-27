@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2019 Lordmau5
 using GTAChaos.Utils;
 using System;
+using System.Threading.Tasks;
 
 namespace GTAChaos.Effects
 {
@@ -26,9 +27,9 @@ namespace GTAChaos.Effects
 
         public override string GetID() => $"spawn_vehicle_{this.VehicleID}";
 
-        public override void RunEffect(int seed = -1, int duration = -1)
+        public override async Task RunEffect(int seed = -1, int duration = -1)
         {
-            base.RunEffect(seed, duration);
+            await base.RunEffect(seed, duration);
 
             string gameDisplayName = this.GetDisplayName();
 

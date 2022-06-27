@@ -32,12 +32,12 @@ namespace GTAChaos.Utils
 
             public bool IsExpired() => this.Expiry < DateTime.Now;
 
-            public void Play()
+            public Task Play()
             {
                 if (this.IsExpired())
                 {
                     this.Finish();
-                    return;
+                    return Task.CompletedTask;
                 }
 
                 Assembly a = Assembly.GetExecutingAssembly();
@@ -83,7 +83,7 @@ namespace GTAChaos.Utils
                 if (stream == null)
                 {
                     this.Finish();
-                    return;
+                    return Task.CompletedTask;
                 }
 
                 WaveOutEvent outputDevice = INSTANCE.GetWaveOutEvent();
@@ -92,6 +92,8 @@ namespace GTAChaos.Utils
 
                 //outputDevice.Volume = Config.Instance().AudioVolume;
                 outputDevice.Play();
+
+                return Task.CompletedTask;
             }
 
             private void Finish() => OnFinished?.Invoke(this, new EventArgs());
@@ -101,7 +103,7 @@ namespace GTAChaos.Utils
 
         private readonly List<Audio> queue = new();
 
-        private void PlayNext()
+        private async Task PlayNext()
         {
             if (!Config.Instance().PlayAudioForEffects)
             {
@@ -119,26 +121,26 @@ namespace GTAChaos.Utils
             audio.OnFinished += (object sender, EventArgs e) =>
             {
                 this.queue.Remove(audio);
-                this.PlayNext();
+                Task _ = this.PlayNext();
             };
 
-            Task.Run(() => audio.Play());
+            await Task.Run(async () => await audio.Play());
         }
 
-        public void PlayAudio(string path, bool playNow = false)
+        public async Task PlayAudio(string path, bool playNow = false)
         {
             Audio audio = new(path);
 
             if (!Config.Instance().PlayAudioSequentially || playNow)
             {
-                Task.Run(() => audio.Play());
+                await Task.Run(async () => await audio.Play());
             }
             else
             {
                 this.queue.Add(new Audio(path));
                 if (this.queue.Count == 1)
                 {
-                    this.PlayNext();
+                    await this.PlayNext();
                 }
             }
         }

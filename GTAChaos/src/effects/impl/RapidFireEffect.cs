@@ -37,11 +37,11 @@ namespace GTAChaos.Effects
             return effect is null || effect is RapidFireEffect || effect.IsID("reset_effect_timers") ? this.GetRandomEffect(attempts + 1) : effect;
         }
 
-        public override void RunEffect(int seed = -1, int duration = -1)
+        public override async Task RunEffect(int seed = -1, int duration = -1)
         {
-            base.RunEffect(seed, duration);
+            await base.RunEffect(seed, duration);
 
-            Task.Run(async () =>
+            await Task.Run(async () =>
             {
                 for (int i = 0; i < this.effects; i++)
                 {

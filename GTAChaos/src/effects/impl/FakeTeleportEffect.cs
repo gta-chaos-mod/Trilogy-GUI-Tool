@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2019 Lordmau5
 using GTAChaos.Utils;
+using System.Threading.Tasks;
 
 namespace GTAChaos.Effects
 {
@@ -12,9 +13,9 @@ namespace GTAChaos.Effects
 
         public override string GetID() => this.EffectID;
 
-        public override void RunEffect(int seed = -1, int duration = -1)
+        public override async Task RunEffect(int seed = -1, int duration = -1)
         {
-            base.RunEffect(seed, duration);
+            await base.RunEffect(seed, duration);
 
             Location location = Location.Locations[RandomHandler.Next(Location.Locations.Count)];
 

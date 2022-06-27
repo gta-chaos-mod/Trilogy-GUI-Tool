@@ -418,6 +418,7 @@
     <EmbeddedResource Include="assets\audio\effect_big_butts.ogg" />
     <EmbeddedResource Include="assets\audio\effect_spawn_tree.ogg" />
     <EmbeddedResource Include="assets\audio\effect_struck_by_truck.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_shoutouts_to_simpleflips.ogg" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="icon.ico" />
   </ItemGroup>

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GTAChaos.Effects
 {
@@ -19,15 +20,19 @@ namespace GTAChaos.Effects
         private readonly Random rand = new();
         private double AccumulatedWeight = 0;
 
-        public void Add(T item, double weight = 1.0)
+        public Entry Add(T item, double weight = 1.0)
         {
-            this.entries.Add(new Entry
+            Entry entry = new()
             {
                 item = item,
                 weight = weight
-            });
+            };
+
+            this.entries.Add(entry);
 
             this.CalculateAccumulatedWeight();
+
+            return entry;
         }
 
         public T GetRandom(Random rand)
@@ -56,7 +61,7 @@ namespace GTAChaos.Effects
             IEnumerable<Entry> list = this.entries.Where(predicate);
             Debug.WriteLine($"{this.Count} : {list.Count()}");
 
-            if (list.Count() == 0)
+            if (list.Count() <= 0)
             {
                 return this.Count > 0 ? this.entries[0].item : default;
             }
@@ -96,7 +101,7 @@ namespace GTAChaos.Effects
 
         public List<Entry> Get() => this.entries;
 
-        public void Add(Entry entry) => this.Add(entry.item, entry.weight);
+        public Entry Add(Entry entry) => this.Add(entry.item, entry.weight);
 
         public void Remove(Entry item) => this.entries.Remove(item);
 
@@ -122,7 +127,8 @@ namespace GTAChaos.Effects
                 return;
             }
 
-            Effects.Add(effect, weight);
+            WeightedRandomBag<AbstractEffect>.Entry entry = Effects.Add(effect, weight);
+            EnabledEffects.Add(entry);
         }
 
         public static void PopulateEffects(string game)
@@ -539,7 +545,7 @@ namespace GTAChaos.Effects
 
         public static AbstractEffect GetByDescription(string description, bool onlyEnabled = false) => (onlyEnabled ? EnabledEffects : Effects).Find(e => string.Equals(description, e.item.GetDisplayName(DisplayNameType.UI), StringComparison.OrdinalIgnoreCase)).item;
 
-        public static AbstractEffect GetRandomEffect(bool onlyEnabled = false, int attempts = 0)
+        public static AbstractEffect GetRandomEffect(bool onlyEnabled = false, int attempts = 0, bool addEffectToCooldown = false)
         {
             WeightedRandomBag<AbstractEffect> effects = onlyEnabled ? EnabledEffects : Effects;
 
@@ -548,13 +554,35 @@ namespace GTAChaos.Effects
                 AbstractEffect effect = effects.GetRandom(RandomHandler.Random, entry => !EffectCooldowns.ContainsKey(entry.item));
                 if (!onlyEnabled || attempts++ > 10)
                 {
+                    if (addEffectToCooldown)
+                    {
+                        SetCooldownForEffect(effect);
+                    }
+
                     return effect;
                 }
 
-                return effect is null ? GetRandomEffect(onlyEnabled, attempts) : effect;
+                if (effect is not null)
+                {
+                    SetCooldownForEffect(effect);
+                    return effect;
+                }
+                else
+                {
+                    return GetRandomEffect(onlyEnabled, attempts, addEffectToCooldown);
+                }
             }
 
             return null;
+        }
+
+        private static void CheckForNonCooldownEffects()
+        {
+            IEnumerable<WeightedRandomBag<AbstractEffect>.Entry> nonCooldownEffects = Effects.Get().Where(entry => !EffectCooldowns.ContainsKey(entry.item));
+            if (nonCooldownEffects.Count() <= 0)
+            {
+                ResetEffectCooldowns();
+            }
         }
 
         public static void CooldownEffects()
@@ -573,22 +601,26 @@ namespace GTAChaos.Effects
 
         public static void ResetEffectCooldowns() => EffectCooldowns.Clear();
 
+        private static void SetCooldownForEffect(AbstractEffect effect)
+        {
+            if (effect is not null)
+            {
+                EffectCooldowns[effect] = Config.GetEffectCooldowns();
+            }
+
+            CheckForNonCooldownEffects();
+        }
+
         public static AbstractEffect RunEffect(string id, bool onlyEnabled = true) => RunEffect(GetByID(id, onlyEnabled));
 
         public static AbstractEffect RunEffect(AbstractEffect effect, int seed = -1, int duration = -1)
         {
-            IEnumerable<WeightedRandomBag<AbstractEffect>.Entry> nonCooldownEffects = Effects.Get().Where(entry => !EffectCooldowns.ContainsKey(entry.item));
-            if (nonCooldownEffects.Count() <= 0)
-            {
-                ResetEffectCooldowns();
-            }
-
             CooldownEffects();
 
             if (effect is not null)
             {
-                effect.RunEffect(seed, duration);
-                EffectCooldowns[effect] = Config.GetEffectCooldowns();
+                Task _ = effect.RunEffect(seed, duration);
+                SetCooldownForEffect(effect);
             }
 
             return effect;

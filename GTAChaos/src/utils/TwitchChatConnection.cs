@@ -356,7 +356,7 @@ namespace GTAChaos.Utils
                 int possibleEffects = Math.Min(3, EffectDatabase.EnabledEffects.Count);
                 while (this.votingElements.Count != possibleEffects)
                 {
-                    AbstractEffect effect = EffectDatabase.GetRandomEffect(true);
+                    AbstractEffect effect = EffectDatabase.GetRandomEffect(true, 0, true);
                     if (effect.IsTwitchEnabled() && !this.ContainsEffect(effect))
                     {
                         this.AddEffect(effect);
@@ -365,7 +365,7 @@ namespace GTAChaos.Utils
 
                 while (this.votingElements.Count < 3)
                 {
-                    AbstractEffect effect = EffectDatabase.GetRandomEffect();
+                    AbstractEffect effect = EffectDatabase.GetRandomEffect(false, 0, true);
                     if (effect.IsTwitchEnabled() && !this.ContainsEffect(effect))
                     {
                         this.AddEffect(effect);

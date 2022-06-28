@@ -259,7 +259,7 @@ namespace GTAChaos.Forms
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 37);
+            this.label3.Location = new System.Drawing.Point(37, 11);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 33;
@@ -267,7 +267,7 @@ namespace GTAChaos.Forms
             // 
             // textBoxStreamClientID
             // 
-            this.textBoxStreamClientID.Location = new System.Drawing.Point(93, 33);
+            this.textBoxStreamClientID.Location = new System.Drawing.Point(93, 7);
             this.textBoxStreamClientID.Name = "textBoxStreamClientID";
             this.textBoxStreamClientID.PasswordChar = '*';
             this.textBoxStreamClientID.Size = new System.Drawing.Size(125, 20);
@@ -277,7 +277,7 @@ namespace GTAChaos.Forms
             // labelTwitchAccessToken
             // 
             this.labelTwitchAccessToken.AutoSize = true;
-            this.labelTwitchAccessToken.Location = new System.Drawing.Point(8, 10);
+            this.labelTwitchAccessToken.Location = new System.Drawing.Point(8, 35);
             this.labelTwitchAccessToken.Name = "labelTwitchAccessToken";
             this.labelTwitchAccessToken.Size = new System.Drawing.Size(79, 13);
             this.labelTwitchAccessToken.TabIndex = 31;
@@ -487,7 +487,7 @@ namespace GTAChaos.Forms
             // 
             // textBoxStreamAccessToken
             // 
-            this.textBoxStreamAccessToken.Location = new System.Drawing.Point(93, 7);
+            this.textBoxStreamAccessToken.Location = new System.Drawing.Point(93, 32);
             this.textBoxStreamAccessToken.Name = "textBoxStreamAccessToken";
             this.textBoxStreamAccessToken.PasswordChar = '*';
             this.textBoxStreamAccessToken.Size = new System.Drawing.Size(125, 20);

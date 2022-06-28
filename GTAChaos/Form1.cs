@@ -47,7 +47,6 @@ namespace GTAChaos.Forms
             else
             {
                 this.Text += " (DEBUG)";
-                this.textBoxSyncServer.Text = "ws://localhost:12312";
             }
 
             this.tabs.TabPages.Remove(this.tabPolls);
@@ -132,9 +131,11 @@ namespace GTAChaos.Forms
                 Config.Instance().AudioVolume = AudioPlayer.INSTANCE.GetAudioVolume();
 
                 Config.Instance().EnabledEffects.Clear();
-                foreach (WeightedRandomBag<AbstractEffect>.Entry entry in EffectDatabase.EnabledEffects.Get())
+
+                foreach (WeightedRandomBag<AbstractEffect>.Entry entry in EffectDatabase.Effects.Get())
                 {
-                    Config.Instance().EnabledEffects.Add(entry.item.GetID());
+                    bool enabled = EffectDatabase.EnabledEffects.Contains(entry);
+                    Config.Instance().EnabledEffects.Add(entry.item.GetID(), enabled);
                 }
 
                 JsonSerializer serializer = new();
@@ -226,6 +227,10 @@ namespace GTAChaos.Forms
             this.checkBoxTwitchPollsPostMessages.Checked = Config.Instance().TwitchPollsPostMessages;
             this.numericUpDownTwitchPollsBitsCost.Value = Config.Instance().TwitchPollsBitsCost;
             this.numericUpDownTwitchPollsChannelPointsCost.Value = Config.Instance().TwitchPollsChannelPointsCost;
+
+            this.textBoxSyncServer.Text = Config.Instance().SyncServer;
+            this.textBoxSyncChannel.Text = Config.Instance().SyncChannel;
+            this.textBoxSyncUsername.Text = Config.Instance().SyncUsername;
 
             this.checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
             this.textBoxExperimentalEffectName.Text = Config.Instance().Experimental_EffectName;
@@ -588,8 +593,8 @@ namespace GTAChaos.Forms
         {
             foreach (CategoryTreeNode node in this.enabledEffectsView.Nodes)
             {
-                node.Checked = false;
-                this.CheckAllChildNodes(node, false);
+                node.Checked = true;
+                this.CheckAllChildNodes(node, true);
                 node.UpdateCategory();
             }
         }
@@ -797,15 +802,15 @@ namespace GTAChaos.Forms
             }
         }
 
-        private void LoadPreset(List<string> enabledEffects)
+        private void LoadPreset(Dictionary<string, bool> enabledEffects)
         {
             this.PopulatePresets();
 
-            foreach (string effect in enabledEffects)
+            foreach (KeyValuePair<string, bool> pair in enabledEffects)
             {
-                if (this.idToEffectNodeMap.TryGetValue(effect, out EffectTreeNode node))
+                if (this.idToEffectNodeMap.TryGetValue(pair.Key, out EffectTreeNode node))
                 {
-                    node.Checked = true;
+                    node.Checked = pair.Value;
                     EffectDatabase.SetEffectEnabled(node.Effect, true);
                 }
             }
@@ -875,13 +880,18 @@ namespace GTAChaos.Forms
                 string content = System.IO.File.ReadAllText(dialog.FileName);
                 string[] enabledEffects = content.Split(',');
 
-                List<string> enabledEffectList = new();
-                foreach (string effect in enabledEffects)
+                Dictionary<string, bool> effectsMap = new();
+                foreach (WeightedRandomBag<AbstractEffect>.Entry entry in EffectDatabase.Effects.Get())
                 {
-                    enabledEffectList.Add(effect);
+                    effectsMap.Add(entry.item.GetID(), false);
                 }
 
-                this.LoadPreset(enabledEffectList);
+                foreach (string effect in enabledEffects)
+                {
+                    effectsMap[effect] = true;
+                }
+
+                this.LoadPreset(effectsMap);
             }
 
             dialog.Dispose();
@@ -1284,17 +1294,22 @@ namespace GTAChaos.Forms
                 && !string.IsNullOrEmpty(this.textBoxSyncUsername.Text);
         }
 
-        private void TextBoxSyncServer_TextChanged(object sender, EventArgs e) => this.UpdateButtonState();
-
+        private void TextBoxSyncServer_TextChanged(object sender, EventArgs e)
+        {
+            Config.Instance().SyncServer = this.textBoxSyncServer.Text;
+            this.UpdateButtonState();
+        }
         private void TextBoxSyncChannel_TextChanged(object sender, EventArgs e)
         {
             this.textBoxSyncChannel.Text = this.FilterSyncCharacters(this.textBoxSyncChannel.Text);
+            Config.Instance().SyncChannel = this.textBoxSyncChannel.Text;
             this.UpdateButtonState();
         }
 
         private void TextBoxSyncUsername_TextChanged(object sender, EventArgs e)
         {
             this.textBoxSyncUsername.Text = this.FilterSyncCharacters(this.textBoxSyncUsername.Text);
+            Config.Instance().SyncUsername = this.textBoxSyncUsername.Text;
             this.UpdateButtonState();
         }
 

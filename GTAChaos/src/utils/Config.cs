@@ -2,7 +2,6 @@
 using GTAChaos.Effects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GTAChaos.Utils
 {
@@ -14,7 +13,7 @@ namespace GTAChaos.Utils
         public bool AutoStart = true;
         public string Seed;
         public bool MainShowLastEffects;
-        public List<string> EnabledEffects = new();
+        public Dictionary<string, bool> EnabledEffects = new();
         public bool PlayAudioForEffects = true;
         public bool PlayAudioSequentially = true;
         public float AudioVolume = 1.0f;
@@ -46,6 +45,11 @@ namespace GTAChaos.Utils
         public bool StreamMajorityVotes = true;
         public bool StreamHideVotingEffectsIngame = true;
 
+        // Sync
+        public string SyncServer;
+        public string SyncChannel;
+        public string SyncUsername;
+
         // Experimental
         public bool Experimental_RunEffectOnAutoStart;
         public string Experimental_EffectName;
@@ -58,7 +62,10 @@ namespace GTAChaos.Utils
                 _Instance = new Config();
 
                 // Set all effects to enabled by default
-                _Instance.EnabledEffects.AddRange(from effect in EffectDatabase.Effects.Get() select effect.item.GetID());
+                foreach (WeightedRandomBag<AbstractEffect>.Entry effect in EffectDatabase.Effects.Get())
+                {
+                    _Instance.EnabledEffects.Add(effect.item.GetID(), true);
+                }
             }
 
             return _Instance;

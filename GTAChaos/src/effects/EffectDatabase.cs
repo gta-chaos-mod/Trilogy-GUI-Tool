@@ -220,6 +220,7 @@ namespace GTAChaos.Effects
                 AddEffect(new SpawnVehicleEffect("JumpJet", 520)); // Spawn Hydra
                 AddEffect(new SpawnVehicleEffect("IWantToHover", 539)); // Spawn Vortex
                 AddEffect(new SpawnVehicleEffect("OhDude", 425)); // Spawn Hunter
+                AddEffect(new SpawnVehicleEffect("EnergyFiveHundred", 522)); // Spawn NRG-500
                 AddEffect(new SpawnVehicleEffect("FourWheelFun", 471)); // Spawn Quad
                 AddEffect(new SpawnVehicleEffect("ItsAllBull", 486)); // Spawn Dozer
                 AddEffect(new SpawnVehicleEffect("FlyingToStunt", 513)); // Spawn Stunt Plane

@@ -419,6 +419,8 @@
     <EmbeddedResource Include="assets\audio\effect_spawn_tree.ogg" />
     <EmbeddedResource Include="assets\audio\effect_struck_by_truck.ogg" />
     <EmbeddedResource Include="assets\audio\effect_shoutouts_to_simpleflips.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_its_rewind_time.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_textures_its_morbin_time.ogg" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="icon.ico" />
   </ItemGroup>

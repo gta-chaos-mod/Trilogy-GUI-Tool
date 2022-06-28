@@ -277,8 +277,10 @@ namespace GTAChaos.Effects
                 AddEffect(new RapidFireEffect("Rapid-Fire", "SystemOverload", "rapid_fire"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Reset Effect Timers", "HistoryRepeatsItself", "reset_effect_timers"));
 
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Custom Textures", "CustomTextures", "textures_custom"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delayed Controls", "WhatsWrongWithThisKeyboard", "delayed_controls", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Game Crash", "TooManyModsInstalled", "fake_crash").SetDisplayName(DisplayNameType.UI, "Fake Crash").DisableRapidFire());
+                AddEffect(new FunctionEffect(Category.CustomEffects, "It's Morbin Time", "ItsMorbinTime", "textures_its_morbin_time"));
                 //AddEffect(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen", -1, 1.0f)); // Greyscale Screen
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Mirrored Screen", "WhatsLeftIsRight", "mirrored_screen", -1, 1.0f)); // Mirrored Screen
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Mirrored World", "LetsTalkAboutParallelUniverses", "mirrored_world")); // Mirrored World
@@ -297,6 +299,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Team Trees", "TeamTrees", "spawn_tree"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Thermal Vision", "ThermalVision", "thermal_vision", -1, 1.0f)); // Thermal Vision
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Underwater View", "HelloHowAreYouIAmUnderTheWater", "underwater_view"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Uninstall CS: Source", "UninstallCSS", "textures_counter_strike_source"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Upside-Down Screen", "WhatsUpIsDown", "upside_down_screen", -1, 1.0f)); // Upside-Down Screen
                 // --------------- //
 

@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GTAChaos.Forms
@@ -979,7 +980,7 @@ namespace GTAChaos.Forms
                         }
                         else
                         {
-                            rapidFireArgs.Effect.RunEffect(-1, 1000 * 15);
+                            Task _ = rapidFireArgs.Effect.RunEffect(-1, 1000 * 15);
                             this.AddEffectToListBox(rapidFireArgs.Effect);
                         }
                     }

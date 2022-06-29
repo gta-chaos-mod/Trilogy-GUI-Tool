@@ -110,6 +110,7 @@ namespace GTAChaos.Forms
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabStream.SuspendLayout();
@@ -927,6 +928,7 @@ namespace GTAChaos.Forms
             this.loadPresetToolStripMenuItem,
             this.savePresetToolStripMenuItem,
             this.experimentalToolStripMenuItem,
+            this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -935,28 +937,28 @@ namespace GTAChaos.Forms
             // loadPresetToolStripMenuItem
             // 
             this.loadPresetToolStripMenuItem.Name = "loadPresetToolStripMenuItem";
-            this.loadPresetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.loadPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadPresetToolStripMenuItem.Text = "Load Preset";
             this.loadPresetToolStripMenuItem.Click += new System.EventHandler(this.LoadPresetToolStripMenuItem_Click);
             // 
             // savePresetToolStripMenuItem
             // 
             this.savePresetToolStripMenuItem.Name = "savePresetToolStripMenuItem";
-            this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.savePresetToolStripMenuItem.Text = "Save Preset";
             this.savePresetToolStripMenuItem.Click += new System.EventHandler(this.SavePresetToolStripMenuItem_Click);
             // 
             // experimentalToolStripMenuItem
             // 
             this.experimentalToolStripMenuItem.Name = "experimentalToolStripMenuItem";
-            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.experimentalToolStripMenuItem.Text = "Experimental";
             this.experimentalToolStripMenuItem.Click += new System.EventHandler(this.ExperimentalToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -998,6 +1000,13 @@ namespace GTAChaos.Forms
             this.buttonSwitchMode.Text = "Stream";
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1122,6 +1131,7 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numericUpDownEffectCooldown;
         private System.Windows.Forms.CheckBox checkBoxStreamHideVotingEffectsIngame;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

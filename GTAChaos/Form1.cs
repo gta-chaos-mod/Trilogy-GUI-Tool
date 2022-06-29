@@ -1595,5 +1595,7 @@ namespace GTAChaos.Forms
         private void NumericUpDownEffectCooldown_ValueChanged(object sender, EventArgs e) => Config.Instance().EffectsCooldownNotActivating = (int)this.numericUpDownEffectCooldown.Value;
 
         private void checkBoxStreamHideVotingEffectsIngame_CheckedChanged(object sender, EventArgs e) => Config.Instance().StreamHideVotingEffectsIngame = this.checkBoxStreamHideVotingEffectsIngame.Checked;
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => MessageBox.Show(this, $"Version: v{Shared.Version}\nTotal Effects: {EffectDatabase.Effects.Count}", "About");
     }
 }

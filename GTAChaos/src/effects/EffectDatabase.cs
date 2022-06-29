@@ -304,6 +304,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Spawn Ramp", "FreeStuntJump", "spawn_ramp"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Team Trees", "TeamTrees", "spawn_tree"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Thermal Vision", "ThermalVision", "thermal_vision", -1, 1.0f)); // Thermal Vision
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Too Much Information", "TooMuchInformation", "too_much_information", -1, 1.5f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Underwater View", "HelloHowAreYouIAmUnderTheWater", "underwater_view"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Uninstall CS: Source", "UninstallCSS", "textures_counter_strike_source"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Upside-Down Screen", "WhatsUpIsDown", "upside_down_screen", -1, 1.0f)); // Upside-Down Screen

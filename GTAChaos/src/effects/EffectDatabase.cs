@@ -483,7 +483,9 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pop Tires Of All Vehicles", "TiresBeGone", "pop_tires_of_all_vehicles")); // Pop tires of all vehicles
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pride Cars", "AllColorsAreBeautiful", "pride_traffic")); // Pride Traffic / Rainbow Cars
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Relative Car Gravity", "SpiderCars", "vehicle_driving_on_walls"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Cars", "RotatePeepoHappy", "vehicle_size_continuous_rotation"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Cars (X)", "RotatePeepoHappyX", "vehicle_rotation_continuous_x"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Cars (Y)", "RotatePeepoHappyY", "vehicle_rotation_continuous_y"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Cars (Z)", "RotatePeepoHappyZ", "vehicle_rotation_continuous_z"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Send Vehicles To Space", "StairwayToHeaven", "send_vehicles_to_space")); // Gives an immense upwards boost to all vehicles
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Speed (1994)", "KeepYourPace", "minimum_speed"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Speed-based Rotating Cars", "SpeedRotatePeepoHappy", "vehicle_rotation_based_on_speed"));

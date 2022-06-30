@@ -249,18 +249,18 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "All Cars Have Nitro", "SpeedFreak", "all_cars_have_nitro")); // All cars have nitro
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "All Green Lights", "DontTryAndStopMe", "all_green_lights")); // All green lights
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "All Taxis Have Nitrous", "SpeedyTaxis", "all_taxis_have_nitro")); // All taxis have nitrous
-                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Black Cars", "SoLongAsItsBlack", "black_traffic")); // Black traffic
-                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Blow Up All Cars", "AllCarsGoBoom", "blow_up_all_cars").DisableRapidFire()); // Blow up all cars
+                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Black Vehicles", "SoLongAsItsBlack", "black_traffic")); // Black traffic
+                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Blow Up All Vehicles", "AllCarsGoBoom", "blow_up_all_cars").DisableRapidFire()); // Blow up all cars
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Boats Fly", "FlyingFish", "boats_fly")); // Boats fly
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Cars Float Away When Hit", "BubbleCars", "cars_float_away_when_hit")); // Cars float away when hit
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Cars Fly", "ChittyChittyBangBang", "cars_fly")); // Cars fly
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Cars On Water", "JesusTakeTheWheel", "cars_on_water")); // Cars on water
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Cheap Cars", "EveryoneIsPoor", "cheap_cars")); // Cheap cars
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Expensive Cars", "EveryoneIsRich", "expensive_cars")); // Expensive cars
-                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Ghost Cars (Only Wheels)", "WheelsOnlyPlease", "wheels_only_please")); // Invisible Vehicles (Only Wheels)
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Insane Handling", "StickLikeGlue", "insane_handling")); // Insane handling
-                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Pink Cars", "PinkIsTheNewCool", "pink_traffic")); // Pink traffic
+                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Pink Vehicles", "PinkIsTheNewCool", "pink_traffic")); // Pink traffic
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Smash N' Boom", "TouchMyCarYouDie", "smash_n_boom")); // Smash n' boom
+                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Wheels Only, Please", "WheelsOnlyPlease", "wheels_only_please")); // Invisible Vehicles (Only Wheels)
                 // -------------------------- //
 
                 // --- Player Modifications --- //
@@ -287,6 +287,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delayed Controls", "WhatsWrongWithThisKeyboard", "delayed_controls", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Game Crash", "TooManyModsInstalled", "fake_crash").SetDisplayName(DisplayNameType.UI, "Fake Crash").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "It's Morbin Time", "ItsMorbinTime", "textures_its_morbin_time"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Low LOD Vehicles", "AtariVehicles", "low_lod_vehicles"));
                 //AddEffect(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen", -1, 1.0f)); // Greyscale Screen
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Mirrored Screen", "WhatsLeftIsRight", "mirrored_screen", -1, 1.0f)); // Mirrored Screen
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Mirrored World", "LetsTalkAboutParallelUniverses", "mirrored_world")); // Mirrored World
@@ -344,12 +345,13 @@ namespace GTAChaos.Effects
 
                 // --- Ped --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Action Figures", "ILikePlayingWithToys", "action_figures"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Ant Peds", "AntsAntsAnts", "ped_size_super_tiny"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "ASSERT DOMINANCE", "AssertDominance", "t_pose_peds"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Peds", "BackwardsPeds", "ped_rotation_backwards"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Big Heads", "BigHeadsMode", "big_heads"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Disable All Weapon Damage", "TruePacifist", "disable_all_weapon_damage")); // Disable all Weapon Damage
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Everybody Bleed Now!", "EverybodyBleedNow", "everybody_bleed_now", -1, 1.5f)); // Everybody bleed now!
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Everyone Leaves All Cars", "ImTiredOfDriving", "everyone_leaves_all_vehicles"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Head Peds", "HeadPeds", "head_peds"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Hold The F Up...", "HoldTheFUp", "hold_the_f_up").SetDisplayName(DisplayNameType.STREAM, "Hold The F*** Up..."));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Inverted Weapon Damage", "HealingBullets", "inverted_weapon_damage"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Invincible (Everyone)", "NoOneCanHurtAnyone", "infinite_health_everyone")); // Infinite Health (Everyone)
@@ -359,7 +361,11 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "One Bullet Magazines", "OneInTheChamber", "one_bullet_magazines"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Ped One Hit K.O.", "ILikeToLiveDangerously", "one_hit_ko").DisableRapidFire()); // One Hit K.O.
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Peds Explode If Run Over", "ExplosivePeds", "peds_explode_when_run_over")); // Peds Explode If Run Over
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Peds Leave All Vehicles", "ImTiredOfDriving", "everyone_leaves_all_vehicles"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Rainbow Peds", "TastyUnicornPoop", "rainbow_peds"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Peds (X)", "PedsRotatingOnX", "ped_rotation_continuous_x"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Peds (Y)", "PedsRotatingOnY", "ped_rotation_continuous_y"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Peds (Z)", "PedsRotatingOnZ", "ped_rotation_continuous_z"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsAllowed", "remove_all_weapons")); // Remove all weapons
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Set Everyone On Fire", "HotPotato", "set_everyone_on_fire").DisableRapidFire()); // Set everyone on fire
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Spawn Dumptrucks", "DamnBoiHeThicc", "big_butts"));
@@ -369,6 +375,24 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "WAYTOODANK", "WAYTOODANK", "dont_lose_your_head", -1, 1.5f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Where Is Everybody?", "ImHearingVoices", "where_is_everybody")); // Where is everybody?
                 // ----------- //
+
+                // --- Objects --- //
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Objects", "ObjectsAreBackwards", "object_rotation_backwards"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Upside-Down Objects", "ObjectsAreUpsideDown", "object_rotation_flipped"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Objects (X)", "ObjectsRotatingOnX", "object_rotation_continuous_x"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Objects (Y)", "ObjectsRotatingOnY", "object_rotation_continuous_y"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Objects (Z)", "ObjectsRotatingOnZ", "object_rotation_continuous_z"));
+
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Tiny Objects", "ObjectsAreTiny", "object_size_tiny"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Large Objects", "ObjectsAreLarge", "object_size_large"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Wide Objects", "ObjectsAreWide", "object_size_wide"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Super Wide Objects", "ObjectsAreSuperWide", "object_size_super_wide"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Tall Objects", "ObjectsAreTall", "object_size_tall"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Long Objects", "ObjectsAreLong", "object_size_long"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Paper Thin Objects", "ObjectsArePaperThin", "object_size_paper_thin"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Flat Objects", "ObjectsAreFlat", "object_size_flat"));
+
+                // --------------- //
 
                 // --- NPCs --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Cops Everywhere", "TooMuchLawAndOrder", "cops_everywhere"));
@@ -420,7 +444,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Get Wasted", "Hospitality", "get_wasted").DisableRapidFire()); // Get's you wasted on the spot
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Instantly Hungry", "IllHave2Number9s", "instantly_hungry")); // Instantly Hungry - Makes CJ instantly hungry
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Inverted Controls", "InvertedControls", "inverted_controls"));  // Inverts some controls
-                AddEffect(new FunctionEffect(Category.CustomEffects, "It's Rewind Time!", "ItsRewindTime", "its_rewind_time", -1, 1.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "It's Rewind Time!", "ItsRewindTime", "its_rewind_time"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Kick Out Of Vehicle", "ThisAintYourCar", "kick_player_out_of_vehicle")); // Kick player out of vehicle
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Let's Take A Break", "LetsTakeABreak", "lets_take_a_break", 1000 * 10).DisableRapidFire()); // Let's take a break
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Lock Mouse", "WhoUnpluggedMyMouse", "lock_mouse", -1, 1.0f));
@@ -438,6 +462,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Ring Ring !!", "RingRing", "ring_ring", 1000 * 30).DisableRapidFire()); // Ring Ring !!
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Shaky Hands", "IJustCantHoldStill", "shaky_hands"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Shuffle Blips", "ThesePlacesOnceMadeSense", "shuffle_blips"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Solid Water", "JesusInTheHouse", "walk_on_water"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Steer Bias (Left)", "LeftSideBias", "steer_bias_left"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Steer Bias (Right)", "RightSideBias", "steer_bias_right"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Suicide (1% Chance)", "TheChanceOfSuddenDeath", "one_percent_suicide"));
@@ -448,7 +473,6 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Vehicle Bumper Camera", "FrontRowSeat", "vehicle_bumper_camera", -1, 1.0f)); // Vehicle Bumper Camera - Forces the vehicle's bumper camera
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Void Warp", "UnderTheMap", "void_warp"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Walk Off", "LetsGoForAWalk", "walk_off", 1000 * 30));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Walk On Water", "JesusInTheHouse", "walk_on_water"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Warp In Random Vehicle", "ItsYourUber", "warp_player_into_random_vehicle"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Weapon Recoil", "ThoseAreSomeStrongWeapons", "weapon_recoil"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Weapon Roulette", "WeaponRoulette", "weapon_roulette")); // Weapon Roulette
@@ -464,45 +488,45 @@ namespace GTAChaos.Effects
 
                 // --- Vehicle --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects, "All Vehicles Alarmy", "SoundTheAlarm", "all_vehicles_alarmy"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Cars", "BackPeepoHappy", "vehicle_rotation_backwards"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Vehicles", "BackPeepoHappy", "vehicle_rotation_backwards"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Beyblade", "LetItRip", "beyblade")); // Beyblade
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Carmageddon", "Carmageddon", "carmageddon")); // Carmageddon - Makes vehicles rain from the sky!
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delete All Vehicles", "GoodbyeAllSweetRides", "delete_all_vehicles").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delete Vehicle", "GoodbyeSweetRide", "delete_vehicle").DisableRapidFire());
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Flat Cars", "FlatPeepoHappy", "vehicle_size_flat"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Flipped Cars", "FlippedPeepoHappy", "vehicle_rotation_flipped"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Flat Vehicles", "FlatPeepoHappy", "vehicle_size_flat"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Flipped Vehicles", "FlippedPeepoHappy", "vehicle_rotation_flipped"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Freeze Vehicle", "StuckInTime", "freeze_vehicle", 1000 * 5));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Ghost Cars", "InvisibleVehicles", "invisible_vehicles")); // Invisible Vehicles
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Ghost Vehicles", "InvisibleVehicles", "invisible_vehicles")); // Invisible Vehicles
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Ghost Rider", "GhostRider", "ghost_rider")); // Set current vehicle constantly on fire
                 AddEffect(new FunctionEffect(Category.CustomEffects, "High Suspension Damping", "VeryDampNoBounce", "high_suspension_damping")); // Cars have high suspension damping
                 AddEffect(new FunctionEffect(Category.CustomEffects, "HONK!!!", "HONKHONK", "honk_vehicle", 1000 * 30).SetAudioVariations(5)); // Honk Vehicle
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Honk Boost", "GottaHonkFast", "honk_boost")); // Honk Boost
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Ignite Current Vehicle", "WayTooHot", "set_current_vehicle_on_fire").DisableRapidFire()); // Set current vehicle on fire
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Invert Vehicle Speed", "LetsGoBack", "invert_vehicle_speed"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Large Cars", "LargePeepoHappy", "vehicle_size_large"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Long Cars", "LongPeepoHappy", "vehicle_size_long"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Large Vehicles", "LargePeepoHappy", "vehicle_size_large"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Long Vehicles", "LongPeepoHappy", "vehicle_size_long"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Oh Hey, Tanks!", "OhHeyTanks", "oh_hey_tanks")); // Spawns tanks around the player
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Paper Thin Cars", "PaperPeepoHappy", "vehicle_size_paper_thin"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Paper Thin Vehicles", "PaperPeepoHappy", "vehicle_size_paper_thin"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pop Tires Of All Vehicles", "TiresBeGone", "pop_tires_of_all_vehicles")); // Pop tires of all vehicles
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Pride Cars", "AllColorsAreBeautiful", "pride_traffic")); // Pride Traffic / Rainbow Cars
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Pride Vehicles", "AllColorsAreBeautiful", "pride_traffic")); // Pride Traffic / Rainbow Cars
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Relative Car Gravity", "SpiderCars", "vehicle_driving_on_walls"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Cars (X)", "RotatePeepoHappyX", "vehicle_rotation_continuous_x"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Cars (Y)", "RotatePeepoHappyY", "vehicle_rotation_continuous_y"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Cars (Z)", "RotatePeepoHappyZ", "vehicle_rotation_continuous_z"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rota(to)ry Engines", "RotatoryEngines", "vehicle_rotation_based_on_speed"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Vehicles (X)", "RotatePeepoHappyX", "vehicle_rotation_continuous_x"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Vehicles (Y)", "RotatePeepoHappyY", "vehicle_rotation_continuous_y"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Vehicles (Z)", "RotatePeepoHappyZ", "vehicle_rotation_continuous_z"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Send Vehicles To Space", "StairwayToHeaven", "send_vehicles_to_space")); // Gives an immense upwards boost to all vehicles
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Speed (1994)", "KeepYourPace", "minimum_speed"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Speed-based Rotating Cars", "SpeedRotatePeepoHappy", "vehicle_rotation_based_on_speed"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Super Wide Cars", "WiderPeepoHappy", "vehicle_size_super_wide"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Super Wide Vehicles", "WiderPeepoHappy", "vehicle_size_super_wide"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Swap Vehicles On Impact", "SwapVehiclesOnImpact", "swap_vehicles_on_impact"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Tall Cars", "TallPeepoHappy", "vehicle_size_tall"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Tiny Cars", "TinyPeepoHappy", "vehicle_size_tiny"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Tall Vehicles", "TallPeepoHappy", "vehicle_size_tall"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Tiny Vehicles", "TinyPeepoHappy", "vehicle_size_tiny"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "To Drive Or Not To Drive", "ToDriveOrNotToDrive", "to_drive_or_not_to_drive")); // To drive or not to drive
                 AddEffect(new FunctionEffect(Category.CustomEffects, "To The Left, To The Right", "ToTheLeftToTheRight", "to_the_left_to_the_right")); // Gives cars a random velocity
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Turn Vehicles Around", "TurnAround", "turn_vehicles_around")); // Turn vehicles around
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Unflippable Vehicles", "ThereGoesMyBurrito", "unflippable_vehicles")); // Vehicles are unflippable
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Vehicle Boost", "FullForceForward", "vehicle_boost"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Vehicle One Hit K.O.", "NoDings", "vehicle_one_hit_ko"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Wide Cars", "WidePeepoHappy", "vehicle_size_wide"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Wide Vehicles", "WidePeepoHappy", "vehicle_size_wide"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Your Car Floats When Hit", "ImTheBubbleCar", "your_car_floats_away_when_hit")); // Your Car Floats Away When Hit
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Zero Suspension Damping", "LowrideAllNight", "zero_suspension_damping"));  // Cars have almost zero suspension damping
                 // --------------- //
@@ -585,7 +609,7 @@ namespace GTAChaos.Effects
         private static void CheckForNonCooldownEffects()
         {
             IEnumerable<WeightedRandomBag<AbstractEffect>.Entry> nonCooldownEffects = Effects.Get().Where(entry => !EffectCooldowns.ContainsKey(entry.item));
-            if (nonCooldownEffects.Count() <= 0)
+            if (nonCooldownEffects.Count() <= 1)
             {
                 ResetEffectCooldowns();
             }

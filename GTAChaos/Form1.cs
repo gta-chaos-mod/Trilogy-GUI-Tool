@@ -812,7 +812,7 @@ namespace GTAChaos.Forms
                 if (this.idToEffectNodeMap.TryGetValue(pair.Key, out EffectTreeNode node))
                 {
                     node.Checked = pair.Value;
-                    EffectDatabase.SetEffectEnabled(node.Effect, true);
+                    EffectDatabase.SetEffectEnabled(node.Effect, pair.Value);
                 }
             }
 

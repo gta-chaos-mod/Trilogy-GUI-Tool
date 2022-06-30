@@ -422,6 +422,7 @@
     <EmbeddedResource Include="assets\audio\effect_its_rewind_time.ogg" />
     <EmbeddedResource Include="assets\audio\effect_textures_its_morbin_time.ogg" />
     <EmbeddedResource Include="assets\audio\effect_spawn_table.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_ped_size_super_tiny.ogg" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="icon.ico" />
   </ItemGroup>

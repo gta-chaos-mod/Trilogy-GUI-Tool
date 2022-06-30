@@ -65,6 +65,8 @@ namespace GTAChaos.Utils
         {
             this.socketConnected = true;
             this.socketIsConnecting = false;
+
+            this.SendWebsocketBuffer();
         }
 
         private void Socket_OnError(object sender, WebSocketSharp.ErrorEventArgs e)
@@ -79,6 +81,19 @@ namespace GTAChaos.Utils
             this.socketIsConnecting = false;
         }
 
+        private void SendWebsocketBuffer()
+        {
+            if (this.socketBuffer.Count > 0)
+            {
+                foreach (string buffer in this.socketBuffer)
+                {
+                    this.socket?.Send(buffer);
+                }
+
+                this.socketBuffer.Clear();
+            }
+        }
+
         public void SendDataToWebsocket(JObject jsonObject)
         {
             Task.Run(() =>
@@ -89,15 +104,7 @@ namespace GTAChaos.Utils
 
                 if (this.socketConnected)
                 {
-                    if (this.socketBuffer.Count > 0)
-                    {
-                        foreach (string buffer in this.socketBuffer)
-                        {
-                            this.socket?.Send(buffer);
-                        }
-
-                        this.socketBuffer.Clear();
-                    }
+                    this.SendWebsocketBuffer();
 
                     this.socket?.Send(json);
                 }

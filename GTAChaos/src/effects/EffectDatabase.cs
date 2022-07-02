@@ -345,7 +345,7 @@ namespace GTAChaos.Effects
 
                 // --- Ped --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Action Figures", "ILikePlayingWithToys", "action_figures"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Ant Peds", "AntsAntsAnts", "ped_size_super_tiny"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Ant Peds", "AntsAntsAntMan", "ped_size_super_tiny"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "ASSERT DOMINANCE", "AssertDominance", "t_pose_peds"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Peds", "BackwardsPeds", "ped_rotation_backwards"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Big Heads", "BigHeadsMode", "big_heads"));
@@ -488,6 +488,7 @@ namespace GTAChaos.Effects
 
                 // --- Vehicle --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects, "All Vehicles Alarmy", "SoundTheAlarm", "all_vehicles_alarmy"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Ant Vehicles", "AntsAntsAntCar", "effect_vehicle_size_super_tiny"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Vehicles", "BackPeepoHappy", "vehicle_rotation_backwards"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Beyblade", "LetItRip", "beyblade")); // Beyblade
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Carmageddon", "Carmageddon", "carmageddon")); // Carmageddon - Makes vehicles rain from the sky!

@@ -167,10 +167,10 @@ namespace GTAChaos.Effects
                 // -------------- //
 
                 // --- Weapons & Health --- //
+                AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Death", "GoodbyeCruelWorld", "suicide").DisableRapidFire()); // Death
                 AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Health, Armor, $250k", "INeedSomeHelp", "health_armor_money")); // Health, Armor, $250k
                 AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Infinite Ammo", "FullClip", "infinite_ammo")); // Infinite ammo
                 AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Invincible (Player)", "NoOneCanHurtMe", "infinite_health_player")); // Infinite Health (Player)
-                AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Suicide", "GoodbyeCruelWorld", "suicide").DisableRapidFire()); // Suicide
                 AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 1", "ThugsArmoury", "weapon_set_1")); // Weapon Set 1
                 AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 2", "ProfessionalsKit", "weapon_set_2")); // Weapon Set 2
                 AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Weapon Set 3", "NuttersToys", "weapon_set_3")); // Weapon Set 3
@@ -426,6 +426,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Carl! It's Zero!", "ZeroNeedsYourHelp", "teleport_to_zero").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Arcade Racer Camera", "SegaRallyChampionship", "arcade_racer_camera", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Cinematic Vehicle Camera", "MachinimaMode", "cinematic_vehicle_camera", -1, 1.0f)); // Cinematic Vehicle Camera
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Death (1% Chance)", "TheChanceOfSuddenDeath", "one_percent_suicide"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Disable Aiming", "IForgotHowToAim", "disable_aiming"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Disable Jumping", "ImNotAKangaroo", "disable_jumping"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Disable One Movement Key", "DisableOneMovementKey", "disable_one_movement_key"));  // Disable one movement key
@@ -468,7 +469,6 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Solid Water", "JesusInTheHouse", "walk_on_water"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Steer Bias (Left)", "LeftSideBias", "steer_bias_left"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Steer Bias (Right)", "RightSideBias", "steer_bias_right"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Suicide (1% Chance)", "TheChanceOfSuddenDeath", "one_percent_suicide"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Super Low FOV", "SuperLowFOV", "super_low_fov", -1, 1.5f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Switch To Unarmed", "PleaseUseYourFists", "switch_to_unarmed"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "The Firing Circus", "TheFiringCircus", "the_firing_circus", 1000 * 5));

@@ -285,7 +285,7 @@ namespace GTAChaos.Effects
 
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Custom Textures", "CustomTextures", "textures_custom"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delayed Controls", "WhatsWrongWithThisKeyboard", "delayed_controls", -1, 1.0f));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Game Crash", "TooManyModsInstalled", "fake_crash").SetDisplayName(DisplayNameType.UI, "Fake Crash").DisableRapidFire());
+                AddEffect(new FakeCrashEffect("Game Crash", "TooManyModsInstalled"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "It's Morbin Time", "ItsMorbinTime", "textures_its_morbin_time"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Low LOD Vehicles", "AtariVehicles", "low_lod_vehicles"));
                 //AddEffect(new FunctionEffect(Category.CustomEffects, "Greyscale Screen", "GreyscaleScreen", "greyscale_screen", -1, 1.0f)); // Greyscale Screen

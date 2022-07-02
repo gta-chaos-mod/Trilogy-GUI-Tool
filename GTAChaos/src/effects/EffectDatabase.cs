@@ -17,7 +17,7 @@ namespace GTAChaos.Effects
         }
 
         private readonly List<Entry> entries = new();
-        private readonly Random rand = new();
+        private readonly Random rand = RandomHandler.Random;
         private double AccumulatedWeight = 0;
 
         public Entry Add(T item, double weight = 1.0)
@@ -63,7 +63,7 @@ namespace GTAChaos.Effects
 
             if (list.Count() <= 0)
             {
-                return this.Count > 0 ? this.entries[0].item : default;
+                return default; // this.Count > 0 ? this.entries[0].item : default;
             }
 
             // Calculate accumulated weight based on predicate
@@ -85,7 +85,7 @@ namespace GTAChaos.Effects
                 randomNumber -= entry.weight;
             }
 
-            return this.Count > 0 ? this.entries[0].item : default;
+            return default;
         }
 
         private void CalculateAccumulatedWeight()
@@ -582,6 +582,12 @@ namespace GTAChaos.Effects
             if (effects.Count > 0)
             {
                 AbstractEffect effect = effects.GetRandom(RandomHandler.Random, entry => !EffectCooldowns.ContainsKey(entry.item));
+                if (effect is null)
+                {
+                    ResetEffectCooldowns();
+                    return GetRandomEffect(onlyEnabled, attempts, addEffectToCooldown);
+                }
+
                 if (!onlyEnabled || attempts++ > 10)
                 {
                     if (addEffectToCooldown)
@@ -594,7 +600,6 @@ namespace GTAChaos.Effects
 
                 if (effect is not null)
                 {
-                    SetCooldownForEffect(effect);
                     return effect;
                 }
                 else
@@ -627,15 +632,24 @@ namespace GTAChaos.Effects
             {
                 EffectCooldowns.Remove(item.Key);
             }
+
+            CheckForNonCooldownEffects();
         }
 
         public static void ResetEffectCooldowns() => EffectCooldowns.Clear();
 
-        private static void SetCooldownForEffect(AbstractEffect effect)
+        public static void SetCooldownForEffect(AbstractEffect effect, int cooldown = -1)
         {
-            if (effect is not null)
+            if (effect is not null && effect.IsCooldownable())
             {
-                EffectCooldowns[effect] = Config.GetEffectCooldowns();
+                if (cooldown < 0)
+                {
+                    cooldown = Math.Max(0, Config.GetEffectCooldowns());
+                }
+
+                cooldown = Math.Min(cooldown, Config.GetEffectCooldowns());
+
+                EffectCooldowns[effect] = cooldown;
             }
 
             CheckForNonCooldownEffects();

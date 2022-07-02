@@ -9,7 +9,15 @@ namespace GTAChaos.Effects
         private readonly string EffectID;
 
         public FunctionEffect(Category category, string displayName, string word, string effectID, int duration = -1, float multiplier = 3.0f)
-            : base(category, displayName, word, duration, multiplier) => this.EffectID = $"effect_{effectID}";
+            : base(category, displayName, word, duration, multiplier)
+        {
+            if (effectID.StartsWith("effect_"))
+            {
+                throw new System.Exception($"Effect '{displayName}' has the 'effect_' prefix!");
+            }
+
+            this.EffectID = $"effect_{effectID}";
+        }
 
         public override string GetID() => this.EffectID;
 

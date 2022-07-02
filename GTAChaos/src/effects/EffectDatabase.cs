@@ -250,7 +250,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "All Green Lights", "DontTryAndStopMe", "all_green_lights")); // All green lights
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "All Taxis Have Nitrous", "SpeedyTaxis", "all_taxis_have_nitro")); // All taxis have nitrous
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Black Vehicles", "SoLongAsItsBlack", "black_traffic")); // Black traffic
-                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Blow Up All Vehicles", "AllCarsGoBoom", "blow_up_all_cars").DisableRapidFire()); // Blow up all cars
+                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Explode All Vehicles", "AllCarsGoBoom", "explode_all_cars").DisableRapidFire()); // Explode all cars
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Boats Fly", "FlyingFish", "boats_fly")); // Boats fly
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Cars Float Away When Hit", "BubbleCars", "cars_float_away_when_hit")); // Cars float away when hit
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Cars Fly", "ChittyChittyBangBang", "cars_fly")); // Cars fly
@@ -497,6 +497,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Carmageddon", "Carmageddon", "carmageddon")); // Carmageddon - Makes vehicles rain from the sky!
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delete All Vehicles", "GoodbyeAllSweetRides", "delete_all_vehicles").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delete Vehicle", "GoodbyeSweetRide", "delete_vehicle").DisableRapidFire());
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Explode Random Vehicle", "OneCarGoesBoom", "explode_random_vehicle"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Flat Vehicles", "FlatPeepoHappy", "vehicle_size_flat"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Flipped Vehicles", "FlippedPeepoHappy", "vehicle_rotation_flipped"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Freeze Vehicle", "StuckInTime", "freeze_vehicle", 1000 * 5));

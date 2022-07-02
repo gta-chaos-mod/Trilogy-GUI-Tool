@@ -379,11 +379,11 @@ namespace GTAChaos.Effects
                 // ----------- //
 
                 // --- Objects --- //
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Objects", "ObjectsAreBackwards", "object_rotation_backwards"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Upside-Down Objects", "ObjectsAreUpsideDown", "object_rotation_flipped"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Objects (X)", "ObjectsRotatingOnX", "object_rotation_continuous_x"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Objects (Y)", "ObjectsRotatingOnY", "object_rotation_continuous_y"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Objects (Z)", "ObjectsRotatingOnZ", "object_rotation_continuous_z"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Objects", "ObjectsAreBackwards", "object_rotation_backwards", 1000 * 30));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Upside-Down Objects", "ObjectsAreUpsideDown", "object_rotation_flipped", 1000 * 30));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Objects (X)", "ObjectsRotatingOnX", "object_rotation_continuous_x", 1000 * 30));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Objects (Y)", "ObjectsRotatingOnY", "object_rotation_continuous_y", 1000 * 30));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Objects (Z)", "ObjectsRotatingOnZ", "object_rotation_continuous_z", 1000 * 30));
 
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Tiny Objects", "ObjectsAreTiny", "object_size_tiny"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Large Objects", "ObjectsAreLarge", "object_size_large"));

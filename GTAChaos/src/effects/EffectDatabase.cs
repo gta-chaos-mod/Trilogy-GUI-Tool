@@ -357,7 +357,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Hold The F Up...", "HoldTheFUp", "hold_the_f_up").SetDisplayName(DisplayNameType.STREAM, "Hold The F*** Up..."));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Inverted Weapon Damage", "HealingBullets", "inverted_weapon_damage"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Invincible (Everyone)", "NoOneCanHurtAnyone", "infinite_health_everyone")); // Infinite Health (Everyone)
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Large Peds", "LargPeepoPeds", "ped_size_large"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Large Peds", "LargePeepoPeds", "ped_size_large"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Long Live The Rich!", "LongLiveTheRich", "long_live_the_rich"));  // Money = Health, shoot people to gain money, take damage to lose it
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Long Necks", "ICanSeeMyHouseFromUpHere", "long_necks"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "One Bullet Magazines", "OneInTheChamber", "one_bullet_magazines"));
@@ -373,7 +373,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Set Everyone On Fire", "HotPotato", "set_everyone_on_fire").DisableRapidFire()); // Set everyone on fire
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Spawn Dumptrucks", "DamnBoiHeThicc", "big_butts"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Speeeeeen!", "Speeeeeen", "rotating_peds"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Tiny Peds", "SmolPeepoPeds", "ped_size_tiny"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Tiny Peds", "TinyPeepoPeds", "ped_size_tiny"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Upside-Down Peds", "InALandDownUnder", "ped_rotation_flipped"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "WAYTOODANK", "WAYTOODANK", "dont_lose_your_head", -1, 1.5f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Where Is Everybody?", "ImHearingVoices", "where_is_everybody")); // Where is everybody?
@@ -491,7 +491,7 @@ namespace GTAChaos.Effects
 
                 // --- Vehicle --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects, "All Vehicles Alarmy", "SoundTheAlarm", "all_vehicles_alarmy"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Ant Vehicles", "AntsAntsAntCar", "effect_vehicle_size_super_tiny"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Ant Vehicles", "AntsAntsAntCar", "vehicle_size_super_tiny"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Vehicles", "BackPeepoHappy", "vehicle_rotation_backwards"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Beyblade", "LetItRip", "beyblade")); // Beyblade
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Carmageddon", "Carmageddon", "carmageddon")); // Carmageddon - Makes vehicles rain from the sky!

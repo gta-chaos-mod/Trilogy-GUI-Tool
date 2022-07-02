@@ -1557,6 +1557,7 @@ namespace GTAChaos.Forms
             if (effect != null)
             {
                 this.CallEffect(effect);
+                EffectDatabase.SetCooldownForEffect(effect, 0);
                 return;
             }
 

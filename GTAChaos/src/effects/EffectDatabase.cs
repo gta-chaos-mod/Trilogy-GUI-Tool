@@ -283,6 +283,7 @@ namespace GTAChaos.Effects
                 AddEffect(new RapidFireEffect("Rapid-Fire", "SystemOverload", "rapid_fire"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Reset Effect Timers", "HistoryRepeatsItself", "reset_effect_timers"));
 
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Clock", "TimeJustGoesBackwards", "backwards_clock"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Custom Textures", "CustomTextures", "textures_custom"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delayed Controls", "WhatsWrongWithThisKeyboard", "delayed_controls", -1, 1.0f));
                 AddEffect(new FakeCrashEffect("Game Crash", "TooManyModsInstalled"));

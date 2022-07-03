@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Lordmau5
+// Copyright (c) 2019 Lordmau5
 using GTAChaos.Utils;
 using System;
 using System.Collections.Generic;
@@ -102,6 +102,8 @@ namespace GTAChaos.Effects
             this.audioName = name;
             return this;
         }
+
+        public int GetAudioVariations() => this.audioVariations;
 
         public AbstractEffect SetAudioVariations(int variations = 0)
         {

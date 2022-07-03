@@ -1,8 +1,10 @@
 ﻿// Copyright (c) 2019 Lordmau5
+using GTAChaos.Effects;
 using NAudio.Vorbis;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -155,5 +157,51 @@ namespace GTAChaos.Utils
         }
 
         public float GetAudioVolume() => this.GetWaveOutEvent().Volume;
+
+        public void CreateAndPrintAudioFileReadme()
+        {
+            try
+            {
+                string readmeDirectory = Path.Combine(Directory.GetCurrentDirectory(), "audio");
+                Directory.CreateDirectory(readmeDirectory);
+
+                string readmeFile = Path.Combine(readmeDirectory, "README.txt");
+
+                //DirectorySecurity sec = System.IO.Directory.GetAccessControl(readmePath);
+                //FileSystemAccessRule accRule = new FileSystemAccessRule(Environment.UserDomainName + "\\" + Environment.UserName, FileSystemRights.FullControl, AccessControlType.Allow);
+                //sec.AddAccessRule(accRule);
+
+
+                using StreamWriter sw = new(readmeFile, false);
+                sw.WriteLine("These are the available effects and their IDs that you can overwrite the sound clips for.");
+                sw.WriteLine("The audio files can be in the following formats: .ogg, .mp3, .wav, .aac, .m4a");
+                sw.WriteLine();
+                sw.WriteLine("_____________________________________________________________________________");
+                sw.WriteLine();
+
+                foreach (WeightedRandomBag<AbstractEffect>.Entry entry in EffectDatabase.Effects.Get())
+                {
+                    AbstractEffect effect = entry.item;
+
+                    sw.WriteLine($"{effect.GetDisplayName(DisplayNameType.UI)}");
+
+                    if (effect.GetAudioVariations() > 0)
+                    {
+                        for (int i = 0; i < effect.GetAudioVariations(); i++)
+                        {
+                            sw.WriteLine($"{effect.GetID()}_{i}");
+                        }
+                    }
+                    else
+                    {
+                        sw.WriteLine($"{effect.GetID()}");
+                    }
+                    sw.WriteLine();
+                }
+
+                sw.Close();
+            }
+            catch (Exception e) { Debug.WriteLine(e); }
+        }
     }
 }

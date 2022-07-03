@@ -568,6 +568,8 @@ namespace GTAChaos.Effects
                     Debug.WriteLine($"{displayName.Substring(0, 25)}");
                 }
             }
+
+            AudioPlayer.INSTANCE.CreateAndPrintAudioFileReadme();
         }
 
         public static WeightedRandomBag<AbstractEffect> EnabledEffects { get; } = new();

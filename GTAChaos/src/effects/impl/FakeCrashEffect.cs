@@ -25,12 +25,6 @@ namespace GTAChaos.Effects
             {
                 realEffectName = "Fake Crash"
             }, this.GetDuration(duration), this.GetDisplayName(), this.GetSubtext(), this.GetRapidFire());
-
-            AbstractEffect randomEffect = EffectDatabase.GetRandomEffect(true);
-            if (randomEffect is not null)
-            {
-                EffectDatabase.RunEffect(randomEffect);
-            }
         }
     }
 }

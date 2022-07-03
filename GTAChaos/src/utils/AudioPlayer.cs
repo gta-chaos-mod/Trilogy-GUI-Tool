@@ -167,11 +167,6 @@ namespace GTAChaos.Utils
 
                 string readmeFile = Path.Combine(readmeDirectory, "README.txt");
 
-                //DirectorySecurity sec = System.IO.Directory.GetAccessControl(readmePath);
-                //FileSystemAccessRule accRule = new FileSystemAccessRule(Environment.UserDomainName + "\\" + Environment.UserName, FileSystemRights.FullControl, AccessControlType.Allow);
-                //sec.AddAccessRule(accRule);
-
-
                 using StreamWriter sw = new(readmeFile, false);
                 sw.WriteLine("These are the available effects and their IDs that you can overwrite the sound clips for.");
                 sw.WriteLine("The audio files can be in the following formats: .ogg, .mp3, .wav, .aac, .m4a");
@@ -196,12 +191,16 @@ namespace GTAChaos.Utils
                     {
                         sw.WriteLine($"{effect.GetID()}");
                     }
+
                     sw.WriteLine();
                 }
 
                 sw.Close();
             }
-            catch (Exception e) { Debug.WriteLine(e); }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
     }
 }

@@ -481,7 +481,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Weapon Roulette", "WeaponRoulette", "weapon_roulette")); // Weapon Roulette
                 AddEffect(new FunctionEffect(Category.CustomEffects, "You've been struck by...", "YouveBeenStruckBy", "struck_by_truck"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "You know what to do.", "WhyDidYouBlowUpRydersCar", "blow_up_ryders_car").DisableRapidFire());
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Zooming FOV", "ZoomingFOV", "zooming_fov", -1, 1.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Zooming FOV", "ZoomingFOV", "zooming_fov", 1000 * 30));
                 // -------------- //
 
                 // --- Time --- //

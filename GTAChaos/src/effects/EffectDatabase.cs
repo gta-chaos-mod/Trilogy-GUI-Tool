@@ -366,10 +366,10 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Peds Explode If Run Over", "ExplosivePeds", "peds_explode_when_run_over")); // Peds Explode If Run Over
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Peds Leave All Vehicles", "ImTiredOfDriving", "everyone_leaves_all_vehicles"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Rainbow Peds", "TastyUnicornPoop", "rainbow_peds"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Remove Everyone's Weapons", "NoWeaponsAllowed", "remove_everyones_weapons"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Peds (X)", "PedsRotatingOnX", "ped_rotation_continuous_x"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Peds (Y)", "PedsRotatingOnY", "ped_rotation_continuous_y"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Rotating Peds (Z)", "PedsRotatingOnZ", "ped_rotation_continuous_z"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsAllowed", "remove_all_weapons")); // Remove all weapons
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Set Everyone On Fire", "HotPotato", "set_everyone_on_fire").DisableRapidFire()); // Set everyone on fire
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Spawn Dumptrucks", "DamnBoiHeThicc", "big_butts"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Speeeeeen!", "Speeeeeen", "rotating_peds"));

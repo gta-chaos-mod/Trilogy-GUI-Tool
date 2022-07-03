@@ -463,6 +463,9 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Quake FOV", "QuakeFOV", "quake_fov")); // Quake FOV
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Random Outfit", "ASetOfNewClothes", "random_outfit"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Reset Camera", "NaturalView", "reset_camera"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Remove All Weapons", "NoWeaponsForYou", "remove_all_weapons"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Remove Current Weapon", "IWillTakeThisGunFromYou", "remove_current_weapon"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Remove Random Weapon", "IWillTakeAGunFromYou", "remove_random_weapon"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Ring Ring !!", "RingRing", "ring_ring", 1000 * 30).DisableRapidFire()); // Ring Ring !!
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Shaky Hands", "IJustCantHoldStill", "shaky_hands"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Shuffle Blips", "ThesePlacesOnceMadeSense", "shuffle_blips"));

@@ -8,7 +8,7 @@ namespace GTAChaos.Effects
             : base(description, word, id, duration, multiplier)
         {
             this.effects = 20;
-            this.delay = 250;
+            this.delay = 500;
         }
     }
 }

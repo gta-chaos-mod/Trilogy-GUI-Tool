@@ -154,7 +154,7 @@ namespace GTAChaos.Utils
         {
             if (rapidFire)
             {
-                duration = 1000 * 15; // 15 seconds for Rapid-Fire
+                duration = Math.Min(duration, 1000 * 15); // 15 seconds max. for Rapid-Fire
             }
 
             JObject jsonObject = JObject.FromObject(new

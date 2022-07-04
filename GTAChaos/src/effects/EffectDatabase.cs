@@ -278,6 +278,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "2x Effect Speed", "LetsDoThisABitFaster", "double_timer_speed", -1, 10.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "5x Effect Speed", "LetsDoThisSuperFast", "quintuple_timer_speed", -1, 25.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "clear_active_effects"), 3.0); // Clear Active Effects
+                AddEffect(new DiscountRapidFireEffect("LIDL Rapid-Fire", "SystemError", "discount_rapid_fire"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Hide Chaos UI", "AsIfNothingEverHappened", "hide_chaos_ui", -1, 5.0f));
                 AddEffect(new HyperRapidFireEffect("Hyper Rapid-Fire", "SystemCrash", "hyper_rapid_fire"));
                 AddEffect(new RapidFireEffect("Rapid-Fire", "SystemOverload", "rapid_fire"));

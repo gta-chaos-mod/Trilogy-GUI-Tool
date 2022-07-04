@@ -41,10 +41,20 @@ namespace GTAChaos.Effects
         {
             await base.RunEffect(seed, duration);
 
+            WebsocketHandler.INSTANCE.SendEffectToGame("effect__generic_empty", new
+            {
+                name = this.GetDisplayName()
+            }, this.GetDuration(duration), this.GetDisplayName(), this.GetSubtext(), this.GetRapidFire());
+
+            // Wait for the generic effect to send over first
+            await Task.Delay(250);
+
             await Task.Run(async () =>
             {
                 for (int i = 0; i < this.effects; i++)
                 {
+                    await Task.Delay(this.delay);
+
                     AbstractEffect effect = this.GetRandomEffect();
                     if (effect is null)
                     {
@@ -52,7 +62,6 @@ namespace GTAChaos.Effects
                     }
 
                     this.RunRapidFireEffect(effect);
-                    await Task.Delay(this.delay);
                 }
             });
         }

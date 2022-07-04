@@ -13,6 +13,8 @@ namespace GTAChaos.Utils
 {
     public class AudioPlayer
     {
+        private static readonly string folderName = "ChaosModAudio";
+
         private class Audio
         {
             private readonly string[] supportedFormats =
@@ -50,7 +52,7 @@ namespace GTAChaos.Utils
                 // ogg / Vorbis
                 try
                 {
-                    stream = new VorbisWaveReader($"audio/{this.Path}.ogg");
+                    stream = new VorbisWaveReader($"{folderName}/{this.Path}.ogg");
                 }
                 catch { }
 
@@ -61,7 +63,7 @@ namespace GTAChaos.Utils
                     {
                         try
                         {
-                            stream = new MediaFoundationReader($"audio/{this.Path}.{format}");
+                            stream = new MediaFoundationReader($"{folderName}/{this.Path}.{format}");
 
                             if (stream != null)
                             {
@@ -162,7 +164,7 @@ namespace GTAChaos.Utils
         {
             try
             {
-                string readmeDirectory = Path.Combine(Directory.GetCurrentDirectory(), "audio");
+                string readmeDirectory = Path.Combine(Directory.GetCurrentDirectory(), folderName);
                 Directory.CreateDirectory(readmeDirectory);
 
                 string readmeFile = Path.Combine(readmeDirectory, "README.txt");
@@ -171,6 +173,7 @@ namespace GTAChaos.Utils
                 sw.WriteLine("These are the available effects and their IDs that you can overwrite the sound clips for.");
                 sw.WriteLine("The audio files can be in the following formats: .ogg, .mp3, .wav, .aac, .m4a");
                 sw.WriteLine();
+                sw.WriteLine("Example audio file name: effect_get_wasted.ogg");
                 sw.WriteLine("_____________________________________________________________________________");
                 sw.WriteLine();
 

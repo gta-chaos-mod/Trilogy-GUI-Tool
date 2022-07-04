@@ -70,7 +70,7 @@ namespace GTAChaos.Forms
             this.labelTwitchPollsBitsCost = new System.Windows.Forms.Label();
             this.numericUpDownTwitchPollsBitsCost = new System.Windows.Forms.NumericUpDown();
             this.tabEffects = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelEffectCooldown = new System.Windows.Forms.Label();
             this.numericUpDownEffectCooldown = new System.Windows.Forms.NumericUpDown();
             this.buttonEffectsToggleAll = new System.Windows.Forms.Button();
             this.enabledEffectsView = new System.Windows.Forms.TreeView();
@@ -103,6 +103,7 @@ namespace GTAChaos.Forms
             this.loadPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savePresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.experimentalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viceCityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,7 +111,6 @@ namespace GTAChaos.Forms
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabStream.SuspendLayout();
@@ -580,7 +580,7 @@ namespace GTAChaos.Forms
             // tabEffects
             // 
             this.tabEffects.BackColor = System.Drawing.Color.Transparent;
-            this.tabEffects.Controls.Add(this.label4);
+            this.tabEffects.Controls.Add(this.labelEffectCooldown);
             this.tabEffects.Controls.Add(this.numericUpDownEffectCooldown);
             this.tabEffects.Controls.Add(this.buttonEffectsToggleAll);
             this.tabEffects.Controls.Add(this.enabledEffectsView);
@@ -591,14 +591,14 @@ namespace GTAChaos.Forms
             this.tabEffects.TabIndex = 1;
             this.tabEffects.Text = "Effects";
             // 
-            // label4
+            // labelEffectCooldown
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(385, 264);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(88, 13);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Effect Cooldown:";
+            this.labelEffectCooldown.AutoSize = true;
+            this.labelEffectCooldown.Location = new System.Drawing.Point(385, 264);
+            this.labelEffectCooldown.Name = "labelEffectCooldown";
+            this.labelEffectCooldown.Size = new System.Drawing.Size(88, 13);
+            this.labelEffectCooldown.TabIndex = 20;
+            this.labelEffectCooldown.Text = "Effect Cooldown:";
             // 
             // numericUpDownEffectCooldown
             // 
@@ -937,28 +937,35 @@ namespace GTAChaos.Forms
             // loadPresetToolStripMenuItem
             // 
             this.loadPresetToolStripMenuItem.Name = "loadPresetToolStripMenuItem";
-            this.loadPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadPresetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.loadPresetToolStripMenuItem.Text = "Load Preset";
             this.loadPresetToolStripMenuItem.Click += new System.EventHandler(this.LoadPresetToolStripMenuItem_Click);
             // 
             // savePresetToolStripMenuItem
             // 
             this.savePresetToolStripMenuItem.Name = "savePresetToolStripMenuItem";
-            this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.savePresetToolStripMenuItem.Text = "Save Preset";
             this.savePresetToolStripMenuItem.Click += new System.EventHandler(this.SavePresetToolStripMenuItem_Click);
             // 
             // experimentalToolStripMenuItem
             // 
             this.experimentalToolStripMenuItem.Name = "experimentalToolStripMenuItem";
-            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.experimentalToolStripMenuItem.Text = "Experimental";
             this.experimentalToolStripMenuItem.Click += new System.EventHandler(this.ExperimentalToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -1000,13 +1007,6 @@ namespace GTAChaos.Forms
             this.buttonSwitchMode.Text = "Stream";
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1128,7 +1128,7 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxStreamClientID;
         private System.Windows.Forms.CheckBox checkBoxSettingsPlayAudioSequentially;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelEffectCooldown;
         private System.Windows.Forms.NumericUpDown numericUpDownEffectCooldown;
         private System.Windows.Forms.CheckBox checkBoxStreamHideVotingEffectsIngame;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;

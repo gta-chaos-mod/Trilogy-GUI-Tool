@@ -339,6 +339,7 @@
     <Compile Include="src\effects\EffectDatabase.cs" />
     <Compile Include="src\effects\extra\SpawnVehicleEffect.cs" />
     <Compile Include="src\effects\impl\FakeCrashEffect.cs" />
+    <Compile Include="src\effects\impl\DiscountRapidFireEffect.cs" />
     <Compile Include="src\effects\impl\HyperRapidFireEffect.cs" />
     <Compile Include="src\effects\impl\RapidFireEffect.cs" />
     <Compile Include="src\effects\impl\FakeTeleportEffect.cs" />
@@ -366,6 +367,35 @@
     <Compile Include="src\utils\VehicleNames.cs" />
     <Compile Include="src\utils\WebsocketHandler.cs" />
     <Compile Include="src\utils\YouTubeChatConnection.cs" />
+    <EmbeddedResource Include="assets\audio\effect_beyblade.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_big_butts.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_discount_rapid_fire.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_get_busted.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_get_wasted.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_0.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_1.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_2.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_3.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_4.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_its_rewind_time.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_lets_take_a_break.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_long_necks.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_oh_hey_tanks.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_ped_size_super_tiny.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_quake_fov.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_reload_autosave.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_ring_ring.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_rotating_peds.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_send_vehicles_to_space.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_shoutouts_to_simpleflips.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_spawn_table.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_spawn_tree.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_struck_by_truck.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_suicide.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_superhot.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_textures_its_morbin_time.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_underwater_view.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_upside_down_screen.ogg" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -395,34 +425,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="assets\audio\effect_beyblade.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_get_busted.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_get_wasted.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_0.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_1.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_2.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_3.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_4.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_lets_take_a_break.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_long_necks.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_oh_hey_tanks.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_quake_fov.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_reload_autosave.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_ring_ring.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_send_vehicles_to_space.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_suicide.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_underwater_view.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_upside_down_screen.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_rotating_peds.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_superhot.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_big_butts.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_spawn_tree.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_struck_by_truck.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_shoutouts_to_simpleflips.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_its_rewind_time.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_textures_its_morbin_time.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_spawn_table.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_ped_size_super_tiny.ogg" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="icon.ico" />
   </ItemGroup>

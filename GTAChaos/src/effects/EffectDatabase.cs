@@ -461,7 +461,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Shooting Allowed", "GunsAreDangerous", "no_shooting_allowed"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Tasks Allowed", "NoTasksAllowed", "no_tasks_allowed", 1000 * 10));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pedal To The Metal", "PedalToTheMetal", "pedal_to_the_metal")); // Pedal To The Metal
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Portal Guns", "CaveJohnsonWouldBeProud", "portal_guns"));
+                //AddEffect(new FunctionEffect(Category.CustomEffects, "Portal Guns", "CaveJohnsonWouldBeProud", "portal_guns"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Quake FOV", "QuakeFOV", "quake_fov")); // Quake FOV
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Random Outfit", "ASetOfNewClothes", "random_outfit"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Reset Camera", "NaturalView", "reset_camera"));

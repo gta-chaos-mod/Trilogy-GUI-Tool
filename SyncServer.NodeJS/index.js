@@ -2,7 +2,8 @@
 	Config
 */
 const port = 12312;
-const logs = false;
+const logs = true;
+const debugLogs = false;
 
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port });
@@ -12,12 +13,18 @@ const Channels = new Map();
 
 const Users = new Map();
 
+function log(text) {
+	if (!logs) return;
+
+	console.log(text);
+}
+
 console.log(`Websocket listening on port ${port}.`);
 wss.on('connection', ws => {
 	ws.on('message', raw => {
 		const data = JSON.parse(raw);
 
-		if (logs) {
+		if (debugLogs) {
 			console.log(data);
 		}
 
@@ -27,10 +34,15 @@ wss.on('connection', ws => {
 
 			if (Users.has(data.Username)) {
 				ws.send(JSON.stringify({ Type: 1 }));
+
+				log(`Username "${data.Username}" already in use.`);
+
 				return;
 			}
 			ws._username = data.Username;
 			Users.set(data.Username, ws);
+
+			log(`${data.Username} connected - Version: ${data.Version}`);
 
 			if (Channels.has(data.Channel) && !!Channels.get(data.Channel)) {
 				const c = Channels.get(data.Channel);
@@ -50,6 +62,8 @@ wss.on('connection', ws => {
 					ws.send(JSON.stringify({ Type: 0, IsHost: false, HostUsername: c.getHost() }));
 
 					ws._channel = data.Channel;
+
+					log(`${data.Username} joined channel ${c.getRoomName()} as client.`);
 				}
 			}
 			else {
@@ -58,14 +72,19 @@ wss.on('connection', ws => {
 				ws.send(JSON.stringify({ Type: 0, IsHost: true, HostUsername: data.Username }));
 
 				ws._channel = data.Channel;
+
+				log(`${data.Username} joined channel ${c.getRoomName()} as host.`);
 			}
 		}
 
 		else if (data.Type == 12) { // Chat Message
 			const c = Channels.get(ws._channel);
+
 			for (const u of c.getUsers()) {
 				Users.get(u).send(JSON.stringify({ Type: 12, Username: data.Username, Message: data.Message }));
 			}
+
+			log(`User ${data.Username} in channel ${c.getRoomName()} said: ${data.Message}`);
 		}
 
 		else if (data.Type == 20) { // Time Update
@@ -89,6 +108,8 @@ wss.on('connection', ws => {
 			for (const u of c.getUsers()) {
 				Users.get(u).send(JSON.stringify({ Type: 21, Word: data.Word, Duration: data.Duration, Voter: data.Voter, Seed: data.Seed }));
 			}
+
+			log(`Effect in channel ${c.getRoomName()}: ${data.Word}, ${data.Duration}`);
 		}
 		else if (data.Type == 22) { // Votes
 			const c = Channels.get(ws._channel);
@@ -103,6 +124,8 @@ wss.on('connection', ws => {
 	});
 
 	ws.on('close', () => {
+		log(`${ws._username} disconnected.`);
+
 		const c = Channels.get(ws._channel);
 		if (c) {
 			if (c.getHost() == ws._username) {
@@ -111,6 +134,8 @@ wss.on('connection', ws => {
 				}
 
 				Channels.delete(ws._channel);
+
+				log(`Channel ${c.getRoomName()} deleted.`);
 			}
 			else {
 				c.removeUser(ws._username);

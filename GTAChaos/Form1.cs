@@ -1275,7 +1275,9 @@ namespace GTAChaos.Forms
         {
             if (e.Node is EffectTreeNode node && this.debug)
             {
+                EffectDatabase.ShouldCooldown = false;
                 this.CallEffect(node.Effect);
+                EffectDatabase.ShouldCooldown = true;
             }
         }
 
@@ -1556,8 +1558,9 @@ namespace GTAChaos.Forms
 
             if (effect != null)
             {
+                EffectDatabase.ShouldCooldown = false;
                 this.CallEffect(effect);
-                EffectDatabase.SetCooldownForEffect(effect, 0);
+                EffectDatabase.ShouldCooldown = true;
                 return;
             }
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Lordmau5
+﻿// Copyright (c) 2019 Lordmau5
 using GTAChaos.Utils;
 using System;
 using System.Collections.Generic;
@@ -133,6 +133,8 @@ namespace GTAChaos.Effects
                 await AudioPlayer.INSTANCE.PlayAudio(this.GetAudioFile());
             }
         }
+
+        public virtual bool IsCooldownable() => true;
 
         public int GetDuration(int duration = -1)
         {

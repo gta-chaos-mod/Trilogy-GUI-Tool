@@ -623,6 +623,8 @@ namespace GTAChaos.Effects
             return null;
         }
 
+        public static bool ShouldCooldown = true;
+
         private static void CheckForNonCooldownEffects()
         {
             IEnumerable<WeightedRandomBag<AbstractEffect>.Entry> cooldownEffects = Effects.Get().Where(entry => EffectCooldowns.ContainsKey(entry.item));
@@ -634,6 +636,11 @@ namespace GTAChaos.Effects
 
         public static void CooldownEffects()
         {
+            if (!ShouldCooldown)
+            {
+                return;
+            }
+
             lock (EffectCooldowns)
             {
                 foreach (KeyValuePair<AbstractEffect, int> item in EffectCooldowns.ToList())
@@ -658,6 +665,11 @@ namespace GTAChaos.Effects
 
         public static void SetCooldownForEffect(AbstractEffect effect, int cooldown = -1)
         {
+            if (!ShouldCooldown)
+            {
+                return;
+            }
+
             if (effect is not null && effect.IsCooldownable())
             {
                 if (cooldown < 0)
@@ -682,9 +694,9 @@ namespace GTAChaos.Effects
             {
                 Task _ = effect.RunEffect(seed, duration);
                 SetCooldownForEffect(effect);
-            }
 
-            CooldownEffects();
+                CooldownEffects();
+            }
 
             return effect;
         }

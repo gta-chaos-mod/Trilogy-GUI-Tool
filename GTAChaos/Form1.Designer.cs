@@ -150,8 +150,8 @@ namespace GTAChaos.Forms
             this.tabs.Controls.Add(this.tabStream);
             this.tabs.Controls.Add(this.tabPolls);
             this.tabs.Controls.Add(this.tabEffects);
-            this.tabs.Controls.Add(this.tabSettings);
             this.tabs.Controls.Add(this.tabSync);
+            this.tabs.Controls.Add(this.tabSettings);
             this.tabs.Controls.Add(this.tabExperimental);
             this.tabs.Location = new System.Drawing.Point(0, 41);
             this.tabs.Name = "tabs";
@@ -937,35 +937,35 @@ namespace GTAChaos.Forms
             // loadPresetToolStripMenuItem
             // 
             this.loadPresetToolStripMenuItem.Name = "loadPresetToolStripMenuItem";
-            this.loadPresetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.loadPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadPresetToolStripMenuItem.Text = "Load Preset";
             this.loadPresetToolStripMenuItem.Click += new System.EventHandler(this.LoadPresetToolStripMenuItem_Click);
             // 
             // savePresetToolStripMenuItem
             // 
             this.savePresetToolStripMenuItem.Name = "savePresetToolStripMenuItem";
-            this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.savePresetToolStripMenuItem.Text = "Save Preset";
             this.savePresetToolStripMenuItem.Click += new System.EventHandler(this.SavePresetToolStripMenuItem_Click);
             // 
             // experimentalToolStripMenuItem
             // 
             this.experimentalToolStripMenuItem.Name = "experimentalToolStripMenuItem";
-            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.experimentalToolStripMenuItem.Text = "Experimental";
             this.experimentalToolStripMenuItem.Click += new System.EventHandler(this.ExperimentalToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -981,14 +981,14 @@ namespace GTAChaos.Forms
             // viceCityToolStripMenuItem
             // 
             this.viceCityToolStripMenuItem.Name = "viceCityToolStripMenuItem";
-            this.viceCityToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.viceCityToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.viceCityToolStripMenuItem.Text = "Vice City";
             this.viceCityToolStripMenuItem.Click += new System.EventHandler(this.ViceCityToolStripMenuItem_Click);
             // 
             // sanAndreasToolStripMenuItem
             // 
             this.sanAndreasToolStripMenuItem.Name = "sanAndreasToolStripMenuItem";
-            this.sanAndreasToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.sanAndreasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sanAndreasToolStripMenuItem.Text = "San Andreas";
             this.sanAndreasToolStripMenuItem.Click += new System.EventHandler(this.SanAndreasToolStripMenuItem_Click);
             // 

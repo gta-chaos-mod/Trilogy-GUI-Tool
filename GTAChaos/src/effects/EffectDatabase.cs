@@ -625,8 +625,8 @@ namespace GTAChaos.Effects
 
         private static void CheckForNonCooldownEffects()
         {
-            IEnumerable<WeightedRandomBag<AbstractEffect>.Entry> nonCooldownEffects = Effects.Get().Where(entry => !EffectCooldowns.ContainsKey(entry.item));
-            if (nonCooldownEffects.Count() <= 1)
+            IEnumerable<WeightedRandomBag<AbstractEffect>.Entry> cooldownEffects = Effects.Get().Where(entry => EffectCooldowns.ContainsKey(entry.item));
+            if (cooldownEffects.Count() > Config.GetEffectCooldowns())
             {
                 ResetEffectCooldowns();
             }
@@ -672,8 +672,6 @@ namespace GTAChaos.Effects
                     EffectCooldowns[effect] = cooldown;
                 }
             }
-
-            CheckForNonCooldownEffects();
         }
 
         public static AbstractEffect RunEffect(string id, bool onlyEnabled = true) => RunEffect(GetByID(id, onlyEnabled));

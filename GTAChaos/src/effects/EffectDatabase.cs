@@ -118,7 +118,7 @@ namespace GTAChaos.Effects
     {
         public static WeightedRandomBag<AbstractEffect> Effects { get; } = new();
 
-        public static Dictionary<AbstractEffect, int> EffectCooldowns = new();
+        private static readonly Dictionary<AbstractEffect, int> EffectCooldowns = new();
 
         private static void AddEffect(AbstractEffect effect, double weight = 1.0)
         {
@@ -634,21 +634,27 @@ namespace GTAChaos.Effects
 
         public static void CooldownEffects()
         {
-            foreach (KeyValuePair<AbstractEffect, int> item in EffectCooldowns.ToList())
+            lock (EffectCooldowns)
             {
-                EffectCooldowns[item.Key]--;
-            }
-
-            IEnumerable<KeyValuePair<AbstractEffect, int>> toRemove = EffectCooldowns.Where(e => e.Value <= 0).ToList();
-            foreach (KeyValuePair<AbstractEffect, int> item in toRemove)
-            {
-                EffectCooldowns.Remove(item.Key);
+                foreach (KeyValuePair<AbstractEffect, int> item in EffectCooldowns.ToList())
+                {
+                    if (EffectCooldowns[item.Key]-- <= 0)
+                    {
+                        EffectCooldowns.Remove(item.Key);
+                    }
+                }
             }
 
             CheckForNonCooldownEffects();
         }
 
-        public static void ResetEffectCooldowns() => EffectCooldowns.Clear();
+        public static void ResetEffectCooldowns()
+        {
+            lock (EffectCooldowns)
+            {
+                EffectCooldowns.Clear();
+            }
+        }
 
         public static void SetCooldownForEffect(AbstractEffect effect, int cooldown = -1)
         {
@@ -661,7 +667,10 @@ namespace GTAChaos.Effects
 
                 cooldown = Math.Min(cooldown, Config.GetEffectCooldowns());
 
-                EffectCooldowns[effect] = cooldown;
+                lock (EffectCooldowns)
+                {
+                    EffectCooldowns[effect] = cooldown;
+                }
             }
 
             CheckForNonCooldownEffects();
@@ -671,13 +680,13 @@ namespace GTAChaos.Effects
 
         public static AbstractEffect RunEffect(AbstractEffect effect, int seed = -1, int duration = -1)
         {
-            CooldownEffects();
-
             if (effect is not null)
             {
                 Task _ = effect.RunEffect(seed, duration);
                 SetCooldownForEffect(effect);
             }
+
+            CooldownEffects();
 
             return effect;
         }

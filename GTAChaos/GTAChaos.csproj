@@ -394,6 +394,7 @@
     <EmbeddedResource Include="assets\audio\effect_suicide.ogg" />
     <EmbeddedResource Include="assets\audio\effect_superhot.ogg" />
     <EmbeddedResource Include="assets\audio\effect_textures_its_morbin_time.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_the_mirror_dimension.ogg" />
     <EmbeddedResource Include="assets\audio\effect_underwater_view.ogg" />
     <EmbeddedResource Include="assets\audio\effect_upside_down_screen.ogg" />
     <EmbeddedResource Include="Form1.resx">

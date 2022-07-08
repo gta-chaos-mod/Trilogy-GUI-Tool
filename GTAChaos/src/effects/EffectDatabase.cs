@@ -167,7 +167,7 @@ namespace GTAChaos.Effects
                 // -------------- //
 
                 // --- Weapons & Health --- //
-                AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Death", "GoodbyeCruelWorld", "suicide").DisableRapidFire()); // Death
+                AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Death", "GoodbyeCruelWorld", "death").DisableRapidFire()); // Death
                 AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Health, Armor, $250k", "INeedSomeHelp", "health_armor_money")); // Health, Armor, $250k
                 AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Infinite Ammo", "FullClip", "infinite_ammo")); // Infinite ammo
                 AddEffect(new FunctionEffect(Category.WeaponsAndHealth, "Invincible (Player)", "NoOneCanHurtMe", "infinite_health_player")); // Infinite Health (Player)
@@ -276,7 +276,7 @@ namespace GTAChaos.Effects
                 // --- Generic --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects, "0.5x Effect Speed", "LetsDragThisOutABit", "half_timer_speed", -1, 2.5f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "2x Effect Speed", "LetsDoThisABitFaster", "double_timer_speed", -1, 10.0f));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "5x Effect Speed", "LetsDoThisSuperFast", "quintuple_timer_speed", -1, 25.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "5x Effect Speed", "LetsDoThisReallyFast", "quintuple_timer_speed", -1, 25.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "clear_active_effects"), 3.0); // Clear Active Effects
                 AddEffect(new DiscountRapidFireEffect("LIDL Rapid-Fire", "SystemError", "discount_rapid_fire"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Hide Chaos UI", "AsIfNothingEverHappened", "hide_chaos_ui", -1, 5.0f));
@@ -423,14 +423,13 @@ namespace GTAChaos.Effects
 
                 // --- Player --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects, "-Health, -Armor, -$250k", "INeedSomeHindrance", "anti_health_armor_money"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "-Millionaire", "CrashTookAllMyMoney", "anti_millionaire"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Add Random Blips", "PointsOfUninterest", "add_random_blips"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Carl! It's Zero!", "ZeroNeedsYourHelp", "teleport_to_zero").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Arcade Racer Camera", "SegaRallyChampionship", "arcade_racer_camera", -1, 1.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Bankrupt", "CrashTookAllMyMoney", "bankrupt"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Carl! It's Zero!", "ZeroNeedsYourHelp", "teleport_to_zero").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Cinematic Vehicle Camera", "MachinimaMode", "cinematic_vehicle_camera", -1, 1.0f)); // Cinematic Vehicle Camera
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Death (1% Chance)", "TheChanceOfSuddenDeath", "one_percent_suicide"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Death (1% Chance)", "TheChanceOfSuddenDeath", "one_percent_death"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Disable Aiming", "IForgotHowToAim", "disable_aiming"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Disable Jumping", "ImNotAKangaroo", "disable_jumping"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Disable One Movement Key", "DisableOneMovementKey", "disable_one_movement_key"));  // Disable one movement key
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Disable Shooting", "IForgotHowToShoot", "disable_shooting"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Drive Wander", "Autopilot", "drive_wander", 1000 * 30));
@@ -448,6 +447,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Galaxy Note 7", "DangerousPhoneCalls", "galaxy_note_7"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Get Busted", "GoToJail", "get_busted").DisableRapidFire()); // Get's you busted on the spot
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Get Wasted", "Hospitality", "get_wasted").DisableRapidFire()); // Get's you wasted on the spot
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Grounded", "ImNotAKangaroo", "disable_jumping"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Instantly Hungry", "IllHave2Number9s", "instantly_hungry")); // Instantly Hungry - Makes CJ instantly hungry
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Inverted Controls", "InvertedControls", "inverted_controls"));  // Inverts some controls
                 AddEffect(new FunctionEffect(Category.CustomEffects, "It's Rewind Time!", "ItsRewindTime", "its_rewind_time"));
@@ -475,6 +475,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Steer Bias (Left)", "LeftSideBias", "steer_bias_left"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Steer Bias (Right)", "RightSideBias", "steer_bias_right"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Super Low FOV", "SuperLowFOV", "super_low_fov", -1, 1.5f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "SUPER. HOT.", "SUPERHOT", "superhot"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Switch To Unarmed", "PleaseUseYourFists", "switch_to_unarmed"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "The Firing Circus", "TheFiringCircus", "the_firing_circus", 1000 * 5));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "The Flash", "FastestManAlive", "the_flash")); // The Flash - Let's you run and swim at incredibly high speeds while not taking fall damage or drowing!

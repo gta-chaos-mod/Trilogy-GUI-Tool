@@ -37,7 +37,6 @@ namespace GTAChaos.Forms
         {
             this.InitializeComponent();
 
-            this.Text = $"GTA Trilogy Chaos Mod v{Shared.Version}";
             if (!this.debug)
             {
                 this.gameToolStripMenuItem.Visible = false;
@@ -47,8 +46,10 @@ namespace GTAChaos.Forms
             }
             else
             {
-                this.Text += " (DEBUG)";
+                Shared.Version += " (DEBUG)";
             }
+
+            this.Text = $"GTA Trilogy Chaos Mod v{Shared.Version}";
 
             this.tabs.TabPages.Remove(this.tabPolls);
 
@@ -626,7 +627,7 @@ namespace GTAChaos.Forms
             {
                 this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 1 second", 1000));
                 this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 500ms", 500));
-                this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 10ms", 10));
+                this.comboBoxMainCooldown.Items.Add(new MainCooldownComboBoxItem("DEBUG - 50ms", 50));
             }
 
             this.comboBoxMainCooldown.SelectedIndex = 3;

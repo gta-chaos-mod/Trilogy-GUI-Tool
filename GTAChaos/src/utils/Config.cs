@@ -17,7 +17,7 @@ namespace GTAChaos.Utils
         public bool PlayAudioForEffects = true;
         public bool PlayAudioSequentially = true;
         public float AudioVolume = 1.0f;
-        public int EffectsCooldownNotActivating = 100;
+        public int EffectsCooldownNotActivating = -1;
 
         // Twitch Polls
         public bool TwitchUsePolls;
@@ -66,6 +66,8 @@ namespace GTAChaos.Utils
                 {
                     _Instance.EnabledEffects.Add(effect.item.GetID(), true);
                 }
+
+                _Instance.EffectsCooldownNotActivating = _Instance.EnabledEffects.Count;
             }
 
             return _Instance;

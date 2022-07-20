@@ -1,9 +1,16 @@
-/*
-	Config
-*/
+// ---------------------------------------
+// Config
 const port = 12312;
 const logs = true;
 const debugLogs = false;
+const deleteChannelOnHostLeave = false;
+// ---------------------------------------
+
+const readline = require('readline');
+const rl = readline.createInterface({
+	input: process.stdin,
+	output: process.stdout
+});
 
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port });
@@ -16,11 +23,44 @@ const Users = new Map();
 function log(text) {
 	if (!logs) return;
 
-	console.log(text);
+	console.log(new Date(), text);
 }
 
-console.log(`Websocket listening on port ${port}.`);
+function disconnect(ws) {
+	const c = Channels.get(ws._channel);
+	if (c) {
+		if (deleteChannelOnHostLeave && c.getHost() == ws._username) {
+			for (const u of c.getUsers()) {
+				Users.get(u).send(JSON.stringify({ Type: 2 }));
+			}
+
+			Channels.delete(ws._channel);
+
+			log(`Channel ${c.getRoomName()} deleted.`);
+		}
+		else {
+			c.removeUser(ws._username);
+			if (c.getUsers().size == 0) {
+				Channels.delete(ws._channel);
+
+				log(`Channel ${c.getRoomName()} deleted.`);
+			}
+			else {
+				for (const u of c.getUsers()) {
+					Users.get(u).send(JSON.stringify({ Type: 11, Username: ws._username }));
+				}
+			}
+		}
+	}
+
+	Users.delete(ws._username);
+}
+
+log(`Websocket listening on port ${port}.`);
 wss.on('connection', ws => {
+	ws.isAlive = true;
+	ws.on('pong', heartbeat);
+
 	ws.on('message', raw => {
 		const data = JSON.parse(raw);
 
@@ -55,15 +95,17 @@ wss.on('connection', ws => {
 					ws.send(JSON.stringify({ Type: 3, Version: c.getVersion() }));
 				}
 				else {
+					const isHost = !deleteChannelOnHostLeave && c.getHost() == data.Username;
+
 					for (const u of c.getUsers()) {
-						Users.get(u).send(JSON.stringify({ Type: 10, Username: ws._username }));
+						Users.get(u).send(JSON.stringify({ Type: 10, Username: data.Username }));
 					}
 					c.addUser(data.Username);
-					ws.send(JSON.stringify({ Type: 0, IsHost: false, HostUsername: c.getHost() }));
+					ws.send(JSON.stringify({ Type: 0, IsHost: isHost, HostUsername: c.getHost() }));
 
 					ws._channel = data.Channel;
 
-					log(`${data.Username} joined channel ${c.getRoomName()} as client.`);
+					log(`${data.Username} ${isHost ? 're-joined' : 'joined'} channel ${c.getRoomName()} as ${isHost ? 'host' : 'client'}.`);
 				}
 			}
 			else {
@@ -126,30 +168,79 @@ wss.on('connection', ws => {
 	ws.on('close', () => {
 		log(`${ws._username} disconnected.`);
 
-		const c = Channels.get(ws._channel);
-		if (c) {
-			if (c.getHost() == ws._username) {
-				for (const u of c.getUsers()) {
-					Users.get(u).send(JSON.stringify({ Type: 2 }));
-				}
+		disconnect(ws);
+	});
 
-				Channels.delete(ws._channel);
+	ws.on('error', e => {
+		log(`${ws._username} errored.`);
+		console.error(e);
 
-				log(`Channel ${c.getRoomName()} deleted.`);
-			}
-			else {
-				c.removeUser(ws._username);
-				if (c.getUsers().size == 0) {
-					Channels.delete(ws._channel);
-				}
-				else {
-					for (const u of c.getUsers()) {
-						Users.get(u).send(JSON.stringify({ Type: 11, Username: ws._username }));
-					}
-				}
-			}
+		disconnect(ws);
+	})
+});
+
+// Heartbeat
+function heartbeat() {
+	this.isAlive = true;
+}
+
+setInterval(() => {
+	for (const ws of wss.clients) {
+		if (ws.isAlive === false) return ws.terminate();
+
+		ws.isAlive = false;
+		ws.ping();
+	}
+}, 1000 * 30);
+
+// Input parser
+rl.on('SIGINT', () => {
+	process.exit();
+});
+
+rl.on('line', input => {
+	const [command, ...args] = input.split(' ');
+
+	if (command == 'kick') {
+		const user = args[0];
+
+		if (!user || user == '') {
+			console.error('User can\'t be empty.');
+			return;
 		}
 
-		Users.delete(ws._username);
-	});
+		if (!Users.has(user)) {
+			console.error(`User "${user}" could not be found.`);
+			return;
+		}
+
+		const u = Users.get(user);
+		u.terminate();
+
+		console.log(`User "${user}" was kicked.`);
+	}
+
+	if (command == 'delete') {
+		const channel = args[0];
+
+		if (!channel || channel == '') {
+			console.error('Channel can\'t be empty.');
+			return;
+		}
+
+		if (!Channels.has(channel)) {
+			console.error(`Channel "${channel}" could not be found.`);
+			return;
+		}
+
+		const c = Channels.get(channel);
+		for (const u of c.getUsers()) {
+			const user = Users.get(u);
+			if (!user) continue;
+
+			user.terminate();
+		}
+
+		console.log(`Channel "${channel}" was deleted.`);
+	}
 });

@@ -426,6 +426,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="assets\audio\effect_kickflip.ogg" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="icon.ico" />
   </ItemGroup>

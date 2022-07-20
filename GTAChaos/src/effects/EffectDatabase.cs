@@ -302,6 +302,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Visible Water", "OceanManGoneAgain", "no_visible_water"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Water Physics", "FastTrackToAtlantis", "no_water_physics"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pausing", "LetsPause", "pausing", -1, 1.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Queer Rights!", "QueerRights", "replace_all_text_queer_rights"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Quick Sprunk Stop", "ARefreshingDrink", "quick_sprunk_stop"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Radar Zoom (Small)", "SmallRadarZoom", "radar_zoom_small"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Radar Zoom (Large)", "LargeRadarZoom", "radar_zoom_large"));
@@ -310,7 +311,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Roll Credits", "WaitItsOver", "roll_credits")); // Roll Credits - Rolls the credits but only visually!
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Screen Flip", "MuscleMemoryMangler", "screen_flip", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Screensaver HUD", "ScreensaverHUD", "screensaver_hud"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Shoutouts to SimpleFlips.", "ShoutoutsToSimpleFlips", "shoutouts_to_simpleflips"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Shoutouts to SimpleFlips.", "ShoutoutsToSimpleFlips", "replace_all_text_simpleflips"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Spawn Ramp", "FreeStuntJump", "spawn_ramp"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Super Smokio 64", "SuperSmokio64", "font_mario_64"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "TABLE!", "TABLE", "spawn_table"));
@@ -404,7 +405,6 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Long Objects", "ObjectsAreLong", "object_size_long", 1000 * 30));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Paper Thin Objects", "ObjectsArePaperThin", "object_size_paper_thin", 1000 * 30));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Flat Objects", "ObjectsAreFlat", "object_size_flat", 1000 * 30));
-
                 // --------------- //
 
                 // --- NPCs --- //

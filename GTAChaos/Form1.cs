@@ -259,9 +259,10 @@ namespace GTAChaos.Forms
 
             ListBox listBox = Shared.IsStreamMode ? this.listLastEffectsStream : this.listLastEffectsMain;
             listBox.Items.Insert(0, description);
-            if (listBox.Items.Count > 7)
+            int maxHeight = (int)Math.Floor((float)listBox.Height / listBox.ItemHeight) - 1;
+            if (listBox.Items.Count > maxHeight)
             {
-                listBox.Items.RemoveAt(7);
+                listBox.Items.RemoveAt(maxHeight);
             }
         }
 
@@ -270,6 +271,16 @@ namespace GTAChaos.Forms
             if (effect == null)
             {
                 effect = EffectDatabase.GetRandomEffect(true);
+                if (effect == null)
+                {
+                    effect = EffectDatabase.GetRandomEffect(false);
+                }
+
+                if (effect == null)
+                {
+                    return;
+                }
+
                 if (Shared.Sync != null && effect is not RapidFireEffect)
                 {
                     Shared.Sync.SendEffect(effect);

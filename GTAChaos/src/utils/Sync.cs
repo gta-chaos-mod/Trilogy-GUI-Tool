@@ -330,12 +330,28 @@ namespace GTAChaos.Utils
             };
         }
 
+        public bool IsAlive() => this.socket?.IsAlive is true;
+
         public void Connect() => this.socket?.Connect();
 
         public void Disconnect()
         {
             this.ManualClose = true;
             this.socket?.Close();
+        }
+
+        private void SendToSocket(string data)
+        {
+            if (!this.IsAlive())
+            {
+                this.Connect();
+                if (!this.IsAlive())
+                {
+                    return;
+                }
+            }
+
+            this.socket?.Send(data);
         }
 
         public void SendChatMessage(string message)
@@ -345,7 +361,7 @@ namespace GTAChaos.Utils
                 Username = Username,
                 Message = message
             };
-            this.socket?.Send(JsonConvert.SerializeObject(msg));
+            this.SendToSocket(JsonConvert.SerializeObject(msg));
         }
 
         public void SendTimeUpdate(int remaining, int total)
@@ -360,7 +376,7 @@ namespace GTAChaos.Utils
                     Remaining = remaining,
                     Total = total
                 };
-                this.socket?.Send(JsonConvert.SerializeObject(msg));
+                this.SendToSocket(JsonConvert.SerializeObject(msg));
             }
         }
 
@@ -375,7 +391,7 @@ namespace GTAChaos.Utils
                 Subtext = effect.GetSubtext(),
                 Seed = RandomHandler.Next(9999999)
             };
-            this.socket?.Send(JsonConvert.SerializeObject(msg));
+            this.SendToSocket(JsonConvert.SerializeObject(msg));
         }
 
         public void SendVotes(string[] effects, int[] votes, int lastChoice, bool force = false)
@@ -390,7 +406,7 @@ namespace GTAChaos.Utils
                     Votes = votes,
                     LastChoice = lastChoice
                 };
-                this.socket?.Send(JsonConvert.SerializeObject(msg));
+                this.SendToSocket(JsonConvert.SerializeObject(msg));
             }
         }
     }

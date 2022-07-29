@@ -387,7 +387,7 @@
     <EmbeddedResource Include="assets\audio\effect_ring_ring.ogg" />
     <EmbeddedResource Include="assets\audio\effect_rotating_peds.ogg" />
     <EmbeddedResource Include="assets\audio\effect_send_vehicles_to_space.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_shoutouts_to_simpleflips.ogg" />
+    <EmbeddedResource Include="assets\audio\effect_replace_all_text_simpleflips.ogg" />
     <EmbeddedResource Include="assets\audio\effect_spawn_table.ogg" />
     <EmbeddedResource Include="assets\audio\effect_spawn_tree.ogg" />
     <EmbeddedResource Include="assets\audio\effect_struck_by_truck.ogg" />

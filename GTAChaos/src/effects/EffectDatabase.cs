@@ -304,6 +304,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pausing", "LetsPause", "pausing", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Queer Rights!", "QueerRights", "replace_all_text_queer_rights"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Quick Sprunk Stop", "ARefreshingDrink", "quick_sprunk_stop"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Random Inputs", "PossessedKeyboard", "random_inputs"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Radar Zoom (Small)", "SmallRadarZoom", "radar_zoom_small"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Radar Zoom (Large)", "LargeRadarZoom", "radar_zoom_large"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Random Stunt Jump", "RandomStuntJump", "random_stunt_jump").DisableRapidFire());

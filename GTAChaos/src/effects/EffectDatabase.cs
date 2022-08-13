@@ -211,27 +211,27 @@ namespace GTAChaos.Effects
                 // --------------- //
 
                 // --- Spawning --- //
-                AddEffect(new FunctionEffect(Category.Spawning, "Get Parachute", "LetsGoBaseJumping", "get_parachute")); // Get Parachute
                 AddEffect(new FunctionEffect(Category.Spawning, "Get Jetpack", "Rocketman", "get_jetpack")); // Get Jetpack
+                AddEffect(new FunctionEffect(Category.Spawning, "Get Parachute", "LetsGoBaseJumping", "get_parachute")); // Get Parachute
 
-                AddEffect(new SpawnVehicleEffect("TimeToKickAss", 432)); // Spawn Rhino
                 AddEffect(new SpawnVehicleEffect("OldSpeedDemon", 504)); // Spawn Bloodring Banger
-                AddEffect(new SpawnVehicleEffect("DoughnutHandicap", 489)); // Spawn Rancher
+                AddEffect(new SpawnVehicleEffect("18Holes", 457)); // Spawn Caddy
+                AddEffect(new SpawnVehicleEffect("ItsAllBull", 486)); // Spawn Dozer
                 AddEffect(new SpawnVehicleEffect("NotForPublicRoads", 502)); // Spawn Hotring A
                 AddEffect(new SpawnVehicleEffect("JustTryAndStopMe", 503)); // Spawn Hotring B
-                AddEffect(new SpawnVehicleEffect("WheresTheFuneral", 442)); // Spawn Romero
-                AddEffect(new SpawnVehicleEffect("CelebrityStatus", 409)); // Spawn Stretch
-                AddEffect(new SpawnVehicleEffect("TrueGrime", 408)); // Spawn Trashmaster
-                AddEffect(new SpawnVehicleEffect("18Holes", 457)); // Spawn Caddy
-                AddEffect(new SpawnVehicleEffect("JumpJet", 520)); // Spawn Hydra
-                AddEffect(new SpawnVehicleEffect("IWantToHover", 539)); // Spawn Vortex
                 AddEffect(new SpawnVehicleEffect("OhDude", 425)); // Spawn Hunter
+                AddEffect(new SpawnVehicleEffect("JumpJet", 520)); // Spawn Hydra
+                AddEffect(new SpawnVehicleEffect("MonsterMash", 556)); // Spawn Monster
                 AddEffect(new SpawnVehicleEffect("EnergyFiveHundred", 522)); // Spawn NRG-500
                 AddEffect(new SpawnVehicleEffect("FourWheelFun", 471)); // Spawn Quad
-                AddEffect(new SpawnVehicleEffect("ItsAllBull", 486)); // Spawn Dozer
-                AddEffect(new SpawnVehicleEffect("FlyingToStunt", 513)); // Spawn Stunt Plane
-                AddEffect(new SpawnVehicleEffect("MonsterMash", 556)); // Spawn Monster
+                AddEffect(new SpawnVehicleEffect("DoughnutHandicap", 489)); // Spawn Rancher
                 AddEffect(new SpawnVehicleEffect("SurpriseDriver", -1)); // Spawn Random Vehicle
+                AddEffect(new SpawnVehicleEffect("TimeToKickAss", 432)); // Spawn Rhino
+                AddEffect(new SpawnVehicleEffect("WheresTheFuneral", 442)); // Spawn Romero
+                AddEffect(new SpawnVehicleEffect("CelebrityStatus", 409)); // Spawn Stretch
+                AddEffect(new SpawnVehicleEffect("FlyingToStunt", 513)); // Spawn Stunt Plane
+                AddEffect(new SpawnVehicleEffect("TrueGrime", 408)); // Spawn Trashmaster
+                AddEffect(new SpawnVehicleEffect("IWantToHover", 539)); // Spawn Vortex
                 // ---------------- //
 
                 // --- Time --- //
@@ -250,13 +250,13 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "All Green Lights", "DontTryAndStopMe", "all_green_lights")); // All green lights
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "All Taxis Have Nitrous", "SpeedyTaxis", "all_taxis_have_nitro")); // All taxis have nitrous
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Black Vehicles", "SoLongAsItsBlack", "black_traffic")); // Black traffic
-                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Explode All Vehicles", "AllCarsGoBoom", "explode_all_cars").DisableRapidFire()); // Explode all cars
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Boats Fly", "FlyingFish", "boats_fly")); // Boats fly
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Cars Float Away When Hit", "BubbleCars", "cars_float_away_when_hit")); // Cars float away when hit
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Cars Fly", "ChittyChittyBangBang", "cars_fly")); // Cars fly
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Cars On Water", "JesusTakeTheWheel", "cars_on_water")); // Cars on water
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Cheap Cars", "EveryoneIsPoor", "cheap_cars")); // Cheap cars
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Expensive Cars", "EveryoneIsRich", "expensive_cars")); // Expensive cars
+                AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Explode All Vehicles", "AllCarsGoBoom", "explode_all_cars").DisableRapidFire()); // Explode all cars
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Insane Handling", "StickLikeGlue", "insane_handling")); // Insane handling
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Pink Vehicles", "PinkIsTheNewCool", "pink_traffic")); // Pink traffic
                 AddEffect(new FunctionEffect(Category.VehiclesTraffic, "Smash N' Boom", "TouchMyCarYouDie", "smash_n_boom")); // Smash n' boom
@@ -279,7 +279,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "5x Effect Speed", "LetsDoThisReallyFast", "quintuple_timer_speed", -1, 25.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Clear Active Effects", "ClearActiveEffects", "clear_active_effects"), 3.0); // Clear Active Effects
                 AddEffect(new DiscountRapidFireEffect("LIDL Rapid-Fire", "SystemError", "discount_rapid_fire"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Hide Chaos UI", "AsIfNothingEverHappened", "hide_chaos_ui", -1, 5.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Hide Chaos UI", "AsIfNothingEverHappened", "hide_chaos_ui", -1, 5.0f).DisableRapidFire());
                 AddEffect(new HyperRapidFireEffect("Hyper Rapid-Fire", "SystemCrash", "hyper_rapid_fire"));
                 AddEffect(new RapidFireEffect("Rapid-Fire", "SystemOverload", "rapid_fire"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Reset Effect Timers", "HistoryRepeatsItself", "reset_effect_timers"));
@@ -488,7 +488,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Super Low FOV", "SuperLowFOV", "super_low_fov", 1000 * 30));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "SUPER. HOT.", "SUPERHOT", "superhot"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Switch To Unarmed", "PleaseUseYourFists", "switch_to_unarmed"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "The Firing Circus", "TheFiringCircus", "the_firing_circus", 1000 * 5));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "The Firing Circus", "TheFiringCircus", "the_firing_circus", 1000 * 5).DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "The Flash", "FastestManAlive", "the_flash")); // The Flash - Let's you run and swim at incredibly high speeds while not taking fall damage or drowing!
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Vehicle Bumper Camera", "FrontRowSeat", "vehicle_bumper_camera", -1, 1.0f)); // Vehicle Bumper Camera - Forces the vehicle's bumper camera
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Void Warp", "UnderTheMap", "void_warp"));
@@ -514,7 +514,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delete All Vehicles", "GoodbyeAllSweetRides", "delete_all_vehicles").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delete Vehicle", "GoodbyeSweetRide", "delete_vehicle").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Do A Kickflip!", "DoAKickflip", "kickflip")); // Do A Kickflip!
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Explode Random Vehicle", "OneCarGoesBoom", "explode_random_vehicle"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Explode Random Vehicle", "OneCarGoesBoom", "explode_random_vehicle").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Flat Vehicles", "FlatPeepoHappy", "vehicle_size_flat"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Flipped Vehicles", "FlippedPeepoHappy", "vehicle_rotation_flipped"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Freeze Vehicle", "StuckInTime", "freeze_vehicle", 1000 * 5));

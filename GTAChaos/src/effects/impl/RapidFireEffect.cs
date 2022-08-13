@@ -10,9 +10,7 @@ namespace GTAChaos.Effects
         protected int delay = 1000 * 2;
 
         public RapidFireEffect(string description, string word, string id, int duration = -1, float multiplier = 3)
-            : base(Category.CustomEffects, description, word, id, duration, multiplier)
-        {
-        }
+            : base(Category.CustomEffects, description, word, id, duration, multiplier) => this.DisableRapidFire();
 
         protected void RunRapidFireEffect(AbstractEffect effect)
         {

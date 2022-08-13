@@ -160,8 +160,13 @@ namespace GTAChaos.Effects
             return duration;
         }
 
-        public bool GetRapidFire()
+        public bool GetRapidFire(bool overrideCheck = false)
         {
+            if (overrideCheck)
+            {
+                return this.rapidFire == 1;
+            }
+
             bool rapidFire = false;
             if (Shared.IsStreamMode)
             {

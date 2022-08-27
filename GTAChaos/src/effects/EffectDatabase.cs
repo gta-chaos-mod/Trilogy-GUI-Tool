@@ -54,7 +54,7 @@ namespace GTAChaos.Effects
             return this.Count > 0 ? this.entries[0].item : default;
         }
 
-        public T GetRandom(Random rand, Func<Entry, bool> predicate)
+        public (bool success, T entry) GetRandom(Random rand, Func<Entry, bool> predicate)
         {
             rand ??= this.rand;
 
@@ -63,7 +63,7 @@ namespace GTAChaos.Effects
 
             if (list.Count() <= 0)
             {
-                return default; // this.Count > 0 ? this.entries[0].item : default;
+                return (false, default); // this.Count > 0 ? this.entries[0].item : default;
             }
 
             // Calculate accumulated weight based on predicate
@@ -79,13 +79,13 @@ namespace GTAChaos.Effects
             {
                 if (entry.weight >= randomNumber)
                 {
-                    return entry.item;
+                    return (true, entry.item);
                 }
 
                 randomNumber -= entry.weight;
             }
 
-            return default;
+            return (false, default);
         }
 
         private void CalculateAccumulatedWeight()
@@ -285,7 +285,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Reset Effect Timers", "HistoryRepeatsItself", "reset_effect_timers"));
 
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Clock", "TimeJustGoesBackwards", "backwards_clock"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Buttsbot", "ButtsbotYes", "buttsbot"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Buttsbot", "ButtsbotYes", "buttsbot", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Custom Textures", "CustomTextures", "textures_custom"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delayed Controls", "WhatsWrongWithThisKeyboard", "delayed_controls", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "EASY TO READ", "ItsEasierToRead", "very_big_font_scale"));
@@ -302,7 +302,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Visible Water", "OceanManGoneAgain", "no_visible_water"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Water Physics", "FastTrackToAtlantis", "no_water_physics"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pausing", "LetsPause", "pausing", -1, 1.0f));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Queer Rights!", "QueerRights", "replace_all_text_queer_rights"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Queer Rights!", "QueerRights", "replace_all_text_queer_rights", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Quick Sprunk Stop", "ARefreshingDrink", "quick_sprunk_stop"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Random Inputs", "PossessedKeyboard", "random_inputs"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Radar Zoom (Small)", "SmallRadarZoom", "radar_zoom_small"));
@@ -312,7 +312,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Roll Credits", "WaitItsOver", "roll_credits")); // Roll Credits - Rolls the credits but only visually!
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Screen Flip", "MuscleMemoryMangler", "screen_flip", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Screensaver HUD", "ScreensaverHUD", "screensaver_hud"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Shoutouts to SimpleFlips.", "ShoutoutsToSimpleFlips", "replace_all_text_simpleflips"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Shoutouts to SimpleFlips.", "ShoutoutsToSimpleFlips", "replace_all_text_simpleflips", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Spawn Ramp", "FreeStuntJump", "spawn_ramp"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Super Smokio 64", "SuperSmokio64", "font_mario_64"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "TABLE!", "TABLE", "spawn_table"));
@@ -606,31 +606,31 @@ namespace GTAChaos.Effects
 
             if (effects.Count > 0)
             {
-                AbstractEffect effect = effects.GetRandom(RandomHandler.Random, entry => !EffectCooldowns.ContainsKey(entry.item));
-                if (effect is null)
+                (bool success, AbstractEffect effect) = effects.GetRandom(RandomHandler.Random, entry => !EffectCooldowns.ContainsKey(entry.item));
+                if (!success || effect is null || attempts++ > 10)
                 {
                     ResetEffectCooldowns();
                     return GetRandomEffect(onlyEnabled, attempts, addEffectToCooldown);
                 }
 
-                if (!onlyEnabled || attempts++ > 10)
+                if (!onlyEnabled)
                 {
                     if (addEffectToCooldown)
                     {
                         SetCooldownForEffect(effect);
                     }
-
-                    return effect;
                 }
 
-                if (effect is not null)
-                {
-                    return effect;
-                }
-                else
-                {
-                    return GetRandomEffect(onlyEnabled, attempts, addEffectToCooldown);
-                }
+                return effect;
+
+                //if (effect is not null)
+                //{
+                //    return effect;
+                //}
+                //else
+                //{
+                //    return GetRandomEffect(onlyEnabled, attempts, addEffectToCooldown);
+                //}
             }
 
             return null;

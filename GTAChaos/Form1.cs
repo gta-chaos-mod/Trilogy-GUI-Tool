@@ -462,8 +462,15 @@ namespace GTAChaos.Forms
                                 e.GetEffect().SetMultiplier(multiplier);
                             }
                         }
+                        else
+                        {
+                            int randomEffect = RandomHandler.Next(elements.Count);
 
-                        this.stream.SetVoting(0, this.timesUntilRapidFire, zeroVotes ? null : elements);
+                            this.CallEffect(elements[randomEffect].GetEffect());
+                        }
+
+                        this.stream.SendEffectVotingToGame(false);
+                        this.stream.SetVoting(Shared.VOTING_MODE.COOLDOWN, this.timesUntilRapidFire, elements);
                     }
                 }
             }
@@ -504,7 +511,7 @@ namespace GTAChaos.Forms
 
                     this.labelStreamCurrentMode.Text = "Current Mode: Cooldown";
 
-                    this.stream?.SetVoting(0, this.timesUntilRapidFire);
+                    this.stream?.SetVoting(Shared.VOTING_MODE.COOLDOWN, this.timesUntilRapidFire);
                 }
             }
             else if (Shared.StreamVotingMode == Shared.VOTING_MODE.COOLDOWN)
@@ -668,6 +675,11 @@ namespace GTAChaos.Forms
             this.comboBoxVotingTime.Items.Add(new VotingTimeComboBoxItem("30 seconds", 1000 * 30));
             this.comboBoxVotingTime.Items.Add(new VotingTimeComboBoxItem("1 minute", 1000 * 60));
 
+            if (this.debug)
+            {
+                this.comboBoxVotingTime.Items.Add(new VotingTimeComboBoxItem("25ms", 25));
+            }
+
             this.comboBoxVotingTime.SelectedIndex = 0;
 
             Config.Instance().StreamVotingTime = 1000 * 30;
@@ -705,6 +717,8 @@ namespace GTAChaos.Forms
             if (this.debug)
             {
                 this.comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("5 seconds", 1000 * 5));
+                this.comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("1 second", 1000));
+                this.comboBoxVotingCooldown.Items.Add(new VotingCooldownComboBoxItem("25ms", 25));
             }
 
             this.comboBoxVotingCooldown.SelectedIndex = 1;
@@ -992,8 +1006,12 @@ namespace GTAChaos.Forms
                         }
                         else
                         {
+                            EffectDatabase.ShouldCooldown = false;
+
                             Task _ = rapidFireArgs.Effect.RunEffect(-1, 1000 * 15);
                             this.AddEffectToListBox(rapidFireArgs.Effect);
+
+                            EffectDatabase.ShouldCooldown = true;
                         }
                     }
                 }));

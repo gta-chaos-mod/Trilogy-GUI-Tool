@@ -5,198 +5,223 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using TwitchLib.Api;
-using TwitchLib.Client;
 using TwitchLib.Client.Events;
-using TwitchLib.Client.Models;
-using TwitchLib.Communication.Clients;
-using TwitchLib.Communication.Models;
 
 namespace GTAChaos.Utils
 {
-    public class TwitchChatConnection : IStreamConnection
+    // TODO: When using one of the stream modes and all effects are on cooldown the application freezes. Investigate.
+    public class DebugConnection : IStreamConnection
     {
-        public TwitchClient Client;
-        private WebSocketClient customClient;
-        private readonly TwitchAPI api;
-
-        private readonly string AccessToken;
-        private readonly string ClientID;
-        private string Channel;
-        private string Username;
-
         private readonly ChatEffectVoting effectVoting = new();
         private readonly HashSet<string> rapidFireVoters = new();
         private Shared.VOTING_MODE VotingMode;
 
         private int lastChoice = -1;
 
-        public TwitchChatConnection()
-        {
-            this.AccessToken = Config.Instance().StreamAccessToken;
-            this.ClientID = Config.Instance().StreamClientID;
+        private readonly System.Timers.Timer debugEffectTimer;
 
-            if (string.IsNullOrEmpty(this.AccessToken) || string.IsNullOrEmpty(this.ClientID))
+        public DebugConnection()
+        {
+            this.debugEffectTimer = new()
             {
-                return;
-            }
-
-            this.api = new TwitchAPI();
-            this.api.Settings.ClientId = this.ClientID;
-            this.api.Settings.AccessToken = this.AccessToken;
+                AutoReset = true,
+                Interval = 1000
+            };
+            this.debugEffectTimer.Elapsed += this.DebugEffectTimer_Elapsed;
+            this.debugEffectTimer.Start();
         }
 
-        public TwitchClient GetTwitchClient() => this.Client;
-
-        private void InitializeTwitchClient()
+        private async void DebugEffectTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            ConnectionCredentials credentials = new(this.Username, this.AccessToken);
+            // TODO: Pick a random effect and activate it
 
-            this.customClient = new WebSocketClient(
-                new ClientOptions()
-                {
-                    MessagesAllowedInPeriod = 750,
-                    ThrottlingPeriod = TimeSpan.FromSeconds(30)
-                }
-            );
-            this.Client = new TwitchClient(this.customClient);
-            this.Client.Initialize(credentials, this.Channel);
 
-            this.Client.OnMessageReceived += this.Client_OnMessageReceived;
-            this.Client.OnConnected += this.Client_OnConnected;
+            //if (!this.createdPoll || this.activePoll == null)
+            //{
+            //    return;
+            //}
 
-            this.Client.OnConnectionError += this.Client_OnConnectionError;
-            this.Client.OnIncorrectLogin += this.Client_OnIncorrectLogin;
-        }
+            //List<string> pollIds = new()
+            //{
+            //    this.activePoll.Id
+            //};
 
-        public async Task<bool> TryConnect()
-        {
-            this.Kill();
+            //TwitchLib.Api.Helix.Models.Polls.GetPolls.GetPollsResponse polls = await this.api.Helix.Polls.GetPollsAsync(this.UserID, pollIds);
+            //Poll updatedPoll = polls.Data[0];
 
-            TwitchLib.Api.Auth.ValidateAccessTokenResponse data = await this.api.Auth.ValidateAccessTokenAsync();
-            if (data == null)
-            {
-                OnLoginError?.Invoke(this, new EventArgs());
-                return false;
-            }
-
-            this.Username = data.Login;
-            this.Channel = data.Login;
-
-            this.InitializeTwitchClient();
-
-            this.Client.Connect();
-
-            return true;
-        }
-
-        public bool IsConnected() => this.Client?.IsConnected == true;
-
-        private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e) =>
-            //Kill();
-
-            this.Client?.Reconnect();//Client?.Initialize(new ConnectionCredentials(Username, AccessToken), Channel);//Client?.Connect();
-
-        private void Client_OnConnected(object sender, OnConnectedArgs e)
-        {
-            OnConnected?.Invoke(this, e);
-
-            this.SendMessage("Connected!");
-        }
-
-        private void Client_OnIncorrectLogin(object sender, OnIncorrectLoginArgs e) => OnLoginError?.Invoke(sender, e);
-
-        public void Kill()
-        {
-            if (this.Client != null)
-            {
-                OnDisconnected?.Invoke(this, new EventArgs());
-
-                this.Client.Disconnect();
-            }
-
-            this.Client = null;
-
-            this.customClient?.Dispose();
-            this.customClient = null;
+            //this.activePoll = updatedPoll;
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    this.effectVoting.SetVotes(i, this.activePoll.Choices[i].Votes);
+            //}
         }
 
         public int GetRemaining() => 0;
 
-        public void SetVoting(Shared.VOTING_MODE votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null)
+        public async Task<bool> TryConnect()
+        {
+            OnConnected?.Invoke(this, new EventArgs());
+            return true;
+        }
+
+        public bool IsConnected() => true;
+
+        public void Kill()
+        {
+        }
+
+        public async void SetVoting(Shared.VOTING_MODE votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null)
         {
             this.VotingMode = votingMode;
             if (this.VotingMode == Shared.VOTING_MODE.VOTING)
             {
                 this.effectVoting.Clear();
                 this.effectVoting.GenerateRandomEffects();
+                this.effectVoting?.TryAddVote("memes", 0);
                 this.lastChoice = -1;
-
-                if (Config.Instance().StreamCombineChatMessages)
-                {
-                    string messageToSend = "Voting has started! Type 1, 2 or 3 (or #1, #2, #3) to vote for one of the effects! ";
-
-                    foreach (ChatVotingElement element in this.effectVoting.GetVotingElements())
-                    {
-                        string description = element.Effect.GetDisplayName(DisplayNameType.STREAM);
-                        messageToSend += $"#{element.Id + 1}: {description}. ";
-                    }
-
-                    this.SendMessage(messageToSend);
-                }
-                else
-                {
-                    this.SendMessage("Voting has started! Type 1, 2 or 3 (or #1, #2, #3) to vote for one of the effects!");
-
-                    foreach (ChatVotingElement element in this.effectVoting.GetVotingElements())
-                    {
-                        string description = element.Effect.GetDisplayName(DisplayNameType.STREAM);
-                        this.SendMessage($"#{element.Id + 1}: {description}");
-                    }
-                }
             }
-            else if (this.VotingMode == Shared.VOTING_MODE.RAPID_FIRE)
+            else if (this.VotingMode == Shared.VOTING_MODE.COOLDOWN)
             {
-                this.rapidFireVoters.Clear();
-                this.SendMessage("ATTENTION, ALL GAMERS! RAPID-FIRE HAS BEGUN! VALID EFFECTS WILL BE ENABLED FOR 15 SECONDS!");
+                this.SendEffectVotingToGame(false);
             }
-            else
-            {
-                if (votingElements != null && votingElements.Count > 0)
-                {
-                    this.SendEffectVotingToGame(false);
 
-                    string allEffects = string.Join(", ", votingElements.Select(e => e.GetEffect().GetDisplayName(DisplayNameType.STREAM)));
+            //return;
 
-                    if (Config.Instance().StreamEnableRapidFire)
-                    {
-                        this.SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Enabled effects: {allEffects}");
-                        if (untilRapidFire == 1)
-                        {
-                            this.SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
-                        }
-                    }
-                    else
-                    {
-                        this.SendMessage($"Cooldown has started! - Enabled effects: {allEffects}");
-                    }
-                }
-                else
-                {
-                    if (Config.Instance().StreamEnableRapidFire)
-                    {
-                        this.SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire)");
-                        if (untilRapidFire == 1)
-                        {
-                            this.SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
-                        }
-                    }
-                    else
-                    {
-                        this.SendMessage($"Cooldown has started!");
-                    }
-                }
-            }
+            //this.VotingMode = votingMode;
+            //if (this.VotingMode == Shared.VOTING_MODE.VOTING)
+            //{
+            //    this.effectVoting.Clear();
+            //    this.effectVoting.GenerateRandomEffects();
+            //    this.lastChoice = -1;
+
+            //    if (Config.Instance().TwitchPollsPostMessages)
+            //    {
+            //        if (Config.Instance().StreamCombineChatMessages)
+            //        {
+            //            string messageToSend = "Voting has started! ";
+
+            //            foreach (PollVotingElement element in this.effectVoting.GetVotingElements())
+            //            {
+            //                string description = element.Effect.GetDisplayName(DisplayNameType.STREAM);
+            //                messageToSend += $"#{element.Id + 1}: {description}. ";
+            //            }
+
+            //            this.SendMessage(messageToSend);
+            //        }
+            //        else
+            //        {
+            //            this.SendMessage("Voting has started!");
+
+            //            foreach (PollVotingElement element in this.effectVoting.GetVotingElements())
+            //            {
+            //                string description = element.Effect.GetDisplayName(DisplayNameType.STREAM);
+            //                this.SendMessage($"#{element.Id + 1}: {description}");
+            //            }
+            //        }
+            //    }
+
+            //    //CreatePollRequest createPoll = new()
+            //    //{
+            //    //    Title = "[GTA Chaos] Next Effect",
+            //    //    BroadcasterId = UserID,
+            //    //    DurationSeconds = Config.Instance().StreamVotingTime / 1000,
+            //    //    Choices = this.effectVoting.GetPollChoices(),
+            //    //    BitsVotingEnabled = Config.Instance().TwitchPollsBitsCost > 0,
+            //    //    BitsPerVote = Config.Instance().TwitchPollsBitsCost,
+            //    //    ChannelPointsVotingEnabled = Config.Instance().TwitchPollsChannelPointsCost > 0,
+            //    //    ChannelPointsPerVote = Config.Instance().TwitchPollsChannelPointsCost,
+            //    //};
+
+            //    //List<string> effects = new();
+            //    //foreach (TwitchLib.Api.Helix.Models.Polls.CreatePoll.Choice el in createPoll.Choices)
+            //    //{
+            //    //    effects.Add(el.Title);
+            //    //}
+
+            //    //Debug.WriteLine(string.Join(", ", effects.ToArray()));
+
+            //    //this.createdPoll = await this.TryPoll(createPoll);
+
+            //    //SocketBroadcast(JsonConvert.SerializeObject(createPoll));
+            //}
+            //else if (this.VotingMode == Shared.VOTING_MODE.RAPID_FIRE)
+            //{
+            //    this.rapidFireVoters.Clear();
+            //    //this.SendMessage("ATTENTION, ALL GAMERS! RAPID-FIRE HAS BEGUN! VALID EFFECTS WILL BE ENABLED FOR 15 SECONDS!");
+            //}
+            //else if (this.VotingMode == Shared.VOTING_MODE.ERROR) // Poll Failed
+            //{
+            //    this.SendEffectVotingToGame(false);
+
+            //    if (Config.Instance().StreamEnableRapidFire)
+            //    {
+            //        this.SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Poll Failed :(");
+
+            //        if (untilRapidFire == 1)
+            //        {
+            //            this.SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        this.SendMessage($"Cooldown has started! - Poll Failed :(");
+            //    }
+
+            //    // Make sure we end poll, thank
+            //    //if (activePoll != null)
+            //    //{
+            //    //    var response = api.Helix.Polls.EndPollAsync(UserID, activePoll.Id, TwitchLib.Api.Core.Enums.PollStatusEnum.ARCHIVED);
+            //    //}
+            //    //this.activePoll = null;
+            //    //this.createdPoll = false;
+            //}
+            //else
+            //{
+            //    if (votingElements != null && votingElements.Count > 0)
+            //    {
+            //        this.SendEffectVotingToGame(false);
+
+            //        string allEffects = string.Join(", ", votingElements.Select(e => e.GetEffect().GetDisplayName(DisplayNameType.STREAM)));
+
+            //        if (Config.Instance().StreamEnableRapidFire)
+            //        {
+            //            this.SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Enabled effects: {allEffects}");
+
+            //            if (untilRapidFire == 1)
+            //            {
+            //                this.SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+            //            }
+            //        }
+            //        else
+            //        {
+            //            this.SendMessage($"Cooldown has started! - Enabled effects: {allEffects}");
+            //        }
+
+            //        // Make sure we end poll, thank
+            //        //if (activePoll != null)
+            //        //{
+            //        //    var response = api.Helix.Polls.EndPollAsync(UserID, activePoll.Id, TwitchLib.Api.Core.Enums.PollStatusEnum.ARCHIVED);
+            //        //}
+            //        //this.activePoll = null;
+            //        //this.createdPoll = false;
+            //    }
+            //    else
+            //    {
+            //        if (Config.Instance().StreamEnableRapidFire)
+            //        {
+            //            this.SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire)");
+
+            //            if (untilRapidFire == 1)
+            //            {
+            //                this.SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+            //            }
+            //        }
+            //        else
+            //        {
+            //            this.SendMessage($"Cooldown has started!");
+            //        }
+            //    }
+            //}
         }
 
         public List<IVotingElement> GetVotedEffects()
@@ -214,22 +239,22 @@ namespace GTAChaos.Utils
 
         private void SendMessage(string message, bool prefix = true)
         {
-            if (this.IsConnected() && this.Channel != null && message != null)
-            {
-                if (!this.Client.IsConnected)
-                {
-                    this.Client.Connect();
-                    return;
-                }
+            //if (this.IsConnected() && this.Channel != null && message != null)
+            //{
+            //    if (!this.Client.IsConnected)
+            //    {
+            //        this.Client.Connect();
+            //        return;
+            //    }
 
-                if (this.Client.JoinedChannels.Count == 0)
-                {
-                    this.Client.JoinChannel(this.Channel);
-                    return;
-                }
+            //    if (this.Client.JoinedChannels.Count == 0)
+            //    {
+            //        this.Client.JoinChannel(this.Channel);
+            //        return;
+            //    }
 
-                this.Client.SendMessage(this.Channel, $"{(prefix ? "[GTA Chaos] " : "")}{message}");
-            }
+            //    this.Client.SendMessage(this.Channel, $"{(prefix ? "[GTA Chaos] " : "")}{message}");
+            //}
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
@@ -237,6 +262,7 @@ namespace GTAChaos.Utils
             string username = e.ChatMessage.Username;
             string message = this.RemoveSpecialCharacters(e.ChatMessage.Message);
 
+            // Rapid Fire
             if (this.VotingMode == Shared.VOTING_MODE.RAPID_FIRE)
             {
                 if (this.rapidFireVoters.Contains(username))
@@ -259,29 +285,9 @@ namespace GTAChaos.Utils
 
                 return;
             }
-            else if (this.VotingMode == Shared.VOTING_MODE.VOTING)
-            {
-                int choice = this.TryParseUserChoice(message);
-                if (choice is >= 0 and <= 2)
-                {
-                    this.effectVoting?.TryAddVote(username, choice);
-                }
-            }
         }
 
         private string RemoveSpecialCharacters(string text) => Regex.Replace(text, @"[^A-Za-z0-9]", "");
-
-        private int TryParseUserChoice(string text)
-        {
-            try
-            {
-                return int.Parse(text) - 1;
-            }
-            catch
-            {
-                return -1;
-            }
-        }
 
         public void SendEffectVotingToGame(bool undetermined = true)
         {
@@ -357,7 +363,7 @@ namespace GTAChaos.Utils
                 int attempts = 0;
                 while (this.votingElements.Count != possibleEffects)
                 {
-                    AbstractEffect effect = EffectDatabase.GetRandomEffect(true, 0, true);
+                    AbstractEffect effect = EffectDatabase.GetRandomEffect(true, 0, false);
                     if (effect.IsTwitchEnabled() && !this.ContainsEffect(effect))
                     {
                         this.AddEffect(effect);
@@ -375,7 +381,7 @@ namespace GTAChaos.Utils
 
                 while (this.votingElements.Count < 3)
                 {
-                    AbstractEffect effect = EffectDatabase.GetRandomEffect(false, 0, true);
+                    AbstractEffect effect = EffectDatabase.GetRandomEffect(false, 0, false);
                     if (effect.IsTwitchEnabled() && !this.ContainsEffect(effect))
                     {
                         this.AddEffect(effect);

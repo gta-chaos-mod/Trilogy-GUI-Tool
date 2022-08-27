@@ -17,6 +17,7 @@ using TwitchLib.Communication.Models;
 
 namespace GTAChaos.Utils
 {
+    // TODO: When using one of the stream modes and all effects are on cooldown the application freezes. Investigate.
     public class TwitchPollConnection : IStreamConnection
     {
         public TwitchClient Client;
@@ -500,12 +501,22 @@ namespace GTAChaos.Utils
             public void GenerateRandomEffects()
             {
                 int possibleEffects = Math.Min(3, EffectDatabase.EnabledEffects.Count);
+                int attempts = 0;
                 while (this.votingElements.Count != possibleEffects)
                 {
                     AbstractEffect effect = EffectDatabase.GetRandomEffect(true, 0, true);
                     if (effect.IsTwitchEnabled() && !this.ContainsEffect(effect))
                     {
                         this.AddEffect(effect);
+                    }
+
+                    if (attempts++ >= 10)
+                    {
+                        EffectDatabase.ResetEffectCooldowns();
+                    }
+                    else if (attempts++ >= 20)
+                    {
+                        break;
                     }
                 }
 

@@ -363,6 +363,7 @@
     <Compile Include="src\utils\RandomHandler.cs" />
     <Compile Include="src\utils\Shared.cs" />
     <Compile Include="src\utils\TwitchChatConnection.cs" />
+    <Compile Include="src\utils\DebugConnection.cs" />
     <Compile Include="src\utils\TwitchPollConnection.cs" />
     <Compile Include="src\utils\VehicleNames.cs" />
     <Compile Include="src\utils\WebsocketHandler.cs" />

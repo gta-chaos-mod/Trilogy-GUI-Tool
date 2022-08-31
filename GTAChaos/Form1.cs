@@ -464,9 +464,11 @@ namespace GTAChaos.Forms
                         }
                         else
                         {
-                            int randomEffect = RandomHandler.Next(elements.Count);
+                            int randomEffectID = RandomHandler.Next(elements.Count);
+                            AbstractEffect effect = elements[randomEffectID].GetEffect();
 
-                            this.CallEffect(elements[randomEffect].GetEffect());
+                            effect.ResetSubtext();
+                            this.CallEffect(effect);
                         }
 
                         this.stream.SendEffectVotingToGame(false);

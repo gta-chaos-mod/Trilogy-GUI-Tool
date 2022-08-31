@@ -498,6 +498,7 @@ namespace GTAChaos.Utils
             {
                 this.Id = id;
                 this.Effect = effect;
+                this.Percentage = 0;
                 this.Voters = new HashSet<string>();
             }
 

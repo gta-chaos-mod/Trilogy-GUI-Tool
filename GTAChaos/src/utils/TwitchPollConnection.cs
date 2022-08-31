@@ -17,7 +17,6 @@ using TwitchLib.Communication.Models;
 
 namespace GTAChaos.Utils
 {
-    // TODO: When using one of the stream modes and all effects are on cooldown the application freezes. Investigate.
     public class TwitchPollConnection : IStreamConnection
     {
         public TwitchClient Client;
@@ -492,6 +491,11 @@ namespace GTAChaos.Utils
                     this.votingElements[elementId].Votes = votes;
                 }
 
+                if (this.GetTotalVotes() <= 0)
+                {
+                    return;
+                }
+
                 foreach (PollVotingElement element in this.votingElements)
                 {
                     element.Percentage = (int)Math.Round((double)element.Votes / this.GetTotalVotes() * 100);
@@ -570,7 +574,6 @@ namespace GTAChaos.Utils
 
                 if (totalVotes == 0)
                 {
-                    // TODO: Random effect on 0 votes option
                     return votes;
                 }
 
@@ -630,6 +633,7 @@ namespace GTAChaos.Utils
             {
                 this.Id = id;
                 this.Effect = effect;
+                this.Percentage = 0;
             }
 
             public int GetId() => this.Id;

@@ -9,7 +9,6 @@ using TwitchLib.Client.Events;
 
 namespace GTAChaos.Utils
 {
-    // TODO: When using one of the stream modes and all effects are on cooldown the application freezes. Investigate.
     public class DebugConnection : IStreamConnection
     {
         private readonly ChatEffectVoting effectVoting = new();
@@ -17,44 +16,6 @@ namespace GTAChaos.Utils
         private Shared.VOTING_MODE VotingMode;
 
         private int lastChoice = -1;
-
-        private readonly System.Timers.Timer debugEffectTimer;
-
-        public DebugConnection()
-        {
-            this.debugEffectTimer = new()
-            {
-                AutoReset = true,
-                Interval = 1000
-            };
-            this.debugEffectTimer.Elapsed += this.DebugEffectTimer_Elapsed;
-            this.debugEffectTimer.Start();
-        }
-
-        private async void DebugEffectTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            // TODO: Pick a random effect and activate it
-
-
-            //if (!this.createdPoll || this.activePoll == null)
-            //{
-            //    return;
-            //}
-
-            //List<string> pollIds = new()
-            //{
-            //    this.activePoll.Id
-            //};
-
-            //TwitchLib.Api.Helix.Models.Polls.GetPolls.GetPollsResponse polls = await this.api.Helix.Polls.GetPollsAsync(this.UserID, pollIds);
-            //Poll updatedPoll = polls.Data[0];
-
-            //this.activePoll = updatedPoll;
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    this.effectVoting.SetVotes(i, this.activePoll.Choices[i].Votes);
-            //}
-        }
 
         public int GetRemaining() => 0;
 
@@ -77,7 +38,7 @@ namespace GTAChaos.Utils
             {
                 this.effectVoting.Clear();
                 this.effectVoting.GenerateRandomEffects();
-                this.effectVoting?.TryAddVote("memes", 0);
+                //this.effectVoting?.TryAddVote("memes", 0);
                 this.lastChoice = -1;
             }
             else if (this.VotingMode == Shared.VOTING_MODE.COOLDOWN)
@@ -504,6 +465,7 @@ namespace GTAChaos.Utils
             {
                 this.Id = id;
                 this.Effect = effect;
+                this.Percentage = 0;
                 this.Voters = new HashSet<string>();
             }
 

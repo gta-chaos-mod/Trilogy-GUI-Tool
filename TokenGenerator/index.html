@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTA Trilogy Chaos Mod Token Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+    <main class="token-form">
+        <h1 class="mb-3">GTA Trilogy Chaos Mod Token Generator</h1>
+
+        <div class="form-group mb-3">
+            <label for="clientIDInput">Client ID</label>
+            <div id="tokenInputGroup" class="input-group">
+                <input id="clientIDInput" type="password" class="form-control" aria-label="Client ID"
+                    oninput="clientIDChange()">
+                <button id="clientIDCopyToClipboard" class="btn btn-primary" type="button"
+                    onclick="copyClientIDToClipboard()">Copy</button>
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="tokenInputGroup">Returned Access Token</label>
+            <div id="tokenInputGroup" class="input-group">
+                <input id="tokenInput" type="password" readonly="true" class="form-control" aria-label="Token">
+                <button id="tokenCopyToClipboard" class="btn btn-primary" type="button" disabled="true"
+                    onclick="copyTokenToClipboard()">Copy</button>
+            </div>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" id="generateTokenButton" disabled="true"
+            onclick="generateToken()">Generate Token</button>
+
+        <h4 class="mt-3 fw-normal">To get started, head to the <a href="https://dev.twitch.tv/console/apps"
+                target="_blank">Twitch Developer Dashboard</a> and create a new Application with the category set to
+            "Website Integration".</h4>
+
+        <h4 class="mt-3 fw-normal">Name it whatever you want and set the OAuth Redirect URL to <kbd
+                onclick="onRedirectURLClick()">
+                https://chaos.lord.moe/</kbd></h4>
+
+        <h4 class="mt-3 fw-normal">To revoke access, disconnect the app you created from your <a
+                href="http://www.twitch.tv/settings/connections" target="_blank">Twitch settings</a>.</h4>
+
+        <p class="mt-3">(<strong>Technical:</strong> This application uses the <a
+                href="https://dev.twitch.tv/docs/v5/guides/authentication/" target="_blank">implicit grant flow</a> for
+            the Twitch API to retrieve
+            your token. This
+            means that your token is only ever visible to your browser and not our server)</p>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

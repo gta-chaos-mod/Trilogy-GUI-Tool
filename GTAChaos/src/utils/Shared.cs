@@ -11,7 +11,7 @@ namespace GTAChaos.Utils
             ERROR
         };
 
-        public static string Version = "3.0";
+        public static string Version = "3.0.1";
 
         public static string SelectedGame = "san_andreas";
 

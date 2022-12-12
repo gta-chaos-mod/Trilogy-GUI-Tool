@@ -20,6 +20,7 @@ namespace GTAChaos.Effects
             }
             else
             {
+                effect.ResetSubtext();
                 EffectDatabase.RunEffect(effect, -1, 1000 * 15);
             }
         }

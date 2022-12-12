@@ -1,11 +1,10 @@
 // Copyright (c) 2019 Lordmau5
+using Fleck;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using WebSocketSharp;
 
 namespace GTAChaos.Utils
 {
@@ -20,65 +19,44 @@ namespace GTAChaos.Utils
 
         public event EventHandler<SocketMessageEventArgs> OnSocketMessage;
 
-        private WebSocket socket;
-        private bool socketIsConnecting = false;
-        private bool socketConnected = false;
+        private WebSocketServer server;
+        private readonly List<IWebSocketConnection> sockets = new();
         private readonly List<string> socketBuffer = new();
 
         public void ConnectWebsocket()
         {
-            try
-            {
-                if (!this.socketConnected && !this.socketIsConnecting)
-                {
-                    this.socket = new WebSocket("ws://localhost:9001");
-                    this.socket.OnOpen += this.Socket_OnOpen;
-                    this.socket.OnClose += this.Socket_OnClose;
-                    this.socket.OnError += this.Socket_OnError;
-                    this.socket.OnMessage += this.Socket_OnMessage;
-
-                    this.socketIsConnecting = true;
-
-                    this.socket.Connect();
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-
-                this.socketConnected = false;
-                this.socketIsConnecting = false;
-            }
-        }
-
-        private void Socket_OnMessage(object sender, MessageEventArgs e)
-        {
-            if (!e.IsText)
+            if (this.server is not null)
             {
                 return;
             }
 
-            OnSocketMessage?.Invoke(this, new SocketMessageEventArgs { Data = e.Data });
+            this.server = new WebSocketServer("ws://0.0.0.0:9001");
+
+            this.sockets.Clear();
+
+            this.server.Start(socket =>
+            {
+                socket.OnOpen = () =>
+                {
+                    this.sockets.Add(socket);
+                    this.SendWebsocketBuffer();
+                };
+                socket.OnClose = () => this.sockets.Remove(socket);
+                socket.OnError = error =>
+                {
+                    this.sockets.Remove(socket);
+                    socket.Close();
+                };
+                socket.OnMessage = message => OnSocketMessage?.Invoke(this, new SocketMessageEventArgs { Data = message });
+            });
         }
 
-        private void Socket_OnOpen(object sender, EventArgs e)
+        private void SendToAllClients(string text)
         {
-            this.socketConnected = true;
-            this.socketIsConnecting = false;
-
-            this.SendWebsocketBuffer();
-        }
-
-        private void Socket_OnError(object sender, WebSocketSharp.ErrorEventArgs e)
-        {
-            this.socketConnected = false;
-            this.socketIsConnecting = false;
-        }
-
-        private void Socket_OnClose(object sender, CloseEventArgs e)
-        {
-            this.socketConnected = false;
-            this.socketIsConnecting = false;
+            foreach (IWebSocketConnection socket in this.sockets)
+            {
+                socket.Send(text);
+            }
         }
 
         private void SendWebsocketBuffer()
@@ -87,7 +65,7 @@ namespace GTAChaos.Utils
             {
                 foreach (string buffer in this.socketBuffer)
                 {
-                    this.socket?.Send(buffer);
+                    this.SendToAllClients(buffer);
                 }
 
                 this.socketBuffer.Clear();
@@ -102,11 +80,11 @@ namespace GTAChaos.Utils
 
                 this.ConnectWebsocket();
 
-                if (this.socketConnected)
+                if (this.sockets.Count > 0)
                 {
                     this.SendWebsocketBuffer();
 
-                    this.socket?.Send(json);
+                    this.SendToAllClients(json);
                 }
                 else
                 {
@@ -165,24 +143,14 @@ namespace GTAChaos.Utils
                     effectID,
                     effectData = effectData ?? (new { }),
                     duration,
-                    displayName = displayName.IsNullOrEmpty() ? effectID : displayName,
+                    displayName = this.IsNullOrEmpty(displayName) ? effectID : displayName,
                     subtext
                 }
             });
 
-            // TODO: Implement JSON data in Crowd Control like this
-            /*
-            if (crowdControlID != -1)
-            {
-                jsonObject["data"]["crowdControlData"] = JObject.FromObject(new
-                {
-                    id = crowdControlID,
-                    buyer = "Joshimuz"
-                });
-            }
-            */
-
             this.SendDataToWebsocket(jsonObject);
         }
+
+        private bool IsNullOrEmpty(string value) => value == null || value.Length == 0;
     }
 }

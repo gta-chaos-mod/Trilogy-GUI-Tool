@@ -21,7 +21,7 @@ namespace GTAChaos.Utils
 
         public async Task<bool> TryConnect()
         {
-            OnConnected?.Invoke(this, new EventArgs());
+            await Task.Run(() => OnConnected?.Invoke(this, new EventArgs()));
             return true;
         }
 
@@ -33,156 +33,159 @@ namespace GTAChaos.Utils
 
         public async void SetVoting(Shared.VOTING_MODE votingMode, int untilRapidFire = -1, List<IVotingElement> votingElements = null)
         {
-            this.VotingMode = votingMode;
-            if (this.VotingMode == Shared.VOTING_MODE.VOTING)
+            await Task.Run(() =>
             {
-                this.effectVoting.Clear();
-                this.effectVoting.GenerateRandomEffects();
-                //this.effectVoting?.TryAddVote("memes", 0);
-                this.lastChoice = -1;
-            }
-            else if (this.VotingMode == Shared.VOTING_MODE.COOLDOWN)
-            {
-                this.SendEffectVotingToGame(false);
-            }
+                this.VotingMode = votingMode;
+                if (this.VotingMode == Shared.VOTING_MODE.VOTING)
+                {
+                    this.effectVoting.Clear();
+                    this.effectVoting.GenerateRandomEffects();
+                    //this.effectVoting?.TryAddVote("memes", 0);
+                    this.lastChoice = -1;
+                }
+                else if (this.VotingMode == Shared.VOTING_MODE.COOLDOWN)
+                {
+                    this.SendEffectVotingToGame(false);
+                }
 
-            //return;
+                //return;
 
-            //this.VotingMode = votingMode;
-            //if (this.VotingMode == Shared.VOTING_MODE.VOTING)
-            //{
-            //    this.effectVoting.Clear();
-            //    this.effectVoting.GenerateRandomEffects();
-            //    this.lastChoice = -1;
+                //this.VotingMode = votingMode;
+                //if (this.VotingMode == Shared.VOTING_MODE.VOTING)
+                //{
+                //    this.effectVoting.Clear();
+                //    this.effectVoting.GenerateRandomEffects();
+                //    this.lastChoice = -1;
 
-            //    if (Config.Instance().TwitchPollsPostMessages)
-            //    {
-            //        if (Config.Instance().StreamCombineChatMessages)
-            //        {
-            //            string messageToSend = "Voting has started! ";
+                //    if (Config.Instance().TwitchPollsPostMessages)
+                //    {
+                //        if (Config.Instance().StreamCombineChatMessages)
+                //        {
+                //            string messageToSend = "Voting has started! ";
 
-            //            foreach (PollVotingElement element in this.effectVoting.GetVotingElements())
-            //            {
-            //                string description = element.Effect.GetDisplayName(DisplayNameType.STREAM);
-            //                messageToSend += $"#{element.Id + 1}: {description}. ";
-            //            }
+                //            foreach (PollVotingElement element in this.effectVoting.GetVotingElements())
+                //            {
+                //                string description = element.Effect.GetDisplayName(DisplayNameType.STREAM);
+                //                messageToSend += $"#{element.Id + 1}: {description}. ";
+                //            }
 
-            //            this.SendMessage(messageToSend);
-            //        }
-            //        else
-            //        {
-            //            this.SendMessage("Voting has started!");
+                //            this.SendMessage(messageToSend);
+                //        }
+                //        else
+                //        {
+                //            this.SendMessage("Voting has started!");
 
-            //            foreach (PollVotingElement element in this.effectVoting.GetVotingElements())
-            //            {
-            //                string description = element.Effect.GetDisplayName(DisplayNameType.STREAM);
-            //                this.SendMessage($"#{element.Id + 1}: {description}");
-            //            }
-            //        }
-            //    }
+                //            foreach (PollVotingElement element in this.effectVoting.GetVotingElements())
+                //            {
+                //                string description = element.Effect.GetDisplayName(DisplayNameType.STREAM);
+                //                this.SendMessage($"#{element.Id + 1}: {description}");
+                //            }
+                //        }
+                //    }
 
-            //    //CreatePollRequest createPoll = new()
-            //    //{
-            //    //    Title = "[GTA Chaos] Next Effect",
-            //    //    BroadcasterId = UserID,
-            //    //    DurationSeconds = Config.Instance().StreamVotingTime / 1000,
-            //    //    Choices = this.effectVoting.GetPollChoices(),
-            //    //    BitsVotingEnabled = Config.Instance().TwitchPollsBitsCost > 0,
-            //    //    BitsPerVote = Config.Instance().TwitchPollsBitsCost,
-            //    //    ChannelPointsVotingEnabled = Config.Instance().TwitchPollsChannelPointsCost > 0,
-            //    //    ChannelPointsPerVote = Config.Instance().TwitchPollsChannelPointsCost,
-            //    //};
+                //    //CreatePollRequest createPoll = new()
+                //    //{
+                //    //    Title = "[GTA Chaos] Next Effect",
+                //    //    BroadcasterId = UserID,
+                //    //    DurationSeconds = Config.Instance().StreamVotingTime / 1000,
+                //    //    Choices = this.effectVoting.GetPollChoices(),
+                //    //    BitsVotingEnabled = Config.Instance().TwitchPollsBitsCost > 0,
+                //    //    BitsPerVote = Config.Instance().TwitchPollsBitsCost,
+                //    //    ChannelPointsVotingEnabled = Config.Instance().TwitchPollsChannelPointsCost > 0,
+                //    //    ChannelPointsPerVote = Config.Instance().TwitchPollsChannelPointsCost,
+                //    //};
 
-            //    //List<string> effects = new();
-            //    //foreach (TwitchLib.Api.Helix.Models.Polls.CreatePoll.Choice el in createPoll.Choices)
-            //    //{
-            //    //    effects.Add(el.Title);
-            //    //}
+                //    //List<string> effects = new();
+                //    //foreach (TwitchLib.Api.Helix.Models.Polls.CreatePoll.Choice el in createPoll.Choices)
+                //    //{
+                //    //    effects.Add(el.Title);
+                //    //}
 
-            //    //Debug.WriteLine(string.Join(", ", effects.ToArray()));
+                //    //Debug.WriteLine(string.Join(", ", effects.ToArray()));
 
-            //    //this.createdPoll = await this.TryPoll(createPoll);
+                //    //this.createdPoll = await this.TryPoll(createPoll);
 
-            //    //SocketBroadcast(JsonConvert.SerializeObject(createPoll));
-            //}
-            //else if (this.VotingMode == Shared.VOTING_MODE.RAPID_FIRE)
-            //{
-            //    this.rapidFireVoters.Clear();
-            //    //this.SendMessage("ATTENTION, ALL GAMERS! RAPID-FIRE HAS BEGUN! VALID EFFECTS WILL BE ENABLED FOR 15 SECONDS!");
-            //}
-            //else if (this.VotingMode == Shared.VOTING_MODE.ERROR) // Poll Failed
-            //{
-            //    this.SendEffectVotingToGame(false);
+                //    //SocketBroadcast(JsonConvert.SerializeObject(createPoll));
+                //}
+                //else if (this.VotingMode == Shared.VOTING_MODE.RAPID_FIRE)
+                //{
+                //    this.rapidFireVoters.Clear();
+                //    //this.SendMessage("ATTENTION, ALL GAMERS! RAPID-FIRE HAS BEGUN! VALID EFFECTS WILL BE ENABLED FOR 15 SECONDS!");
+                //}
+                //else if (this.VotingMode == Shared.VOTING_MODE.ERROR) // Poll Failed
+                //{
+                //    this.SendEffectVotingToGame(false);
 
-            //    if (Config.Instance().StreamEnableRapidFire)
-            //    {
-            //        this.SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Poll Failed :(");
+                //    if (Config.Instance().StreamEnableRapidFire)
+                //    {
+                //        this.SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Poll Failed :(");
 
-            //        if (untilRapidFire == 1)
-            //        {
-            //            this.SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
-            //        }
-            //    }
-            //    else
-            //    {
-            //        this.SendMessage($"Cooldown has started! - Poll Failed :(");
-            //    }
+                //        if (untilRapidFire == 1)
+                //        {
+                //            this.SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+                //        }
+                //    }
+                //    else
+                //    {
+                //        this.SendMessage($"Cooldown has started! - Poll Failed :(");
+                //    }
 
-            //    // Make sure we end poll, thank
-            //    //if (activePoll != null)
-            //    //{
-            //    //    var response = api.Helix.Polls.EndPollAsync(UserID, activePoll.Id, TwitchLib.Api.Core.Enums.PollStatusEnum.ARCHIVED);
-            //    //}
-            //    //this.activePoll = null;
-            //    //this.createdPoll = false;
-            //}
-            //else
-            //{
-            //    if (votingElements != null && votingElements.Count > 0)
-            //    {
-            //        this.SendEffectVotingToGame(false);
+                //    // Make sure we end poll, thank
+                //    //if (activePoll != null)
+                //    //{
+                //    //    var response = api.Helix.Polls.EndPollAsync(UserID, activePoll.Id, TwitchLib.Api.Core.Enums.PollStatusEnum.ARCHIVED);
+                //    //}
+                //    //this.activePoll = null;
+                //    //this.createdPoll = false;
+                //}
+                //else
+                //{
+                //    if (votingElements != null && votingElements.Count > 0)
+                //    {
+                //        this.SendEffectVotingToGame(false);
 
-            //        string allEffects = string.Join(", ", votingElements.Select(e => e.GetEffect().GetDisplayName(DisplayNameType.STREAM)));
+                //        string allEffects = string.Join(", ", votingElements.Select(e => e.GetEffect().GetDisplayName(DisplayNameType.STREAM)));
 
-            //        if (Config.Instance().StreamEnableRapidFire)
-            //        {
-            //            this.SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Enabled effects: {allEffects}");
+                //        if (Config.Instance().StreamEnableRapidFire)
+                //        {
+                //            this.SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire) - Enabled effects: {allEffects}");
 
-            //            if (untilRapidFire == 1)
-            //            {
-            //                this.SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
-            //            }
-            //        }
-            //        else
-            //        {
-            //            this.SendMessage($"Cooldown has started! - Enabled effects: {allEffects}");
-            //        }
+                //            if (untilRapidFire == 1)
+                //            {
+                //                this.SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+                //            }
+                //        }
+                //        else
+                //        {
+                //            this.SendMessage($"Cooldown has started! - Enabled effects: {allEffects}");
+                //        }
 
-            //        // Make sure we end poll, thank
-            //        //if (activePoll != null)
-            //        //{
-            //        //    var response = api.Helix.Polls.EndPollAsync(UserID, activePoll.Id, TwitchLib.Api.Core.Enums.PollStatusEnum.ARCHIVED);
-            //        //}
-            //        //this.activePoll = null;
-            //        //this.createdPoll = false;
-            //    }
-            //    else
-            //    {
-            //        if (Config.Instance().StreamEnableRapidFire)
-            //        {
-            //            this.SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire)");
+                //        // Make sure we end poll, thank
+                //        //if (activePoll != null)
+                //        //{
+                //        //    var response = api.Helix.Polls.EndPollAsync(UserID, activePoll.Id, TwitchLib.Api.Core.Enums.PollStatusEnum.ARCHIVED);
+                //        //}
+                //        //this.activePoll = null;
+                //        //this.createdPoll = false;
+                //    }
+                //    else
+                //    {
+                //        if (Config.Instance().StreamEnableRapidFire)
+                //        {
+                //            this.SendMessage($"Cooldown has started! ({untilRapidFire} until Rapid-Fire)");
 
-            //            if (untilRapidFire == 1)
-            //            {
-            //                this.SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
-            //            }
-            //        }
-            //        else
-            //        {
-            //            this.SendMessage($"Cooldown has started!");
-            //        }
-            //    }
-            //}
+                //            if (untilRapidFire == 1)
+                //            {
+                //                this.SendMessage("Rapid-Fire is coming up! Get your cheats ready! - List of all effects: https://bit.ly/gta-sa-chaos-mod");
+                //            }
+                //        }
+                //        else
+                //        {
+                //            this.SendMessage($"Cooldown has started!");
+                //        }
+                //    }
+                //}
+            });
         }
 
         public List<IVotingElement> GetVotedEffects()

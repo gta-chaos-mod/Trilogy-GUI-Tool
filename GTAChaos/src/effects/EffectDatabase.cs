@@ -287,6 +287,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Backwards Clock", "TimeJustGoesBackwards", "backwards_clock"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Buttsbot", "ButtsbotYes", "buttsbot", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Custom Textures", "CustomTextures", "textures_custom"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Deforestation", "Deforestation", "deforestation"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delayed Controls", "WhatsWrongWithThisKeyboard", "delayed_controls", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "EASY TO READ", "ItsEasierToRead", "very_big_font_scale"));
                 AddEffect(new FakeCrashEffect("Game Crash", "TooManyModsInstalled"));
@@ -322,6 +323,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Underwater View", "HelloHowAreYouIAmUnderTheWater", "underwater_view"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Uninstall CS: Source", "UninstallCSS", "textures_counter_strike_source"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Upside-Down Screen", "WhatsUpIsDown", "upside_down_screen", -1, 1.0f)); // Upside-Down Screen
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Vehicle Bullets", "ImShootingCars", "vehicle_bullets"));
                 // --------------- //
 
                 // --- Audio --- //

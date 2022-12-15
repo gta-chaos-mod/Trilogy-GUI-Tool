@@ -302,7 +302,6 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Visible Water", "OceanManGoneAgain", "no_visible_water"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Water Physics", "FastTrackToAtlantis", "no_water_physics"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pausing", "LetsPause", "pausing", -1, 1.0f));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Queer Rights!", "QueerRights", "replace_all_text_queer_rights", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Quick Sprunk Stop", "ARefreshingDrink", "quick_sprunk_stop"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Random Inputs", "PossessedKeyboard", "random_inputs"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Radar Zoom (Small)", "SmallRadarZoom", "radar_zoom_small"));
@@ -312,7 +311,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Roll Credits", "WaitItsOver", "roll_credits")); // Roll Credits - Rolls the credits but only visually!
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Screen Flip", "MuscleMemoryMangler", "screen_flip", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Screensaver HUD", "ScreensaverHUD", "screensaver_hud"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Shoutouts to SimpleFlips.", "ShoutoutsToSimpleFlips", "replace_all_text_simpleflips", -1, 1.0f));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Replace All Text", "ReplaceAllText", "replace_all_text", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Spawn Ramp", "FreeStuntJump", "spawn_ramp"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Super Smokio 64", "SuperSmokio64", "font_mario_64"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "TABLE!", "TABLE", "spawn_table"));

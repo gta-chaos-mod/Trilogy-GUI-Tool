@@ -303,6 +303,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Nothing", "ThereIsNoEffect", "nothing"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Visible Water", "OceanManGoneAgain", "no_visible_water"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "No Water Physics", "FastTrackToAtlantis", "no_water_physics"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "One Hit K.O. (Player)", "ILikeToLiveDangerously", "one_hit_ko").DisableRapidFire()); // One Hit K.O. (Player)
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Pausing", "LetsPause", "pausing", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Quick Sprunk Stop", "ARefreshingDrink", "quick_sprunk_stop"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Random Inputs", "PossessedKeyboard", "random_inputs"));
@@ -375,7 +376,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Long Live The Rich!", "LongLiveTheRich", "long_live_the_rich"));  // Money = Health, shoot people to gain money, take damage to lose it
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Long Necks", "ICanSeeMyHouseFromUpHere", "long_necks"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "One Bullet Magazines", "OneInTheChamber", "one_bullet_magazines"));
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Ped One Hit K.O.", "ILikeToLiveDangerously", "one_hit_ko").DisableRapidFire()); // One Hit K.O.
+                AddEffect(new FunctionEffect(Category.CustomEffects, "One Hit K.O. (Everyone)", "EveryoneLikesToLiveDangerously", "one_hit_ko_everyone").DisableRapidFire()); // One Hit K.O. (Everyone)
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Ped Wallhack", "ICanSeeYouGuysThroughWalls", "ped_wallhack"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Peds Explode If Run Over", "ExplosivePeds", "peds_explode_when_run_over")); // Peds Explode If Run Over
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Peds Leave All Vehicles", "ImTiredOfDriving", "everyone_leaves_all_vehicles"));

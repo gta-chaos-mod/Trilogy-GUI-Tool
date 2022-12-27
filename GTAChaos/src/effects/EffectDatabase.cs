@@ -545,10 +545,11 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Swap Vehicles On Impact", "SwapVehiclesOnImpact", "swap_vehicles_on_impact"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Tall Vehicles", "TallPeepoHappy", "vehicle_size_tall"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Tiny Vehicles", "TinyPeepoHappy", "vehicle_size_tiny"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Tipping Point", "TippingPoint", "very_flippable_vehicles")); // Vehicles are very easy to flip
                 AddEffect(new FunctionEffect(Category.CustomEffects, "To Drive Or Not To Drive", "ToDriveOrNotToDrive", "to_drive_or_not_to_drive")); // To drive or not to drive
                 AddEffect(new FunctionEffect(Category.CustomEffects, "To The Left, To The Right", "ToTheLeftToTheRight", "to_the_left_to_the_right")); // Gives cars a random velocity
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Turn Vehicles Around", "TurnAround", "turn_vehicles_around")); // Turn vehicles around
-                AddEffect(new FunctionEffect(Category.CustomEffects, "Unflippable Vehicles", "ThereGoesMyBurrito", "unflippable_vehicles")); // Vehicles are unflippable
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Unflippable Vehicles", "UnflippableVehicles", "unflippable_vehicles")); // Vehicles are very hard to flip
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Vehicle Boost", "FullForceForward", "vehicle_boost"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Vehicle One Hit K.O.", "NoDings", "vehicle_one_hit_ko"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Wide Vehicles", "WidePeepoHappy", "vehicle_size_wide"));

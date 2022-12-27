@@ -291,6 +291,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects, "Delayed Controls", "WhatsWrongWithThisKeyboard", "delayed_controls", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "EASY TO READ", "ItsEasierToRead", "very_big_font_scale"));
                 AddEffect(new FakeCrashEffect("Game Crash", "TooManyModsInstalled"));
+                AddEffect(new FunctionEffect(Category.CustomEffects, "Get To The Marker!", "GetToTheMarker", "get_to_marker", 1000 * 60 * 1));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "haha funni font", "ComicSansMasterRace", "font_comic_sans"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "It's Morbin Time", "ItsMorbinTime", "textures_its_morbin_time"));
                 AddEffect(new FunctionEffect(Category.CustomEffects, "KIRYU-CHAN!!!", "KiryuChan", "font_yakuza"));

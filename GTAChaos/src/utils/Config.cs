@@ -9,6 +9,9 @@ namespace GTAChaos.Utils
     {
         private static Config _Instance;
 
+        // Websocket port
+        public int WebsocketPort = 9001;
+
         public int MainCooldown;
         public bool AutoStart = true;
         public string Seed;

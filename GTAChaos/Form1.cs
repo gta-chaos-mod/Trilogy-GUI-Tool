@@ -72,16 +72,8 @@ namespace GTAChaos.Forms
 
             this.numericUpDownEffectCooldown.Maximum = EffectDatabase.Effects.Count;
 
-            WebsocketHandler.INSTANCE.ConnectWebsocket();
+            WebsocketHandler.INSTANCE.CreateWebsocketServer();
             WebsocketHandler.INSTANCE.OnSocketMessage += this.OnSocketMessage;
-
-            this.websocketReconnectionTimer = new System.Timers.Timer()
-            {
-                Interval = 1000,
-                AutoReset = true
-            };
-            this.websocketReconnectionTimer.Elapsed += (sender, e) => WebsocketHandler.INSTANCE.ConnectWebsocket();
-            this.websocketReconnectionTimer.Start();
         }
 
         private void OnSocketMessage(object sender, SocketMessageEventArgs e)
@@ -238,6 +230,8 @@ namespace GTAChaos.Forms
             this.textBoxExperimentalEffectName.Text = Config.Instance().Experimental_EffectName;
             this.checkBoxExperimentalYouTubeConnection.Checked = Config.Instance().Experimental_YouTubeConnection;
             this.numericUpDownEffectCooldown.Value = Math.Min(Config.Instance().EffectsCooldownNotActivating, this.numericUpDownEffectCooldown.Maximum);
+
+            this.numericWebsocketPort.Value = Config.Instance().WebsocketPort;
 
             this.textBoxSeed.Text = Config.Instance().Seed;
 
@@ -1634,5 +1628,9 @@ namespace GTAChaos.Forms
         private void checkBoxStreamHideVotingEffectsIngame_CheckedChanged(object sender, EventArgs e) => Config.Instance().StreamHideVotingEffectsIngame = this.checkBoxStreamHideVotingEffectsIngame.Checked;
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => MessageBox.Show(this, $"Version: v{Shared.Version}\nTotal Effects: {EffectDatabase.Effects.Count}", "About");
+
+        private void numericWebsocketPort_ValueChanged(object sender, EventArgs e) => Config.Instance().WebsocketPort = (int)this.numericWebsocketPort.Value;
+
+        private void buttonRestartWebsocket_Click(object sender, EventArgs e) => WebsocketHandler.INSTANCE.RestartWebsocketServer();
     }
 }

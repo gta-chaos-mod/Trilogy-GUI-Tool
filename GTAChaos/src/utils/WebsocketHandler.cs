@@ -4,7 +4,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GTAChaos.Utils
 {
@@ -23,14 +27,21 @@ namespace GTAChaos.Utils
         private readonly List<IWebSocketConnection> sockets = new();
         private readonly List<string> socketBuffer = new();
 
-        public void ConnectWebsocket()
+        public void CreateWebsocketServer()
         {
             if (this.server is not null)
             {
                 return;
             }
 
-            this.server = new WebSocketServer("ws://0.0.0.0:9001");
+            int port = Config.Instance().WebsocketPort;
+            if (!this.CheckIfPortAvailable(port))
+            {
+                MessageBox.Show($"Couldn't create websocket server on port {port}. Is it in use?", "Websocket Error");
+                return;
+            }
+
+            this.server = new WebSocketServer($"ws://0.0.0.0:{Config.Instance().WebsocketPort}");
 
             this.sockets.Clear();
 
@@ -49,6 +60,23 @@ namespace GTAChaos.Utils
                 };
                 socket.OnMessage = message => OnSocketMessage?.Invoke(this, new SocketMessageEventArgs { Data = message });
             });
+        }
+
+        public bool CheckIfPortAvailable(int port)
+        {
+            IPGlobalProperties properties = IPGlobalProperties.GetIPGlobalProperties();
+            IPEndPoint[] end_point = properties.GetActiveTcpListeners();
+            List<int> ports = end_point.Select(p => p.Port).ToList<int>();
+
+            return !ports.Contains(port);
+        }
+
+        public void RestartWebsocketServer()
+        {
+            this.server?.Dispose();
+            this.server = null;
+
+            this.CreateWebsocketServer();
         }
 
         private void SendToAllClients(string text)
@@ -77,8 +105,6 @@ namespace GTAChaos.Utils
             Task.Run(() =>
             {
                 string json = JsonConvert.SerializeObject(jsonObject);
-
-                this.ConnectWebsocket();
 
                 if (this.sockets.Count > 0)
                 {

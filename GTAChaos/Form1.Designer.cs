@@ -74,12 +74,6 @@ namespace GTAChaos.Forms
             this.numericUpDownEffectCooldown = new System.Windows.Forms.NumericUpDown();
             this.buttonEffectsToggleAll = new System.Windows.Forms.Button();
             this.enabledEffectsView = new System.Windows.Forms.TreeView();
-            this.tabSettings = new System.Windows.Forms.TabPage();
-            this.checkBoxStreamHideVotingEffectsIngame = new System.Windows.Forms.CheckBox();
-            this.checkBoxSettingsPlayAudioSequentially = new System.Windows.Forms.CheckBox();
-            this.checkBoxPlayAudioForEffects = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBoxSeed = new System.Windows.Forms.TextBox();
             this.tabSync = new System.Windows.Forms.TabPage();
             this.buttonSyncSend = new System.Windows.Forms.Button();
             this.textBoxSyncChat = new System.Windows.Forms.TextBox();
@@ -92,6 +86,12 @@ namespace GTAChaos.Forms
             this.labelSyncServer = new System.Windows.Forms.Label();
             this.textBoxSyncServer = new System.Windows.Forms.TextBox();
             this.buttonSyncConnect = new System.Windows.Forms.Button();
+            this.tabSettings = new System.Windows.Forms.TabPage();
+            this.checkBoxStreamHideVotingEffectsIngame = new System.Windows.Forms.CheckBox();
+            this.checkBoxSettingsPlayAudioSequentially = new System.Windows.Forms.CheckBox();
+            this.checkBoxPlayAudioForEffects = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxSeed = new System.Windows.Forms.TextBox();
             this.tabExperimental = new System.Windows.Forms.TabPage();
             this.checkBoxExperimentalYouTubeConnection = new System.Windows.Forms.CheckBox();
             this.buttonExperimentalRunEffect = new System.Windows.Forms.Button();
@@ -111,6 +111,9 @@ namespace GTAChaos.Forms
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
+            this.numericWebsocketPort = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.buttonRestartWebsocket = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabStream.SuspendLayout();
@@ -119,10 +122,11 @@ namespace GTAChaos.Forms
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTwitchPollsBitsCost)).BeginInit();
             this.tabEffects.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEffectCooldown)).BeginInit();
-            this.tabSettings.SuspendLayout();
             this.tabSync.SuspendLayout();
+            this.tabSettings.SuspendLayout();
             this.tabExperimental.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericWebsocketPort)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonMainToggle
@@ -638,84 +642,6 @@ namespace GTAChaos.Forms
             this.enabledEffectsView.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.EnabledEffectsView_AfterCheck);
             this.enabledEffectsView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.EnabledEffectsView_NodeMouseDoubleClick);
             // 
-            // tabSettings
-            // 
-            this.tabSettings.BackColor = System.Drawing.Color.Transparent;
-            this.tabSettings.Controls.Add(this.checkBoxStreamHideVotingEffectsIngame);
-            this.tabSettings.Controls.Add(this.checkBoxSettingsPlayAudioSequentially);
-            this.tabSettings.Controls.Add(this.checkBoxPlayAudioForEffects);
-            this.tabSettings.Controls.Add(this.label8);
-            this.tabSettings.Controls.Add(this.textBoxSeed);
-            this.tabSettings.Location = new System.Drawing.Point(4, 22);
-            this.tabSettings.Name = "tabSettings";
-            this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(552, 293);
-            this.tabSettings.TabIndex = 3;
-            this.tabSettings.Text = "Settings";
-            // 
-            // checkBoxStreamHideVotingEffectsIngame
-            // 
-            this.checkBoxStreamHideVotingEffectsIngame.AutoSize = true;
-            this.checkBoxStreamHideVotingEffectsIngame.Checked = true;
-            this.checkBoxStreamHideVotingEffectsIngame.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxStreamHideVotingEffectsIngame.Location = new System.Drawing.Point(9, 268);
-            this.checkBoxStreamHideVotingEffectsIngame.Name = "checkBoxStreamHideVotingEffectsIngame";
-            this.checkBoxStreamHideVotingEffectsIngame.Size = new System.Drawing.Size(155, 17);
-            this.checkBoxStreamHideVotingEffectsIngame.TabIndex = 10;
-            this.checkBoxStreamHideVotingEffectsIngame.Text = "Hide Voting Effects Ingame";
-            this.toolTipHandler.SetToolTip(this.checkBoxStreamHideVotingEffectsIngame, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
-        " play.");
-            this.checkBoxStreamHideVotingEffectsIngame.UseVisualStyleBackColor = true;
-            this.checkBoxStreamHideVotingEffectsIngame.CheckedChanged += new System.EventHandler(this.checkBoxStreamHideVotingEffectsIngame_CheckedChanged);
-            // 
-            // checkBoxSettingsPlayAudioSequentially
-            // 
-            this.checkBoxSettingsPlayAudioSequentially.AutoSize = true;
-            this.checkBoxSettingsPlayAudioSequentially.Checked = true;
-            this.checkBoxSettingsPlayAudioSequentially.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSettingsPlayAudioSequentially.Location = new System.Drawing.Point(9, 55);
-            this.checkBoxSettingsPlayAudioSequentially.Name = "checkBoxSettingsPlayAudioSequentially";
-            this.checkBoxSettingsPlayAudioSequentially.Size = new System.Drawing.Size(136, 17);
-            this.checkBoxSettingsPlayAudioSequentially.TabIndex = 9;
-            this.checkBoxSettingsPlayAudioSequentially.Text = "Play Audio Sequentially";
-            this.toolTipHandler.SetToolTip(this.checkBoxSettingsPlayAudioSequentially, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
-        " play.");
-            this.checkBoxSettingsPlayAudioSequentially.UseVisualStyleBackColor = true;
-            this.checkBoxSettingsPlayAudioSequentially.CheckedChanged += new System.EventHandler(this.CheckBoxSettingsPlayAudioSequentially_CheckedChanged);
-            // 
-            // checkBoxPlayAudioForEffects
-            // 
-            this.checkBoxPlayAudioForEffects.AutoSize = true;
-            this.checkBoxPlayAudioForEffects.Checked = true;
-            this.checkBoxPlayAudioForEffects.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxPlayAudioForEffects.Location = new System.Drawing.Point(9, 32);
-            this.checkBoxPlayAudioForEffects.Name = "checkBoxPlayAudioForEffects";
-            this.checkBoxPlayAudioForEffects.Size = new System.Drawing.Size(130, 17);
-            this.checkBoxPlayAudioForEffects.TabIndex = 8;
-            this.checkBoxPlayAudioForEffects.Text = "Play Audio For Effects";
-            this.toolTipHandler.SetToolTip(this.checkBoxPlayAudioForEffects, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
-        " play.");
-            this.checkBoxPlayAudioForEffects.UseVisualStyleBackColor = true;
-            this.checkBoxPlayAudioForEffects.CheckedChanged += new System.EventHandler(this.CheckBoxPlayAudioForEffects_CheckedChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 9);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Seed:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // textBoxSeed
-            // 
-            this.textBoxSeed.Location = new System.Drawing.Point(47, 6);
-            this.textBoxSeed.Name = "textBoxSeed";
-            this.textBoxSeed.Size = new System.Drawing.Size(497, 20);
-            this.textBoxSeed.TabIndex = 1;
-            this.textBoxSeed.TextChanged += new System.EventHandler(this.TextBoxSeed_TextChanged);
-            // 
             // tabSync
             // 
             this.tabSync.BackColor = System.Drawing.Color.Transparent;
@@ -841,6 +767,87 @@ namespace GTAChaos.Forms
             this.buttonSyncConnect.UseVisualStyleBackColor = true;
             this.buttonSyncConnect.Click += new System.EventHandler(this.ButtonSyncConnect_Click);
             // 
+            // tabSettings
+            // 
+            this.tabSettings.BackColor = System.Drawing.Color.Transparent;
+            this.tabSettings.Controls.Add(this.buttonRestartWebsocket);
+            this.tabSettings.Controls.Add(this.label4);
+            this.tabSettings.Controls.Add(this.numericWebsocketPort);
+            this.tabSettings.Controls.Add(this.checkBoxStreamHideVotingEffectsIngame);
+            this.tabSettings.Controls.Add(this.checkBoxSettingsPlayAudioSequentially);
+            this.tabSettings.Controls.Add(this.checkBoxPlayAudioForEffects);
+            this.tabSettings.Controls.Add(this.label8);
+            this.tabSettings.Controls.Add(this.textBoxSeed);
+            this.tabSettings.Location = new System.Drawing.Point(4, 22);
+            this.tabSettings.Name = "tabSettings";
+            this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSettings.Size = new System.Drawing.Size(552, 293);
+            this.tabSettings.TabIndex = 3;
+            this.tabSettings.Text = "Settings";
+            // 
+            // checkBoxStreamHideVotingEffectsIngame
+            // 
+            this.checkBoxStreamHideVotingEffectsIngame.AutoSize = true;
+            this.checkBoxStreamHideVotingEffectsIngame.Checked = true;
+            this.checkBoxStreamHideVotingEffectsIngame.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxStreamHideVotingEffectsIngame.Location = new System.Drawing.Point(9, 268);
+            this.checkBoxStreamHideVotingEffectsIngame.Name = "checkBoxStreamHideVotingEffectsIngame";
+            this.checkBoxStreamHideVotingEffectsIngame.Size = new System.Drawing.Size(155, 17);
+            this.checkBoxStreamHideVotingEffectsIngame.TabIndex = 10;
+            this.checkBoxStreamHideVotingEffectsIngame.Text = "Hide Voting Effects Ingame";
+            this.toolTipHandler.SetToolTip(this.checkBoxStreamHideVotingEffectsIngame, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
+        " play.");
+            this.checkBoxStreamHideVotingEffectsIngame.UseVisualStyleBackColor = true;
+            this.checkBoxStreamHideVotingEffectsIngame.CheckedChanged += new System.EventHandler(this.checkBoxStreamHideVotingEffectsIngame_CheckedChanged);
+            // 
+            // checkBoxSettingsPlayAudioSequentially
+            // 
+            this.checkBoxSettingsPlayAudioSequentially.AutoSize = true;
+            this.checkBoxSettingsPlayAudioSequentially.Checked = true;
+            this.checkBoxSettingsPlayAudioSequentially.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSettingsPlayAudioSequentially.Location = new System.Drawing.Point(9, 55);
+            this.checkBoxSettingsPlayAudioSequentially.Name = "checkBoxSettingsPlayAudioSequentially";
+            this.checkBoxSettingsPlayAudioSequentially.Size = new System.Drawing.Size(136, 17);
+            this.checkBoxSettingsPlayAudioSequentially.TabIndex = 9;
+            this.checkBoxSettingsPlayAudioSequentially.Text = "Play Audio Sequentially";
+            this.toolTipHandler.SetToolTip(this.checkBoxSettingsPlayAudioSequentially, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
+        " play.");
+            this.checkBoxSettingsPlayAudioSequentially.UseVisualStyleBackColor = true;
+            this.checkBoxSettingsPlayAudioSequentially.CheckedChanged += new System.EventHandler(this.CheckBoxSettingsPlayAudioSequentially_CheckedChanged);
+            // 
+            // checkBoxPlayAudioForEffects
+            // 
+            this.checkBoxPlayAudioForEffects.AutoSize = true;
+            this.checkBoxPlayAudioForEffects.Checked = true;
+            this.checkBoxPlayAudioForEffects.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxPlayAudioForEffects.Location = new System.Drawing.Point(9, 32);
+            this.checkBoxPlayAudioForEffects.Name = "checkBoxPlayAudioForEffects";
+            this.checkBoxPlayAudioForEffects.Size = new System.Drawing.Size(130, 17);
+            this.checkBoxPlayAudioForEffects.TabIndex = 8;
+            this.checkBoxPlayAudioForEffects.Text = "Play Audio For Effects";
+            this.toolTipHandler.SetToolTip(this.checkBoxPlayAudioForEffects, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
+        " play.");
+            this.checkBoxPlayAudioForEffects.UseVisualStyleBackColor = true;
+            this.checkBoxPlayAudioForEffects.CheckedChanged += new System.EventHandler(this.CheckBoxPlayAudioForEffects_CheckedChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Seed:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textBoxSeed
+            // 
+            this.textBoxSeed.Location = new System.Drawing.Point(47, 6);
+            this.textBoxSeed.Name = "textBoxSeed";
+            this.textBoxSeed.Size = new System.Drawing.Size(497, 20);
+            this.textBoxSeed.TabIndex = 1;
+            this.textBoxSeed.TextChanged += new System.EventHandler(this.TextBoxSeed_TextChanged);
+            // 
             // tabExperimental
             // 
             this.tabExperimental.BackColor = System.Drawing.Color.Transparent;
@@ -937,35 +944,35 @@ namespace GTAChaos.Forms
             // loadPresetToolStripMenuItem
             // 
             this.loadPresetToolStripMenuItem.Name = "loadPresetToolStripMenuItem";
-            this.loadPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadPresetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.loadPresetToolStripMenuItem.Text = "Load Preset";
             this.loadPresetToolStripMenuItem.Click += new System.EventHandler(this.LoadPresetToolStripMenuItem_Click);
             // 
             // savePresetToolStripMenuItem
             // 
             this.savePresetToolStripMenuItem.Name = "savePresetToolStripMenuItem";
-            this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.savePresetToolStripMenuItem.Text = "Save Preset";
             this.savePresetToolStripMenuItem.Click += new System.EventHandler(this.SavePresetToolStripMenuItem_Click);
             // 
             // experimentalToolStripMenuItem
             // 
             this.experimentalToolStripMenuItem.Name = "experimentalToolStripMenuItem";
-            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.experimentalToolStripMenuItem.Text = "Experimental";
             this.experimentalToolStripMenuItem.Click += new System.EventHandler(this.ExperimentalToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -981,14 +988,14 @@ namespace GTAChaos.Forms
             // viceCityToolStripMenuItem
             // 
             this.viceCityToolStripMenuItem.Name = "viceCityToolStripMenuItem";
-            this.viceCityToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viceCityToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.viceCityToolStripMenuItem.Text = "Vice City";
             this.viceCityToolStripMenuItem.Click += new System.EventHandler(this.ViceCityToolStripMenuItem_Click);
             // 
             // sanAndreasToolStripMenuItem
             // 
             this.sanAndreasToolStripMenuItem.Name = "sanAndreasToolStripMenuItem";
-            this.sanAndreasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sanAndreasToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.sanAndreasToolStripMenuItem.Text = "San Andreas";
             this.sanAndreasToolStripMenuItem.Click += new System.EventHandler(this.SanAndreasToolStripMenuItem_Click);
             // 
@@ -1007,6 +1014,49 @@ namespace GTAChaos.Forms
             this.buttonSwitchMode.Text = "Stream";
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
+            // 
+            // numericWebsocketPort
+            // 
+            this.numericWebsocketPort.Location = new System.Drawing.Point(479, 236);
+            this.numericWebsocketPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numericWebsocketPort.Minimum = new decimal(new int[] {
+            1025,
+            0,
+            0,
+            0});
+            this.numericWebsocketPort.Name = "numericWebsocketPort";
+            this.numericWebsocketPort.Size = new System.Drawing.Size(65, 20);
+            this.numericWebsocketPort.TabIndex = 20;
+            this.numericWebsocketPort.Value = new decimal(new int[] {
+            9001,
+            0,
+            0,
+            0});
+            this.numericWebsocketPort.ValueChanged += new System.EventHandler(this.numericWebsocketPort_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(386, 238);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 13);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "Websocket Port:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // buttonRestartWebsocket
+            // 
+            this.buttonRestartWebsocket.Location = new System.Drawing.Point(389, 262);
+            this.buttonRestartWebsocket.Name = "buttonRestartWebsocket";
+            this.buttonRestartWebsocket.Size = new System.Drawing.Size(155, 23);
+            this.buttonRestartWebsocket.TabIndex = 22;
+            this.buttonRestartWebsocket.Text = "Restart Websocket";
+            this.buttonRestartWebsocket.UseVisualStyleBackColor = true;
+            this.buttonRestartWebsocket.Click += new System.EventHandler(this.buttonRestartWebsocket_Click);
             // 
             // Form1
             // 
@@ -1036,14 +1086,15 @@ namespace GTAChaos.Forms
             this.tabEffects.ResumeLayout(false);
             this.tabEffects.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEffectCooldown)).EndInit();
-            this.tabSettings.ResumeLayout(false);
-            this.tabSettings.PerformLayout();
             this.tabSync.ResumeLayout(false);
             this.tabSync.PerformLayout();
+            this.tabSettings.ResumeLayout(false);
+            this.tabSettings.PerformLayout();
             this.tabExperimental.ResumeLayout(false);
             this.tabExperimental.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericWebsocketPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1132,6 +1183,9 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.NumericUpDown numericUpDownEffectCooldown;
         private System.Windows.Forms.CheckBox checkBoxStreamHideVotingEffectsIngame;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericWebsocketPort;
+        private System.Windows.Forms.Button buttonRestartWebsocket;
     }
 }
 

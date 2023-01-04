@@ -39,7 +39,21 @@ namespace GTAChaos.Utils
         public static readonly Category NPCs = new("NPCs");
         public static readonly Category PlayerModifications = new("Player Modifications");
         public static readonly Category Stats = new("Stats");
-        public static readonly Category CustomEffects = new("Custom Effects");
         public static readonly Category Teleportation = new("Teleportation");
+
+        public static readonly Category CustomEffects_Audio = new("Custom Effects - Audio");
+        public static readonly Category CustomEffects_Framerate = new("Custom Effects - Framerate");
+        public static readonly Category CustomEffects_Generic = new("Custom Effects - Generic");
+        public static readonly Category CustomEffects_Gravity = new("Custom Effects - Gravity");
+        public static readonly Category CustomEffects_HUD = new("Custom Effects - HUD");
+        public static readonly Category CustomEffects_Mission = new("Custom Effects - Mission");
+        public static readonly Category CustomEffects_NPCs = new("Custom Effects - NPCs");
+        public static readonly Category CustomEffects_Objects = new("Custom Effects - Objects");
+        public static readonly Category CustomEffects_Ped = new("Custom Effects - Ped");
+        public static readonly Category CustomEffects_Player = new("Custom Effects - Player");
+        public static readonly Category CustomEffects_Traffic = new("Custom Effects - Traffic");
+        public static readonly Category CustomEffects_Vehicle = new("Custom Effects - Vehicle");
+        public static readonly Category CustomEffects_Wanted = new("Custom Effects - Wanted");
+
     }
 }

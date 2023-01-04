@@ -9,7 +9,7 @@ namespace GTAChaos.Effects
         private readonly string EffectID = "effect_fake_crash";
 
         public FakeCrashEffect(string description, string word)
-            : base(Category.CustomEffects, description, word)
+            : base(Category.CustomEffects_Generic, description, word)
         {
             this.SetDisplayName(DisplayNameType.UI, "Fake Crash");
             this.DisableRapidFire();

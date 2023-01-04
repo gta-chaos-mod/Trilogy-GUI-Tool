@@ -49,8 +49,6 @@ namespace GTAChaos.Forms
                 Shared.Version += " (DEBUG)";
             }
 
-            this.Text = $"GTA Trilogy Chaos Mod v{Shared.Version}";
-
             this.tabs.TabPages.Remove(this.tabPolls);
 
             this.stopwatch = new Stopwatch();
@@ -68,6 +66,8 @@ namespace GTAChaos.Forms
 
             this.TryLoadConfig();
 
+            this.UpdateProgramText();
+
             this.timesUntilRapidFire = new Random().Next(10, 15);
 
             this.numericUpDownEffectCooldown.Maximum = EffectDatabase.Effects.Count;
@@ -75,6 +75,8 @@ namespace GTAChaos.Forms
             WebsocketHandler.INSTANCE.CreateWebsocketServer();
             WebsocketHandler.INSTANCE.OnSocketMessage += this.OnSocketMessage;
         }
+
+        private string UpdateProgramText() => this.Text = $"GTA Trilogy Chaos Mod v{Shared.Version} (Port: {Config.Instance().WebsocketPort})";
 
         private void OnSocketMessage(object sender, SocketMessageEventArgs e)
         {
@@ -1631,6 +1633,10 @@ namespace GTAChaos.Forms
 
         private void numericWebsocketPort_ValueChanged(object sender, EventArgs e) => Config.Instance().WebsocketPort = (int)this.numericWebsocketPort.Value;
 
-        private void buttonRestartWebsocket_Click(object sender, EventArgs e) => WebsocketHandler.INSTANCE.RestartWebsocketServer();
+        private void buttonRestartWebsocket_Click(object sender, EventArgs e)
+        {
+            WebsocketHandler.INSTANCE.RestartWebsocketServer();
+            this.UpdateProgramText();
+        }
     }
 }

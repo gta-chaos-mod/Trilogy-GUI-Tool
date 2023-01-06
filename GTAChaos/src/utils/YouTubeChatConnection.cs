@@ -3,6 +3,7 @@ using GTAChaos.Effects;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -128,11 +129,11 @@ namespace GTAChaos.Utils
                 return false;
             }
 
-            Console.WriteLine(this.liveId);
-            Console.WriteLine(this.isReplay);
-            Console.WriteLine(this.apiKey);
-            Console.WriteLine(this.clientVersion);
-            Console.WriteLine(this.continuation);
+            Debug.WriteLine(this.liveId);
+            Debug.WriteLine(this.isReplay);
+            Debug.WriteLine(this.apiKey);
+            Debug.WriteLine(this.clientVersion);
+            Debug.WriteLine(this.continuation);
 
             return true;
         }

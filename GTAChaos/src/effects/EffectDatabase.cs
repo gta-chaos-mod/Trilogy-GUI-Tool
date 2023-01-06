@@ -443,6 +443,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Disable Aiming", "IForgotHowToAim", "disable_aiming"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Disable One Movement Key", "DisableOneMovementKey", "disable_one_movement_key", -1, 1.5f));  // Disable one movement key
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Disable Shooting", "IForgotHowToShoot", "disable_shooting"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Disable Swimming", "IForgotHowToSwim", "disable_swimming", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Drive Wander", "Autopilot", "drive_wander", 1000 * 30));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Drunk Player", "DrunkPlayer", "drunk_player")); // Drunk Player
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Experience The Lag", "PacketLoss", "experience_the_lag", -1, 1.0f)); // Experience the lag
@@ -489,6 +490,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Steer Bias (Right)", "RightSideBias", "steer_bias_right"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Super Low FOV", "SuperLowFOV", "super_low_fov", 1000 * 30));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "SUPER. HOT.", "SUPERHOT", "superhot"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Swim Like Tommy", "SwimLikeTommy", "swim_like_tommy", -1, 1.5f));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Switch To Unarmed", "PleaseUseYourFists", "switch_to_unarmed"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "The Firing Circus", "TheFiringCircus", "the_firing_circus", 1000 * 5).DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "The Flash", "FastestManAlive", "the_flash")); // The Flash - Let's you run and swim at incredibly high speeds while not taking fall damage or drowing!

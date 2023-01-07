@@ -1,0 +1,41 @@
+name: Build
+ 
+on: [push, pull_request]
+ 
+jobs:
+  build:
+    runs-on: windows-latest
+ 
+    steps:
+    - uses: actions/checkout@v3.3.0
+      name: Checkout Code
+     
+    - name: Setup MSBuild Path
+      uses: microsoft/setup-msbuild@v1.3
+     
+    - name: Restore NuGet Packages
+      run: msbuild "GTA Chaos.sln" -t:restore -p:RestorePackagesConfig=true
+ 
+    - name: Build Release
+      run: msbuild "GTA Chaos.sln" /p:Configuration=Release
+      
+    - name: Build Debug
+      run: msbuild "GTA Chaos.sln" /p:Configuration=Debug
+    
+    - name: Copy executables
+      run: |
+        mkdir output
+        cp GTAChaos\bin\Release\GTAChaos.exe output/TrilogyChaosMod.exe
+        cp GTAChaos\bin\Debug\GTAChaos.exe output/TrilogyChaosMod.Debug.exe
+ 
+    - name: Upload Release
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: "Trilogy Chaos Mod"
+        path: output/TrilogyChaosMod.exe
+
+    - name: Upload Debug
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: "Trilogy Chaos Mod (Debug)"
+        path: output/TrilogyChaosMod.Debug.exe

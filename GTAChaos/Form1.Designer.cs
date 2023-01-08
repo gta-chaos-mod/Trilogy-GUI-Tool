@@ -640,7 +640,7 @@ namespace GTAChaos.Forms
             this.enabledEffectsView.Size = new System.Drawing.Size(538, 247);
             this.enabledEffectsView.TabIndex = 3;
             this.enabledEffectsView.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.EnabledEffectsView_AfterCheck);
-            this.enabledEffectsView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.EnabledEffectsView_NodeMouseClick);
+            this.enabledEffectsView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.EnabledEffectsView_NodeMouseDoubleClick);
             // 
             // tabSync
             // 

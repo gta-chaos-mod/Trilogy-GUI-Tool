@@ -1298,7 +1298,7 @@ namespace GTAChaos.Forms
 
         private void CheckBoxTwitchPollsPostMessages_CheckedChanged(object sender, EventArgs e) => Config.Instance().TwitchPollsPostMessages = this.checkBoxTwitchPollsPostMessages.Checked;
 
-        private void EnabledEffectsView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void EnabledEffectsView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node is EffectTreeNode node && e.Clicks == 2 && this.experimentalModeEnabled)
             {

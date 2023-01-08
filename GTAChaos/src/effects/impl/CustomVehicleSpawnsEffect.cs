@@ -6,28 +6,29 @@ using System.Threading.Tasks;
 
 namespace GTAChaos.Effects
 {
-    internal class SpawnVehicleEffect : AbstractEffect
+    public class CustomVehicleSpawnsEffect : AbstractEffect
     {
-        private readonly string EffectID = "effect_spawn_vehicle";
+        private readonly string EffectID = "effect_custom_vehicle_spawns";
         private readonly int VehicleID;
 
-        public SpawnVehicleEffect(string word, int vehicleID)
-            : base(Category.Spawning, "Spawn Vehicle", word)
+        public CustomVehicleSpawnsEffect(int vehicleID, string word)
+            : base(Category.CustomEffects_Traffic, "Traffic Is Vehicle", word)
         {
+
             this.VehicleID = vehicleID;
 
             if (this.VehicleID == -1)
             {
-                this.SetDisplayNames("Spawn Random Vehicle");
+                this.SetDisplayNames("Traffic Is Random Vehicle");
             }
             else
             {
                 this.VehicleID = Math.Max(400, Math.Min(vehicleID, 611));
-                this.SetDisplayNames($"Spawn {VehicleDatabase.GetVehicleName(vehicleID)}");
+                this.SetDisplayNames($"Traffic Is {VehicleDatabase.GetVehicleName(vehicleID)}");
             }
         }
 
-        public override string GetID() => $"spawn_vehicle_{this.VehicleID}";
+        public override string GetID() => $"custom_vehicle_spawns_{this.VehicleID}";
 
         public override async Task RunEffect(int seed = -1, int duration = -1)
         {
@@ -42,12 +43,12 @@ namespace GTAChaos.Effects
 
                 int randomVehicle = RandomHandler.Next(0, potentialVehicles.Count - 1);
                 vehicleID = potentialVehicles[randomVehicle];
-                gameDisplayName = $"Spawn {VehicleDatabase.GetVehicleName(vehicleID)}";
+                gameDisplayName = $"Traffic Is {VehicleDatabase.GetVehicleName(vehicleID)}";
             }
 
             WebsocketHandler.INSTANCE.SendEffectToGame(this.EffectID, new
             {
-                vehicleID
+                vehicleID,
             }, this.GetDuration(duration), gameDisplayName, this.GetSubtext(), this.GetRapidFire());
         }
     }

@@ -87,6 +87,9 @@ namespace GTAChaos.Forms
             this.textBoxSyncServer = new System.Windows.Forms.TextBox();
             this.buttonSyncConnect = new System.Windows.Forms.Button();
             this.tabSettings = new System.Windows.Forms.TabPage();
+            this.buttonRestartWebsocket = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericWebsocketPort = new System.Windows.Forms.NumericUpDown();
             this.checkBoxStreamHideVotingEffectsIngame = new System.Windows.Forms.CheckBox();
             this.checkBoxSettingsPlayAudioSequentially = new System.Windows.Forms.CheckBox();
             this.checkBoxPlayAudioForEffects = new System.Windows.Forms.CheckBox();
@@ -111,9 +114,6 @@ namespace GTAChaos.Forms
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
-            this.numericWebsocketPort = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.buttonRestartWebsocket = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabStream.SuspendLayout();
@@ -124,9 +124,9 @@ namespace GTAChaos.Forms
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEffectCooldown)).BeginInit();
             this.tabSync.SuspendLayout();
             this.tabSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericWebsocketPort)).BeginInit();
             this.tabExperimental.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericWebsocketPort)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonMainToggle
@@ -640,7 +640,7 @@ namespace GTAChaos.Forms
             this.enabledEffectsView.Size = new System.Drawing.Size(538, 247);
             this.enabledEffectsView.TabIndex = 3;
             this.enabledEffectsView.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.EnabledEffectsView_AfterCheck);
-            this.enabledEffectsView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.EnabledEffectsView_NodeMouseDoubleClick);
+            this.enabledEffectsView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.EnabledEffectsView_NodeMouseClick);
             // 
             // tabSync
             // 
@@ -784,6 +784,49 @@ namespace GTAChaos.Forms
             this.tabSettings.Size = new System.Drawing.Size(552, 293);
             this.tabSettings.TabIndex = 3;
             this.tabSettings.Text = "Settings";
+            // 
+            // buttonRestartWebsocket
+            // 
+            this.buttonRestartWebsocket.Location = new System.Drawing.Point(389, 262);
+            this.buttonRestartWebsocket.Name = "buttonRestartWebsocket";
+            this.buttonRestartWebsocket.Size = new System.Drawing.Size(155, 23);
+            this.buttonRestartWebsocket.TabIndex = 22;
+            this.buttonRestartWebsocket.Text = "Restart Websocket";
+            this.buttonRestartWebsocket.UseVisualStyleBackColor = true;
+            this.buttonRestartWebsocket.Click += new System.EventHandler(this.buttonRestartWebsocket_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(386, 238);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 13);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "Websocket Port:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // numericWebsocketPort
+            // 
+            this.numericWebsocketPort.Location = new System.Drawing.Point(479, 236);
+            this.numericWebsocketPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numericWebsocketPort.Minimum = new decimal(new int[] {
+            1025,
+            0,
+            0,
+            0});
+            this.numericWebsocketPort.Name = "numericWebsocketPort";
+            this.numericWebsocketPort.Size = new System.Drawing.Size(65, 20);
+            this.numericWebsocketPort.TabIndex = 20;
+            this.numericWebsocketPort.Value = new decimal(new int[] {
+            9001,
+            0,
+            0,
+            0});
+            this.numericWebsocketPort.ValueChanged += new System.EventHandler(this.numericWebsocketPort_ValueChanged);
             // 
             // checkBoxStreamHideVotingEffectsIngame
             // 
@@ -1015,49 +1058,6 @@ namespace GTAChaos.Forms
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
-            // numericWebsocketPort
-            // 
-            this.numericWebsocketPort.Location = new System.Drawing.Point(479, 236);
-            this.numericWebsocketPort.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numericWebsocketPort.Minimum = new decimal(new int[] {
-            1025,
-            0,
-            0,
-            0});
-            this.numericWebsocketPort.Name = "numericWebsocketPort";
-            this.numericWebsocketPort.Size = new System.Drawing.Size(65, 20);
-            this.numericWebsocketPort.TabIndex = 20;
-            this.numericWebsocketPort.Value = new decimal(new int[] {
-            9001,
-            0,
-            0,
-            0});
-            this.numericWebsocketPort.ValueChanged += new System.EventHandler(this.numericWebsocketPort_ValueChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(386, 238);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 13);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "Websocket Port:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // buttonRestartWebsocket
-            // 
-            this.buttonRestartWebsocket.Location = new System.Drawing.Point(389, 262);
-            this.buttonRestartWebsocket.Name = "buttonRestartWebsocket";
-            this.buttonRestartWebsocket.Size = new System.Drawing.Size(155, 23);
-            this.buttonRestartWebsocket.TabIndex = 22;
-            this.buttonRestartWebsocket.Text = "Restart Websocket";
-            this.buttonRestartWebsocket.UseVisualStyleBackColor = true;
-            this.buttonRestartWebsocket.Click += new System.EventHandler(this.buttonRestartWebsocket_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1090,11 +1090,11 @@ namespace GTAChaos.Forms
             this.tabSync.PerformLayout();
             this.tabSettings.ResumeLayout(false);
             this.tabSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericWebsocketPort)).EndInit();
             this.tabExperimental.ResumeLayout(false);
             this.tabExperimental.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericWebsocketPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

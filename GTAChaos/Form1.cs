@@ -22,9 +22,9 @@ namespace GTAChaos.Forms
         private readonly Dictionary<string, EffectTreeNode> idToEffectNodeMap = new();
         private IStreamConnection stream;
 
-        private readonly System.Timers.Timer websocketReconnectionTimer;
         private int elapsedCount;
         private int timesUntilRapidFire;
+        private bool experimentalModeEnabled = true;
 
 #if DEBUG
         private readonly bool debug = true;
@@ -41,8 +41,7 @@ namespace GTAChaos.Forms
             {
                 this.gameToolStripMenuItem.Visible = false;
                 this.tabs.TabPages.Remove(this.tabExperimental);
-                this.textBoxExperimentalEffectName.Visible = false;
-                this.buttonExperimentalRunEffect.Visible = false;
+                this.experimentalModeEnabled = false;
             }
             else
             {
@@ -1299,9 +1298,9 @@ namespace GTAChaos.Forms
 
         private void CheckBoxTwitchPollsPostMessages_CheckedChanged(object sender, EventArgs e) => Config.Instance().TwitchPollsPostMessages = this.checkBoxTwitchPollsPostMessages.Checked;
 
-        private void EnabledEffectsView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void EnabledEffectsView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (e.Node is EffectTreeNode node && this.debug)
+            if (e.Node is EffectTreeNode node && e.Clicks == 2 && this.experimentalModeEnabled)
             {
                 EffectDatabase.ShouldCooldown = false;
                 this.CallEffect(node.Effect);
@@ -1561,6 +1560,7 @@ namespace GTAChaos.Forms
             }
 
             this.experimentalToolStripMenuItem.Visible = false;
+            this.experimentalModeEnabled = true;
         }
 
         private void ButtonExperimentalRunEffect_Click(object sender, EventArgs e)

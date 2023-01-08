@@ -291,7 +291,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "Delayed Controls", "WhatsWrongWithThisKeyboard", "delayed_controls", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "EASY TO READ", "ItsEasierToRead", "very_big_font_scale"));
                 AddEffect(new FakeCrashEffect("Game Crash", "TooManyModsInstalled"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "Get To The Marker!", "GetToTheMarker", "get_to_marker", 1000 * 60 * 1));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "Get To The Marker!", "GetToTheMarker", "get_to_marker", 1000 * 60 * 5));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "haha funni font", "ComicSansMasterRace", "font_comic_sans"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "It's Morbin Time", "ItsMorbinTime", "textures_its_morbin_time"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "KIRYU-CHAN!!!", "KiryuChan", "font_yakuza"));
@@ -420,22 +420,23 @@ namespace GTAChaos.Effects
                 // ------------ //
 
                 // --- Traffic --- //
-                AddEffect(new FunctionEffect(Category.CustomEffects_Traffic, "Traffic Is Bobcat", "BobcatAllAround", "vehicle_spawns_bobcat"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Traffic, "Traffic Is Caddy", "CaddyAllAround", "vehicle_spawns_caddy"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Traffic, "Traffic Is Combine", "CombineAllAround", "vehicle_spawns_combine"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Traffic, "Traffic Is Infernus", "InfernusAllAround", "vehicle_spawns_infernus"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Traffic, "Traffic Is Kart", "KartAllAround", "vehicle_spawns_kart"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Traffic, "Traffic Is Monster", "MonsterAllAround", "vehicle_spawns_monster"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Traffic, "Traffic Is Mr. Whoopee", "MrWhoopeeAllAround", "vehicle_spawns_whoopee"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Traffic, "Traffic Is Mower", "MowerAllAround", "vehicle_spawns_mower"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Traffic, "Traffic Is Rhino", "RhinoAllAround", "vehicle_spawns_rhino"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Traffic, "Traffic Is Vortex", "VortexAllAround", "vehicle_spawns_vortex"));
+                AddEffect(new CustomVehicleSpawnsEffect(422, "BobcatAllAround"));
+                AddEffect(new CustomVehicleSpawnsEffect(457, "CaddyAllAround"));
+                AddEffect(new CustomVehicleSpawnsEffect(532, "CombineAllAround"));
+                AddEffect(new CustomVehicleSpawnsEffect(411, "InfernusAllAround"));
+                AddEffect(new CustomVehicleSpawnsEffect(571, "KartAllAround"));
+                AddEffect(new CustomVehicleSpawnsEffect(444, "MonsterAllAround"));
+                AddEffect(new CustomVehicleSpawnsEffect(423, "MrWhoopeeAllAround"));
+                AddEffect(new CustomVehicleSpawnsEffect(572, "MowerAllAround"));
+                AddEffect(new CustomVehicleSpawnsEffect(432, "RhinoAllAround"));
+                AddEffect(new CustomVehicleSpawnsEffect(539, "VortexAllAround"));
+
+                AddEffect(new CustomVehicleSpawnsEffect(-1, "RandomVehicleAllAround"));
                 // --------------- //
 
                 // --- Player --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "-Health, -Armor, -$250k", "INeedSomeHindrance", "anti_health_armor_money"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Add Random Blips", "PointsOfUninterest", "add_random_blips"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Arcade Racer Camera", "SegaRallyChampionship", "arcade_racer_camera", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Bankrupt", "CrashTookAllMyMoney", "bankrupt"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Carl! It's Zero!", "ZeroNeedsYourHelp", "teleport_to_zero").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Cinematic Vehicle Camera", "MachinimaMode", "cinematic_vehicle_camera", -1, 1.0f)); // Cinematic Vehicle Camera
@@ -512,6 +513,7 @@ namespace GTAChaos.Effects
 
                 // --- Vehicle --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "All Vehicles Alarmy", "SoundTheAlarm", "all_vehicles_alarmy"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Arcade Racer Camera", "SegaRallyChampionship", "arcade_racer_camera", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Backwards Vehicles", "BackPeepoHappy", "vehicle_rotation_backwards"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Beyblade", "LetItRip", "beyblade")); // Beyblade
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Carmageddon", "Carmageddon", "carmageddon")); // Carmageddon - Makes vehicles rain from the sky!

@@ -483,7 +483,6 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Remove All Weapons", "NoWeaponsForYou", "remove_all_weapons"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Remove Current Weapon", "IWillTakeThisGunFromYou", "remove_current_weapon"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Remove Random Weapon", "IWillTakeAGunFromYou", "remove_random_weapon"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Respect The Law", "RespectTheLaw", "respect_the_law", -1, 1.5f));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Ring Ring !!", "RingRing", "ring_ring", 1000 * 30).DisableRapidFire()); // Ring Ring !!
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Shaky Hands", "IJustCantHoldStill", "shaky_hands"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Shuffle Blips", "ThesePlacesOnceMadeSense", "shuffle_blips"));
@@ -564,6 +563,7 @@ namespace GTAChaos.Effects
 
                 // --- Wanted --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects_Wanted, "Always Wanted", "ICanSeeStars", "always_wanted").DisableRapidFire()); // Always Wanted
+                AddEffect(new FunctionEffect(Category.CustomEffects_Wanted, "Respect The Law", "RespectTheLaw", "respect_the_law", -1, 1.5f));
                 // -------------- //
 
                 // --- Teleport --- //

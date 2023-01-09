@@ -42,7 +42,7 @@ namespace GTAChaos.Utils
 
         public YouTubeChatConnection()
         {
-            this.liveId = Config.Instance().StreamAccessToken;
+            this.liveId = Config.Instance().StreamClientID;
 
             if (string.IsNullOrEmpty(this.liveId))
             {

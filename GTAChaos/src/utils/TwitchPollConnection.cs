@@ -33,7 +33,7 @@ namespace GTAChaos.Utils
         private readonly HashSet<string> rapidFireVoters = new();
         private Shared.VOTING_MODE VotingMode;
 
-        private int lastChoice = -1;
+        private VoteChoice lastChoice = VoteChoice.UNDETERMINED;
 
         private bool createdPoll = false;
         private Poll activePoll;
@@ -202,7 +202,7 @@ namespace GTAChaos.Utils
             {
                 this.effectVoting.Clear();
                 this.effectVoting.GenerateRandomEffects();
-                this.lastChoice = -1;
+                this.lastChoice = VoteChoice.UNDETERMINED;
 
                 if (Config.Instance().TwitchPollsPostMessages)
                 {
@@ -334,15 +334,28 @@ namespace GTAChaos.Utils
             }
         }
 
+        private VoteChoice GetVoteChoice(int id)
+        {
+            return id switch
+            {
+                0 => VoteChoice.FIRST,
+                1 => VoteChoice.SECOND,
+                2 => VoteChoice.THIRD,
+                _ => VoteChoice.NONE,
+            };
+        }
+
         public List<IVotingElement> GetVotedEffects()
         {
+            this.lastChoice = VoteChoice.NONE;
+
             List<IVotingElement> elements = Config.Instance().StreamMajorityVotes ? this.effectVoting.GetMajorityVotes() : this.effectVoting.GetTrulyRandomVotes();
             foreach (IVotingElement e in elements)
             {
                 e.GetEffect().SetSubtext($"{e.GetPercentage()}%");
-            }
 
-            this.lastChoice = elements.Count > 1 ? -1 : elements.First().GetId();
+                this.lastChoice |= this.GetVoteChoice(e.GetId());
+            }
 
             return elements;
         }

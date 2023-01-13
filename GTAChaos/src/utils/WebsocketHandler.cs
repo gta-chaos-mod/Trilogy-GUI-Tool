@@ -17,6 +17,22 @@ namespace GTAChaos.Utils
         public string Data { get; set; }
     }
 
+    public enum VoteChoice
+    {
+        UNDETERMINED = -1,
+        NONE = 0,
+
+        FIRST = 1 << 0,
+        SECOND = 1 << 1,
+        THIRD = 1 << 2,
+
+        FIRST_SECOND = FIRST | SECOND,
+        FIRST_THIRD = FIRST | THIRD,
+        SECOND_THIRD = SECOND | THIRD,
+
+        ALL = FIRST | SECOND | THIRD,
+    }
+
     public class WebsocketHandler
     {
         public static WebsocketHandler INSTANCE = new();
@@ -138,7 +154,7 @@ namespace GTAChaos.Utils
             this.SendDataToWebsocket(jsonObject);
         }
 
-        public void SendVotes(string[] effects, int[] votes, int pickedChoice = -1)
+        public void SendVotes(string[] effects, int[] votes, VoteChoice pickedChoice = VoteChoice.UNDETERMINED)
         {
             JObject jsonObject = JObject.FromObject(new
             {

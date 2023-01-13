@@ -57,7 +57,7 @@ namespace GTAChaos.Utils
     {
         public string[] Effects;
         public int[] Votes;
-        public int LastChoice;
+        public VoteChoice LastChoice;
     }
 
 #pragma warning disable 0649
@@ -142,7 +142,7 @@ namespace GTAChaos.Utils
         public int Type = 22;
         public string[] Effects;
         public int[] Votes;
-        public int LastChoice;
+        public VoteChoice LastChoice;
     }
 
 #pragma warning restore 0649
@@ -394,7 +394,7 @@ namespace GTAChaos.Utils
             this.SendToSocket(JsonConvert.SerializeObject(msg));
         }
 
-        public void SendVotes(string[] effects, int[] votes, int lastChoice, bool force = false)
+        public void SendVotes(string[] effects, int[] votes, VoteChoice lastChoice, bool force = false)
         {
             DateTime now = DateTime.Now;
             if (this.lastVotesUpdate < now || force)

@@ -51,9 +51,11 @@ namespace GTAChaos.Utils
         public static readonly Category CustomEffects_Objects = new("Custom Effects - Objects");
         public static readonly Category CustomEffects_Ped = new("Custom Effects - Ped");
         public static readonly Category CustomEffects_Player = new("Custom Effects - Player");
+        public static readonly Category CustomEffects_Stats = new("Custom Effects - Stats");
         public static readonly Category CustomEffects_Traffic = new("Custom Effects - Traffic");
         public static readonly Category CustomEffects_Vehicle = new("Custom Effects - Vehicle");
         public static readonly Category CustomEffects_Wanted = new("Custom Effects - Wanted");
+        public static readonly Category CustomEffects_Weather = new("Custom Effects - Weather");
 
     }
 }

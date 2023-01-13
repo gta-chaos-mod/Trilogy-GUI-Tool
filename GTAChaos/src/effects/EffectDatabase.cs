@@ -293,6 +293,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FakeCrashEffect("Game Crash", "TooManyModsInstalled"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "Get To The Marker!", "GetToTheMarker", "get_to_marker", 1000 * 60 * 5));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "haha funni font", "ComicSansMasterRace", "font_comic_sans"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "Invisible Fire", "InvisibleFire", "invisible_fire"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "It's Morbin Time", "ItsMorbinTime", "textures_its_morbin_time"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "KIRYU-CHAN!!!", "KiryuChan", "font_yakuza"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "Low LOD Vehicles", "AtariVehicles", "low_lod_vehicles"));
@@ -506,6 +507,11 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Zooming FOV", "ZoomingFOV", "zooming_fov", 1000 * 30));
                 // -------------- //
 
+                // --- Stats --- //
+                AddEffect(new FunctionEffect(Category.CustomEffects_Stats, "Randomize Stats", "RandomizeStats", "randomize_player_stats_all_timed"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Stats, "Randomize Stats Once", "RandomizeStatsOnce", "randomize_player_stats_all"));
+                // ------------- //
+
                 // --- Time --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects_Framerate, "Powerpoint Presentation", "PowerpointPresentation", "fps_15", -1, 1.0f)); // Powerpoint Presentation (15 FPS)
                 AddEffect(new FunctionEffect(Category.CustomEffects_Framerate, "Smooth Criminal", "SmoothCriminal", "fps_60")); // Smooth Criminal (60 FPS)
@@ -562,9 +568,14 @@ namespace GTAChaos.Effects
                 // --------------- //
 
                 // --- Wanted --- //
-                AddEffect(new FunctionEffect(Category.CustomEffects_Wanted, "Always Wanted", "ICanSeeStars", "always_wanted").DisableRapidFire()); // Always Wanted
+                AddEffect(new FunctionEffect(Category.CustomEffects_Wanted, "Always Wanted", "ICanSeeStars", "always_wanted").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects_Wanted, "Respect The Law", "RespectTheLaw", "respect_the_law", -1, 1.5f));
                 // -------------- //
+
+                // --- Weather --- //
+                AddEffect(new FunctionEffect(Category.CustomEffects_Weather, "Earthquake", "Earthquake", "earthquake"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Weather, "Very Strong Wind", "ItHeckinWimdy", "very_strong_wind"));
+                // --------------- //
 
                 // --- Teleport --- //
                 AddEffect(new FakeTeleportEffect("Fake Teleport", "HahaGotYourNose")); // Fake Teleport

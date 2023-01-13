@@ -128,10 +128,17 @@ namespace GTAChaos.Effects
 
         public virtual async Task RunEffect(int seed = -1, int _duration = -1)
         {
-            if (Config.Instance().PlayAudioForEffects && Shared.StreamVotingMode != Shared.VOTING_MODE.RAPID_FIRE)
+            if (!Config.Instance().PlayAudioForEffects)
             {
-                await AudioPlayer.INSTANCE.PlayAudio(this.GetAudioFile());
+                return;
             }
+
+            if (Shared.StreamVotingMode == Shared.VOTING_MODE.RAPID_FIRE && !Config.Instance().PlayAudioDuringRapidFire)
+            {
+                return;
+            }
+
+            await AudioPlayer.INSTANCE.PlayAudio(this.GetAudioFile());
         }
 
         public virtual bool IsCooldownable() => true;

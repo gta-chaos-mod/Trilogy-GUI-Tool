@@ -87,6 +87,7 @@ namespace GTAChaos.Forms
             this.textBoxSyncServer = new System.Windows.Forms.TextBox();
             this.buttonSyncConnect = new System.Windows.Forms.Button();
             this.tabSettings = new System.Windows.Forms.TabPage();
+            this.checkBoxSettingsPlayAudioDuringRapidFire = new System.Windows.Forms.CheckBox();
             this.buttonRestartWebsocket = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.numericWebsocketPort = new System.Windows.Forms.NumericUpDown();
@@ -770,6 +771,7 @@ namespace GTAChaos.Forms
             // tabSettings
             // 
             this.tabSettings.BackColor = System.Drawing.Color.Transparent;
+            this.tabSettings.Controls.Add(this.checkBoxSettingsPlayAudioDuringRapidFire);
             this.tabSettings.Controls.Add(this.buttonRestartWebsocket);
             this.tabSettings.Controls.Add(this.label4);
             this.tabSettings.Controls.Add(this.numericWebsocketPort);
@@ -784,6 +786,21 @@ namespace GTAChaos.Forms
             this.tabSettings.Size = new System.Drawing.Size(552, 293);
             this.tabSettings.TabIndex = 3;
             this.tabSettings.Text = "Settings";
+            // 
+            // checkBoxSettingsPlayAudioDuringRapidFire
+            // 
+            this.checkBoxSettingsPlayAudioDuringRapidFire.AutoSize = true;
+            this.checkBoxSettingsPlayAudioDuringRapidFire.Checked = true;
+            this.checkBoxSettingsPlayAudioDuringRapidFire.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSettingsPlayAudioDuringRapidFire.Location = new System.Drawing.Point(9, 78);
+            this.checkBoxSettingsPlayAudioDuringRapidFire.Name = "checkBoxSettingsPlayAudioDuringRapidFire";
+            this.checkBoxSettingsPlayAudioDuringRapidFire.Size = new System.Drawing.Size(161, 17);
+            this.checkBoxSettingsPlayAudioDuringRapidFire.TabIndex = 23;
+            this.checkBoxSettingsPlayAudioDuringRapidFire.Text = "Play Audio During Rapid-Fire";
+            this.toolTipHandler.SetToolTip(this.checkBoxSettingsPlayAudioDuringRapidFire, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
+        " play.");
+            this.checkBoxSettingsPlayAudioDuringRapidFire.UseVisualStyleBackColor = true;
+            this.checkBoxSettingsPlayAudioDuringRapidFire.CheckedChanged += new System.EventHandler(this.checkBoxSettingsPlayAudioDuringRapidFire_CheckedChanged);
             // 
             // buttonRestartWebsocket
             // 
@@ -1186,6 +1203,7 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numericWebsocketPort;
         private System.Windows.Forms.Button buttonRestartWebsocket;
+        private System.Windows.Forms.CheckBox checkBoxSettingsPlayAudioDuringRapidFire;
     }
 }
 

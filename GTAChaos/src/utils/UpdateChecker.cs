@@ -22,14 +22,11 @@ namespace GTAChaos.Utils
                     return;
                 }
 
-                string stringVersion = m.Groups[1].Captures[0].Value;
-
-                Version remoteVersion = new(stringVersion);
+                Version remoteVersion = new(m.Groups[1].Captures[0].Value);
 
                 if (remoteVersion.CompareTo(Shared.Version) > 0)
                 {
                     ShowUpdateWindow(remoteVersion);
-                    return;
                 }
                 else if (!automatic)
                 {

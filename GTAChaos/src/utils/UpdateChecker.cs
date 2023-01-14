@@ -24,7 +24,7 @@ namespace GTAChaos.Utils
 
                 Version remoteVersion = new(m.Groups[1].Captures[0].Value);
 
-                if (remoteVersion.CompareTo(Shared.Version) > 0)
+                if (remoteVersion > Shared.Version)
                 {
                     ShowUpdateWindow(remoteVersion);
                 }

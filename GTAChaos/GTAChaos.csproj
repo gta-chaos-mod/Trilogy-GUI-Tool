@@ -381,6 +381,7 @@
     <Compile Include="src\utils\TwitchChatConnection.cs" />
     <Compile Include="src\utils\DebugConnection.cs" />
     <Compile Include="src\utils\TwitchPollConnection.cs" />
+    <Compile Include="src\utils\UpdateChecker.cs" />
     <Compile Include="src\utils\VehicleDatabase.cs" />
     <Compile Include="src\utils\WebsocketHandler.cs" />
     <Compile Include="src\utils\YouTubeChatConnection.cs" />

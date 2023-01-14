@@ -115,6 +115,8 @@ namespace GTAChaos.Forms
             this.toolTipHandler = new System.Windows.Forms.ToolTip(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.buttonSwitchMode = new System.Windows.Forms.Button();
+            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxSettingsCheckForUpdatesAtLaunch = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabStream.SuspendLayout();
@@ -771,6 +773,7 @@ namespace GTAChaos.Forms
             // tabSettings
             // 
             this.tabSettings.BackColor = System.Drawing.Color.Transparent;
+            this.tabSettings.Controls.Add(this.checkBoxSettingsCheckForUpdatesAtLaunch);
             this.tabSettings.Controls.Add(this.checkBoxSettingsPlayAudioDuringRapidFire);
             this.tabSettings.Controls.Add(this.buttonRestartWebsocket);
             this.tabSettings.Controls.Add(this.label4);
@@ -792,7 +795,7 @@ namespace GTAChaos.Forms
             this.checkBoxSettingsPlayAudioDuringRapidFire.AutoSize = true;
             this.checkBoxSettingsPlayAudioDuringRapidFire.Checked = true;
             this.checkBoxSettingsPlayAudioDuringRapidFire.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSettingsPlayAudioDuringRapidFire.Location = new System.Drawing.Point(9, 78);
+            this.checkBoxSettingsPlayAudioDuringRapidFire.Location = new System.Drawing.Point(9, 245);
             this.checkBoxSettingsPlayAudioDuringRapidFire.Name = "checkBoxSettingsPlayAudioDuringRapidFire";
             this.checkBoxSettingsPlayAudioDuringRapidFire.Size = new System.Drawing.Size(161, 17);
             this.checkBoxSettingsPlayAudioDuringRapidFire.TabIndex = 23;
@@ -865,7 +868,7 @@ namespace GTAChaos.Forms
             this.checkBoxSettingsPlayAudioSequentially.AutoSize = true;
             this.checkBoxSettingsPlayAudioSequentially.Checked = true;
             this.checkBoxSettingsPlayAudioSequentially.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSettingsPlayAudioSequentially.Location = new System.Drawing.Point(9, 55);
+            this.checkBoxSettingsPlayAudioSequentially.Location = new System.Drawing.Point(9, 222);
             this.checkBoxSettingsPlayAudioSequentially.Name = "checkBoxSettingsPlayAudioSequentially";
             this.checkBoxSettingsPlayAudioSequentially.Size = new System.Drawing.Size(136, 17);
             this.checkBoxSettingsPlayAudioSequentially.TabIndex = 9;
@@ -880,7 +883,7 @@ namespace GTAChaos.Forms
             this.checkBoxPlayAudioForEffects.AutoSize = true;
             this.checkBoxPlayAudioForEffects.Checked = true;
             this.checkBoxPlayAudioForEffects.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxPlayAudioForEffects.Location = new System.Drawing.Point(9, 32);
+            this.checkBoxPlayAudioForEffects.Location = new System.Drawing.Point(9, 199);
             this.checkBoxPlayAudioForEffects.Name = "checkBoxPlayAudioForEffects";
             this.checkBoxPlayAudioForEffects.Size = new System.Drawing.Size(130, 17);
             this.checkBoxPlayAudioForEffects.TabIndex = 8;
@@ -995,6 +998,7 @@ namespace GTAChaos.Forms
             this.loadPresetToolStripMenuItem,
             this.savePresetToolStripMenuItem,
             this.experimentalToolStripMenuItem,
+            this.checkForUpdateToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -1004,35 +1008,35 @@ namespace GTAChaos.Forms
             // loadPresetToolStripMenuItem
             // 
             this.loadPresetToolStripMenuItem.Name = "loadPresetToolStripMenuItem";
-            this.loadPresetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.loadPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadPresetToolStripMenuItem.Text = "Load Preset";
             this.loadPresetToolStripMenuItem.Click += new System.EventHandler(this.LoadPresetToolStripMenuItem_Click);
             // 
             // savePresetToolStripMenuItem
             // 
             this.savePresetToolStripMenuItem.Name = "savePresetToolStripMenuItem";
-            this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.savePresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.savePresetToolStripMenuItem.Text = "Save Preset";
             this.savePresetToolStripMenuItem.Click += new System.EventHandler(this.SavePresetToolStripMenuItem_Click);
             // 
             // experimentalToolStripMenuItem
             // 
             this.experimentalToolStripMenuItem.Name = "experimentalToolStripMenuItem";
-            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.experimentalToolStripMenuItem.Text = "Experimental";
             this.experimentalToolStripMenuItem.Click += new System.EventHandler(this.ExperimentalToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -1075,6 +1079,28 @@ namespace GTAChaos.Forms
             this.buttonSwitchMode.UseVisualStyleBackColor = true;
             this.buttonSwitchMode.Click += new System.EventHandler(this.ButtonSwitchMode_Click);
             // 
+            // checkForUpdateToolStripMenuItem
+            // 
+            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.checkForUpdateToolStripMenuItem.Text = "Check For Updates";
+            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
+            // 
+            // checkBoxSettingsCheckForUpdatesAtLaunch
+            // 
+            this.checkBoxSettingsCheckForUpdatesAtLaunch.AutoSize = true;
+            this.checkBoxSettingsCheckForUpdatesAtLaunch.Checked = true;
+            this.checkBoxSettingsCheckForUpdatesAtLaunch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSettingsCheckForUpdatesAtLaunch.Location = new System.Drawing.Point(9, 32);
+            this.checkBoxSettingsCheckForUpdatesAtLaunch.Name = "checkBoxSettingsCheckForUpdatesAtLaunch";
+            this.checkBoxSettingsCheckForUpdatesAtLaunch.Size = new System.Drawing.Size(170, 17);
+            this.checkBoxSettingsCheckForUpdatesAtLaunch.TabIndex = 24;
+            this.checkBoxSettingsCheckForUpdatesAtLaunch.Text = "Check For Updates At Launch";
+            this.toolTipHandler.SetToolTip(this.checkBoxSettingsCheckForUpdatesAtLaunch, "Some effects play a sound clip when\r\nthey get activated. Check this to have\r\nthem" +
+        " play.");
+            this.checkBoxSettingsCheckForUpdatesAtLaunch.UseVisualStyleBackColor = true;
+            this.checkBoxSettingsCheckForUpdatesAtLaunch.CheckedChanged += new System.EventHandler(this.checkBoxSettingsCheckForUpdatesAtLaunch_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1091,6 +1117,7 @@ namespace GTAChaos.Forms
             this.Name = "Form1";
             this.Text = "GTA:SA Chaos";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.tabs.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
             this.tabMain.PerformLayout();
@@ -1204,6 +1231,8 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.NumericUpDown numericWebsocketPort;
         private System.Windows.Forms.Button buttonRestartWebsocket;
         private System.Windows.Forms.CheckBox checkBoxSettingsPlayAudioDuringRapidFire;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxSettingsCheckForUpdatesAtLaunch;
     }
 }
 

@@ -200,7 +200,7 @@ namespace GTAChaos.Utils
                 {
                     Channel = this.Channel,
                     Username = this.Username,
-                    Version = Shared.Version
+                    Version = Shared.Version.ToString(),
                 };
 
                 this.socket.Send(JsonConvert.SerializeObject(connect));

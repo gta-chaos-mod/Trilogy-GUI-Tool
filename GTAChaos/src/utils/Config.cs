@@ -12,6 +12,8 @@ namespace GTAChaos.Utils
         // Websocket port
         public int WebsocketPort = 42069;
 
+        public bool CheckForUpdatesAtLaunch = true;
+
         public int MainCooldown;
         public bool AutoStart = true;
         public string Seed;

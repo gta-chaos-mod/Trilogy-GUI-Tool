@@ -43,10 +43,6 @@ namespace GTAChaos.Forms
                 this.tabs.TabPages.Remove(this.tabExperimental);
                 this.experimentalModeEnabled = false;
             }
-            else
-            {
-                Shared.Version += " (DEBUG)";
-            }
 
             this.tabs.TabPages.Remove(this.tabPolls);
 
@@ -75,7 +71,9 @@ namespace GTAChaos.Forms
             WebsocketHandler.INSTANCE.OnSocketMessage += this.OnSocketMessage;
         }
 
-        private string UpdateProgramText() => this.Text = $"GTA Trilogy Chaos Mod v{Shared.Version} (Port: {Config.Instance().WebsocketPort})";
+        private void Form1_Shown(object sender, EventArgs e) => UpdateChecker.CheckForUpdate();
+
+        private void UpdateProgramText() => this.Text = $"GTA Trilogy Chaos Mod v{Shared.GetVersionString(this.debug)} (Port: {Config.Instance().WebsocketPort})";
 
         private void OnSocketMessage(object sender, SocketMessageEventArgs e)
         {
@@ -199,6 +197,8 @@ namespace GTAChaos.Forms
                 this.comboBoxVotingCooldown.SelectedIndex = 1;
                 Config.Instance().StreamVotingCooldown = 1000 * 60;
             }
+
+            this.checkBoxSettingsCheckForUpdatesAtLaunch.Checked = Config.Instance().CheckForUpdatesAtLaunch;
 
             this.textBoxStreamAccessToken.Text = Config.Instance().StreamAccessToken;
             this.textBoxStreamClientID.Text = Config.Instance().StreamClientID;
@@ -1634,6 +1634,8 @@ namespace GTAChaos.Forms
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => MessageBox.Show(this, $"Version: v{Shared.Version}\nTotal Effects: {EffectDatabase.Effects.Count}", "About");
 
+        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e) => UpdateChecker.CheckForUpdate(false);
+
         private void numericWebsocketPort_ValueChanged(object sender, EventArgs e) => Config.Instance().WebsocketPort = (int)this.numericWebsocketPort.Value;
 
         private void buttonRestartWebsocket_Click(object sender, EventArgs e)
@@ -1643,5 +1645,7 @@ namespace GTAChaos.Forms
         }
 
         private void checkBoxSettingsPlayAudioDuringRapidFire_CheckedChanged(object sender, EventArgs e) => Config.Instance().PlayAudioDuringRapidFire = this.checkBoxSettingsPlayAudioDuringRapidFire.Checked;
+
+        private void checkBoxSettingsCheckForUpdatesAtLaunch_CheckedChanged(object sender, EventArgs e) => Config.Instance().CheckForUpdatesAtLaunch = this.checkBoxSettingsCheckForUpdatesAtLaunch.Checked;
     }
 }

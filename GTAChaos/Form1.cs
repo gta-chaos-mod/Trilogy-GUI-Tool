@@ -71,7 +71,13 @@ namespace GTAChaos.Forms
             WebsocketHandler.INSTANCE.OnSocketMessage += this.OnSocketMessage;
         }
 
-        private void Form1_Shown(object sender, EventArgs e) => UpdateChecker.CheckForUpdate();
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            if (Config.Instance().CheckForUpdatesAtLaunch)
+            {
+                UpdateChecker.CheckForUpdate();
+            }
+        }
 
         private void UpdateProgramText() => this.Text = $"GTA Trilogy Chaos Mod v{Shared.GetVersionString(this.debug)} (Port: {Config.Instance().WebsocketPort})";
 

@@ -350,6 +350,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_HUD, "Freeze Radar", "OutdatedMaps", "freeze_radar"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_HUD, "No Blips/Markers/Pickups", "INeedSomeInstructions", "disable_blips_markers_pickups")); // Disable Blips / Markers / Pickups
                 AddEffect(new FunctionEffect(Category.CustomEffects_HUD, "Portrait Mode", "PortraitMode", "portrait_mode"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_HUD, "Scott The Woz", "HeyYallScottHere", "scott_the_woz"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_HUD, "Tunnel Vision", "TunnelVision", "tunnel_vision", -1, 1.0f).DisableRapidFire()); // Tunnel Vision
                 // ----------- //
 

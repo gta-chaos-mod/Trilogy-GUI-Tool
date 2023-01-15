@@ -19,10 +19,6 @@ namespace GTAChaos.Utils
         public string Seed;
         public bool MainShowLastEffects;
         public Dictionary<string, bool> EnabledEffects = new();
-        public bool PlayAudioForEffects = true;
-        public bool PlayAudioSequentially = true;
-        public bool PlayAudioDuringRapidFire = true;
-        public float AudioVolume = 1.0f;
         public int EffectsCooldownNotActivating = -1;
 
         // Twitch Polls

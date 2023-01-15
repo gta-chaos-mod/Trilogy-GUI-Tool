@@ -23,8 +23,6 @@ namespace GTAChaos.Effects
         private string Subtext = "";
         private int rapidFire = 1;
         private bool streamEnabled = true;
-        private string audioName = "";
-        private int audioVariations = 0;
 
         public AbstractEffect(Category category, string displayName, string word, int duration = -1, float multiplier = 3.0f)
         {
@@ -97,49 +95,7 @@ namespace GTAChaos.Effects
 
         public bool IsTwitchEnabled() => this.streamEnabled;
 
-        public AbstractEffect SetAudioFile(string name)
-        {
-            this.audioName = name;
-            return this;
-        }
-
-        public int GetAudioVariations() => this.audioVariations;
-
-        public AbstractEffect SetAudioVariations(int variations = 0)
-        {
-            this.audioVariations = variations;
-            return this;
-        }
-
-        public virtual string GetAudioFile()
-        {
-            string file = string.IsNullOrEmpty(this.audioName) ? this.GetID() : this.audioName;
-
-            if (this.audioVariations == 0)
-            {
-                return file;
-            }
-            else
-            {
-                Random random = new();
-                return $"{file}_{random.Next(this.audioVariations)}";
-            }
-        }
-
-        public virtual async Task RunEffect(int seed = -1, int _duration = -1)
-        {
-            if (!Config.Instance().PlayAudioForEffects)
-            {
-                return;
-            }
-
-            if (Shared.StreamVotingMode == Shared.VOTING_MODE.RAPID_FIRE && !Config.Instance().PlayAudioDuringRapidFire)
-            {
-                return;
-            }
-
-            await AudioPlayer.INSTANCE.PlayAudio(this.GetAudioFile());
-        }
+        public virtual Task RunEffect(int seed = -1, int _duration = -1) => Task.CompletedTask;
 
         public virtual bool IsCooldownable() => true;
 

@@ -533,7 +533,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Ghost Vehicles", "InvisibleVehicles", "invisible_vehicles")); // Invisible Vehicles
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Ghost Rider", "GhostRider", "ghost_rider")); // Set current vehicle constantly on fire
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "High Suspension Damping", "VeryDampNoBounce", "high_suspension_damping")); // Cars have high suspension damping
-                AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "HONK!!!", "HONKHONK", "honk_vehicle", 1000 * 30).SetAudioVariations(5)); // Honk Vehicle
+                AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "HONK!!!", "HONKHONK", "honk_vehicle", 1000 * 30)); // Honk Vehicle
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Honk Boost", "GottaHonkFast", "honk_boost")); // Honk Boost
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Hot Wheels", "HotWheelsRacing", "vehicle_size_super_tiny"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Ignite Current Vehicle", "WayTooHot", "set_current_vehicle_on_fire").DisableRapidFire()); // Set current vehicle on fire
@@ -606,7 +606,7 @@ namespace GTAChaos.Effects
                 }
             }
 
-            AudioPlayer.INSTANCE.CreateAndPrintAudioFileReadme();
+            AudioPlayer.CreateAndPrintAudioFileReadme();
         }
 
         public static WeightedRandomBag<AbstractEffect> EnabledEffects { get; } = new();

@@ -21,13 +21,6 @@ namespace GTAChaos.Effects
 
         public override string GetID() => this.EffectID;
 
-        public override string GetAudioFile()
-        {
-            string file = base.GetAudioFile();
-
-            return string.IsNullOrWhiteSpace(file) ? this.EffectID : file;
-        }
-
         public override async Task RunEffect(int seed = -1, int duration = -1)
         {
             await base.RunEffect(seed, duration);

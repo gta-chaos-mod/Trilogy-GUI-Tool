@@ -114,8 +114,6 @@ namespace GTAChaos.Forms
 
                 Config.SetInstance(serializer.Deserialize<Config>(reader));
                 RandomHandler.SetSeed(Config.Instance().Seed);
-
-                AudioPlayer.INSTANCE.SetAudioVolume(Config.Instance().AudioVolume);
             }
             catch (Exception) { }
 
@@ -127,8 +125,6 @@ namespace GTAChaos.Forms
         {
             try
             {
-                Config.Instance().AudioVolume = AudioPlayer.INSTANCE.GetAudioVolume();
-
                 Config.Instance().EnabledEffects.Clear();
 
                 foreach (WeightedRandomBag<AbstractEffect>.Entry entry in EffectDatabase.Effects.Get())
@@ -208,12 +204,6 @@ namespace GTAChaos.Forms
 
             this.textBoxStreamAccessToken.Text = Config.Instance().StreamAccessToken;
             this.textBoxStreamClientID.Text = Config.Instance().StreamClientID;
-
-            this.checkBoxPlayAudioForEffects.Checked = Config.Instance().PlayAudioForEffects;
-            this.checkBoxSettingsPlayAudioSequentially.Enabled = Config.Instance().PlayAudioForEffects;
-            this.checkBoxSettingsPlayAudioSequentially.Checked = Config.Instance().PlayAudioSequentially;
-            this.checkBoxSettingsPlayAudioDuringRapidFire.Enabled = Config.Instance().PlayAudioForEffects;
-            this.checkBoxSettingsPlayAudioDuringRapidFire.Checked = Config.Instance().PlayAudioDuringRapidFire;
 
             this.checkBoxShowLastEffectsMain.Checked = Config.Instance().MainShowLastEffects;
             this.checkBoxShowLastEffectsStream.Checked = Config.Instance().StreamShowLastEffects;
@@ -1316,13 +1306,6 @@ namespace GTAChaos.Forms
             }
         }
 
-        private void CheckBoxPlayAudioForEffects_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.Instance().PlayAudioForEffects = this.checkBoxPlayAudioForEffects.Checked;
-            this.checkBoxSettingsPlayAudioSequentially.Enabled = Config.Instance().PlayAudioForEffects;
-            this.checkBoxSettingsPlayAudioDuringRapidFire.Enabled = Config.Instance().PlayAudioForEffects;
-        }
-
         private string FilterSyncCharacters(string text) => Regex.Replace(text, "[^A-Za-z0-9]", "");
 
         private void UpdateButtonState()
@@ -1632,8 +1615,6 @@ namespace GTAChaos.Forms
             this.UpdateStreamConnectButtonState();
         }
 
-        private void CheckBoxSettingsPlayAudioSequentially_CheckedChanged(object sender, EventArgs e) => Config.Instance().PlayAudioSequentially = this.checkBoxSettingsPlayAudioSequentially.Checked;
-
         private void NumericUpDownEffectCooldown_ValueChanged(object sender, EventArgs e) => Config.Instance().EffectsCooldownNotActivating = (int)this.numericUpDownEffectCooldown.Value;
 
         private void checkBoxStreamHideVotingEffectsIngame_CheckedChanged(object sender, EventArgs e) => Config.Instance().StreamHideVotingEffectsIngame = this.checkBoxStreamHideVotingEffectsIngame.Checked;
@@ -1649,8 +1630,6 @@ namespace GTAChaos.Forms
             WebsocketHandler.INSTANCE.RestartWebsocketServer();
             this.UpdateProgramText();
         }
-
-        private void checkBoxSettingsPlayAudioDuringRapidFire_CheckedChanged(object sender, EventArgs e) => Config.Instance().PlayAudioDuringRapidFire = this.checkBoxSettingsPlayAudioDuringRapidFire.Checked;
 
         private void checkBoxSettingsCheckForUpdatesAtLaunch_CheckedChanged(object sender, EventArgs e) => Config.Instance().CheckForUpdatesAtLaunch = this.checkBoxSettingsCheckForUpdatesAtLaunch.Checked;
     }

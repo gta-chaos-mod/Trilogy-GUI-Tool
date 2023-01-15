@@ -88,8 +88,8 @@
     <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.7.0.0\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=7.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.7.0.1\lib\net462\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=7.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.7.0.2\lib\net462\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
@@ -116,18 +116,6 @@
     </Reference>
     <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.5.0.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudio.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.Core.2.1.0\lib\netstandard2.0\NAudio.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudio.Vorbis, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.Vorbis.1.5.0\lib\netstandard2.0\NAudio.Vorbis.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudio.Wasapi, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.Wasapi.2.1.0\lib\netstandard2.0\NAudio.Wasapi.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudio.WinMM, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.WinMM.2.1.0\lib\netstandard2.0\NAudio.WinMM.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -385,36 +373,6 @@
     <Compile Include="src\utils\VehicleDatabase.cs" />
     <Compile Include="src\utils\WebsocketHandler.cs" />
     <Compile Include="src\utils\YouTubeChatConnection.cs" />
-    <EmbeddedResource Include="assets\audio\effect_beyblade.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_big_butts.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_discount_rapid_fire.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_get_busted.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_get_wasted.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_0.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_1.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_2.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_3.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_honk_vehicle_4.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_its_rewind_time.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_lets_take_a_break.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_long_necks.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_oh_hey_tanks.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_ped_size_super_tiny.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_quake_fov.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_reload_autosave.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_ring_ring.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_rotating_peds.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_send_vehicles_to_space.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_replace_all_text_simpleflips.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_spawn_table.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_spawn_tree.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_struck_by_truck.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_suicide.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_superhot.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_textures_its_morbin_time.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_the_mirror_dimension.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_underwater_view.ogg" />
-    <EmbeddedResource Include="assets\audio\effect_upside_down_screen.ogg" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -444,7 +402,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="assets\audio\effect_kickflip.ogg" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="icon.ico" />
   </ItemGroup>

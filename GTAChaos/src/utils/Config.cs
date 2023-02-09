@@ -1,5 +1,6 @@
 // Copyright (c) 2019 Lordmau5
 using GTAChaos.Effects;
+using GTAChaos.Utils.Stream;
 using System;
 using System.Collections.Generic;
 
@@ -20,6 +21,8 @@ namespace GTAChaos.Utils
         public bool MainShowLastEffects;
         public Dictionary<string, bool> EnabledEffects = new();
         public int EffectsCooldownNotActivating = -1;
+
+        public StreamHandler.STREAM_MODE StreamMode = StreamHandler.STREAM_MODE.TWITCH;
 
         // Twitch Polls
         public bool TwitchUsePolls;
@@ -55,7 +58,6 @@ namespace GTAChaos.Utils
         // Experimental
         public bool Experimental_RunEffectOnAutoStart;
         public string Experimental_EffectName;
-        public bool Experimental_YouTubeConnection;
 
         public static Config Instance()
         {

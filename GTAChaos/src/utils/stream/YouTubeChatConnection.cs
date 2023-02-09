@@ -262,7 +262,7 @@ namespace GTAChaos.Utils
 
         private void OnChatMessage(ChatItem chatItem)
         {
-            string username = this.RemoveSpecialCharacters(chatItem.Author);
+            string username = chatItem.Author;
             string message = this.RemoveSpecialCharacters(chatItem.Message, true);
 
             if (this.VotingMode == Shared.VOTING_MODE.RAPID_FIRE)
@@ -280,7 +280,7 @@ namespace GTAChaos.Utils
 
                 this.RapidFireEffect(new RapidFireEventArgs()
                 {
-                    Effect = effect.SetSubtext(username)
+                    Effect = effect.SetSubtext(this.RemoveSpecialCharacters(chatItem.Author))
                 });
 
                 this.rapidFireVoters.Add(username);

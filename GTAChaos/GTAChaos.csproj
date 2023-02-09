@@ -361,18 +361,19 @@
     <Compile Include="src\utils\AudioPlayer.cs" />
     <Compile Include="src\utils\Category.cs" />
     <Compile Include="src\utils\Config.cs" />
-    <Compile Include="src\utils\IStreamConnection.cs" />
+    <Compile Include="src\utils\stream\IStreamConnection.cs" />
     <Compile Include="src\utils\Location.cs" />
+    <Compile Include="src\utils\stream\StreamHandler.cs" />
     <Compile Include="src\utils\Sync.cs" />
     <Compile Include="src\utils\RandomHandler.cs" />
     <Compile Include="src\utils\Shared.cs" />
-    <Compile Include="src\utils\TwitchChatConnection.cs" />
-    <Compile Include="src\utils\DebugConnection.cs" />
-    <Compile Include="src\utils\TwitchPollConnection.cs" />
+    <Compile Include="src\utils\stream\TwitchChatConnection.cs" />
+    <Compile Include="src\utils\stream\DebugConnection.cs" />
+    <Compile Include="src\utils\stream\TwitchPollConnection.cs" />
     <Compile Include="src\utils\UpdateChecker.cs" />
     <Compile Include="src\utils\VehicleDatabase.cs" />
     <Compile Include="src\utils\WebsocketHandler.cs" />
-    <Compile Include="src\utils\YouTubeChatConnection.cs" />
+    <Compile Include="src\utils\stream\YouTubeChatConnection.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

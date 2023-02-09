@@ -40,9 +40,9 @@ namespace GTAChaos.Forms
             this.comboBoxMainCooldown = new System.Windows.Forms.ComboBox();
             this.listLastEffectsMain = new System.Windows.Forms.ListBox();
             this.tabStream = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelStreamClientID = new System.Windows.Forms.Label();
             this.textBoxStreamClientID = new System.Windows.Forms.TextBox();
-            this.labelTwitchAccessToken = new System.Windows.Forms.Label();
+            this.labelStreamAccessToken = new System.Windows.Forms.Label();
             this.linkLabelTwitchGetAccessToken = new System.Windows.Forms.LinkLabel();
             this.checkBoxStreamCombineVotingMessages = new System.Windows.Forms.CheckBox();
             this.checkBoxTwitchUsePolls = new System.Windows.Forms.CheckBox();
@@ -87,6 +87,8 @@ namespace GTAChaos.Forms
             this.textBoxSyncServer = new System.Windows.Forms.TextBox();
             this.buttonSyncConnect = new System.Windows.Forms.Button();
             this.tabSettings = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBoxSettingsStreamMode = new System.Windows.Forms.ComboBox();
             this.checkBoxSettingsCheckForUpdatesAtLaunch = new System.Windows.Forms.CheckBox();
             this.buttonRestartWebsocket = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -95,7 +97,6 @@ namespace GTAChaos.Forms
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxSeed = new System.Windows.Forms.TextBox();
             this.tabExperimental = new System.Windows.Forms.TabPage();
-            this.checkBoxExperimentalYouTubeConnection = new System.Windows.Forms.CheckBox();
             this.buttonExperimentalRunEffect = new System.Windows.Forms.Button();
             this.textBoxExperimentalEffectName = new System.Windows.Forms.TextBox();
             this.checkBoxExperimental_RunEffectOnAutoStart = new System.Windows.Forms.CheckBox();
@@ -232,9 +233,9 @@ namespace GTAChaos.Forms
             // tabStream
             // 
             this.tabStream.BackColor = System.Drawing.Color.Transparent;
-            this.tabStream.Controls.Add(this.label3);
+            this.tabStream.Controls.Add(this.labelStreamClientID);
             this.tabStream.Controls.Add(this.textBoxStreamClientID);
-            this.tabStream.Controls.Add(this.labelTwitchAccessToken);
+            this.tabStream.Controls.Add(this.labelStreamAccessToken);
             this.tabStream.Controls.Add(this.linkLabelTwitchGetAccessToken);
             this.tabStream.Controls.Add(this.checkBoxStreamCombineVotingMessages);
             this.tabStream.Controls.Add(this.checkBoxTwitchUsePolls);
@@ -261,14 +262,14 @@ namespace GTAChaos.Forms
             this.tabStream.TabIndex = 2;
             this.tabStream.Text = "Stream";
             // 
-            // label3
+            // labelStreamClientID
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 11);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 13);
-            this.label3.TabIndex = 33;
-            this.label3.Text = "Client ID:";
+            this.labelStreamClientID.AutoSize = true;
+            this.labelStreamClientID.Location = new System.Drawing.Point(8, 10);
+            this.labelStreamClientID.Name = "labelStreamClientID";
+            this.labelStreamClientID.Size = new System.Drawing.Size(50, 13);
+            this.labelStreamClientID.TabIndex = 33;
+            this.labelStreamClientID.Text = "Client ID:";
             // 
             // textBoxStreamClientID
             // 
@@ -279,14 +280,14 @@ namespace GTAChaos.Forms
             this.textBoxStreamClientID.TabIndex = 32;
             this.textBoxStreamClientID.TextChanged += new System.EventHandler(this.TextBoxStreamClientID_TextChanged);
             // 
-            // labelTwitchAccessToken
+            // labelStreamAccessToken
             // 
-            this.labelTwitchAccessToken.AutoSize = true;
-            this.labelTwitchAccessToken.Location = new System.Drawing.Point(8, 35);
-            this.labelTwitchAccessToken.Name = "labelTwitchAccessToken";
-            this.labelTwitchAccessToken.Size = new System.Drawing.Size(79, 13);
-            this.labelTwitchAccessToken.TabIndex = 31;
-            this.labelTwitchAccessToken.Text = "Access Token:";
+            this.labelStreamAccessToken.AutoSize = true;
+            this.labelStreamAccessToken.Location = new System.Drawing.Point(8, 35);
+            this.labelStreamAccessToken.Name = "labelStreamAccessToken";
+            this.labelStreamAccessToken.Size = new System.Drawing.Size(79, 13);
+            this.labelStreamAccessToken.TabIndex = 31;
+            this.labelStreamAccessToken.Text = "Access Token:";
             // 
             // linkLabelTwitchGetAccessToken
             // 
@@ -770,6 +771,8 @@ namespace GTAChaos.Forms
             // tabSettings
             // 
             this.tabSettings.BackColor = System.Drawing.Color.Transparent;
+            this.tabSettings.Controls.Add(this.label5);
+            this.tabSettings.Controls.Add(this.comboBoxSettingsStreamMode);
             this.tabSettings.Controls.Add(this.checkBoxSettingsCheckForUpdatesAtLaunch);
             this.tabSettings.Controls.Add(this.buttonRestartWebsocket);
             this.tabSettings.Controls.Add(this.label4);
@@ -783,6 +786,25 @@ namespace GTAChaos.Forms
             this.tabSettings.Size = new System.Drawing.Size(552, 293);
             this.tabSettings.TabIndex = 3;
             this.tabSettings.Text = "Settings";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(8, 99);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(73, 13);
+            this.label5.TabIndex = 26;
+            this.label5.Text = "Stream Mode:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // comboBoxSettingsStreamMode
+            // 
+            this.comboBoxSettingsStreamMode.FormattingEnabled = true;
+            this.comboBoxSettingsStreamMode.Location = new System.Drawing.Point(87, 96);
+            this.comboBoxSettingsStreamMode.Name = "comboBoxSettingsStreamMode";
+            this.comboBoxSettingsStreamMode.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxSettingsStreamMode.TabIndex = 25;
+            this.comboBoxSettingsStreamMode.SelectedIndexChanged += new System.EventHandler(this.comboBoxSettingsStreamMode_SelectedIndexChanged);
             // 
             // checkBoxSettingsCheckForUpdatesAtLaunch
             // 
@@ -878,7 +900,6 @@ namespace GTAChaos.Forms
             // tabExperimental
             // 
             this.tabExperimental.BackColor = System.Drawing.Color.Transparent;
-            this.tabExperimental.Controls.Add(this.checkBoxExperimentalYouTubeConnection);
             this.tabExperimental.Controls.Add(this.buttonExperimentalRunEffect);
             this.tabExperimental.Controls.Add(this.textBoxExperimentalEffectName);
             this.tabExperimental.Controls.Add(this.checkBoxExperimental_RunEffectOnAutoStart);
@@ -888,19 +909,6 @@ namespace GTAChaos.Forms
             this.tabExperimental.Size = new System.Drawing.Size(552, 293);
             this.tabExperimental.TabIndex = 7;
             this.tabExperimental.Text = "Experimental";
-            // 
-            // checkBoxExperimentalYouTubeConnection
-            // 
-            this.checkBoxExperimentalYouTubeConnection.AutoSize = true;
-            this.checkBoxExperimentalYouTubeConnection.Location = new System.Drawing.Point(6, 29);
-            this.checkBoxExperimentalYouTubeConnection.Name = "checkBoxExperimentalYouTubeConnection";
-            this.checkBoxExperimentalYouTubeConnection.Size = new System.Drawing.Size(127, 17);
-            this.checkBoxExperimentalYouTubeConnection.TabIndex = 16;
-            this.checkBoxExperimentalYouTubeConnection.Text = "YouTube Connection";
-            this.toolTipHandler.SetToolTip(this.checkBoxExperimentalYouTubeConnection, "When auto-start kicks in\r\nit will enable an effect immediately\r\ninstead of only s" +
-        "tarting the\r\ntimer.\r\nDoesn\'t work for Twitch mode.");
-            this.checkBoxExperimentalYouTubeConnection.UseVisualStyleBackColor = true;
-            this.checkBoxExperimentalYouTubeConnection.CheckedChanged += new System.EventHandler(this.CheckBoxExperimentalYouTubeConnection_CheckedChanged);
             // 
             // buttonExperimentalRunEffect
             // 
@@ -1166,9 +1174,8 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownTwitchPollsChannelPointsCost;
         private System.Windows.Forms.LinkLabel linkLabelTwitchGetAccessToken;
-        private System.Windows.Forms.Label labelTwitchAccessToken;
-        private System.Windows.Forms.CheckBox checkBoxExperimentalYouTubeConnection;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelStreamAccessToken;
+        private System.Windows.Forms.Label labelStreamClientID;
         private System.Windows.Forms.TextBox textBoxStreamClientID;
         private System.Windows.Forms.Label labelEffectCooldown;
         private System.Windows.Forms.NumericUpDown numericUpDownEffectCooldown;
@@ -1179,6 +1186,8 @@ namespace GTAChaos.Forms
         private System.Windows.Forms.Button buttonRestartWebsocket;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkBoxSettingsCheckForUpdatesAtLaunch;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBoxSettingsStreamMode;
     }
 }
 

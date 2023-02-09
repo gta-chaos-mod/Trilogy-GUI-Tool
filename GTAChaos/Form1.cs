@@ -1,6 +1,7 @@
 // Copyright (c) 2019 Lordmau5
 using GTAChaos.Effects;
 using GTAChaos.Utils;
+using GTAChaos.Utils.Stream;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -44,7 +45,7 @@ namespace GTAChaos.Forms
                 this.experimentalModeEnabled = false;
             }
 
-            this.tabs.TabPages.Remove(this.tabPolls);
+            this.SetPollsTabVisible(false);
 
             this.stopwatch = new Stopwatch();
 
@@ -58,6 +59,8 @@ namespace GTAChaos.Forms
 
             this.PopulateVotingTimes();
             this.PopulateVotingCooldowns();
+
+            this.PopulateStreamModes();
 
             this.TryLoadConfig();
 
@@ -227,12 +230,29 @@ namespace GTAChaos.Forms
 
             this.checkBoxExperimental_RunEffectOnAutoStart.Checked = Config.Instance().Experimental_RunEffectOnAutoStart;
             this.textBoxExperimentalEffectName.Text = Config.Instance().Experimental_EffectName;
-            this.checkBoxExperimentalYouTubeConnection.Checked = Config.Instance().Experimental_YouTubeConnection;
             this.numericUpDownEffectCooldown.Value = Math.Min(Config.Instance().EffectsCooldownNotActivating, this.numericUpDownEffectCooldown.Maximum);
 
             this.numericWebsocketPort.Value = Config.Instance().WebsocketPort;
 
             this.textBoxSeed.Text = Config.Instance().Seed;
+
+            foreach (StreamModeComboBoxItem item in this.comboBoxSettingsStreamMode.Items)
+            {
+                if (item.StreamMode == Config.Instance().StreamMode)
+                {
+                    this.comboBoxSettingsStreamMode.SelectedItem = item;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                this.comboBoxSettingsStreamMode.SelectedIndex = 1;
+                Config.Instance().StreamMode = StreamHandler.STREAM_MODE.TWITCH;
+            }
+
+            this.UpdateStreamTab();
 
             /*
              * Update selections
@@ -383,7 +403,7 @@ namespace GTAChaos.Forms
 
                 bool didFinish;
 
-                if (Config.Instance().TwitchUsePolls && this.stream != null && !Config.Instance().Experimental_YouTubeConnection)
+                if (Config.Instance().TwitchUsePolls && this.stream != null && StreamHandler.IsTwitchMode())
                 {
                     didFinish = this.stream.GetRemaining() == 0;
 
@@ -741,6 +761,28 @@ namespace GTAChaos.Forms
             Config.Instance().StreamVotingCooldown = item.VotingCooldown;
         }
 
+        private class StreamModeComboBoxItem
+        {
+            public readonly StreamHandler.STREAM_MODE StreamMode;
+            public readonly string Text;
+
+            public StreamModeComboBoxItem(string text, StreamHandler.STREAM_MODE streamMode)
+            {
+                this.Text = text;
+                this.StreamMode = streamMode;
+            }
+
+            public override string ToString() => this.Text;
+        }
+
+        private void PopulateStreamModes()
+        {
+            this.comboBoxSettingsStreamMode.Items.Add(new StreamModeComboBoxItem("Twitch", StreamHandler.STREAM_MODE.TWITCH));
+            this.comboBoxSettingsStreamMode.Items.Add(new StreamModeComboBoxItem("YouTube", StreamHandler.STREAM_MODE.YOUTUBE));
+
+            this.comboBoxSettingsStreamMode.SelectedIndex = 0;
+        }
+
         private void DoAutostart()
         {
             if (!this.checkBoxAutoStart.Checked)
@@ -978,18 +1020,24 @@ namespace GTAChaos.Forms
                 return;
             }
 
-            // TODO: When in YouTube mode, allow connecting without Client ID.
-            if (!string.IsNullOrEmpty(Config.Instance().StreamAccessToken) && !string.IsNullOrEmpty(Config.Instance().StreamClientID))
+            // If there is something in the Client ID field
+            if (!string.IsNullOrEmpty(Config.Instance().StreamClientID))
             {
+                // If the mode is Twitch and the Access Token field is empty
+                if (StreamHandler.IsTwitchMode() && string.IsNullOrEmpty(Config.Instance().StreamAccessToken))
+                {
+                    return;
+                }
+
                 this.buttonSwitchMode.Enabled = false;
 
                 this.buttonConnectStream.Enabled = false;
                 this.textBoxStreamAccessToken.Enabled = false;
                 this.textBoxStreamClientID.Enabled = false;
 
-                this.stream = Config.Instance().Experimental_YouTubeConnection
-                    ? new YouTubeChatConnection()
-                    : Config.Instance().TwitchUsePolls ? new TwitchPollConnection() : new TwitchChatConnection();
+                this.comboBoxSettingsStreamMode.Enabled = false;
+
+                this.stream = StreamHandler.GetStreamConnection();
 
                 this.stream.OnRapidFireEffect += (_sender, rapidFireArgs) => this.Invoke(new Action(() =>
                 {
@@ -1021,6 +1069,8 @@ namespace GTAChaos.Forms
                         this.buttonConnectStream.Enabled = true;
                         this.textBoxStreamAccessToken.Enabled = true;
                         this.textBoxStreamClientID.Enabled = true;
+
+                        this.comboBoxSettingsStreamMode.Enabled = true;
                     }));
                     this.stream?.Kill();
                     this.stream = null;
@@ -1037,6 +1087,8 @@ namespace GTAChaos.Forms
                     this.textBoxStreamClientID.Enabled = false;
 
                     this.checkBoxTwitchUsePolls.Enabled = false;
+
+                    this.comboBoxSettingsStreamMode.Enabled = false;
                 }));
 
                 this.stream.OnDisconnected += (_sender, _e) => this.Invoke(new Action(() =>
@@ -1055,6 +1107,8 @@ namespace GTAChaos.Forms
 
                     this.checkBoxTwitchUsePolls.Enabled = true;
 
+                    this.comboBoxSettingsStreamMode.Enabled = true;
+
                     this.buttonConnectStream.Text = "Connect to Stream";
 
                     if (!this.tabs.TabPages.Contains(this.tabEffects))
@@ -1071,8 +1125,19 @@ namespace GTAChaos.Forms
 
         private void UpdateStreamConnectButtonState()
         {
-            this.buttonConnectStream.Enabled = !string.IsNullOrEmpty(Config.Instance().StreamAccessToken)
-                && !string.IsNullOrEmpty(Config.Instance().StreamClientID);
+            bool enabled = true;
+
+            if (string.IsNullOrEmpty(Config.Instance().StreamClientID))
+            {
+                enabled = false;
+            }
+
+            if (string.IsNullOrEmpty(Config.Instance().StreamAccessToken) && StreamHandler.IsTwitchMode())
+            {
+                enabled = false;
+            }
+
+            this.buttonConnectStream.Enabled = enabled;
         }
 
         private void TextBoxOAuth_TextChanged(object sender, EventArgs e)
@@ -1096,8 +1161,6 @@ namespace GTAChaos.Forms
                 this.tabs.SelectedIndex = 0;
                 this.tabs.TabPages.Remove(this.tabStream);
 
-                this.tabs.TabPages.Remove(this.tabPolls);
-
                 this.listLastEffectsMain.Items.Clear();
                 this.progressBarMain.Value = 0;
 
@@ -1118,11 +1181,6 @@ namespace GTAChaos.Forms
                 this.tabs.SelectedIndex = 0;
                 this.tabs.TabPages.Remove(this.tabMain);
 
-                if (Config.Instance().TwitchUsePolls && !this.tabs.TabPages.Contains(this.tabPolls))
-                {
-                    this.tabs.TabPages.Insert(2, this.tabPolls);
-                }
-
                 this.listLastEffectsStream.Items.Clear();
                 this.progressBarStream.Value = 0;
 
@@ -1131,6 +1189,8 @@ namespace GTAChaos.Forms
                 this.stopwatch.Reset();
                 this.SetEnabled(false);
             }
+
+            this.UpdatePollTabVisibility();
 
             EffectDatabase.ResetEffectCooldowns();
         }
@@ -1267,18 +1327,31 @@ namespace GTAChaos.Forms
 
         private void CheckBoxStreamCombineVotingMessages_CheckedChanged(object sender, EventArgs e) => Config.Instance().StreamCombineChatMessages = this.checkBoxStreamCombineVotingMessages.Checked;
 
-        private void UpdatePollTabVisibility()
+        private void SetPollsTabVisible(bool visible)
         {
-            if (Config.Instance().TwitchUsePolls)
+            bool contains = this.tabs.TabPages.Contains(this.tabPolls);
+
+            if (visible && !contains)
             {
-                if (!this.tabs.TabPages.Contains(this.tabPolls) && Shared.IsStreamMode)
-                {
-                    this.tabs.TabPages.Insert(2, this.tabPolls);
-                }
+                this.tabs.TabPages.Insert(2, this.tabPolls);
             }
-            else
+
+            if (!visible && contains)
             {
                 this.tabs.TabPages.Remove(this.tabPolls);
+            }
+        }
+
+        private void UpdatePollTabVisibility()
+        {
+            this.SetPollsTabVisible(false);
+
+            if (Shared.IsStreamMode)
+            {
+                if (StreamHandler.IsTwitchMode() && Config.Instance().TwitchUsePolls)
+                {
+                    this.SetPollsTabVisible(true);
+                }
             }
         }
 
@@ -1606,8 +1679,6 @@ namespace GTAChaos.Forms
 
         private void LinkLabelTwitchGetAccessToken_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => System.Diagnostics.Process.Start("https://chaos.lord.moe/");
 
-        private void CheckBoxExperimentalYouTubeConnection_CheckedChanged(object sender, EventArgs e) => Config.Instance().Experimental_YouTubeConnection = this.checkBoxExperimentalYouTubeConnection.Checked;
-
         private void TextBoxStreamClientID_TextChanged(object sender, EventArgs e)
         {
             Config.Instance().StreamClientID = this.textBoxStreamClientID.Text;
@@ -1632,5 +1703,44 @@ namespace GTAChaos.Forms
         }
 
         private void checkBoxSettingsCheckForUpdatesAtLaunch_CheckedChanged(object sender, EventArgs e) => Config.Instance().CheckForUpdatesAtLaunch = this.checkBoxSettingsCheckForUpdatesAtLaunch.Checked;
+
+        private void comboBoxSettingsStreamMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Stream mode change
+            StreamModeComboBoxItem item = (StreamModeComboBoxItem)this.comboBoxSettingsStreamMode.SelectedItem;
+
+            Config.Instance().StreamMode = item.StreamMode;
+
+            this.UpdateStreamTab();
+        }
+
+        private void UpdateStreamTab()
+        {
+            switch (StreamHandler.GetStreamMode())
+            {
+                case StreamHandler.STREAM_MODE.TWITCH:
+                    {
+                        this.labelStreamClientID.Text = "Client ID:";
+                        this.textBoxStreamClientID.PasswordChar = '*';
+
+                        this.labelStreamAccessToken.Visible = true;
+                        this.textBoxStreamAccessToken.Visible = true;
+
+                        this.SetPollsTabVisible(true);
+                        break;
+                    }
+                case StreamHandler.STREAM_MODE.YOUTUBE:
+                    {
+                        this.labelStreamClientID.Text = "Livestream ID:";
+                        this.textBoxStreamClientID.PasswordChar = (char)0;
+
+                        this.labelStreamAccessToken.Visible = false;
+                        this.textBoxStreamAccessToken.Visible = false;
+
+                        this.SetPollsTabVisible(false);
+                        break;
+                    }
+            }
+        }
     }
 }

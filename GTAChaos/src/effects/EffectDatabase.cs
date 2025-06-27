@@ -576,6 +576,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Send Vehicles To Space", "StairwayToHeaven", "send_vehicles_to_space")); // Gives an immense upwards boost to all vehicles
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Speed (1994)", "KeepYourPace", "minimum_speed"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Super Wide Vehicles", "WiderPeepoHappy", "vehicle_size_super_wide"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Swap Steering Axle", "SwapSteeringAxle", "swap_steering_axle"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Swap Vehicles On Impact", "SwapVehiclesOnImpact", "swap_vehicles_on_impact"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Tall Vehicles", "TallPeepoHappy", "vehicle_size_tall"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Vehicle, "Tiny Vehicles", "TinyPeepoHappy", "vehicle_size_tiny"));

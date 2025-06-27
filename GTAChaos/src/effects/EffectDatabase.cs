@@ -474,6 +474,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Fake Get Busted", "GoToJailNahJK", "get_busted_fake").SetDisplayName(DisplayNameType.GAME, "Get Busted"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Fake Get Wasted", "HospitalityNahJK", "get_wasted_fake").SetDisplayName(DisplayNameType.GAME, "Get Wasted"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Fire Bullets", "OilOnTheStreets", "fire_bullets"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Flight CJ 101", "FlightCJ101", "cj101"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Flower Power", "FlowerPower", "flower_power"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Force Field", "ForceField", "force_field"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Force Mouse Steering", "ForceVehicleMouseSteering", "force_vehicle_mouse_steering")); // Force Mouse Steering

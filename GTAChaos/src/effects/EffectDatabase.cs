@@ -372,6 +372,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Backwards Peds", "BackwardsPeds", "ped_rotation_backwards"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Big Heads", "BigHeadsMode", "big_heads"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Bumper Peds", "BumperPeds", "bumper_peds"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Coughing (Everyone)", "PlagueIncForAll", "cough_everyone", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Deadly Bullets (Everyone)", "ModifiedGunsForAll", "deadly_bullets_quad_dmg_everyone"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Disable Headshots", "BulletproofForeheads", "disable_headshots"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Disable All Weapon Damage", "TruePacifist", "disable_all_weapon_damage")); // Disable all Weapon Damage
@@ -458,7 +459,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Bankrupt", "CrashTookAllMyMoney", "bankrupt"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Carl! It's Zero!", "ZeroNeedsYourHelp", "teleport_to_zero").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Cinematic Vehicle Camera", "MachinimaMode", "cinematic_vehicle_camera", -1, 1.0f)); // Cinematic Vehicle Camera
-                AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Coughing (Player)", "PlagueIncForMe", "cough_player"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Coughing (Player)", "PlagueIncForMe", "cough_player", -1, 1.0f));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Deadly Bullets (Player)", "ModifiedGunsForMe", "deadly_bullets_quad_dmg_player"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Death (1% Chance)", "TheChanceOfSuddenDeath", "one_percent_death"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Disable Aiming", "IForgotHowToAim", "disable_aiming"));

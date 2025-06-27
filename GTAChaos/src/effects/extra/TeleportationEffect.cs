@@ -6,6 +6,7 @@ namespace GTAChaos.Effects
 {
     public class TeleportationEffect : AbstractEffect
     {
+        private readonly string EffectID = "effect_teleport";
         private readonly Location location;
 
         public TeleportationEffect(Location location)
@@ -25,7 +26,7 @@ namespace GTAChaos.Effects
         {
             await base.RunEffect(seed, duration);
 
-            WebsocketHandler.INSTANCE.SendEffectToGame("effect_teleport", new
+            WebsocketHandler.INSTANCE.SendEffectToGame(this.EffectID, new
             {
                 posX = this.location.X,
                 posY = this.location.Y,

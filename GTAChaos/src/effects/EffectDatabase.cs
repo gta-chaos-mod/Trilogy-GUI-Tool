@@ -444,8 +444,8 @@ namespace GTAChaos.Effects
                 AddEffect(new CustomVehicleSpawnsEffect(411, "InfernusAllAround"));
                 AddEffect(new CustomVehicleSpawnsEffect(571, "KartAllAround"));
                 AddEffect(new CustomVehicleSpawnsEffect(444, "MonsterAllAround"));
-                AddEffect(new CustomVehicleSpawnsEffect(423, "MrWhoopeeAllAround"));
                 AddEffect(new CustomVehicleSpawnsEffect(572, "MowerAllAround"));
+                AddEffect(new CustomVehicleSpawnsEffect(423, "MrWhoopeeAllAround"));
                 AddEffect(new CustomVehicleSpawnsEffect(432, "RhinoAllAround"));
                 AddEffect(new CustomVehicleSpawnsEffect(539, "VortexAllAround"));
 

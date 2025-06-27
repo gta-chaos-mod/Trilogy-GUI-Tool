@@ -496,6 +496,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Lock Player In Vehicle", "ThereIsNoEscape", "lock_player_inside_vehicle")); // Lock player inside vehicle
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Low FOV", "LowFOV", "low_fov", 1000 * 30));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Millionaire", "IJustWonTheLottery", "millionaire"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Merge Weapons Ammo", "UniversalClip", "merge_weapons_ammo"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "No Need To Hurry", "NoNeedToHurry", "no_need_to_hurry", -1, 1.5f)); // No Need To Hurry
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "No Shooting Allowed", "GunsAreDangerous", "no_shooting_allowed"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "No Tasks Allowed", "NoTasksAllowed", "no_tasks_allowed", 1000 * 10));

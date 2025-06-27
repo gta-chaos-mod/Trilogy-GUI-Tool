@@ -454,7 +454,7 @@ namespace GTAChaos.Effects
                 // --- Player --- //
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "-Health, -Armor, -$250k", "INeedSomeHindrance", "anti_health_armor_money"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Add Random Blips", "PointsOfUninterest", "add_random_blips"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Auto Collect Pickups", "AUTO_COLLECT_PICKUPS", "auto_collect_pickups"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Annoying Phone Calls", "AnnoyingPhoneCalls", "annoying_phone_calls"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Bankrupt", "CrashTookAllMyMoney", "bankrupt"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Carl! It's Zero!", "ZeroNeedsYourHelp", "teleport_to_zero").DisableRapidFire());
                 AddEffect(new FunctionEffect(Category.CustomEffects_Player, "Cinematic Vehicle Camera", "MachinimaMode", "cinematic_vehicle_camera", -1, 1.0f)); // Cinematic Vehicle Camera

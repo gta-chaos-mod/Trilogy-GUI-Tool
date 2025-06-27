@@ -370,7 +370,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "ASSERT DOMINANCE", "AssertDominance", "t_pose_peds"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Backwards Peds", "BackwardsPeds", "ped_rotation_backwards"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Big Heads", "BigHeadsMode", "big_heads"));
-                AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Coughing (Everyone)", "PlagueIncForAll", "cough_everyone"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Bumper Peds", "BumperPeds", "bumper_peds"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Deadly Bullets (Everyone)", "ModifiedGunsForAll", "deadly_bullets_quad_dmg_everyone"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Disable Headshots", "BulletproofForeheads", "disable_headshots"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Ped, "Disable All Weapon Damage", "TruePacifist", "disable_all_weapon_damage")); // Disable all Weapon Damage

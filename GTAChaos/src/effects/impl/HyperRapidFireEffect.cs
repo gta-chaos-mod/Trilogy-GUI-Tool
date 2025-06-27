@@ -10,5 +10,7 @@ namespace GTAChaos.Effects
             this.effects = 20;
             this.delay = 500;
         }
+
+        public override string GetSoundID() => "effect_hyper_rapid_fire";
     }
 }

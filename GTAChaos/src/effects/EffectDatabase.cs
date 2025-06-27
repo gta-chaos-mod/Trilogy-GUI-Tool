@@ -330,6 +330,7 @@ namespace GTAChaos.Effects
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "Upside-Down Screen", "WhatsUpIsDown", "upside_down_screen", -1, 1.0f)); // Upside-Down Screen
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "Vehicle Bullets", "ImShootingCars", "vehicle_bullets"));
                 AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "WASD Cheats", "DADWDSD", "wasd_cheats"));
+                AddEffect(new FunctionEffect(Category.CustomEffects_Generic, "Water Is Lava", "WaterIsLava", "water_is_lava"));
                 // --------------- //
 
                 // --- Audio --- //

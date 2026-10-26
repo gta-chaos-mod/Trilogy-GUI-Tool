@@ -14,7 +14,7 @@ namespace GTAChaos.Utils
         };
 
         public static int MAJOR_VERSION = 3;
-        public static int MINOR_VERSION = 3;
+        public static int MINOR_VERSION = 4;
         public static int EXTRA_VERSION = 0;
 
         public static Version Version = new(MAJOR_VERSION, MINOR_VERSION, EXTRA_VERSION);
